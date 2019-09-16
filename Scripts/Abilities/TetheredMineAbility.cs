@@ -1,20 +1,20 @@
 ﻿/*-------------------------------------------------------------------*
 |  TetheredMineAbility
 |
-|  Author:			
+|  Author:		    Thomas Maltezos	
 | 
-|  Description:		
+|  Description:		Handles the plane's tethered mine ability.
 *-------------------------------------------------------------------*/
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TetheredMineAbility : MonoBehaviour
+public class TetheredMineAbility : BaseAbility
 {
-    void Start()
+    void Awake()
     {
-        
+        m_timer.SetActive(false);
     }
 
     void Update()

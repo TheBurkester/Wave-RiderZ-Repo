@@ -1,20 +1,20 @@
 ﻿/*-------------------------------------------------------------------*
 |  BeachBallAbility
 |
-|  Author:			
+|  Author:		    Thomas Maltezos
 | 
-|  Description:		
+|  Description:		Handles the plane's beach ball ability.
 *-------------------------------------------------------------------*/
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class NewBehaviourScript : BaseAbility
 {
-    void Start()
+    void Awake()
     {
-        
+        m_timer.SetActive(false);
     }
 
     void Update()

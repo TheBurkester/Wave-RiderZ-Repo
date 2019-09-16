@@ -12,18 +12,11 @@ using UnityEngine;
 
 public class BaseAbility : MonoBehaviour
 {
+    protected Timer m_timer = new Timer();
+
     void Awake()
     {
-        
+        m_timer.SetActive(false);
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
