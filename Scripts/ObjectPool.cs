@@ -35,7 +35,7 @@ public class ObjectPool : MonoBehaviour
             pooledObjects.Add(obj);
         }
     }
-    
+
     // Returns the pooledObject number.
     public GameObject GetPooledObject()
     {
@@ -48,3 +48,4 @@ public class ObjectPool : MonoBehaviour
         }
         return null;
     }
+}
