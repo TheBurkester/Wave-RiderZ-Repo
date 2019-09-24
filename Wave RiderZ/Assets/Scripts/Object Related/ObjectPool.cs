@@ -13,7 +13,7 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    public static objectPool sharedInstance;
+    public static ObjectPool sharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
     public int amountToPool;
