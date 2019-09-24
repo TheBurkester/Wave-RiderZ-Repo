@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-------------------------------------------------------------------*
+|  CameraController
+|
+|  Author:			Seth Johnston
+| 
+|  Description:		Handles the movement of the camera.
+*-------------------------------------------------------------------*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

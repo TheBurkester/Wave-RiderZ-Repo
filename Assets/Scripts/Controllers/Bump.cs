@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-------------------------------------------------------------------*
+|  Bump
+|
+|  Author:			Thomas Maltezos
+| 
+|  Description:		Handles the bump mechanic.
+*-------------------------------------------------------------------*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

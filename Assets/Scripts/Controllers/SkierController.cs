@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-------------------------------------------------------------------*
+|  SkierController
+|
+|  Author:			Seth Johnston
+| 
+|  Description:		Handles the skier's movement.
+*-------------------------------------------------------------------*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-------------------------------------------------------------------*
+|  SkierCollision
+|
+|  Author:			Seth Johnston
+| 
+|  Description:		Handles the skier's collision with obsticles.
+*-------------------------------------------------------------------*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

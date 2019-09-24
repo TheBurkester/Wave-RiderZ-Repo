@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-------------------------------------------------------------------*
+|  PlaneController
+|
+|  Author:			Seth Johnston
+| 
+|  Description:		Handles the plane's movement.
+*-------------------------------------------------------------------*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

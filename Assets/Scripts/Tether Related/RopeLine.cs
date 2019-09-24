@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-------------------------------------------------------------------*
+|  RopeLine
+|
+|  Author:          Seth Johnston
+| 
+|  Description:		Used with the Line Renderer to draw the straight rope.
+*-------------------------------------------------------------------*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

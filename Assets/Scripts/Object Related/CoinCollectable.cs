@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*-------------------------------------------------------------------*
+|  CoinCollectable
+|
+|  Author:			Max Atkinson
+| 
+|  Description:		Handles the coin rotation and trigger.
+*-------------------------------------------------------------------*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
