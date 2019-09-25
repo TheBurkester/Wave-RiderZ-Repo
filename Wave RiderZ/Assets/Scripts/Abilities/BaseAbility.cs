@@ -1,5 +1,5 @@
 ﻿/*-------------------------------------------------------------------*
-|  BaseAbility
+|  Title:			BaseAbility
 |
 |  Author:			Thomas Maltezos
 | 
@@ -12,11 +12,11 @@ using UnityEngine;
 
 public class BaseAbility : MonoBehaviour
 {
-    protected Timer m_timer = new Timer();
+    protected Timer m_timer = new Timer();      //Counts until the cooldown is hit
 
     void Awake()
     {
-        m_timer.SetActive(false);
+        m_timer.SetActive(false);	//Don't start the timer immediately
     }
 
 }

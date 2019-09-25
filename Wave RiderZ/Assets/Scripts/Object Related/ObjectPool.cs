@@ -1,5 +1,5 @@
 ﻿/*-------------------------------------------------------------------*
-|  ObjectPool
+|  Title:			ObjectPool
 |
 |  Author:			Thomas Maltezos
 | 

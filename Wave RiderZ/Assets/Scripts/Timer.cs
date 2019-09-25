@@ -1,5 +1,5 @@
 ﻿/*-------------------------------------------------------------------*
-|  Timer
+|  Title:			Timer
 |
 |  Author:		    Thomas Maltezos	/ Seth Johnston
 | 
@@ -12,46 +12,49 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public float maxTime;
-    public bool autoDisable = false;
-    private float m_timer;
+    public float maxTime;				//Optional maximum time
+    public bool autoDisable = false;	//If the timer automatically stops counting when max is hit or not
+
+    private float m_timer;				//The timer
 
     void Awake()
     {
-        m_timer = 0.0f;
+        m_timer = 0.0f;		//Timer starts at 0
     }
 
     void Update()
     {
-        m_timer += Time.deltaTime;
+        m_timer += UnityEngine.Time.deltaTime;	//Add 1 per second, adjusted for framerate
 
-        if (autoDisable == true)
+        if (autoDisable == true)				//If auto-disable is enabled,
         {
-            if (!UnderMax()) // OVER MAX.
-            {
-                gameObject.SetActive(false);
-            }
+            if (!UnderMax())					//And the timer is over the max time,
+                gameObject.SetActive(false);	//Stop counting
         }
     }
 
-    public float ReturnTimer()
+	//Returns the current timer value
+    public float Time()
     {
         return m_timer;
     }
 
+	//Returns true if the timer is under the max, and false otherwise
     public bool UnderMax()
     {
         return (m_timer < maxTime);
     }
 
+	//Sets the timer to 0 and enables it
     public void ResetTimer()
     {
         m_timer = 0.0f;
         gameObject.SetActive(true);
     }
 
-    public void SetActive(bool enable)
+	//Enables/disables the timer
+    public void SetActive(bool value)
     {
-        gameObject.SetActive(enable);
+        gameObject.SetActive(value);
     }
 }

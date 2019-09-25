@@ -1,5 +1,5 @@
 ﻿/*-------------------------------------------------------------------*
-|  TetheredMineAbility
+|  Title:			TetheredMineAbility
 |
 |  Author:		    Thomas Maltezos	
 | 
@@ -14,7 +14,7 @@ public class TetheredMineAbility : BaseAbility
 {
     void Awake()
     {
-        m_timer.SetActive(false);
+
     }
 
     void Update()

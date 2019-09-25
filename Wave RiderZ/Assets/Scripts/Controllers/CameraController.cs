@@ -1,5 +1,5 @@
 ﻿/*-------------------------------------------------------------------*
-|  CameraController
+|  Title:			CameraController
 |
 |  Author:			Seth Johnston
 | 
@@ -10,29 +10,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
-	private float m_speed = 5;
+	public PlaneController plane = null;	//Reference to the plane 
+
+	private float m_speed = 5;				//How fast the camera moves up the river
 
     private Rigidbody rb = null;
-
-    // Start is called before the first frame update
+	
     void Awake()
 	{
-		GameObject vehicle = GameObject.Find("Vehicle");
-		if (vehicle != null)
-			m_speed = vehicle.GetComponent<VehicleMovement>().speed;
+		Debug.Assert(plane != null, "CameraController script missing PlaneController reference");
+		m_speed = plane.speed;
 
         rb = GetComponent<Rigidbody>();
+		Debug.Assert(rb != null, "Camera missing rigidbody component");
     }
-
-	// Update is called once per frame
+	
 	void Update()
 	{
-        Vector3 newPos = rb.position + new Vector3(m_speed * Time.deltaTime, 0, 0);
-        rb.MovePosition(newPos);	//Keep in mind this doesn't update the position until the end of the frame
-
-        //Vector3 newPos = transform.position + new Vector3(m_speed * Time.deltaTime, 0, 0);
-        //transform.Translate(newPos);
+        Vector3 newPos = rb.position + new Vector3(m_speed * Time.deltaTime, 0, 0);     //New position is the current position moved forward slightly
+		rb.MovePosition(newPos);														//Move the camera forward
+		//Keep in mind MovePosition doesn't update the position until the end of the frame
     }
 }

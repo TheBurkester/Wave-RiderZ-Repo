@@ -1,21 +1,21 @@
 ﻿/*-------------------------------------------------------------------*
-|  SkierCollision
+|  Title:			SkierCollision
 |
-|  Author:			Seth Johnston
+|  Author:			Max Atkinson / Seth Johnston
 | 
-|  Description:		Handles the skier's collision with obsticles.
+|  Description:		Handles the skier's collision with obstacles.
 *-------------------------------------------------------------------*/
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollision : MonoBehaviour
+public class SkierCollision : MonoBehaviour
 {
-	public GameObject objectToFlash;
+	public GameObject objectToFlash = null;		//Reference to the gameobject with the mesh to flash
 
-	public float flashDelay = 0.3f;
-	public int numberOfFlashes = 3;
+	public float flashDelay = 0.3f;				//How fast the mesh should flash on and off
+	public int numberOfFlashes = 3;				//How many times the mesh should flash
 	
     void Awake()
     {
@@ -29,29 +29,25 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-		if (collision.gameObject.CompareTag("Rock"))
+		if (collision.gameObject.CompareTag("Rock"))						//If the skier collides with an obstacle,
 		{
-			for (int i = 0; i < numberOfFlashes; ++i)
+			for (int i = 0; i < numberOfFlashes; ++i)						//Repeating for the number of flashes,
 			{
-				StartCoroutine(waitChangeRed(flashDelay * i * 2));
-				StartCoroutine(waitChangeWhite(flashDelay * i * 2 + flashDelay));
+				StartCoroutine(MeshOff(flashDelay * i * 2));				//Schedule the mesh to turn off, every even interval
+				StartCoroutine(MeshOn(flashDelay * i * 2 + flashDelay));	//Schedule the mesh to turn on, every odd interval
 			}
 		}
     }
 
-    IEnumerator waitChangeRed(float interval)
+    IEnumerator MeshOff(float interval)
     {
-        yield return new WaitForSeconds(interval);
-        //Renderer rend = GetComponent<Renderer>();
-		//rend.material.SetColor("_Color", Color.red);
-		objectToFlash.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(interval);						//Wait for a certain amount of time
+		objectToFlash.GetComponent<MeshRenderer>().enabled = false;		//Turn the mesh off
 	}
 
-    IEnumerator waitChangeWhite(float interval)
+    IEnumerator MeshOn(float interval)
     {
-        yield return new WaitForSeconds(interval);
-		//Renderer rend = GetComponent<Renderer>();
-		//rend.material.SetColor("_Color", Color.white);
-		objectToFlash.GetComponent<MeshRenderer>().enabled = true;
+        yield return new WaitForSeconds(interval);						//Wait for a certain amount of time
+		objectToFlash.GetComponent<MeshRenderer>().enabled = true;      //Turn the mesh on
 	}
 }

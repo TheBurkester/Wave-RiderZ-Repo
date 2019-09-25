@@ -1,5 +1,5 @@
 ﻿/*-------------------------------------------------------------------*
-|  PlaneController
+|  Title:			PlaneController
 |
 |  Author:			Seth Johnston
 | 
@@ -10,60 +10,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleMovement : MonoBehaviour
+public class PlaneController : MonoBehaviour
 {
-	public float speed = 5;
-	public float strafeSpeed = 3;
+	public float speed = 5;             //How fast the plane moves up the river
+	public float strafeSpeed = 3;       //How fast the plane can move left/right
 
-	private Rigidbody rb = null;
+    public float tiltAngle = 20.0f;     //How far the plane tilts when moving left/right
+    public float smoothness = 2.0f;     //How quickly the plane tilts
 
-    public float Smoothness = 2.0f;
-    public float TiltAngle = 20.0f;
+	private Rigidbody rb = null;        //Keep reference to the plane rigidbody
 
-    // Start is called before the first frame update
+    
     void Awake()
     {
 		rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
+		Debug.Assert(rb != null, "Plane missing rigidbody component");
+	}
+    
     void Update()
-    {
-        if (rb != null)
+    {		
+		Vector3 newPos = rb.position + new Vector3(speed * Time.deltaTime, 0, 0);   //New position is the current position moved forward slightly
+        rb.transform.position = newPos;                                             //Set the new position
+
+        float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
+
+        Quaternion Target = Quaternion.Euler(0, 90, tiltAroundZ);
+        Quaternion Default = Quaternion.Euler(0, 90, 0);
+
+        rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * smoothness);
+
+        if (Input.GetKey(KeyCode.LeftArrow))											//If left is pressed,
 		{
-			Vector3 newPos = rb.position + new Vector3(speed * Time.deltaTime, 0, 0);
-			//rb.MovePosition(newPos);	//Keep in mind this doesn't update the position until the end of the frame
-            rb.transform.position = newPos;
+			Vector3 strafe = newPos + new Vector3(0, 0, strafeSpeed * Time.deltaTime);	
+            rb.transform.position = strafe;												//Move the plane to the left
 
-            float tiltAroundZ = Input.GetAxis("Horizontal") * -TiltAngle;
+            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
+        }
+		if (Input.GetKey(KeyCode.RightArrow))											//If right is pressed,
+		{
+			Vector3 strafe = newPos + new Vector3(0, 0, -strafeSpeed * Time.deltaTime);
+            rb.transform.position = strafe;												//Move the plane to the right
 
-            Quaternion Target = Quaternion.Euler(0, 90, tiltAroundZ);
-            Quaternion Default = Quaternion.Euler(0, 90, 0);
-
-            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * Smoothness);
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-			{
-				Vector3 strafe = newPos + new Vector3(0, 0, strafeSpeed * Time.deltaTime);
-
-                rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * Smoothness);
-                //rb.MovePosition(strafe);
-                rb.transform.position = strafe;
-
-
-
-            }
-			if (Input.GetKey(KeyCode.RightArrow))
-			{
-				Vector3 strafe = newPos + new Vector3(0, 0, -strafeSpeed * Time.deltaTime);
-				rb.MovePosition(strafe);
-                rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * Smoothness);
-                //rb.MovePosition(strafe);
-                rb.transform.position = strafe;
-            }
-
-
-		}
-
+            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
+        }
     }
 }

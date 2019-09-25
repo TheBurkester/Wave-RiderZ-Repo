@@ -1,7 +1,7 @@
 ﻿/*-------------------------------------------------------------------*
-|  CoinCollectable
+|  Title:			CoinCollectable
 |
-|  Author:			Max Atkinson
+|  Author:			Max Atkinson / Seth Johnston
 | 
 |  Description:		Handles the coin rotation and trigger.
 *-------------------------------------------------------------------*/
@@ -10,22 +10,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : MonoBehaviour
+public class CoinCollectable : MonoBehaviour
 {
-    // Start is called before the first frame update
+	public float spinSpeed = 5;		//How fast the coin spins
+
     void Start()
     {
         
     }
-
-    // Update is called once per frame
+	
     void Update()
     {
-        transform.Rotate(0, 0, 5);
+        transform.Rotate(0, 0, spinSpeed);		//Spin the coin around its z-axis (globally y-axis)
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        gameObject.GetComponent<Renderer>().enabled = false;
+		if (collider.gameObject.CompareTag("Skier"))				//If colliding with a skier,
+			gameObject.GetComponent<Renderer>().enabled = false;	//Stop rendering the coin
     }
 }

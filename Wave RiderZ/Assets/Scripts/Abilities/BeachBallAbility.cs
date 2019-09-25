@@ -1,5 +1,5 @@
 ﻿/*-------------------------------------------------------------------*
-|  BeachBallAbility
+|  Title:			BeachBallAbility
 |
 |  Author:		    Thomas Maltezos
 | 
@@ -10,11 +10,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : BaseAbility
+public class BeachBallAbility : BaseAbility
 {
     void Awake()
     {
-        m_timer.SetActive(false);
+		
     }
 
     void Update()
