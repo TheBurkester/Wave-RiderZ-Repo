@@ -32,26 +32,26 @@ public class PlaneController : MonoBehaviour
 		Vector3 newPos = rb.position + new Vector3(speed * Time.deltaTime, 0, 0);   //New position is the current position moved forward slightly
         rb.transform.position = newPos;                                             //Set the new position
 
-        float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
+        //float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
 
-        Quaternion Target = Quaternion.Euler(0, 90, tiltAroundZ);
-        Quaternion Default = Quaternion.Euler(0, 90, 0);
+        //Quaternion Target = Quaternion.Euler(0, 90, tiltAroundZ);
+        //Quaternion Default = Quaternion.Euler(0, 90, 0);
 
-        rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * smoothness);
+        //rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * smoothness);
 
         if (Input.GetKey(KeyCode.LeftArrow))											//If left is pressed,
 		{
 			Vector3 strafe = newPos + new Vector3(0, 0, strafeSpeed * Time.deltaTime);	
             rb.transform.position = strafe;												//Move the plane to the left
 
-            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
+            //rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
         }
 		if (Input.GetKey(KeyCode.RightArrow))											//If right is pressed,
 		{
 			Vector3 strafe = newPos + new Vector3(0, 0, -strafeSpeed * Time.deltaTime);
             rb.transform.position = strafe;												//Move the plane to the right
 
-            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
+            //rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
         }
     }
 }
