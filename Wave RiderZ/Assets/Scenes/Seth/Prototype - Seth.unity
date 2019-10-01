@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 58561126}
   - component: {fileID: 58561125}
   - component: {fileID: 58561124}
+  - component: {fileID: 58561129}
   - component: {fileID: 58561123}
   m_Layer: 0
   m_Name: Sphere
@@ -145,35 +146,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!59 &58561123
-HingeJoint:
+--- !u!138 &58561123
+FixedJoint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58561122}
-  m_ConnectedBody: {fileID: 1558017673}
-  m_Anchor: {x: 0.5, y: 0, z: 0}
-  m_Axis: {x: 1, y: 1, z: 1}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: 1, z: 0}
-  m_UseSpring: 0
-  m_Spring:
-    spring: 0
-    damper: 0
-    targetPosition: 1
-  m_UseMotor: 0
-  m_Motor:
-    targetVelocity: 0
-    force: 0
-    freeSpin: 0
-  m_UseLimits: 0
-  m_Limits:
-    min: 0
-    max: 0
-    bounciness: 0
-    bounceMinVelocity: 0.2
-    contactDistance: 0
+  m_ConnectedBody: {fileID: 205582294}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
@@ -264,10 +244,26 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.89, y: 5.3, z: 35.4}
   m_LocalScale: {x: 10, y: 10, z: 10}
-  m_Children: []
+  m_Children:
+  - {fileID: 205582292}
   m_Father: {fileID: 0}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &58561129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58561122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3500
+  MoveLeft: 97
+  MoveRight: 100
 --- !u!4 &87371731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: b3a5df19fe88b564fb182bf25f0bb92d,
@@ -290,6 +286,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 4.75
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -391,6 +392,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -491,6 +497,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 5.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -574,6 +585,89 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 1735046594}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &205582291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 205582292}
+  - component: {fileID: 205582294}
+  - component: {fileID: 205582293}
+  m_Layer: 0
+  m_Name: TetherPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &205582292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205582291}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 58561128}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!59 &205582293
+HingeJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205582291}
+  m_ConnectedBody: {fileID: 1558017673}
+  m_Anchor: {x: 0, y: 0, z: 0}
+  m_Axis: {x: 1, y: 1, z: 1}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: 0, y: 1, z: 0}
+  m_UseSpring: 0
+  m_Spring:
+    spring: 0
+    damper: 0
+    targetPosition: 0
+  m_UseMotor: 0
+  m_Motor:
+    targetVelocity: 0
+    force: 0
+    freeSpin: 0
+  m_UseLimits: 0
+  m_Limits:
+    min: 0
+    max: 0
+    bounciness: 0
+    bounceMinVelocity: 0.2
+    contactDistance: 0
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!54 &205582294
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205582291}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &225318944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -585,6 +679,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -659,6 +763,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -751,6 +865,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -840,6 +959,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -925,6 +1054,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -984,7 +1118,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedBody
       value: 
-      objectReference: {fileID: 1104432745}
+      objectReference: {fileID: 1278249117}
     - target: {fileID: 1994838728154060760, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_Anchor.y
@@ -998,7 +1132,7 @@ PrefabInstance:
     - target: {fileID: 1994838728154060760, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1579953034199644594659dd379148f7, type: 3}
@@ -1026,7 +1160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5000
+  speed: 3500
   MoveLeft: 97
   MoveRight: 100
 --- !u!54 &362995513
@@ -1038,7 +1172,7 @@ Rigidbody:
   m_GameObject: {fileID: 362995511}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 25
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1070,6 +1204,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -1149,6 +1293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -1249,6 +1398,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 3.25
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -1469,6 +1623,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1570,6 +1729,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1643,6 +1812,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -1722,6 +1901,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -1818,8 +2002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c975b156e99ed478532b306bca27f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
-  strafeSpeed: 30
+  speed: 9
+  strafeSpeed: 20
   tiltAngle: 20
   smoothness: 2
 --- !u!54 &659602910
@@ -1890,6 +2074,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -2182,6 +2371,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2275,6 +2469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -2376,6 +2575,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2465,6 +2669,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2538,6 +2752,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -2650,8 +2874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c975b156e99ed478532b306bca27f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  strafeSpeed: 9
+  speed: 9
+  strafeSpeed: 20
   tiltAngle: 20
   smoothness: 2
 --- !u!65 &1104432747
@@ -2722,7 +2946,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 52.2, y: 5.3, z: 35.4}
   m_LocalScale: {x: 10, y: 10, z: 10}
-  m_Children: []
+  m_Children:
+  - {fileID: 1278249118}
   m_Father: {fileID: 0}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2737,6 +2962,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -2823,6 +3058,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -2914,6 +3159,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2993,6 +3248,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -3183,6 +3448,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 6.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3260,6 +3530,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1579953034199644594659dd379148f7, type: 3}
+--- !u!1 &1278249116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278249118}
+  - component: {fileID: 1278249117}
+  m_Layer: 0
+  m_Name: TetherPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &1278249117
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278249116}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!4 &1278249118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278249116}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1104432750}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1291368666 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
@@ -3277,6 +3594,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -3356,6 +3683,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -3456,6 +3788,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 6.25
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -3626,6 +3963,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 4.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3719,6 +4061,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -3814,6 +4161,16 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 6.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3902,6 +4259,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -3993,6 +4360,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -4087,6 +4459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -4183,6 +4560,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4267,6 +4654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 5.75
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -4476,6 +4868,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4560,6 +4962,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -4649,6 +5056,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -4742,6 +5159,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -4915,6 +5342,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4994,6 +5431,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -5158,6 +5605,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5237,6 +5694,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -5335,6 +5802,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 2.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5424,6 +5896,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TetherSegment(Big) (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5508,6 +5990,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
@@ -5597,6 +6084,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TetherSegment(Big) (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Drag
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136881573048820481, guid: 1579953034199644594659dd379148f7,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4423845356432209161, guid: 1579953034199644594659dd379148f7,
         type: 3}
