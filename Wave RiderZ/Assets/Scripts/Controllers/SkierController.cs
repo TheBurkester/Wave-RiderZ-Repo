@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class SkierController : MonoBehaviour
 {
-	public float speed = 5;			//How fast the skier moves left/right
+	public float sidewaySpeed = 5;	//How fast the skier moves left/right
     public KeyCode MoveLeft;		//Which keyboard key moves the skier left
     public KeyCode MoveRight;		//Which keyboard key moves the skier right
 
@@ -27,8 +27,8 @@ public class SkierController : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(MoveLeft))		//If left is pressed,
-			rb.AddForce(0, 0, speed);	//Apply a force left
+			rb.AddForce(0, 0, sidewaySpeed);	//Apply a force left
 		if (Input.GetKey(MoveRight))	//If right is pressed,
-			rb.AddForce(0, 0, -speed);	//Apply a force right
+			rb.AddForce(0, 0, -sidewaySpeed);	//Apply a force right
 	}
 }

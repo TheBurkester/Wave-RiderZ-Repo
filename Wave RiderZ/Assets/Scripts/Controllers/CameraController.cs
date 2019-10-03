@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     void Awake()
 	{
 		Debug.Assert(plane != null, "CameraController script missing PlaneController reference");
-		m_speed = plane.speed;
+		m_speed = plane.forwardSpeed;
 
         rb = GetComponent<Rigidbody>();
 		Debug.Assert(rb != null, "Camera missing rigidbody component");

@@ -12,46 +12,65 @@ using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
-	public float speed = 5;             //How fast the plane moves up the river
+	public float forwardSpeed = 5;		//How fast the plane moves up the river
+
 	public float strafeSpeed = 3;       //How fast the plane can move left/right
 
     public float tiltAngle = 20.0f;     //How far the plane tilts when moving left/right
-    public float smoothness = 2.0f;     //How quickly the plane tilts
+    public float tiltSmoothness = 2.0f; //How quickly the plane tilts
+
+	public Transform river = null;		//Reference to the river transform
+	public float riverBorderSize = 0;	//The minimum distance the plane must be from the sides of the river
+	private float clampWidth = 75;		//How far side-to-side the plane can move, calculated automatically, default 75
 
 	private Rigidbody rb = null;        //Keep reference to the plane rigidbody
 
-    
-    void Awake()
+	void Awake()
     {
 		rb = GetComponent<Rigidbody>();
 		Debug.Assert(rb != null, "Plane missing rigidbody component");
+
+		Debug.Assert(river != null, "Plane missing river reference");
+		if (river != null)
+		{
+			//Multiply the river scale by 5 because the river is a 'plane' object,
+			//and 1 unit of plane scale is equal to 5 units in space
+			clampWidth = river.localScale.z * 5 - riverBorderSize;
+			if (clampWidth <= 0)	//If the clamp width is too small,
+				clampWidth = 75;	//Reset to default
+		}
 	}
     
     void Update()
     {		
-		Vector3 newPos = rb.position + new Vector3(speed * Time.deltaTime, 0, 0);   //New position is the current position moved forward slightly
-        rb.transform.position = newPos;                                             //Set the new position
+		Vector3 newPos = rb.position + new Vector3(forwardSpeed * Time.deltaTime, 0, 0);	//New position is the current position moved forward slightly
 
-        //float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
+		float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
 
-        //Quaternion Target = Quaternion.Euler(0, 90, tiltAroundZ);
-        //Quaternion Default = Quaternion.Euler(0, 90, 0);
+		Quaternion Target = Quaternion.Euler(0, 90, tiltAroundZ);
+		Quaternion Default = Quaternion.Euler(0, 90, 0);
 
-        //rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * smoothness);
+		rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * tiltSmoothness);
 
-        if (Input.GetKey(KeyCode.LeftArrow))											//If left is pressed,
+		if (Input.GetKey(KeyCode.LeftArrow))							//If left is pressed,
 		{
-			Vector3 strafe = newPos + new Vector3(0, 0, strafeSpeed * Time.deltaTime);	
-            rb.transform.position = strafe;												//Move the plane to the left
+			newPos += new Vector3(0, 0, strafeSpeed * Time.deltaTime);	//Move the plane to the left
 
-            //rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
-        }
-		if (Input.GetKey(KeyCode.RightArrow))											//If right is pressed,
+			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
+		}
+		if (Input.GetKey(KeyCode.RightArrow))								//If right is pressed,
 		{
-			Vector3 strafe = newPos + new Vector3(0, 0, -strafeSpeed * Time.deltaTime);
-            rb.transform.position = strafe;												//Move the plane to the right
+			newPos += new Vector3(0, 0, -strafeSpeed * Time.deltaTime);		//Move the plane to the right
 
-            //rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * smoothness);
-        }
-    }
+			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
+		}
+
+		//Clamp the plane to stay within the river
+		if (newPos.z < -clampWidth)
+			newPos.z = -clampWidth;
+		if (newPos.z > clampWidth)
+			newPos.z = clampWidth;
+
+		rb.transform.position = newPos;		//Set the new position
+	}
 }
