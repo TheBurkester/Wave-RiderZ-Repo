@@ -16,7 +16,7 @@ public class BaseAbility : MonoBehaviour
 
     void Awake()
     {
-        m_timer.SetActive(false);	//Don't start the timer immediately
+
     }
 
 }

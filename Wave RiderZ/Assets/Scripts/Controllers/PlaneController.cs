@@ -21,7 +21,7 @@ public class PlaneController : MonoBehaviour
 
 	public Transform river = null;		//Reference to the river transform
 	public float riverBorderSize = 0;	//The minimum distance the plane must be from the sides of the river
-	private float clampWidth = 75;		//How far side-to-side the plane can move, calculated automatically, default 75
+	private float m_clampWidth = 75;	//How far side-to-side the plane can move, calculated automatically, default 75
 
 	private Rigidbody rb = null;        //Keep reference to the plane rigidbody
 
@@ -35,9 +35,9 @@ public class PlaneController : MonoBehaviour
 		{
 			//Multiply the river scale by 5 because the river is a 'plane' object,
 			//and 1 unit of plane scale is equal to 5 units in space
-			clampWidth = river.localScale.z * 5 - riverBorderSize;
-			if (clampWidth <= 0)	//If the clamp width is too small,
-				clampWidth = 75;	//Reset to default
+			m_clampWidth = river.localScale.z * 5 - riverBorderSize;
+			if (m_clampWidth <= 0)  //If the clamp width is too small,
+				m_clampWidth = 75;	//Reset to default
 		}
 	}
     
@@ -66,10 +66,10 @@ public class PlaneController : MonoBehaviour
 		}
 
 		//Clamp the plane to stay within the river
-		if (newPos.z < -clampWidth)
-			newPos.z = -clampWidth;
-		if (newPos.z > clampWidth)
-			newPos.z = clampWidth;
+		if (newPos.z < -m_clampWidth)
+			newPos.z = -m_clampWidth;
+		if (newPos.z > m_clampWidth)
+			newPos.z = m_clampWidth;
 
 		rb.transform.position = newPos;		//Set the new position
 	}
