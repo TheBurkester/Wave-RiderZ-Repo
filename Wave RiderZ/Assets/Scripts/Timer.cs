@@ -12,61 +12,58 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public float maxTime;				//Optional maximum time
-    public bool autoDisable = false;    //If the timer automatically stops counting when max is hit or not
-	public bool reverseTimer = false;	//If the timer counts backwards from the max or not
+	public float T { get; private set; }    //Property to set the timer from inside the class, but read only for outside
 
-    private float m_timer;				//The timer
+    public float maxTime;					//Optional maximum time
+    public bool autoDisable = false;		//If the timer automatically stops counting when max is hit or not
+	public bool reverseTimer = false;		//If the timer counts backwards from the max or not
 
-    void Awake()
+
+	void Awake()
     {
-        m_timer = 0.0f;		//Timer starts at 0
-		if (reverseTimer)		//If using a reverse timer,
-			m_timer = maxTime;	//Start at the max instead
-
-		SetActive(false);	//Timer doesn't immediately start counting when created
+		enabled = false;	//Timer doesn't immediately start counting when created
 	}
 
-    void Update()
-    {
-		if (!reverseTimer)							//If it's a normal timer,
-			m_timer += UnityEngine.Time.deltaTime;  //Add 1 per second, adjusted for framerate
-		else										//If it's a reverse timer,
-			m_timer -= UnityEngine.Time.deltaTime;  //Subtract 1 per second, adjusted for framerate
+	//Should be called after all the timer's options have been set,
+	//to initialise the timer properly and start it
+	public void Initialise()
+	{
+		T = 0.0f;			//Timer starts at 0
+		if (reverseTimer)   //If using a reverse timer,
+			T = maxTime;    //Start at the max instead
 
-		if (autoDisable == true)				//If auto-disable is enabled,
+		enabled = true;		//Timer starts counting when initialised
+	}
+
+	void Update()
+    {
+		if (!reverseTimer)			//If it's a normal timer,
+			T += Time.deltaTime;	//Add 1 per second, adjusted for framerate
+		else						//If it's a reverse timer,
+			T -= Time.deltaTime;	//Subtract 1 per second, adjusted for framerate
+
+
+		if (autoDisable == true)	//If auto-disable is enabled,
         {
-            if (!UnderMax())					//And the timer is within the timelimit,
-                gameObject.SetActive(false);	//Stop counting
+            if (!UnderMax())		//And the timer is within the timelimit,
+				enabled = false;	//Stop counting
 		}
-    }
-
-	//Returns the current timer value
-    public float Time()
-    {
-        return m_timer;
     }
 
 	//Returns true if the timer is under the max, and false otherwise
     public bool UnderMax()
     {
 		if (!reverseTimer)
-			return (m_timer < maxTime);
-		return (m_timer > 0);
+			return (T < maxTime);
+		return (T > 0);
 	}
 
 	//Resets the timer and enables it
     public void ResetTimer()
     {
-        m_timer = 0.0f;
-		if (reverseTimer)       //If using a reverse timer,
-			m_timer = maxTime;  //Reset to max instead
-		gameObject.SetActive(true);
-    }
-
-	//Enables/disables the timer
-    public void SetActive(bool value)
-    {
-        gameObject.SetActive(value);
+		T = 0.0f;
+		if (reverseTimer)		//If using a reverse timer,
+			T = maxTime;        //Reset to max instead
+		enabled = true;
     }
 }
