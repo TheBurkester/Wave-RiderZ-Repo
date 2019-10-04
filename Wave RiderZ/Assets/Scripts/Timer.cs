@@ -25,8 +25,9 @@ public class Timer : MonoBehaviour
 	}
 
 	//Should be called after all the timer's options have been set,
-	//to initialise the timer properly and start it
-	public void Initialise()
+	//to initialise the timer properly and start it.
+	//Acts as a reset timer function too
+	public void SetTimer()
 	{
 		T = 0.0f;			//Timer starts at 0
 		if (reverseTimer)   //If using a reverse timer,
@@ -57,13 +58,4 @@ public class Timer : MonoBehaviour
 			return (T < maxTime);
 		return (T > 0);
 	}
-
-	//Resets the timer and enables it
-    public void ResetTimer()
-    {
-		T = 0.0f;
-		if (reverseTimer)		//If using a reverse timer,
-			T = maxTime;        //Reset to max instead
-		enabled = true;
-    }
 }
