@@ -18,13 +18,12 @@ public class BeachBallAbility : MonoBehaviour
     public KeyCode Left = KeyCode.A;
     public KeyCode Right = KeyCode.D;
     public KeyCode Aim = KeyCode.Space;
+    public float Cooldown = 5.0f; // Replace with timer script functions at a later date.
+    public float targetMovementSpeed = 10.0f; // Target's movement speed when aiming.
 
     private MeshRenderer targetMesh; // Target's Mesh.
     private Rigidbody targetRB; // Target's Rigidbody.
-    public float Cooldown = 5.0f; // Replace with timer script functions at a later date.
-
     private float targetPlaneRelation = 5.0f; // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
-    public float targetMovementSpeed = 10.0f; // Target's movement speed when aiming.
 
     void Awake()
     {
