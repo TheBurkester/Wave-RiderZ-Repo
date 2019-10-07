@@ -6,8 +6,6 @@
 |  Description:		Handles the plane's beach ball ability.
 *-------------------------------------------------------------------*/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BeachBallAbility : MonoBehaviour
@@ -21,13 +19,15 @@ public class BeachBallAbility : MonoBehaviour
     public KeyCode Shoot = KeyCode.G;
     public float Cooldown = 5.0f; // Replace with timer script functions at a later date.
     public float targetMovementSpeed = 10.0f; // Target's movement speed when aiming.
-    public static MeshRenderer targetMesh; // Target's Mesh.
-    public static bool isShooting = false; // Has the player pressed the shoot button?
-    public float riverClampHorizontal = 15; // Editable horizontal clamp.
+    public float riverClampHorizontal = 14; // Editable horizontal clamp.
     public float riverClampForward = 3.5f; // Editable forward clamp.
+    public float riverClampBehind = 5; // Editable behind clamp.
     public Rigidbody planeRB = null;
 
-    private float riverClampForwardAlter; // The plane will always be moving forward so t
+    private MeshRenderer targetMesh; // Target's Mesh.
+    private bool isShooting = false; // Has the player pressed the shoot button.
+    private float riverClampForwardAlter; // Clamp will always be moving forward.
+    private float riverClampBehindAlter; // Clamp will always be moving forward.
     private Rigidbody targetRB; // Target's Rigidbody.
     private float targetPlaneRelation = 5.0f; // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
     private GameObject prefab; // Beachball prefab.
@@ -53,6 +53,7 @@ public class BeachBallAbility : MonoBehaviour
         targetRB.transform.position = v3PlaneRelation;
 
         riverClampForwardAlter = planeRB.position.x - riverClampForward;
+        riverClampBehindAlter = planeRB.position.x - riverClampBehind * 2.5f;
 
         Vector3 v3 = new Vector3();
 
@@ -76,7 +77,7 @@ public class BeachBallAbility : MonoBehaviour
                 v3 += Vector3.right; // Moving Up = Vector.right due to scene direction.
             }
 
-            if (Input.GetKey(Down) && targetMesh.enabled && targetRB.position.x > -riverClampForwardAlter) // Movement Down.
+            if (Input.GetKey(Down) && targetMesh.enabled && targetRB.position.x > riverClampBehindAlter) // Movement Down.
             {
                 v3 += Vector3.left; // Moving Down = Vector.left due to scene direction.
             }
@@ -113,8 +114,19 @@ public class BeachBallAbility : MonoBehaviour
             BeachBall.transform.position = v3LandingPos;
 
             Rigidbody rb = BeachBall.GetComponent<Rigidbody>();
-            rb.velocity = BeachBall.transform.right * 4; // Keeps the velocity inline with the plane's movement forward.
+            rb.velocity = BeachBall.transform.right * 4.2f; // Keeps the velocity inline with the plane's movement forward.
             BeachBall.SetActive(true);
         }
+    }
+
+    // Used in Beachball script.
+    public void toggleIsShooting(bool shooting)
+    {
+        isShooting = shooting;
+    }
+    // Used in Beachball script.
+    public void toggleMeshEnable(bool enable)
+    {
+        targetMesh.enabled = enable;
     }
 }

@@ -6,15 +6,15 @@
 |  Description:		Handles the beach ball's collision.
 *-------------------------------------------------------------------*/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BeachBall : BeachBallAbility
+public class BeachBall : MonoBehaviour
 {
     public float radius = 5.0f;
     public float power = 10.0f;
 
+    private GameObject Target;
+    private BeachBallAbility bbAbility;
     private Rigidbody rb;
     private Vector3 reset;
 
@@ -23,6 +23,11 @@ public class BeachBall : BeachBallAbility
         rb = gameObject.GetComponent<Rigidbody>();
         reset = new Vector3(0, 0, 0); // Basic reset vector.
 
+        Target = GameObject.FindWithTag("Target"); // Will search for the target with the tag.
+        if (Target != null)
+        {
+            bbAbility = Target.GetComponent<BeachBallAbility>(); // Will get the script from the target.
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -46,8 +51,8 @@ public class BeachBall : BeachBallAbility
             rb.angularVelocity = reset; // Resets angular velocity.
             rb.transform.rotation = Quaternion.Euler(reset); // Resets rotation.
 
-            isShooting = false; // Player isn't shooting anymore.
-            targetMesh.enabled = false; // Disabled target's mesh.
+            bbAbility.toggleIsShooting(false); // Player isn't shooting anymore.
+            bbAbility.toggleMeshEnable(false); // Disabled target's mesh.
         }
     }
 }

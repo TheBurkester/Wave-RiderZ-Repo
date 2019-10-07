@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2842222284753936672}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,3 +129,6 @@ MonoBehaviour:
   Shoot: 103
   Cooldown: 5
   targetMovementSpeed: 10
+  riverClampHorizontal: 15
+  riverClampForward: 3.5
+  planeRB: {fileID: 0}

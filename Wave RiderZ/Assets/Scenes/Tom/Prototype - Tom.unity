@@ -7885,6 +7885,11 @@ PrefabInstance:
       propertyPath: planeRB
       value: 
       objectReference: {fileID: 1898259400}
+    - target: {fileID: 2842222284753936672, guid: 858366dd28dc84e4b84d44b57ac1c925,
+        type: 3}
+      propertyPath: riverClampHorizontal
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 1953718365555184084, guid: 858366dd28dc84e4b84d44b57ac1c925,
         type: 3}
       propertyPath: m_IsKinematic
@@ -8034,6 +8039,3 @@ MonoBehaviour:
   - objectToPool: {fileID: 6934895684147089487, guid: bac6673505364004db839336405bfd4d,
       type: 3}
     amountToPool: 1
-  - objectToPool: {fileID: 2151107526790755534, guid: fa35731b02f8a5f4289d17ce6e954604,
-      type: 3}
-    amountToPool: 10
