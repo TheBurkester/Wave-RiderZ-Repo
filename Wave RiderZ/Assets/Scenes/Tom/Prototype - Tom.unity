@@ -7531,7 +7531,7 @@ GameObject:
   - component: {fileID: 1830143213}
   m_Layer: 0
   m_Name: River
-  m_TagString: Untagged
+  m_TagString: River
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7986,3 +7986,25 @@ Transform:
   m_Father: {fileID: 1830143216}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2129708429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6229671285714116647, guid: 858366dd28dc84e4b84d44b57ac1c925,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942560474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2129708436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129708429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece59570f1c75924fbf264e902a6ad4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 6934895684147089487, guid: bac6673505364004db839336405bfd4d,
+    type: 3}
+  amountToPool: 1
