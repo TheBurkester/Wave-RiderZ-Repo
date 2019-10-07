@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6589886950160825136}
   m_Layer: 0
   m_Name: BeachBall
-  m_TagString: Untagged
+  m_TagString: Beach Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,5 +129,8 @@ MonoBehaviour:
   Shoot: 103
   Cooldown: 5
   targetMovementSpeed: 10
-  radius: 20
+  riverClampHorizontal: 15
+  riverClampForward: 3.5
+  planeRB: {fileID: 0}
+  radius: 5
   power: 1000

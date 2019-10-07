@@ -25,11 +25,6 @@ public class BeachBall : BeachBallAbility
 
     }
 
-    void Update()
-    {
-
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("River")) // Will be called if collision with the river occurs.

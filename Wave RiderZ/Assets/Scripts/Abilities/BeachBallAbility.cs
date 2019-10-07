@@ -21,12 +21,16 @@ public class BeachBallAbility : MonoBehaviour
     public KeyCode Shoot = KeyCode.G;
     public float Cooldown = 5.0f; // Replace with timer script functions at a later date.
     public float targetMovementSpeed = 10.0f; // Target's movement speed when aiming.
-
     public static MeshRenderer targetMesh; // Target's Mesh.
+    public static bool isShooting = false; // Has the player pressed the shoot button?
+    public float riverClampHorizontal = 15; // Editable horizontal clamp.
+    public float riverClampForward = 3.5f; // Editable forward clamp.
+    public Rigidbody planeRB = null;
+
+    private float riverClampForwardAlter; // The plane will always be moving forward so t
     private Rigidbody targetRB; // Target's Rigidbody.
     private float targetPlaneRelation = 5.0f; // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
     private GameObject prefab; // Beachball prefab.
-    public static bool isShooting = false; // Has the player pressed the shoot button?
 
     void Awake()
     {
@@ -48,6 +52,8 @@ public class BeachBallAbility : MonoBehaviour
         Vector3 v3PlaneRelation = targetRB.position + new Vector3(targetPlaneRelation * Time.deltaTime, 0, 0);
         targetRB.transform.position = v3PlaneRelation;
 
+        riverClampForwardAlter = planeRB.position.x - riverClampForward;
+
         Vector3 v3 = new Vector3();
 
         /*===========================================================================================*/
@@ -55,28 +61,28 @@ public class BeachBallAbility : MonoBehaviour
 
         if (!isShooting)
         {
-            if (Input.GetKey(Left) && targetMesh.enabled) // Movement Left.
+            if (Input.GetKey(Left) && targetMesh.enabled && targetRB.position.z < riverClampHorizontal) // Movement Left.
             {
                 v3 += Vector3.forward; // Moving Left = Vector.forward due to scene direction.
             }
 
-            if (Input.GetKey(Right) && targetMesh.enabled) // Movement Right.
+            if (Input.GetKey(Right) && targetMesh.enabled && targetRB.position.z > -riverClampHorizontal) // Movement Right.
             {
                 v3 += Vector3.back; // Moving Right = Vector.back due to scene direction.
             }
 
-            if (Input.GetKey(Up) && targetMesh.enabled) // Movement Up.
+            if (Input.GetKey(Up) && targetMesh.enabled && targetRB.position.x < riverClampForwardAlter) // Movement Up.
             {
                 v3 += Vector3.right; // Moving Up = Vector.right due to scene direction.
             }
 
-            if (Input.GetKey(Down) && targetMesh.enabled) // Movement Down.
+            if (Input.GetKey(Down) && targetMesh.enabled && targetRB.position.x > -riverClampForwardAlter) // Movement Down.
             {
                 v3 += Vector3.left; // Moving Down = Vector.left due to scene direction.
             }
         }
-        // Simple transform which combines all directions and allows diagonal movement.
-        targetRB.transform.Translate(targetMovementSpeed * v3.normalized * Time.deltaTime);
+            // Simple transform which combines all directions and allows diagonal movement.
+            targetRB.transform.Translate(targetMovementSpeed * v3.normalized * Time.deltaTime);
 
         if (Input.GetKey(Shoot) && targetMesh.enabled)
         {
@@ -98,8 +104,8 @@ public class BeachBallAbility : MonoBehaviour
 
     void shootBall()
     {
-        // This will break if more than one object pool is used, will need to change the class.
-        GameObject BeachBall = ObjectPool.sharedInstance.GetPooledObject();
+        // Gets the beach ball from the Object Pool.
+        GameObject BeachBall = ObjectPool.sharedInstance.GetPooledObject("Beach Ball");
         if (BeachBall != null)
         {
             // Landing position travels with the plane. Also keeps the ball from spawning within the camera's view.
