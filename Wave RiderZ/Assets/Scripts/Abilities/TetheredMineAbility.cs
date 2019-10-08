@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TetheredMineAbility : BaseAbility
+public class TetheredMineAbility : MonoBehaviour
 {
     void Awake()
     {
