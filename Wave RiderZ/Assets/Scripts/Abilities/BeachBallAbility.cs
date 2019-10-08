@@ -6,10 +6,14 @@
 |  Description:		Handles the plane's beach ball ability.
 *-------------------------------------------------------------------*/
 using UnityEngine;
+using XboxCtrlrInput;
+using XInputDotNetPure;
 
 public class BeachBallAbility : MonoBehaviour
 {
     // These Keycodes will be changed later when Xbox Input is implemented.
+    public XboxController controller;
+    private Vector3 newPosition;
     public KeyCode Up = KeyCode.W;
     public KeyCode Down = KeyCode.S;
     public KeyCode Left = KeyCode.A;
@@ -46,11 +50,14 @@ public class BeachBallAbility : MonoBehaviour
     void Start()
     {
         m_abilityCooldown.SetTimer(); // Starts the timer.
+        newPosition = transform.position;
     }
 
     void Update()
     {
         aimTarget();
+        
+      
     }
 
     void aimTarget()
@@ -62,36 +69,63 @@ public class BeachBallAbility : MonoBehaviour
         // Handles the clamp movement forward with the plane.
         m_riverClampForwardAlter = planeRB.position.x - riverClampForward;
         m_riverClampBehindAlter = planeRB.position.x - riverClampBehind * 2.5f;
-
+        // RIGHT STICK MOVEMENT 
+        newPosition = transform.position;
+        float axisX = XCI.GetAxis(XboxAxis.RightStickX, controller);
+        float axisY = XCI.GetAxis(XboxAxis.RightStickY, controller);
+        //float newPosX = newPosition.x + (axisX * targetMovementSpeed * 0.3f * Time.deltaTime);
+        //float newPosZ = newPosition.z + (axisY * targetMovementSpeed * 0.3f * Time.deltaTime);
+        //newPosition = new Vector3(newPosX, transform.position.y, newPosZ);
+        //transform.position = newPosition;
         Vector3 v3 = new Vector3();
 
         /*===========================================================================================*/
         /*      Leave this outside of the aim If statement. Won't be called if inside.               */
 
-        if (!m_isShooting)
+        if (!m_isShooting && m_targetMesh.enabled)
         {
-            if (Input.GetKey(Left) && m_targetMesh.enabled && m_targetRB.position.z < riverClampHorizontal) // Movement Left.
+            newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
+            newPosition.z += (axisY * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position up/down
+
+            if (!(newPosition.x < m_riverClampForwardAlter) || !(newPosition.x > m_riverClampBehindAlter))  //Check if the new position x is oustide the boundaries
+                newPosition.x -= (axisX * targetMovementSpeed * 0.3f * Time.deltaTime);                     //If it is, undo the x movement
+            if (!(newPosition.z < riverClampHorizontal) || !(newPosition.z > -riverClampHorizontal))        //Check if the new position z is oustide the boundaries
+                newPosition.z -= (axisY * targetMovementSpeed * 0.3f * Time.deltaTime);                     //If it is, undo the z movement
+
+            if (Input.GetKey(Left) && m_targetRB.position.z < riverClampHorizontal) // Movement Left.
             {
                 v3 += Vector3.forward; // Moving Left = Vector.forward due to scene direction.
             }
 
-            if (Input.GetKey(Right) && m_targetMesh.enabled && m_targetRB.position.z > -riverClampHorizontal) // Movement Right.
+            if (Input.GetKey(Right) && m_targetRB.position.z > -riverClampHorizontal) // Movement Right.
             {
                 v3 += Vector3.back; // Moving Right = Vector.back due to scene direction.
             }
 
-            if (Input.GetKey(Up) && m_targetMesh.enabled && m_targetRB.position.x < m_riverClampForwardAlter) // Movement Up.
+            if (Input.GetKey(Up) && m_targetRB.position.x < m_riverClampForwardAlter) // Movement Up.
             {
                 v3 += Vector3.right; // Moving Up = Vector.right due to scene direction.
             }
 
-            if (Input.GetKey(Down) && m_targetMesh.enabled && m_targetRB.position.x > m_riverClampBehindAlter) // Movement Down.
+            if (Input.GetKey(Down) && m_targetRB.position.x > m_riverClampBehindAlter) // Movement Down.
             {
                 v3 += Vector3.left; // Moving Down = Vector.left due to scene direction.
             }
+            // if(XCI.GetAxis(XboxAxis.RightStickX, controller) && m_targetMesh.enabled > m_riverClampBehindAlter)
+            {
+               // newPosX = newPosition.x + (axisX * targetMovementSpeed * 0.3f * Time.deltaTime);
+               
+            }
+            // if(XCI.GetAxis(XboxAxis.RightStickY, controller) && m_targetMesh.enabled > m_riverClampBehindAlter)
+            {
+                
+                //  newPosZ = newPosition.z + (axisY * targetMovementSpeed * 0.3f * Time.deltaTime);
+            }
+
         }
-            // Simple transform which combines all directions and allows diagonal movement.
-            m_targetRB.transform.Translate(targetMovementSpeed * v3.normalized * Time.deltaTime);
+        // Simple transform which combines all directions and allows diagonal movement.
+        //m_targetRB.transform.Translate(targetMovementSpeed * v3.normalized * Time.deltaTime);
+        transform.position = newPosition;
 
         if (Input.GetKey(Shoot) && m_targetMesh.enabled)
         {
@@ -100,6 +134,17 @@ public class BeachBallAbility : MonoBehaviour
             toggleMeshEnable(true);
             m_abilityCooldown.SetTimer(); // Resets cooldown.
         }
+       if (XCI.GetButton(XboxButton.A, controller) && m_targetMesh.enabled)
+        {
+            toggleIsShooting(true);
+            shootBall(); // Shoots the beachball.
+            toggleMeshEnable(true);
+            m_abilityCooldown.SetTimer(); // Resets cooldown.
+        }
+      //  if (XCI.GetAxis(XboxAxis.RightTrigger,controller))
+      //  {
+      //
+      //  }
         /*===========================================================================================*/
 
         if (Input.GetKeyDown(Aim) && !m_abilityCooldown.UnderMax() || m_isShooting)
@@ -107,6 +152,15 @@ public class BeachBallAbility : MonoBehaviour
             m_targetMesh.enabled = true; // Activate target's mesh when aiming.
         }
         else if (Input.GetKeyUp(Aim))
+        {
+            m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
+        }
+        // Right Bumper
+        if (XCI.GetButtonDown(XboxButton.RightBumper, controller) && !m_abilityCooldown.UnderMax() || m_isShooting)
+        {
+            m_targetMesh.enabled = true; // Activate target's mesh when aiming.
+        }
+        else if (XCI.GetButtonUp(XboxButton.RightBumper, controller))
         {
             m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
         }
