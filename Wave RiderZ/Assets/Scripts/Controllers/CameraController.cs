@@ -29,7 +29,8 @@ public class CameraController : MonoBehaviour
 	
 	void Update()
 	{
-        Vector3 newPos = rb.position + new Vector3(m_speed * Time.deltaTime, 0, 0);     //New position is the current position moved forward slightly
+        Vector3 newPos = rb.position + new Vector3(0, 0, m_speed * Time.deltaTime);     //New position is the current position moved forward slightly
+		//rb.position = newPos;
 		rb.MovePosition(newPos);														//Move the camera forward
 		//Keep in mind MovePosition doesn't update the position until the end of the frame
     }
