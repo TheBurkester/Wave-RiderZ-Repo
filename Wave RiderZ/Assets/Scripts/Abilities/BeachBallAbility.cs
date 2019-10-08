@@ -5,7 +5,6 @@
 | 
 |  Description:		Handles the plane's beach ball ability.
 *-------------------------------------------------------------------*/
-
 using UnityEngine;
 
 public class BeachBallAbility : MonoBehaviour
@@ -46,12 +45,12 @@ public class BeachBallAbility : MonoBehaviour
 
     void Start()
     {
-        m_abilityCooldown.SetTimer();
+        m_abilityCooldown.SetTimer(); // Starts the timer.
     }
 
     void Update()
     {
-            aimTarget();
+        aimTarget();
     }
 
     void aimTarget()
@@ -60,6 +59,7 @@ public class BeachBallAbility : MonoBehaviour
         Vector3 v3PlaneRelation = m_targetRB.position + new Vector3(m_targetPlaneRelation * Time.deltaTime, 0, 0);
         m_targetRB.transform.position = v3PlaneRelation;
 
+        // Handles the clamp movement forward with the plane.
         m_riverClampForwardAlter = planeRB.position.x - riverClampForward;
         m_riverClampBehindAlter = planeRB.position.x - riverClampBehind * 2.5f;
 
@@ -98,7 +98,7 @@ public class BeachBallAbility : MonoBehaviour
             toggleIsShooting(true);
             shootBall(); // Shoots the beachball.
             toggleMeshEnable(true);
-            m_abilityCooldown.SetTimer();
+            m_abilityCooldown.SetTimer(); // Resets cooldown.
         }
         /*===========================================================================================*/
 
