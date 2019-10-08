@@ -13,20 +13,20 @@ public class BeachBall : MonoBehaviour
     public float radius = 5.0f;
     public float power = 10.0f;
 
-    private GameObject Target;
-    private BeachBallAbility bbAbility;
-    private Rigidbody rb;
-    private Vector3 reset;
+    private GameObject m_Target;
+    private BeachBallAbility m_bbAbility;
+    private Rigidbody m_rb;
+    private Vector3 m_reset;
 
     void Awake()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
-        reset = new Vector3(0, 0, 0); // Basic reset vector.
+        m_rb = gameObject.GetComponent<Rigidbody>();
+        m_reset = new Vector3(0, 0, 0); // Basic reset vector.
 
-        Target = GameObject.FindWithTag("Target"); // Will search for the target with the tag.
-        if (Target != null)
+        m_Target = GameObject.FindWithTag("Target"); // Will search for the target with the tag.
+        if (m_Target != null)
         {
-            bbAbility = Target.GetComponent<BeachBallAbility>(); // Will get the script from the target.
+            m_bbAbility = m_Target.GetComponent<BeachBallAbility>(); // Will get the script from the target.
         }
     }
 
@@ -47,12 +47,12 @@ public class BeachBall : MonoBehaviour
             }
 
             gameObject.SetActive(false); // Deactivates the beachball.
-            rb.velocity = reset; // Resets velocity.
-            rb.angularVelocity = reset; // Resets angular velocity.
-            rb.transform.rotation = Quaternion.Euler(reset); // Resets rotation.
+            m_rb.velocity = m_reset; // Resets velocity.
+            m_rb.angularVelocity = m_reset; // Resets angular velocity.
+            m_rb.transform.rotation = Quaternion.Euler(m_reset); // Resets rotation.
 
-            bbAbility.toggleIsShooting(false); // Player isn't shooting anymore.
-            bbAbility.toggleMeshEnable(false); // Disabled target's mesh.
+            m_bbAbility.toggleIsShooting(false); // Player isn't shooting anymore.
+            m_bbAbility.toggleMeshEnable(false); // Disabled target's mesh.
         }
     }
 }
