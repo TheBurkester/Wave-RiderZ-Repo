@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 	//Player references/variables
 	public PlaneController plane = null;		//Reference to the plane
 	public SkierController redSkier = null;     //Reference to the red skier
+	public BeachBallAbility target = null;      //Reference to the target
 	//public SkierController greenSkier = null;	//Reference to the green skier
 	//public SkierController purpleSkier = null;	//Reference to the purple skier
 	//-------------------------------------------------------------------------
@@ -153,6 +154,7 @@ public class GameManager : MonoBehaviour
 		redSkier.enabled = value;
 		//greenSkier.enabled = value;
 		//purpleSkier.enabled = value;
+		target.enabled = value;
 		mainCamera.enabled = value;
 	}
 

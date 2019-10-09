@@ -65,12 +65,12 @@ public class BeachBallAbility : MonoBehaviour
     void aimTarget()
     {
         // Target's movement forward in relation to the plane.
-        Vector3 v3PlaneRelation = m_targetRB.position + new Vector3(m_targetPlaneRelation * Time.deltaTime, 0, 0);
+        Vector3 v3PlaneRelation = m_targetRB.position + new Vector3(0, 0, m_targetPlaneRelation * Time.deltaTime);
         m_targetRB.transform.position = v3PlaneRelation;
 
         // Handles the clamp movement forward with the plane.
-        m_riverClampForwardAlter = planeRB.position.x - riverClampForward;
-        m_riverClampBehindAlter = planeRB.position.x - riverClampBehind * 2.5f;
+        m_riverClampForwardAlter = planeRB.position.z - riverClampForward;
+        m_riverClampBehindAlter = planeRB.position.z - riverClampBehind * 2.5f;
         // RIGHT STICK MOVEMENT 
         newPosition = transform.position;
         float axisX = XCI.GetAxis(XboxAxis.RightStickX, controller);
@@ -85,36 +85,36 @@ public class BeachBallAbility : MonoBehaviour
 
         if (!m_isShooting && m_targetMesh.enabled)
         {
+			Vector3 oldPosition = newPosition;
+
             newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
             newPosition.z += (axisY * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position up/down
 
-            if (!(newPosition.x < m_riverClampForwardAlter) || !(newPosition.x > m_riverClampBehindAlter))  //Check if the new position x is oustide the boundaries
-                newPosition.x -= (axisX * targetMovementSpeed * 0.3f * Time.deltaTime);                     //If it is, undo the x movement
-            if (!(newPosition.z < riverClampHorizontal) || !(newPosition.z > -riverClampHorizontal))        //Check if the new position z is oustide the boundaries
-                newPosition.z -= (axisY * targetMovementSpeed * 0.3f * Time.deltaTime);                     //If it is, undo the z movement
-
-            if (Input.GetKey(Left) && m_targetRB.position.z < riverClampHorizontal) // Movement Left.
+            if (Input.GetKey(Left)) // Movement Left.
             {
-                v3 += Vector3.forward; // Moving Left = Vector.forward due to scene direction.
+				newPosition += Vector3.left * targetMovementSpeed * Time.deltaTime; // Moving Left = Vector.forward due to scene direction.
             }
 
-            if (Input.GetKey(Right) && m_targetRB.position.z > -riverClampHorizontal) // Movement Right.
+            if (Input.GetKey(Right)) // Movement Right.
             {
-                v3 += Vector3.back; // Moving Right = Vector.back due to scene direction.
+				newPosition += Vector3.right * targetMovementSpeed * Time.deltaTime; // Moving Right = Vector.back due to scene direction.
             }
 
-            if (Input.GetKey(Up) && m_targetRB.position.x < m_riverClampForwardAlter) // Movement Up.
+            if (Input.GetKey(Up)) // Movement Up.
             {
-                v3 += Vector3.right; // Moving Up = Vector.right due to scene direction.
+				newPosition += Vector3.forward * targetMovementSpeed * Time.deltaTime; // Moving Up = Vector.right due to scene direction.
             }
 
-            if (Input.GetKey(Down) && m_targetRB.position.x > m_riverClampBehindAlter) // Movement Down.
+            if (Input.GetKey(Down)) // Movement Down.
             {
-                v3 += Vector3.left; // Moving Down = Vector.left due to scene direction.
+				newPosition += Vector3.back * targetMovementSpeed * Time.deltaTime; // Moving Down = Vector.left due to scene direction.
             }
-           
 
-        }
+			if (!(newPosition.x < riverClampHorizontal) || !(newPosition.x > -riverClampHorizontal))        //Check if the new position z is oustide the boundaries
+				newPosition.x = oldPosition.x;                     //If it is, undo the z movement
+			if (!(newPosition.z < m_riverClampForwardAlter) || !(newPosition.z > m_riverClampBehindAlter))  //Check if the new position x is oustide the boundaries
+				newPosition.z = oldPosition.z;                     //If it is, undo the x movement
+		}
         // Simple transform which combines all directions and allows diagonal movement.
         //m_targetRB.transform.Translate(targetMovementSpeed * v3.normalized * Time.deltaTime);
         transform.position = newPosition;
@@ -164,11 +164,11 @@ public class BeachBallAbility : MonoBehaviour
         if (BeachBall != null)
         {
             // Landing position travels with the plane. Also keeps the ball from spawning within the camera's view.
-            Vector3 v3LandingPos = m_targetRB.position + new Vector3(m_targetPlaneRelation * Time.deltaTime, 20, 0);
+            Vector3 v3LandingPos = m_targetRB.position + new Vector3(0, 20, m_targetPlaneRelation * Time.deltaTime);
             BeachBall.transform.position = v3LandingPos;
 
             Rigidbody rb = BeachBall.GetComponent<Rigidbody>();
-            rb.velocity = BeachBall.transform.right * 4.2f; // Keeps the velocity inline with the plane's movement forward.
+            rb.velocity = BeachBall.transform.forward * 4.2f; // Keeps the velocity inline with the plane's movement forward.
             BeachBall.SetActive(true);
         }
     }
