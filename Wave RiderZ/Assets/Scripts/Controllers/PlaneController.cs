@@ -35,7 +35,7 @@ public class PlaneController : MonoBehaviour
 		{
 			//Multiply the river scale by 5 because the river is a 'plane' object,
 			//and 1 unit of plane scale is equal to 5 units in space
-			m_clampWidth = river.localScale.x * 5 - riverBorderSize;
+			m_clampWidth = (river.localScale.x * 5) - riverBorderSize;
 			if (m_clampWidth <= 0)  //If the clamp width is too small,
 				m_clampWidth = 75;	//Reset to default
 		}
@@ -45,24 +45,24 @@ public class PlaneController : MonoBehaviour
     {		
 		Vector3 newPos = rb.position + new Vector3(0, 0, forwardSpeed * Time.deltaTime);	//New position is the current position moved forward slightly
 
-		//float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
+		float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
 
-		//Quaternion Target = Quaternion.Euler(0, 90, tiltAroundZ);
-		//Quaternion Default = Quaternion.Euler(0, 90, 0);
+		Quaternion Target = Quaternion.Euler(0, 0, tiltAroundZ);
+		Quaternion Default = Quaternion.Euler(0, 0, 0);
 
-		//rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * tiltSmoothness);
+		rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * tiltSmoothness);
 
 		if (Input.GetKey(KeyCode.LeftArrow))							//If left is pressed,
 		{
 			newPos += new Vector3(-strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the left
 
-			//rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
+			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
 		}
 		if (Input.GetKey(KeyCode.RightArrow))								//If right is pressed,
 		{
 			newPos += new Vector3(strafeSpeed * Time.deltaTime, 0, 0);		//Move the plane to the right
 
-			//rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
+			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
 		}
 
 		//Clamp the plane to stay within the river
