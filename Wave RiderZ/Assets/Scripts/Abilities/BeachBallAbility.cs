@@ -27,6 +27,8 @@ public class BeachBallAbility : MonoBehaviour
     public float riverClampBehind = 5; // Editable behind clamp.
     public Rigidbody planeRB = null;
 
+    private const float MAX_TRG_SCL = 1.21f;
+ 
     private float m_targetPlaneRelation = 5.0f; // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
     private bool m_isShooting = false; // Has the player pressed the shoot button.
     private float m_riverClampForwardAlter; // Clamp will always be moving forward.
@@ -73,11 +75,10 @@ public class BeachBallAbility : MonoBehaviour
         newPosition = transform.position;
         float axisX = XCI.GetAxis(XboxAxis.RightStickX, controller);
         float axisY = XCI.GetAxis(XboxAxis.RightStickY, controller);
-        //float newPosX = newPosition.x + (axisX * targetMovementSpeed * 0.3f * Time.deltaTime);
-        //float newPosZ = newPosition.z + (axisY * targetMovementSpeed * 0.3f * Time.deltaTime);
-        //newPosition = new Vector3(newPosX, transform.position.y, newPosZ);
-        //transform.position = newPosition;
         Vector3 v3 = new Vector3();
+        // right trigger 
+        float RT = XCI.GetAxis(XboxAxis.RightTrigger, controller);
+      
 
         /*===========================================================================================*/
         /*      Leave this outside of the aim If statement. Won't be called if inside.               */
@@ -111,16 +112,7 @@ public class BeachBallAbility : MonoBehaviour
             {
                 v3 += Vector3.left; // Moving Down = Vector.left due to scene direction.
             }
-            // if(XCI.GetAxis(XboxAxis.RightStickX, controller) && m_targetMesh.enabled > m_riverClampBehindAlter)
-            {
-               // newPosX = newPosition.x + (axisX * targetMovementSpeed * 0.3f * Time.deltaTime);
-               
-            }
-            // if(XCI.GetAxis(XboxAxis.RightStickY, controller) && m_targetMesh.enabled > m_riverClampBehindAlter)
-            {
-                
-                //  newPosZ = newPosition.z + (axisY * targetMovementSpeed * 0.3f * Time.deltaTime);
-            }
+           
 
         }
         // Simple transform which combines all directions and allows diagonal movement.
@@ -134,17 +126,16 @@ public class BeachBallAbility : MonoBehaviour
             toggleMeshEnable(true);
             m_abilityCooldown.SetTimer(); // Resets cooldown.
         }
-       if (XCI.GetButton(XboxButton.A, controller) && m_targetMesh.enabled)
+
+        if((1.0f - XCI.GetAxis(XboxAxis.RightTrigger, controller)) < 0.1f && m_targetMesh.enabled)
         {
             toggleIsShooting(true);
             shootBall(); // Shoots the beachball.
             toggleMeshEnable(true);
             m_abilityCooldown.SetTimer(); // Resets cooldown.
         }
-      //  if (XCI.GetAxis(XboxAxis.RightTrigger,controller))
-      //  {
-      //
-      //  }
+      
+      
         /*===========================================================================================*/
 
         if (Input.GetKeyDown(Aim) && !m_abilityCooldown.UnderMax() || m_isShooting)
