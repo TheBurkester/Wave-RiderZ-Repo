@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -682,7 +682,7 @@ MonoBehaviour:
   tiltAngle: 20
   tiltSmoothness: 2
   river: {fileID: 1830143216}
-  riverBorderSize: 0
+  riverBorderSize: 10
 --- !u!54 &878083786
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -768,6 +768,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &937153573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937153576}
+  - component: {fileID: 937153575}
+  - component: {fileID: 937153574}
+  m_Layer: 0
+  m_Name: PlaneTetherPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!138 &937153574
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937153573}
+  m_ConnectedBody: {fileID: 878083786}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!54 &937153575
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937153573}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!4 &937153576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937153573}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1227101373
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,8 +916,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227101373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.13, z: 357}
-  m_LocalScale: {x: 8, y: 2, z: 100}
+  m_LocalPosition: {x: 0, y: -0.13, z: 4735}
+  m_LocalScale: {x: 8, y: 2, z: 1000}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -991,6 +1053,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
 --- !u!1 &1639234356
@@ -1025,7 +1091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f12d6800f2f6d4d997fce08df453ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plane: {fileID: 0}
+  plane: {fileID: 878083785}
 --- !u!54 &1639234358
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1099,13 +1165,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639234356}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.52, y: 3.5, z: -50.22}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 11.51, y: 1.69, z: -6.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1830143212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,8 +1258,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830143212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.03, z: 352}
-  m_LocalScale: {x: 4, y: 2, z: 100}
+  m_LocalPosition: {x: 0, y: -0.03, z: 4730}
+  m_LocalScale: {x: 4, y: 2, z: 1000}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1219,7 +1285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.38
+      value: -3.73
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1253,6 +1319,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
 --- !u!1 &2041993297 stripped
@@ -1277,29 +1347,15 @@ MonoBehaviour:
   MoveRight: 100
   TetherShorten: 119
   TetherLengthen: 115
-  planeRB: {fileID: 878083786}
+  planeTetherPoint: {fileID: 937153576}
   backwardsDrag: 5
-  forceDrag: 1.1
-  forceDragRequirement: 2.5
-  tetherLength: 18
+  resistanceX: 1.15
+  resistanceZ: 1.05
+  velocityCapX: 5
+  velocityCapZ: 5
+  tetherLength: 15
   tetherChangeSpeed: 0.02
-  movingForce: 5
---- !u!54 &2041993302
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041993297}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 4
-  m_CollisionDetection: 0
+  movingForce: 50
 --- !u!1 &2044442237
 GameObject:
   m_ObjectHideFlags: 0
