@@ -1,7 +1,7 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			PlaneController
 |
-|  Author:			Seth Johnston
+|  Author:			Seth Johnston & Max Atkinson
 | 
 |  Description:		Handles the plane's movement.
 *-------------------------------------------------------------------*/
@@ -9,10 +9,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XboxCtrlrInput;
+using XInputDotNetPure;
 
 public class PlaneController : MonoBehaviour
 {
-	public float forwardSpeed = 5;		//How fast the plane moves up the river
+    public XboxController controller; // apart of the xbox controls
+    private Vector3 newPosition;
+    public float forwardSpeed = 5;		//How fast the plane moves up the river
 
 	public float strafeSpeed = 3;       //How fast the plane can move left/right
 
@@ -51,14 +55,19 @@ public class PlaneController : MonoBehaviour
 		Quaternion Default = Quaternion.Euler(0, 0, 0);
 
 		rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * tiltSmoothness);
-
-		if (Input.GetKey(KeyCode.LeftArrow))							//If left is pressed,
+        // Left Stick Movements 
+        newPosition = transform.position;
+        float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);
+        newPos.x += (axisX * strafeSpeed * Time.deltaTime);
+     
+        if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
 		{
 			newPos += new Vector3(-strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the left
 
 			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
 		}
-		if (Input.GetKey(KeyCode.RightArrow))								//If right is pressed,
+      
+        if (Input.GetKey(KeyCode.RightArrow))								//If right is pressed,
 		{
 			newPos += new Vector3(strafeSpeed * Time.deltaTime, 0, 0);		//Move the plane to the right
 
