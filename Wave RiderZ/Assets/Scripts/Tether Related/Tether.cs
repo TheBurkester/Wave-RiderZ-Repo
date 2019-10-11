@@ -13,6 +13,7 @@ using UnityEngine;
 public class Tether : MonoBehaviour
 {
 	public Transform tetherPoint = null;   //Reference to the point the skier should be tethered to
+	private Vector3 tetherPosition;
 
 	private Vector3 m_velocity;     //How fast the object is moving in which directions
 	private Vector3 m_drag;         //How much drag force is applied to the object
@@ -35,10 +36,14 @@ public class Tether : MonoBehaviour
 		Debug.Assert(tetherPoint != null, "Object missing tether point reference");
 
 		m_drag = new Vector3(0, 0, -backwardsDrag);     //Set the backwards drag
+		tetherPosition = new Vector3(tetherPoint.position.x, 0, tetherPoint.position.z);
 	}
 
     void Update()
     {
+		tetherPosition.x = tetherPoint.position.x;
+		tetherPosition.z = tetherPoint.position.z;
+
 		//Tether clamping
 		if (currentLength > maxLength)                     //If the tether is too long,
 			currentLength -= changeSpeed * Time.deltaTime; //Make it shorter
@@ -56,9 +61,9 @@ public class Tether : MonoBehaviour
 
 		//Tether physics
 		Vector3 testPosition = transform.position + (testVelocity) * Time.deltaTime;    //Where is the object going to go next?
-		Vector3 testDistance = testPosition - tetherPoint.position;						//Distance between the new point and the tether point
-		if (testDistance.magnitude > currentLength)                                         //If the new point is outside the length of the rope,
-			testPosition = tetherPoint.position + testDistance.normalized * currentLength;  //Pull it back to the rope length in the direction of the rope
+		Vector3 testDistance = testPosition - tetherPosition;							//Distance between the new point and the tether point
+		if (testDistance.magnitude > currentLength)										//If the new point is outside the length of the rope,
+			testPosition = tetherPosition + testDistance.normalized * currentLength;	//Pull it back to the rope length in the direction of the rope
 
 		m_velocity = (testPosition - transform.position) / Time.deltaTime;  //Adjust the velocity to force it to move to the new position
 		transform.position = testPosition;                                  //Move to the new position
