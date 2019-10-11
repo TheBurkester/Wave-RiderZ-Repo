@@ -677,6 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c975b156e99ed478532b306bca27f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: 0
   forwardSpeed: 5
   strafeSpeed: 3
   tiltAngle: 20
@@ -1053,7 +1054,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
     - target: {fileID: 2300004, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
+    - target: {fileID: 2300006, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
+    - target: {fileID: 2300008, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
@@ -1285,7 +1298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.73
+      value: -16.83
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1345,17 +1358,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveLeft: 97
   MoveRight: 100
-  TetherShorten: 119
   TetherLengthen: 115
+  TetherShorten: 119
   planeTetherPoint: {fileID: 937153576}
-  backwardsDrag: 5
-  resistanceX: 1.15
-  resistanceZ: 1.05
-  velocityCapX: 5
-  velocityCapZ: 5
-  tetherLength: 15
-  tetherChangeSpeed: 0.02
   movingForce: 50
+  tetherLength: 15
+  tetherChangeSpeed: 2
+  backwardsDrag: 5
+  velocityCapX: 5
+  velocityCapZ: 2.5
+  resistanceX: 1.15
+  resistanceZ: 1.15
 --- !u!1 &2044442237
 GameObject:
   m_ObjectHideFlags: 0
