@@ -8,7 +8,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using XboxCtrlrInput;		// Be sure to include this if you want an object to have Xbox input
 public class MainMenu : MonoBehaviour
 {
 	public enum PanelState
@@ -25,13 +25,19 @@ public class MainMenu : MonoBehaviour
 	public Transform playerThreeBlock; // References the position of the block BEHIND the model.
 	public Transform playerFourBlock; // References the position of the block BEHIND the model.
 	public KeyCode addPlayer = KeyCode.A; // Adds a player to the game.
-	public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
+    public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
 	public KeyCode readyPlayerOne = KeyCode.Alpha1; // Player one is ready.
 	public KeyCode readyPlayerTwo = KeyCode.Alpha2; // Player two is ready.
 	public KeyCode readyPlayerThree = KeyCode.Alpha3; // Player three is ready.
 	public KeyCode readyPlayerFour = KeyCode.Alpha4; // Player four is ready.
 
-	public Light readyLightPlayerOne; // Ready light which will be turned on when Player One is ready.
+    public XboxButton addPlayerXbox = XboxButton.A; // Adds a player to the game with Xbox controls.
+    public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
+   
+
+
+
+    public Light readyLightPlayerOne; // Ready light which will be turned on when Player One is ready.
 	public Light readyLightPlayerTwo; // Ready light which will be turned on when Player Two is ready.
     public Light readyLightPlayerThree; // Ready light which will be turned on when Player Three is ready.
     public Light readyLightPlayerFour; // Ready light which will be turned on when Player Four is ready.
