@@ -8,7 +8,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using XboxCtrlrInput;		// Be sure to include this if you want an object to have Xbox input
 public class MainMenu : MonoBehaviour
 {
 	public enum PanelState
@@ -25,21 +25,29 @@ public class MainMenu : MonoBehaviour
 	public Transform playerThreeBlock; // References the position of the block BEHIND the model.
 	public Transform playerFourBlock; // References the position of the block BEHIND the model.
 	public KeyCode addPlayer = KeyCode.A; // Adds a player to the game.
-	public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
+    public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
 	public KeyCode readyPlayerOne = KeyCode.Alpha1; // Player one is ready.
 	public KeyCode readyPlayerTwo = KeyCode.Alpha2; // Player two is ready.
 	public KeyCode readyPlayerThree = KeyCode.Alpha3; // Player three is ready.
 	public KeyCode readyPlayerFour = KeyCode.Alpha4; // Player four is ready.
 
-	public Light readyLightPlayerOne;
-	public Light readyLightPlayerTwo;
-	public Light readyLightPlayerThree;
-	public Light readyLightPlayerFour;
+    public XboxButton addPlayerXbox = XboxButton.A; // Adds a player to the game with Xbox controls.
+    public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
+   
 
-	public float panelSpeed = 40; // How quickly the panels will shift.
 
-	// Individual bools for each player.
-	private bool m_playerOneReady = false;
+
+    public Light readyLightPlayerOne; // Ready light which will be turned on when Player One is ready.
+	public Light readyLightPlayerTwo; // Ready light which will be turned on when Player Two is ready.
+    public Light readyLightPlayerThree; // Ready light which will be turned on when Player Three is ready.
+    public Light readyLightPlayerFour; // Ready light which will be turned on when Player Four is ready.
+
+    public float panelSpeed = 40; // How quickly the panels will shift.
+
+    public static int playerNumber = 0; // The number of players.
+
+    // Individual bools for each player.
+    private bool m_playerOneReady = false;
     private bool m_playerTwoReady = false;
     private bool m_playerThreeReady = false;
     private bool m_playerFourReady = false;
@@ -58,7 +66,6 @@ public class MainMenu : MonoBehaviour
 	private Vector3 m_playerThreePos;
 	private Vector3 m_playerFourPos;
 
-	private int m_playerNumber = 0; // The number of players.
     private float m_t = 0; // Timer which increases via the panelSpeed.
 	private float m_t2 = 0; // Second TImer for ONLY players.
 	private bool m_buttonPress = false; // Has the button been pressed?
@@ -128,7 +135,7 @@ public class MainMenu : MonoBehaviour
 					{
 						m_t = 0; // Reset panel timer.
 						m_t2 = 0; // Reset player timer.
-						m_playerNumber++;
+						playerNumber++;
 						m_buttonPress = false;
 						m_eCurrentState = PanelState.eCharacterScreen; // Change state to the character screen.
 					}
@@ -137,7 +144,7 @@ public class MainMenu : MonoBehaviour
 			/*-------------------------------------------------------------------*/
 
 			case PanelState.eCharacterScreen: // Character screen enum.
-				if (Input.GetKey(addPlayer) && m_playerNumber <= 3)
+				if (Input.GetKey(addPlayer) && playerNumber <= 3)
 				{
 					if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
 					{
@@ -145,7 +152,7 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
-				if (Input.GetKey(removePlayer) && m_playerNumber >= 2)
+				if (Input.GetKey(removePlayer) && playerNumber >= 2)
 				{
 					if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
 					{
@@ -157,36 +164,36 @@ public class MainMenu : MonoBehaviour
 				{
 					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
 
-					if (m_playerNumber == 1) // If there is one player. Adds the 2nd player.
+					if (playerNumber == 1) // If there is one player. Adds the 2nd player.
 					{
 						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerTwoPos, m_t2); // Slowly moves the position to the target.
 
 						if (playerTwoBlock.transform.position == m_playerTwoPos)
 						{
 							m_t2 = 0; // Resets timer.
-							m_playerNumber++; // Increases player number by 1.
+							playerNumber++; // Increases player number by 1.
 							m_buttonPress = false;
 						}
 					}
-					else if (m_playerNumber == 2) // If there are two players. Adds the 3rd player.
+					else if (playerNumber == 2) // If there are two players. Adds the 3rd player.
 					{
 						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerThreePos, m_t2); // Slowly moves the position to the target.
 
 						if (playerThreeBlock.transform.position == m_playerThreePos)
 						{
 							m_t2 = 0; // Resets timer.
-							m_playerNumber++; // Increases player number by 1.
+							playerNumber++; // Increases player number by 1.
 							m_buttonPress = false;
 						}
 					}
-					else if (m_playerNumber == 3) // If there are 3 players. Adds the 4th player.
+					else if (playerNumber == 3) // If there are 3 players. Adds the 4th player.
 					{
 						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerFourPos, m_t2); // Slowly moves the position to the target.
 
 						if (playerFourBlock.transform.position == m_playerFourPos)
 						{
 							m_t2 = 0; // Resets timer.
-							m_playerNumber++; // Increases player number by 1.
+							playerNumber++; // Increases player number by 1.
 							m_buttonPress = false;
 						}
 					}
@@ -195,7 +202,7 @@ public class MainMenu : MonoBehaviour
 				{
 					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
 
-					if (m_playerNumber == 2)
+					if (playerNumber == 2)
 					{
 						m_playerTwoReady = false;
 						readyLightPlayerTwo.enabled = false;
@@ -203,11 +210,11 @@ public class MainMenu : MonoBehaviour
 						if (playerTwoBlock.transform.position == m_playerOffScreenRight)
 						{
 							m_t2 = 0;
-							m_playerNumber--;
+							playerNumber--;
 							m_removePlayer = false;
 						}
 					}
-					else if (m_playerNumber == 3)
+					else if (playerNumber == 3)
 					{
 						m_playerThreeReady = false;
 						readyLightPlayerThree.enabled = false;
@@ -215,11 +222,11 @@ public class MainMenu : MonoBehaviour
 						if (playerThreeBlock.transform.position == m_playerOffScreenLeft)
 						{
 							m_t2 = 0;
-							m_playerNumber--;
+							playerNumber--;
 							m_removePlayer = false;
 						}
 					}
-					else if (m_playerNumber == 4)
+					else if (playerNumber == 4)
 					{
 						m_playerFourReady = false;
 						readyLightPlayerFour.enabled = false;
@@ -227,7 +234,7 @@ public class MainMenu : MonoBehaviour
 						if (playerFourBlock.transform.position == m_playerOffScreenRight)
 						{
 							m_t2 = 0;
-							m_playerNumber--;
+							playerNumber--;
 							m_removePlayer = false;
 						}
 					}
@@ -246,7 +253,7 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerOne.enabled = true;
 					}
 				}
-				else if (Input.GetKeyUp(readyPlayerTwo) && m_playerNumber >= 2)
+				else if (Input.GetKeyUp(readyPlayerTwo) && playerNumber >= 2)
 				{
 					if (m_playerTwoReady)
 					{
@@ -259,7 +266,7 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerTwo.enabled = true;
 					}
 				}
-				else if (Input.GetKeyUp(readyPlayerThree) && m_playerNumber >= 3)
+				else if (Input.GetKeyUp(readyPlayerThree) && playerNumber >= 3)
 				{
 					if (m_playerThreeReady)
 					{
@@ -272,7 +279,7 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerThree.enabled = true;
 					}
 				}
-				else if (Input.GetKeyUp(readyPlayerFour) && m_playerNumber == 4)
+				else if (Input.GetKeyUp(readyPlayerFour) && playerNumber == 4)
 				{
 					if (m_playerFourReady)
 					{
@@ -286,7 +293,7 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
-				if (m_playerNumber == 2)
+				if (playerNumber == 2)
 				{
 					if (m_playerOneReady && m_playerTwoReady && characterPanel.transform.position != canvas.transform.position)
 					{
@@ -313,7 +320,7 @@ public class MainMenu : MonoBehaviour
 						}
 					}
 				}
-				else if (m_playerNumber == 3)
+				else if (playerNumber == 3)
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && characterPanel.transform.position != canvas.transform.position)
 					{
@@ -340,7 +347,7 @@ public class MainMenu : MonoBehaviour
 						}
 					}
 				}
-				else if (m_playerNumber == 4)
+				else if (playerNumber == 4)
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && m_playerFourReady && characterPanel.transform.position != canvas.transform.position)
 					{
