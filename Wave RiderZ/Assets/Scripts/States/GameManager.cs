@@ -29,8 +29,9 @@ public class GameManager : MonoBehaviour
 	public PlaneController plane = null;		//Reference to the plane
 	public SkierController redSkier = null;     //Reference to the red skier
 	public BeachBallAbility target = null;      //Reference to the target
-	//public SkierController greenSkier = null;	//Reference to the green skier
-	//public SkierController purpleSkier = null;	//Reference to the purple skier
+    //public SkierController greenSkier = null;	//Reference to the green skier
+    //public SkierController purpleSkier = null;	//Reference to the purple skier
+    private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
 	//-------------------------------------------------------------------------
 
 	//Camera reference
