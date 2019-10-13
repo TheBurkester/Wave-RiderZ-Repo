@@ -36,11 +36,12 @@ public class Tether : MonoBehaviour
 		Debug.Assert(tetherPoint != null, "Object missing tether point reference");
 
 		m_drag = new Vector3(0, 0, -backwardsDrag);     //Set the backwards drag
-		tetherPosition = new Vector3(tetherPoint.position.x, 0, tetherPoint.position.z);
+		tetherPosition = new Vector3(tetherPoint.position.x, 0, tetherPoint.position.z);	//Position to tether to is beneath the plane at y = 0
 	}
 
     void Update()
     {
+		//Update the tether position
 		tetherPosition.x = tetherPoint.position.x;
 		tetherPosition.z = tetherPoint.position.z;
 
@@ -65,6 +66,7 @@ public class Tether : MonoBehaviour
 		if (testDistance.magnitude > currentLength)										//If the new point is outside the length of the rope,
 			testPosition = tetherPosition + testDistance.normalized * currentLength;	//Pull it back to the rope length in the direction of the rope
 
+		//Set the final values
 		m_velocity = (testPosition - transform.position) / Time.deltaTime;  //Adjust the velocity to force it to move to the new position
 		transform.position = testPosition;                                  //Move to the new position
 	}
