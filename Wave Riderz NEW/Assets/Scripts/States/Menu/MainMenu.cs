@@ -8,7 +8,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using XboxCtrlrInput;		// Be sure to include this if you want an object to have Xbox input
+//using XboxCtrlrInput;		// Be sure to include this if you want an object to have Xbox input
 public class MainMenu : MonoBehaviour
 {
 	public enum PanelState
@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
 	public Transform playerTwoBlock; // References the position of the block BEHIND the model.
 	public Transform playerThreeBlock; // References the position of the block BEHIND the model.
 	public Transform playerFourBlock; // References the position of the block BEHIND the model.
-    //public XboxController controller;
+    
     
     public KeyCode addPlayer = KeyCode.A; // Adds a player to the game.
     public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
@@ -32,14 +32,14 @@ public class MainMenu : MonoBehaviour
 	public KeyCode readyPlayerTwo = KeyCode.Alpha2; // Player two is ready.
 	public KeyCode readyPlayerThree = KeyCode.Alpha3; // Player three is ready.
 	public KeyCode readyPlayerFour = KeyCode.Alpha4; // Player four is ready.
-
-    public XboxButton addPlayerXboxTwo = XboxButton.X;
-    public XboxButton addPlayerXboxThird = XboxButton.Y;
-    public XboxButton addPlayerXboxFourth = XboxButton.B;
-   // public XboxButton addPlayerXbox = XboxButton.A; // Adds a player to the game with Xbox controls.
-   // public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
-    public XboxButton readyPlayerOneXbox = XboxButton.Start; // Player one is ready.
-    public XboxButton readyPlayerTwoXbox = XboxButton.Start; // Player two is ready.
+   // public XboxController controller;
+    // public XboxButton addPlayerXboxTwo = XboxButton.A;
+    // public XboxButton addPlayerXboxThird = XboxButton.Y;
+    // public XboxButton addPlayerXboxFourth = XboxButton.B;
+    // public XboxButton addPlayerXbox = XboxButton.A; // Adds a player to the game with Xbox controls.
+    // public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
+   // public XboxButton readyPlayerOneXbox = XboxButton.Start; // Player one is ready.
+   // public XboxButton readyPlayerTwoXbox = XboxButton.Start; // Player two is ready.
 
 
 
@@ -160,6 +160,14 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
+                if (Input.GetKey(removePlayer) && playerNumber >= 2)
+				{
+					if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
+					{
+						m_removePlayer = true;
+					}
+				}
+
             //  if (XCI.GetButton(addPlayerXbox, XboxController.First) && playerNumber <= 3) // Player One
             //  {
             //      if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
@@ -167,35 +175,29 @@ public class MainMenu : MonoBehaviour
             //          m_buttonPress = true;
             //      }
             //  }
-                if (XCI.GetButton(addPlayerXboxTwo, XboxController.Second) && playerNumber <= 3) // Player two
-                {
-                    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-                    {
-                        m_buttonPress = true;
-                    }
-                }
-               if (XCI.GetButton(addPlayerXboxThird, XboxController.Third) && playerNumber <= 3) // Player two
-               {
-                   if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-                   {
-                       m_buttonPress = true;
-                   }
-               }
-               if (XCI.GetButton(addPlayerXboxFourth, XboxController.Fourth) && playerNumber <= 3) // Player two
-               {
-                   if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-                   {
-                       m_buttonPress = true;
-                   }
-               }
+             // if (XCI.GetButton(addPlayerXboxTwo, XboxController.Second) && playerNumber <= 3) // Player two
+             // {
+             //     if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
+             //     {
+             //     
+             //             // m_buttonPress = true;
+             //     }
+             // }
+             //if (XCI.GetButton(addPlayerXboxThird, XboxController.Third) && playerNumber <= 3) // Player two
+             //{
+             //    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
+             //    {
+             //        m_buttonPress = true;
+             //    }
+             //}
+             //if (XCI.GetButton(addPlayerXboxFourth, XboxController.Fourth) && playerNumber <= 3) // Player two
+             //{
+             //    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
+             //    {
+             //        m_buttonPress = true;
+             //    }
+             //}
 
-                if (Input.GetKey(removePlayer) /*|| (XCI.GetButton(removePlayerXbox)*/ && playerNumber >= 2)
-				{
-					if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
-					{
-						m_removePlayer = true;
-					}
-				}
           //     if (XCI.GetButton(removePlayerXbox) && playerNumber >= 2)
           //     {
           //         if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
@@ -210,11 +212,11 @@ public class MainMenu : MonoBehaviour
                    if (m_buttonPress) // Adding players
 				{
 					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
-        
+            
 					if (playerNumber == 1) // If there is one player. Adds the 2nd player.
 					{
 						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerTwoPos, m_t2); // Slowly moves the position to the target.
-        
+            
 						if (playerTwoBlock.transform.position == m_playerTwoPos)
 						{
 							m_t2 = 0; // Resets timer.
@@ -225,7 +227,7 @@ public class MainMenu : MonoBehaviour
 					else if (playerNumber == 2) // If there are two players. Adds the 3rd player.
 					{
 						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerThreePos, m_t2); // Slowly moves the position to the target.
-        
+            
 						if (playerThreeBlock.transform.position == m_playerThreePos)
 						{
 							m_t2 = 0; // Resets timer.
@@ -236,7 +238,7 @@ public class MainMenu : MonoBehaviour
 					else if (playerNumber == 3) // If there are 3 players. Adds the 4th player.
 					{
 						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerFourPos, m_t2); // Slowly moves the position to the target.
-        
+            
 						if (playerFourBlock.transform.position == m_playerFourPos)
 						{
 							m_t2 = 0; // Resets timer.
