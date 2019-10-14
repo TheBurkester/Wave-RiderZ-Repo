@@ -15,7 +15,6 @@ using XInputDotNetPure;
 public class PlaneController : MonoBehaviour
 {
     public XboxController controller; // apart of the xbox controls
-    private Vector3 newPosition;
     public float forwardSpeed = 5;		//How fast the plane moves up the river
 
 	public float strafeSpeed = 3;       //How fast the plane can move left/right
@@ -55,8 +54,7 @@ public class PlaneController : MonoBehaviour
 		Quaternion Default = Quaternion.Euler(0, 0, 0);
 
 		rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * tiltSmoothness);
-        // Left Stick Movements 
-        newPosition = transform.position;
+
         float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);
         newPos.x += (axisX * strafeSpeed * Time.deltaTime);
      

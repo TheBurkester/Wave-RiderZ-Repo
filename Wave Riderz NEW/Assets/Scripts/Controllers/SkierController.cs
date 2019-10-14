@@ -9,10 +9,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XboxCtrlrInput;
 
 public class SkierController : MonoBehaviour
 {
-    public KeyCode MoveLeft;		//Which keyboard key moves the skier left
+	public XboxController controller;	//Reference to the manually assigned controller
+
+	public KeyCode MoveLeft;		//Which keyboard key moves the skier left
     public KeyCode MoveRight;       //Which keyboard key moves the skier right
 	public KeyCode TetherLengthen;	//Which keyboard key lengthens the rope
 	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
