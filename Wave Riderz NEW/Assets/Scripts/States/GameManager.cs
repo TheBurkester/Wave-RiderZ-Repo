@@ -132,6 +132,14 @@ public class GameManager : MonoBehaviour
 				{
 					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 
+					//Display the countdown
+					if (closestSecond == 3)
+						startCountdownDisplay.text = "3";
+					else if (closestSecond == 2)
+						startCountdownDisplay.text = "2";
+					else if (closestSecond == 1)
+						startCountdownDisplay.text = "1";
+
 					if (m_playerCount == 2)
 					{
 						if (m_roundNumber == 2)
@@ -173,14 +181,6 @@ public class GameManager : MonoBehaviour
 
 						}
 					}
-
-					//Display the countdown
-					if (closestSecond == 3)
-						startCountdownDisplay.text = "3";
-					else if (closestSecond == 2)
-						startCountdownDisplay.text = "2";
-					else if (closestSecond == 1)
-						startCountdownDisplay.text = "1";
 				}
 
 				break;
@@ -237,6 +237,10 @@ public class GameManager : MonoBehaviour
 		greenSkier.enabled = value;
 		purpleSkier.enabled = value;
 		orangeSkier.enabled = value;
+		redSkier.tether.enabled = value;
+		greenSkier.tether.enabled = value;
+		purpleSkier.tether.enabled = value;
+		orangeSkier.tether.enabled = value;
 		target.enabled = value;
 		mainCamera.enabled = value;
 	}
