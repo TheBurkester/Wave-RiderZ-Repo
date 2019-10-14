@@ -71,7 +71,7 @@ public class BeachBallAbility : MonoBehaviour
         // Handles the clamp movement forward with the plane.
         m_riverClampForwardAlter = planeRB.position.z - riverClampForward;
         m_riverClampBehindAlter = planeRB.position.z - riverClampBehind * 2.5f;
-        Vector3 v3 = new Vector3();
+
         // RIGHT STICK MOVEMENT 
         newPosition = transform.position;
         float axisX = XCI.GetAxis(XboxAxis.RightStickX, controller);
