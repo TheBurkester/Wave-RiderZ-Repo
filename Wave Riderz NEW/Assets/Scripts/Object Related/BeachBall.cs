@@ -35,15 +35,27 @@ public class BeachBall : MonoBehaviour
         if (collision.gameObject.CompareTag("River")) // Will be called if collision with the river occurs.
         {
             Vector3 explosionPos = transform.position; // explosion will occur at the impact site.
+			explosionPos.y = 0;		//Make sure that there is no y component
             Collider[] colliders = Physics.OverlapSphere(explosionPos, radius); // List of colliders within the radius.
             foreach (Collider hit in colliders)
             {
-                Rigidbody rb = hit.GetComponent<Rigidbody>(); // Will get the rigidbodies within the radius.
+                //Rigidbody rb = hit.GetComponent<Rigidbody>(); // Will get the rigidbodies within the radius.
 
-                if (rb != null)
-                {
-                    rb.AddExplosionForce(power, explosionPos, radius); // Will force each rigidbody away from the origin.
-                }
+                //if (rb != null)
+                //{
+                    //rb.AddExplosionForce(power, explosionPos, radius); // Will force each rigidbody away from the origin.
+
+                //}
+				
+				if (hit.CompareTag("Skier"))
+				{
+					Tether otherTether = hit.GetComponent<Tether>();
+					Vector3 distanceToHit = hit.transform.position - explosionPos;
+					distanceToHit.y = 0;    //Make sure there is no y compenent
+											//float distanceToHit.magnitude		//Do a check of distance magnitude and adjust force amount here
+					otherTether.forceToApply += power * distanceToHit.normalized;
+					//otherTether.forceToApply += bonkForce * tether.Direction();
+				}
             }
 
             gameObject.SetActive(false); // Deactivates the beachball.
