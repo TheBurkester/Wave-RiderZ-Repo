@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4179917107278278893}
   - component: {fileID: 4179917107278278889}
   - component: {fileID: 4179917107278278894}
+  - component: {fileID: 4408586461628728277}
   m_Layer: 0
   m_Name: Red Skier
   m_TagString: Skier
@@ -146,19 +147,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: 0
   MoveLeft: 97
   MoveRight: 100
   TetherLengthen: 115
   TetherShorten: 119
   movingForce: 50
-  bonkForce: 10
+  bonkForce: 200
   coinScore: 2
-  playerScore: 1
-  planeScore: 5
+  skierScoreInc: 1
+  planeScoreInc: 5
   planeBonus: 10
-  playerBonus: 10
-  player: {fileID: 0}
+  skierBonus: 10
+  skierLives: 3
+  numberOfFlashes: 3
+  flashDelay: 0.3
   tether: {fileID: 0}
+--- !u!65 &4408586461628728277
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179917107252545443}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5656757, y: 1.0745914, z: 1.3}
+  m_Center: {x: 0, y: 0.5353173, z: 0}
 --- !u!1 &4179917108658340393
 GameObject:
   m_ObjectHideFlags: 0
