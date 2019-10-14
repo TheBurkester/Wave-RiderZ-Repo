@@ -76,4 +76,10 @@ public class Tether : MonoBehaviour
 	{
 		return (transform.position - tetherPoint.position).magnitude;
 	}
+
+	//Returns the direction that the object is moving in
+	public Vector3 Direction()
+	{
+		return m_velocity.normalized;
+	}
 }

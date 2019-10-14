@@ -17,17 +17,24 @@ public class SkierController : MonoBehaviour
 	public KeyCode TetherLengthen;	//Which keyboard key lengthens the rope
 	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
-	public float movingForce = 5;           //How fast the skier moves sideways
+	public float movingForce = 5;   //How fast the skier moves sideways
+	public float bonkForce = 10;	//How strong bonking other players is
 
-	private Tether tether = null;
+	[HideInInspector]
+	public Tether tether = null;
 
 	void Awake()
     {
 		tether = GetComponent<Tether>();
 		Debug.Assert(tether != null, "Skier missing tether component");
 	}
-	
-    void Update()
+
+	private void FixedUpdate()
+	{
+		tether.forceToApply = new Vector3(0, 0, 0);  //Reset the previous frame's force before any physics/updates
+	}
+
+	private void Update()
     {
 		//Tether movement
 		if (Input.GetKey(TetherLengthen))									//If pressing the lengthen key,
@@ -36,7 +43,7 @@ public class SkierController : MonoBehaviour
 			tether.currentLength -= tether.changeSpeed * Time.deltaTime;	//Make the tether shorter over time
 
 		//Sideways movement
-		tether.forceToApply = new Vector3(0, 0, 0);				//Reset the previous frame's force
+		//tether.forceToApply = new Vector3(0, 0, 0);				//Reset the previous frame's force
 		if (tether.Distance() >= (tether.currentLength * 0.95))	//As long as the skier is close to the arc of the tether,
 		{
 			if (Input.GetKey(MoveRight))				//If the right key is pressed,
@@ -46,8 +53,12 @@ public class SkierController : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter(Collision collision)
+	private void OnTriggerEnter(Collider other)
 	{
-		transform.position = new Vector3(transform.position.x, transform.position.y + 10, transform.position.z);
+		if (other.CompareTag("Skier"))
+		{
+			Tether otherTether = other.GetComponent<Tether>();
+			otherTether.forceToApply += bonkForce * tether.Direction();
+		}
 	}
 }

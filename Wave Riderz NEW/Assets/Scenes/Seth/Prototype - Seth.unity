@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skier (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
+      propertyPath: m_TagString
+      value: Skier
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.25
@@ -170,7 +174,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 09407846fb0176d48acf7b85f6f014c1, type: 2}
+      objectReference: {fileID: 2100000, guid: 329cccc7493036e4d97aa180d03b40fd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
 --- !u!1 &244307569
@@ -571,7 +575,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
+  - {fileID: 2100000, guid: 61d98f5c6e2eb6344965fe32e96001e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -855,7 +859,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c940f1ead5933ef42b26941ae9acad55, type: 2}
+  - {fileID: 2100000, guid: f78804a95e6f82e419108ef495ee128b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1311,7 +1315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ad87cf00d0707a0489a1e991f6166b7a, type: 2}
+  - {fileID: 2100000, guid: ff623c6f72e7f5844b6fe9063045f4b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1376,6 +1380,8 @@ MonoBehaviour:
   TetherLengthen: 107
   TetherShorten: 105
   movingForce: 50
+  bonkForce: 500
+  tether: {fileID: 0}
 --- !u!114 &1455842794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1434,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1455842800
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455842792}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5656757, y: 1.0745914, z: 1.3}
+  m_Center: {x: 0, y: 0.5353173, z: 0}
 --- !u!1 &1462128280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,19 +1581,19 @@ PrefabInstance:
     - target: {fileID: 2300002, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
+      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
     - target: {fileID: 2300004, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
+      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
     - target: {fileID: 2300006, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
+      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
     - target: {fileID: 2300008, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 07361e22dc3846049983f8c3c6cd54d2, type: 2}
+      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
 --- !u!1 &1639234356
@@ -1740,7 +1759,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3ce4d1f4d59110440897220c160d2998, type: 2}
+  - {fileID: 2100000, guid: bb4e81a87e242c84c883cb68fc4a42f4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1793,6 +1812,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skier
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
+      propertyPath: m_TagString
+      value: Skier
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1840,7 +1863,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
+      objectReference: {fileID: 2100000, guid: 61d98f5c6e2eb6344965fe32e96001e5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
 --- !u!1 &2041993297 stripped
@@ -1889,6 +1912,8 @@ MonoBehaviour:
   TetherLengthen: 115
   TetherShorten: 119
   movingForce: 50
+  bonkForce: 500
+  tether: {fileID: 0}
 --- !u!65 &2041993302
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1918,6 +1943,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &2041993305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041993297}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5656757, y: 1.0745914, z: 1.3}
+  m_Center: {x: 0, y: 0.5353173, z: 0}
 --- !u!1 &2044442237
 GameObject:
   m_ObjectHideFlags: 0
