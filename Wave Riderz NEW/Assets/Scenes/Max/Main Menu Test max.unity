@@ -1048,6 +1048,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601792691}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &739867930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 639b0eb5d9f0d194095e1eace548e009,
+    type: 3}
+  m_PrefabInstance: {fileID: 1758400338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &739867931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739867930}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7422d4f26eeaaf341978a2f9a7019115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: 1
 --- !u!1 &1000148945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,7 +1773,6 @@ MonoBehaviour:
   playerTwoBlock: {fileID: 601792692}
   playerThreeBlock: {fileID: 1000148949}
   playerFourBlock: {fileID: 195861873}
-  addPlayer: 97
   removePlayer: 100
   readyPlayerOne: 49
   readyPlayerTwo: 50
