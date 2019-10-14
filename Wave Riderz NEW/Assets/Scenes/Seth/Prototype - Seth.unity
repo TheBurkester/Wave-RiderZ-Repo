@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -138,11 +138,13 @@ MonoBehaviour:
   movingForce: 50
   bonkForce: 500
   coinScore: 2
-  playerScore: 1
-  planeScore: 5
+  skierScoreInc: 1
+  planeScoreInc: 5
   planeBonus: 10
-  playerBonus: 10
-  player: {fileID: 0}
+  skierBonus: 10
+  skierLives: 3
+  numberOfFlashes: 3
+  flashDelay: 0.3
   tether: {fileID: 0}
 --- !u!114 &21568619
 MonoBehaviour:
@@ -347,7 +349,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &534669902
 GameObject:
@@ -431,7 +433,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!54 &534669906
 Rigidbody:
@@ -592,7 +594,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f78804a95e6f82e419108ef495ee128b, type: 2}
+  - {fileID: 2100000, guid: c940f1ead5933ef42b26941ae9acad55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -758,7 +760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -775,7 +777,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b0bf639be8b66434e9ef6c691ee81e73, type: 2}
+      objectReference: {fileID: 2100000, guid: bcbaa34d3ad1cc14da3e28a492624b7d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
 --- !u!1 &704338851
@@ -894,7 +896,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &704338857
 Rigidbody:
@@ -976,7 +978,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &735806812
 PrefabInstance:
@@ -1023,7 +1025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1203,7 +1205,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f78804a95e6f82e419108ef495ee128b, type: 2}
+  - {fileID: 2100000, guid: c940f1ead5933ef42b26941ae9acad55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1545,7 +1547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1006476153
 GameObject:
@@ -1598,7 +1600,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f78804a95e6f82e419108ef495ee128b, type: 2}
+  - {fileID: 2100000, guid: c940f1ead5933ef42b26941ae9acad55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1770,7 +1772,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f78804a95e6f82e419108ef495ee128b, type: 2}
+  - {fileID: 2100000, guid: c940f1ead5933ef42b26941ae9acad55, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1951,7 +1953,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1227101373
 GameObject:
@@ -2043,7 +2045,7 @@ Transform:
   m_LocalScale: {x: 8, y: 2, z: 1000}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1462128280
 GameObject:
@@ -2166,7 +2168,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1584331556
 PrefabInstance:
@@ -2213,7 +2215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2274,7 +2276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2291,19 +2293,19 @@ PrefabInstance:
     - target: {fileID: 2300002, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
+      objectReference: {fileID: 2100000, guid: 83a3b9046b342074a871f7aa6a9f5413, type: 2}
     - target: {fileID: 2300004, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
+      objectReference: {fileID: 2100000, guid: 83a3b9046b342074a871f7aa6a9f5413, type: 2}
     - target: {fileID: 2300006, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
+      objectReference: {fileID: 2100000, guid: 83a3b9046b342074a871f7aa6a9f5413, type: 2}
     - target: {fileID: 2300008, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b03695991e40d99459b04d0921bca342, type: 2}
+      objectReference: {fileID: 2100000, guid: 83a3b9046b342074a871f7aa6a9f5413, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc7e4b75bb90b214aa104ab63eb78a19, type: 3}
 --- !u!1 &1639234356
@@ -2417,7 +2419,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1830143212
 GameObject:
@@ -2509,7 +2511,7 @@ Transform:
   m_LocalScale: {x: 4, y: 2, z: 1000}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1837664633 stripped
 GameObject:
@@ -2537,11 +2539,13 @@ MonoBehaviour:
   movingForce: 50
   bonkForce: 500
   coinScore: 2
-  playerScore: 1
-  planeScore: 5
+  skierScoreInc: 1
+  planeScoreInc: 5
   planeBonus: 10
-  playerBonus: 10
-  player: {fileID: 0}
+  skierBonus: 10
+  skierLives: 3
+  numberOfFlashes: 3
+  flashDelay: 0.3
   tether: {fileID: 0}
 --- !u!114 &1837664635
 MonoBehaviour:
@@ -2620,6 +2624,81 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1614548396}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1909239015
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5760220568402238441, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_Name
+      value: largeRock
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402238441, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_TagString
+      value: Rock
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.004883
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760220568402266057, guid: e78ad399dd024684da9516497f791907,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5760220569843402888, guid: e78ad399dd024684da9516497f791907, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: e78ad399dd024684da9516497f791907, type: 3}
 --- !u!1001 &2014079416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2665,7 +2744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2711,11 +2790,13 @@ MonoBehaviour:
   movingForce: 50
   bonkForce: 500
   coinScore: 2
-  playerScore: 1
-  planeScore: 5
+  skierScoreInc: 1
+  planeScoreInc: 5
   planeBonus: 10
-  playerBonus: 10
-  player: {fileID: 0}
+  skierBonus: 10
+  skierLives: 3
+  numberOfFlashes: 3
+  flashDelay: 0.3
   tether: {fileID: 0}
 --- !u!114 &2026665015
 MonoBehaviour:
@@ -2837,11 +2918,13 @@ MonoBehaviour:
   movingForce: 50
   bonkForce: 500
   coinScore: 2
-  playerScore: 1
-  planeScore: 5
+  skierScoreInc: 1
+  planeScoreInc: 5
   planeBonus: 10
-  playerBonus: 10
-  player: {fileID: 0}
+  skierBonus: 10
+  skierLives: 3
+  numberOfFlashes: 3
+  flashDelay: 0.3
   tether: {fileID: 0}
 --- !u!65 &2041993302
 BoxCollider:
@@ -2985,7 +3068,7 @@ RectTransform:
   - {fileID: 244307570}
   - {fileID: 1462128281}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

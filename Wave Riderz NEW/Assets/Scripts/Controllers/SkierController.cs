@@ -33,13 +33,21 @@ public class SkierController : MonoBehaviour
 	private Timer m_scoreTimer;    // Timer used to increment score.
 	private int m_playerScore = 0; // Player's Score.
 
+	public int numberOfFlashes = 3;		//How many times the mesh should flash when damaged
+	public float flashDelay = 0.3f;     //How fast the mesh should flash on and off when damaged
+	private bool m_invincible = false;
+
 	[HideInInspector]
 	public Tether tether = null;
+
+	private MeshRenderer m_meshRend = null;
 
 	void Awake()
     {
 		tether = GetComponent<Tether>();
 		Debug.Assert(tether != null, "Skier missing tether component");
+
+		m_meshRend = GetComponent<MeshRenderer>();
 	}
 
 	void Start()
@@ -65,7 +73,6 @@ public class SkierController : MonoBehaviour
 			tether.currentLength -= tether.changeSpeed * Time.deltaTime;	//Make the tether shorter over time
 
 		//Sideways movement
-		//tether.forceToApply = new Vector3(0, 0, 0);				//Reset the previous frame's force
 		if (tether.Distance() >= (tether.currentLength * 0.95))	//As long as the skier is close to the arc of the tether,
 		{
 			if (Input.GetKey(MoveRight))				//If the right key is pressed,
@@ -84,25 +91,58 @@ public class SkierController : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Skier"))
+		if (!m_invincible)
 		{
-			Tether otherTether = other.GetComponent<Tether>();
-			otherTether.forceToApply += bonkForce * tether.Direction();
-		}
+			if (other.CompareTag("Skier"))
+			{
+				Tether otherTether = other.GetComponent<Tether>();
+				otherTether.forceToApply += bonkForce * tether.Direction();
+			}
 
-		if (other.CompareTag("Coin"))
-		{
-			m_playerScore += coinScore;
-		}
+			if (other.CompareTag("Coin"))
+			{
+				m_playerScore += coinScore;
+			}
 
-		if (other.CompareTag("Rock"))
-		{
-			skierLives--;
+			if (other.CompareTag("Rock"))
+			{
+				skierLives--;
+				if (skierLives > 0)
+				{
+					m_invincible = true;
+
+					for (int i = 0; i < numberOfFlashes; ++i)                       //Repeating for the number of flashes,
+					{
+						StartCoroutine(MeshOff(flashDelay * i * 2));                //Schedule the mesh to turn off, every even interval
+						StartCoroutine(MeshOn(flashDelay * i * 2 + flashDelay));    //Schedule the mesh to turn on, every odd interval
+					}
+
+					StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));
+				}
+			}
 		}
 	}
 
 	public int getPlayerScore()
 	{
 		return m_playerScore;
+	}
+
+	IEnumerator MeshOff(float interval)
+	{
+		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
+		m_meshRend.enabled = false;					//Turn the mesh off
+	}
+
+	IEnumerator MeshOn(float interval)
+	{
+		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
+		m_meshRend.enabled = true;					//Turn the mesh on
+	}
+
+	IEnumerator InvincibleOff(float interval)
+	{
+		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
+		m_invincible = false;                       //Make vincible
 	}
 }
