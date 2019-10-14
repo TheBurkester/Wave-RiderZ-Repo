@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
 	//-------------------------------------------------------------------------
 	public Text scoreRed = null;
 	public Text scoreGreen = null;
+	public Text scorePurple = null;
+	public Text scoreOrange = null;
 	//-------------------------------------------------------------------------
 
 
@@ -115,6 +117,9 @@ public class GameManager : MonoBehaviour
 		startCountdownDisplay.text = "";
 		playingCountDownDisplay.text = "";
 		scoreRed.text = "";
+		scoreGreen.text = "";
+		scorePurple.text = "";
+		scoreOrange.text = "";
 
 		roundOverPanel.SetActive(false);
 
@@ -232,6 +237,9 @@ public class GameManager : MonoBehaviour
 				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
 
 				scoreRed.text = redSkier.getPlayerScore().ToString();
+				scoreGreen.text = greenSkier.getPlayerScore().ToString();
+				scorePurple.text = purpleSkier.getPlayerScore().ToString();
+				scoreOrange.text = orangeSkier.getPlayerScore().ToString();
 
 				break;
 				//-------------------------------------------------------------------------
