@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
 		scoreGreen.text = "";
 		scorePurple.text = "";
 		scoreOrange.text = "";
-		beachBombAbility.text = "";
+		//beachBombAbility.text = "";
 
 		roundOverPanel.SetActive(false);
 

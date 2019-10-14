@@ -12,7 +12,7 @@ using XInputDotNetPure;
 public class BeachBallAbility : MonoBehaviour
 {
     // These Keycodes will be changed later when Xbox Input is implemented.
-    public XboxController controller;
+    private XboxController m_controller;
     private Vector3 newPosition;
     public KeyCode Up = KeyCode.W;
     public KeyCode Down = KeyCode.S;
@@ -47,6 +47,9 @@ public class BeachBallAbility : MonoBehaviour
 
         m_abilityCooldown = gameObject.AddComponent<Timer>();
         m_abilityCooldown.maxTime = Cooldown;
+
+        if (planeRB != null)
+            m_controller = planeRB.GetComponent<PlaneController>().controller;
     }
 
     void Start()
@@ -74,10 +77,10 @@ public class BeachBallAbility : MonoBehaviour
 
         // RIGHT STICK MOVEMENT 
         newPosition = transform.position;
-        float axisX = XCI.GetAxis(XboxAxis.RightStickX, controller);
-        float axisY = XCI.GetAxis(XboxAxis.RightStickY, controller);
+        float axisX = XCI.GetAxis(XboxAxis.RightStickX, m_controller);
+        float axisY = XCI.GetAxis(XboxAxis.RightStickY, m_controller);
         // right trigger 
-        float RT = XCI.GetAxis(XboxAxis.RightTrigger, controller);
+        float RT = XCI.GetAxis(XboxAxis.RightTrigger, m_controller);
       
 
         /*===========================================================================================*/
@@ -127,7 +130,7 @@ public class BeachBallAbility : MonoBehaviour
             m_abilityCooldown.SetTimer(); // Resets cooldown.
         }
 
-        if((1.0f - XCI.GetAxis(XboxAxis.RightTrigger, controller)) < 0.1f && m_targetMesh.enabled)
+        if((1.0f - XCI.GetAxis(XboxAxis.RightTrigger, m_controller)) < 0.1f && m_targetMesh.enabled)
         {
             toggleIsShooting(true);
             shootBall(); // Shoots the beachball.
@@ -147,11 +150,11 @@ public class BeachBallAbility : MonoBehaviour
             m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
         }
         // Right Bumper
-        if (XCI.GetButtonDown(XboxButton.RightBumper, controller) && !m_abilityCooldown.UnderMax() || m_isShooting)
+        if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !m_abilityCooldown.UnderMax() || m_isShooting)
         {
             m_targetMesh.enabled = true; // Activate target's mesh when aiming.
         }
-        else if (XCI.GetButtonUp(XboxButton.RightBumper, controller))
+        else if (XCI.GetButtonUp(XboxButton.RightBumper, m_controller))
         {
             m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
         }
