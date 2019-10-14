@@ -1,7 +1,7 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			GameManager
 |
-|  Author:			Seth Johnston
+|  Author:			Seth Johnston / Thomas Maltezos
 | 
 |  Description:		Handles round states, and keeps track of important variables.
 *-------------------------------------------------------------------*/
@@ -26,12 +26,19 @@ public class GameManager : MonoBehaviour
 
 
 	//Player references/variables
-	public PlaneController plane = null;		//Reference to the plane
-	public SkierController redSkier = null;     //Reference to the red skier
+	public PlaneController plane = null;        //Reference to the plane
 	public BeachBallAbility target = null;      //Reference to the target
-    //public SkierController greenSkier = null;	//Reference to the green skier
-    //public SkierController purpleSkier = null;	//Reference to the purple skier
-    private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
+	public SkierController redSkier = null;     //Reference to the red skier script.
+	public SkierController greenSkier = null;   //Reference to the green skier script.
+	public SkierController purpleSkier = null;  //Reference to the purple skier script.
+	public SkierController orangeSkier = null;	// Reference to the orange skier script.
+	public GameObject playerOne = null;			// Reference to player one's game object.
+	public GameObject playerTwo = null;			// Reference to player two's game object.
+	public GameObject playerThree = null;		// Reference to player three's game object.
+	public GameObject playerFour = null;        // Reference to player four's game object.
+	public GameObject planeBody = null;		// Reference to the body of the plane.
+
+	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
 	//-------------------------------------------------------------------------
 
 	//Camera reference
@@ -48,14 +55,45 @@ public class GameManager : MonoBehaviour
 	//UI references
 	public Text startCountdownDisplay = null;		//Reference to the countdown timer text at the start of the round
 	public Text playingCountDownDisplay = null;		//Reference to the round timer text
-	public GameObject roundOverPanel = null;		//Reference to the panel with all the round over stuff
-	//-------------------------------------------------------------------------
+	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
+													//-------------------------------------------------------------------------
 
+
+	void Awake()
+	{
+		if (m_playerCount == 2)
+		{
+			playerOne.SetActive(true); // Only one skier.
+			playerTwo.SetActive(false); // Player two will start in the plane.
+
+			planeBody.GetComponent<Renderer>().material = playerTwo.GetComponent<Renderer>().material; // Plane's colour will be the same as player two.
+
+			playerThree.SetActive(false); // Won't be used.
+			playerFour.SetActive(false); // Won't be used.
+		}
+		else if (m_playerCount == 3)
+		{
+			playerOne.SetActive(true); // Player one skier will be active.
+			playerTwo.SetActive(true);// Player two skier will be active.
+			playerThree.SetActive(false); // Player three will start in the plane.
+
+			planeBody.GetComponent<Renderer>().material = playerThree.GetComponent<Renderer>().material; // Plane colour = player three colour.
+
+			playerFour.SetActive(false); // Won't be used.
+		}
+		else if (m_playerCount == 4)
+		{
+			playerOne.SetActive(true); // Player one skier will be active.
+			playerTwo.SetActive(true); // Player two skier will be active.
+			playerThree.SetActive(true); // Player three skier will be active.
+			playerFour.SetActive(false); // Player four will start in the plane.
+
+			planeBody.GetComponent<Renderer>().material = playerFour.GetComponent<Renderer>().material; // Plane colour = player four colour.
+		}
+	}
 
 	void Start()
     {
-
-
 		m_startRoundTimer = gameObject.AddComponent<Timer>();   //Create the timer
 		m_startRoundTimer.maxTime = 4;                          //Set the timer for 4 seconds
 		m_startRoundTimer.reverseTimer = true;                  //Make the timer count down
@@ -92,7 +130,50 @@ public class GameManager : MonoBehaviour
 				}
 				else															//Otherwise the timer is still going,
 				{
-					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T);	//Round the timer up to the nearest second
+					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
+
+					if (m_playerCount == 2)
+					{
+						if (m_roundNumber == 2)
+						{
+							playerOne.SetActive(false); // Player one is now in the plane.
+							playerTwo.SetActive(true); // Player two is now the skier.
+							planeBody.GetComponent<Renderer>().material = playerOne.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+					}
+					else if (m_playerCount == 3)
+					{
+						if (m_roundNumber == 2)
+						{
+							playerOne.SetActive(false); // Player one is now in the plane.
+							playerTwo.SetActive(true); // Player two is a skier.
+							playerThree.SetActive(true); // Player three is a skier.
+							planeBody.GetComponent<Renderer>().material = playerOne.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+						else if (m_roundNumber == 3)
+						{
+							playerOne.SetActive(true); // Player one is a skier.
+							playerTwo.SetActive(false); // Player two is now in the plane.
+							playerThree.SetActive(true); // Player three is a skier.
+							planeBody.GetComponent<Renderer>().material = playerTwo.GetComponent<Renderer>().material; // Changes colour to the player two.
+						}
+					}
+					else if (m_playerCount == 4)
+					{
+						if (m_roundNumber == 2)
+						{
+
+						}
+						else if (m_roundNumber == 3)
+						{
+
+						}
+						else if (m_roundNumber == 4)
+						{
+
+						}
+					}
+
 					//Display the countdown
 					if (closestSecond == 3)
 						startCountdownDisplay.text = "3";
@@ -129,7 +210,7 @@ public class GameManager : MonoBehaviour
 					++m_roundNumber;
 					//if (m_roundNumber <= playerNumber)				//If the round number is under the number of players,
 					{
-						//SceneManager.LoadScene(1 + m_roundNumber);	//Load the next level
+						//SceneManager.LoadScene(m_roundNumber);	//Load the next level
 						//I'm not sure if this just stops running code and moves to a whole new scene?
 						//In that case, we wouldn't need to bother resetting anything. -Seth
 
@@ -153,8 +234,9 @@ public class GameManager : MonoBehaviour
 	{
 		plane.enabled = value;
 		redSkier.enabled = value;
-		//greenSkier.enabled = value;
-		//purpleSkier.enabled = value;
+		greenSkier.enabled = value;
+		purpleSkier.enabled = value;
+		orangeSkier.enabled = value;
 		target.enabled = value;
 		mainCamera.enabled = value;
 	}
