@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7820583437623012123
+--- !u!1 &4728020605510637307
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7820583437623179067}
-  - component: {fileID: 7820583437623981851}
-  - component: {fileID: 7820583437624948187}
-  - component: {fileID: 7820583438390528287}
-  - component: {fileID: 7820583438390528286}
+  - component: {fileID: 4728020605511125723}
+  - component: {fileID: 4728020605507701499}
+  - component: {fileID: 4728020605508700219}
+  - component: {fileID: 4728020604968018296}
+  - component: {fileID: 4728020604968018242}
+  - component: {fileID: 4728020604968018297}
+  - component: {fileID: 4728020604968018302}
   m_Layer: 0
-  m_Name: smallRock
+  m_Name: Red Skier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7820583437623179067
+--- !u!4 &4728020605511125723
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7820583437623012123}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.8134117, y: 4.021327e-16, z: -17.823341}
+  m_GameObject: {fileID: 4728020605510637307}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.498, z: -57.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7820583437623981851
+--- !u!33 &4728020605507701499
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7820583437623012123}
-  m_Mesh: {fileID: 4300000, guid: 4b25f28ae90fd944cbf3fa8634156d57, type: 3}
---- !u!23 &7820583437624948187
+  m_GameObject: {fileID: 4728020605510637307}
+  m_Mesh: {fileID: 4300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
+--- !u!23 &4728020605508700219
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7820583437623012123}
+  m_GameObject: {fileID: 4728020605510637307}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bbac8d36aafb50f46b6df6beacc0860d, type: 2}
+  - {fileID: 2100000, guid: 792fd91cd80ffe94db81cabdeaf22d63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,32 +81,66 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &7820583438390528287
+--- !u!54 &4728020604968018296
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7820583437623012123}
+  m_GameObject: {fileID: 4728020605510637307}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &7820583438390528286
+--- !u!65 &4728020604968018242
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7820583437623012123}
+  m_GameObject: {fileID: 4728020605510637307}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.5656757, y: 1.0745914, z: 1.3}
+  m_Center: {x: 0, y: 0.5353173, z: 0}
+--- !u!114 &4728020604968018297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728020605510637307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc065db6fffecce4f9a7e3aded319f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToFlash: {fileID: 4728020605510637307}
+  PlayerToBePushed: {fileID: 4728020604968018296}
+  Force: 5000
+  flashDelay: 0.3
+  numberOfFlashes: 3
+--- !u!114 &4728020604968018302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728020605510637307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveLeft: 97
+  MoveRight: 100
+  TetherLengthen: 115
+  TetherShorten: 119
+  movingForce: 5
