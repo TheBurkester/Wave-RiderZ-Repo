@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 	public GameObject playerTwo = null;			// Reference to player two's game object.
 	public GameObject playerThree = null;		// Reference to player three's game object.
 	public GameObject playerFour = null;        // Reference to player four's game object.
-	public GameObject planeBody = null;		// Reference to the body of the plane.
+	public GameObject planeBody = null;     // Reference to the body of the plane.
 
 	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
 	//-------------------------------------------------------------------------
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 	public Text startCountdownDisplay = null;		//Reference to the countdown timer text at the start of the round
 	public Text playingCountDownDisplay = null;		//Reference to the round timer text
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
-													//-------------------------------------------------------------------------
+	//-------------------------------------------------------------------------
 
 
 	void Awake()
@@ -148,6 +148,10 @@ public class GameManager : MonoBehaviour
 							playerTwo.SetActive(true); // Player two is now the skier.
 							planeBody.GetComponent<Renderer>().material = playerOne.GetComponent<Renderer>().material; // Changes colour to player one.
 						}
+						else if (m_roundNumber > 2)
+						{
+							Debug.Log("Game has Ended.");
+						}
 					}
 					else if (m_playerCount == 3)
 					{
@@ -165,20 +169,40 @@ public class GameManager : MonoBehaviour
 							playerThree.SetActive(true); // Player three is a skier.
 							planeBody.GetComponent<Renderer>().material = playerTwo.GetComponent<Renderer>().material; // Changes colour to the player two.
 						}
+						else if (m_roundNumber > 3)
+						{
+							Debug.Log("Game has Ended.");
+						}
 					}
 					else if (m_playerCount == 4)
 					{
 						if (m_roundNumber == 2)
 						{
-
+							playerOne.SetActive(false); // Player one is now in the plane.
+							playerTwo.SetActive(true); // Player two is a skier.
+							playerThree.SetActive(true); // Player three is a skier.
+							playerFour.SetActive(true); // Player four is a skier.
+							planeBody.GetComponent<Renderer>().material = playerOne.GetComponent<Renderer>().material; // Changes colour to player one.
 						}
 						else if (m_roundNumber == 3)
 						{
-
+							playerOne.SetActive(true); // Player one is a skier.
+							playerTwo.SetActive(false); // Player two is now in the plane.
+							playerThree.SetActive(true); // Player three is a skier.
+							playerFour.SetActive(true); // Player four is a skier.
+							planeBody.GetComponent<Renderer>().material = playerTwo.GetComponent<Renderer>().material; // Changes colour to player one.
 						}
 						else if (m_roundNumber == 4)
 						{
-
+							playerOne.SetActive(true); // Player one is a skier.
+							playerTwo.SetActive(true); // Player two is a skier.
+							playerThree.SetActive(false); // Player three is now in the plane.
+							playerFour.SetActive(true); // Player four is a skier.
+							planeBody.GetComponent<Renderer>().material = playerThree.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+						else if (m_roundNumber > 4)
+						{
+							Debug.Log("Game has Ended.");
 						}
 					}
 				}
@@ -197,8 +221,7 @@ public class GameManager : MonoBehaviour
 				}
 
 				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);	//Round the timer up to the nearest second
-				playingCountDownDisplay.text = nearestSecond.ToString();		//Show the timer
-
+				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
 
 				break;
 				//-------------------------------------------------------------------------
@@ -239,8 +262,10 @@ public class GameManager : MonoBehaviour
 		orangeSkier.enabled = value;
 		redSkier.tether.enabled = value;
 		greenSkier.tether.enabled = value;
-		purpleSkier.tether.enabled = value;
-		orangeSkier.tether.enabled = value;
+		if (playerThree.activeSelf == true)
+			purpleSkier.tether.enabled = value;
+		else if (playerFour.activeSelf == true)
+			orangeSkier.tether.enabled = value;
 		target.enabled = value;
 		mainCamera.enabled = value;
 	}

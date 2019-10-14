@@ -18,7 +18,20 @@ public class SkierController : MonoBehaviour
 	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
 	public float movingForce = 5;   //How fast the skier moves sideways
-	public float bonkForce = 10;	//How strong bonking other players is
+	public float bonkForce = 10;    //How strong bonking other players is
+
+	public int coinScore = 2;		// Score increased everytime collision with a coin occurs.
+	public int playerScore = 1;		// Increase every second.
+	public int planeScore = 5;		// Increase every time a skier loses a life.
+	public int planeBonus = 10;		// Bonus is added if all skiers are eliminated.
+	public int playerBonus = 10;    // Bonus is added if a skier survives the round.
+
+	public GameObject player = null; // A reference to the player assigned to the cntroller.
+
+	private int m_playerOneScore = 0;
+	private int m_playerTwoScore = 0;
+	private int m_playerThreeScore = 0;
+	private int m_playerFourScore = 0;
 
 	[HideInInspector]
 	public Tether tether = null;
@@ -59,6 +72,11 @@ public class SkierController : MonoBehaviour
 		{
 			Tether otherTether = other.GetComponent<Tether>();
 			otherTether.forceToApply += bonkForce * tether.Direction();
+		}
+
+		if (other.CompareTag("Coin"))
+		{
+
 		}
 	}
 }
