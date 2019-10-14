@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 	public Text scoreGreen = null;
 	public Text scorePurple = null;
 	public Text scoreOrange = null;
+	public Text beachBombAbility = null;
 	//-------------------------------------------------------------------------
 
 
@@ -140,6 +141,7 @@ public class GameManager : MonoBehaviour
 		scoreGreen.text = "";
 		scorePurple.text = "";
 		scoreOrange.text = "";
+		beachBombAbility.text = "";
 
 		roundOverPanel.SetActive(false);
 
