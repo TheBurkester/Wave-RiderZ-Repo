@@ -411,6 +411,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane V2
       objectReference: {fileID: 0}
+    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: river
+      value: 
+      objectReference: {fileID: 1076874410}
     - target: {fileID: 8928308244592932212, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -466,11 +471,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
-        type: 3}
-      propertyPath: river
-      value: 
-      objectReference: {fileID: 1076874410}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65db4207dd24734e962120744ef30f2, type: 3}
 --- !u!114 &515020844 stripped
@@ -492,6 +492,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8852784241733515155, guid: 700b7d59cdfed404484be04d7380d873,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 424052725705913079, guid: 700b7d59cdfed404484be04d7380d873,
         type: 3}
       propertyPath: m_Name
@@ -601,11 +606,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852784241733515155, guid: 700b7d59cdfed404484be04d7380d873,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 700b7d59cdfed404484be04d7380d873, type: 3}
@@ -835,6 +835,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeachBallTarget
       objectReference: {fileID: 0}
+    - target: {fileID: 3491444408453323350, guid: 337ab2b5c58c278489204c7b5de5d78d,
+        type: 3}
+      propertyPath: planeRB
+      value: 
+      objectReference: {fileID: 1063484632}
     - target: {fileID: 3491444408453323354, guid: 337ab2b5c58c278489204c7b5de5d78d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -890,11 +895,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3491444408453323350, guid: 337ab2b5c58c278489204c7b5de5d78d,
-        type: 3}
-      propertyPath: planeRB
-      value: 
-      objectReference: {fileID: 1063484632}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 337ab2b5c58c278489204c7b5de5d78d, type: 3}
 --- !u!1 &1230738792
@@ -977,6 +977,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange Skier
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073448096717320440, guid: 8eaa70dc7aac68342b0bbdd1e667dbd0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6073448096717352152, guid: 8eaa70dc7aac68342b0bbdd1e667dbd0,
         type: 3}
