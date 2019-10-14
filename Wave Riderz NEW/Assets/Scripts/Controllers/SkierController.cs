@@ -21,17 +21,14 @@ public class SkierController : MonoBehaviour
 	public float bonkForce = 10;    //How strong bonking other players is
 
 	public int coinScore = 2;		// Score increased everytime collision with a coin occurs.
-	public int playerScore = 1;		// Increase every second.
-	public int planeScore = 5;		// Increase every time a skier loses a life.
+	public int skierScoreInc = 1;	// Increase every second.
+	public int planeScoreInc = 5;	// Increase every time a skier loses a life.
 	public int planeBonus = 10;		// Bonus is added if all skiers are eliminated.
-	public int playerBonus = 10;    // Bonus is added if a skier survives the round.
+	public int skierBonus = 10;     // Bonus is added if a skier survives the round.
+	public int skierLives = 3;      // The amount of lives the skiers will have.
 
-	public GameObject player = null; // A reference to the player assigned to the cntroller.
-
-	private int m_playerOneScore = 0;
-	private int m_playerTwoScore = 0;
-	private int m_playerThreeScore = 0;
-	private int m_playerFourScore = 0;
+	private Timer m_scoreTimer;    // Timer used to increment score.
+	private int m_playerScore = 0; // Player's Score.
 
 	[HideInInspector]
 	public Tether tether = null;
@@ -41,6 +38,15 @@ public class SkierController : MonoBehaviour
 		tether = GetComponent<Tether>();
 		Debug.Assert(tether != null, "Skier missing tether component");
 	}
+
+	void Start()
+	{
+		m_scoreTimer = gameObject.AddComponent<Timer>();
+		m_scoreTimer.maxTime = 1;
+		m_scoreTimer.autoDisable = true;
+		m_scoreTimer.SetTimer();
+	}
+
 
 	private void FixedUpdate()
 	{
@@ -64,6 +70,13 @@ public class SkierController : MonoBehaviour
 			if (Input.GetKey(MoveLeft))					//If the left key is pressed,
 				tether.forceToApply.x -= movingForce;	//Apply a force to the left
 		}
+
+		if (!m_scoreTimer.UnderMax())
+		{
+			m_playerScore += skierScoreInc;
+			m_scoreTimer.SetTimer();
+		}
+
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -76,7 +89,17 @@ public class SkierController : MonoBehaviour
 
 		if (other.CompareTag("Coin"))
 		{
-
+			m_playerScore += coinScore;
 		}
+
+		if (other.CompareTag("Rock"))
+		{
+			skierLives--;
+		}
+	}
+
+	public int getPlayerScore()
+	{
+		return m_playerScore;
 	}
 }

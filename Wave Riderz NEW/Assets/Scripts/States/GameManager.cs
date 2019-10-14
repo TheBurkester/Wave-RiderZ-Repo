@@ -50,13 +50,23 @@ public class GameManager : MonoBehaviour
 
 	//UI references
 	public Text startCountdownDisplay = null;		//Reference to the countdown timer text at the start of the round
-	public Text playingCountDownDisplay = null;		//Reference to the round timer text
+	public Text playingCountDownDisplay = null;     //Reference to the round timer text
+
+
+	// TEMPORARY
+	//-------------------------------------------------------------------------
+	public Text scoreRed = null;
+	public Text scoreGreen = null;
+	//-------------------------------------------------------------------------
+
+
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	//-------------------------------------------------------------------------
 
 
 	void Awake()
 	{
+
 		if (m_playerCount == 2)
 		{
 			redSkier.gameObject.SetActive(true); ; // Only one skier.
@@ -104,6 +114,8 @@ public class GameManager : MonoBehaviour
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
 		playingCountDownDisplay.text = "";
+		scoreRed.text = "";
+
 		roundOverPanel.SetActive(false);
 
 		SceneMovementActive(false);		//Wait for the countdown before starting movement
@@ -218,6 +230,8 @@ public class GameManager : MonoBehaviour
 
 				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);	//Round the timer up to the nearest second
 				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
+
+				scoreRed.text = redSkier.getPlayerScore().ToString();
 
 				break;
 				//-------------------------------------------------------------------------
