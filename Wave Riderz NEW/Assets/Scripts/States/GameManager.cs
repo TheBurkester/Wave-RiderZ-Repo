@@ -57,10 +57,10 @@ public class GameManager : MonoBehaviour
 
 	// TEMPORARY
 	//-------------------------------------------------------------------------
-	//public Text scoreRed = null;
-	//public Text scoreGreen = null;
-	//public Text scorePurple = null;
-	//public Text scoreOrange = null;
+	public Text scoreRed = null;
+	public Text scoreGreen = null;
+	public Text scorePurple = null;
+	public Text scoreOrange = null;
 	//-------------------------------------------------------------------------
 
 
@@ -136,10 +136,10 @@ public class GameManager : MonoBehaviour
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
 		playingCountDownDisplay.text = "";
-		//scoreRed.text = "";
-		//scoreGreen.text = "";
-		//scorePurple.text = "";
-		//scoreOrange.text = "";
+		scoreRed.text = "";
+		scoreGreen.text = "";
+		scorePurple.text = "";
+		scoreOrange.text = "";
 
 		roundOverPanel.SetActive(false);
 
@@ -258,71 +258,71 @@ public class GameManager : MonoBehaviour
 					else if (closestSecond == 1)
 						startCountdownDisplay.text = "1";
 
-					//if (m_playerCount == 2)
-					//{
-					//	if (m_roundNumber == 2)
-					//	{
-					//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-					//		greenSkier.gameObject.SetActive(true); // Player two is now the skier.
-					//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					//	}
-					//	else if (m_roundNumber > 2)
-					//	{
-					//		Debug.Log("Game has Ended.");
-					//	}
-					//}
-					//else if (m_playerCount == 3)
-					//{
-					//	if (m_roundNumber == 2)
-					//	{
-					//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-					//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
-					//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-					//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					//	}
-					//	else if (m_roundNumber == 3)
-					//	{
-					//		redSkier.gameObject.SetActive(true); // Player one is a skier.
-					//		greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
-					//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-					//		planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
-					//	}
-					//	else if (m_roundNumber > 3)
-					//	{
-					//		Debug.Log("Game has Ended.");
-					//	}
-					//}
-					//else if (m_playerCount == 4)
-					//{
-					//	if (m_roundNumber == 2)
-					//	{
-					//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-					//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
-					//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-					//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-					//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					//	}
-					//	else if (m_roundNumber == 3)
-					//	{
-					//		redSkier.gameObject.SetActive(true); // Player one is a skier.
-					//		greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
-					//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-					//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-					//		planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					//	}
-					//	else if (m_roundNumber == 4)
-					//	{
-					//		redSkier.gameObject.SetActive(true); // Player one is a skier.
-					//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
-					//		purpleSkier.gameObject.SetActive(false); // Player three is now in the plane.
-					//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-					//		planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					//	}
-					//	else if (m_roundNumber > 4)
-					//	{
-					//		Debug.Log("Game has Ended.");
-					//	}
-					//}
+					if (m_playerCount == 2)
+					{
+						if (m_roundNumber == 2)
+						{
+							redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+							greenSkier.gameObject.SetActive(true); // Player two is now the skier.
+							planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+						else if (m_roundNumber > 2)
+						{
+							Debug.Log("Game has Ended.");
+						}
+					}
+					else if (m_playerCount == 3)
+					{
+						if (m_roundNumber == 2)
+						{
+							redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+							greenSkier.gameObject.SetActive(true); // Player two is a skier.
+							purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+							planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+						else if (m_roundNumber == 3)
+						{
+							redSkier.gameObject.SetActive(true); // Player one is a skier.
+							greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
+							purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+							planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
+						}
+						else if (m_roundNumber > 3)
+						{
+							Debug.Log("Game has Ended.");
+						}
+					}
+					else if (m_playerCount == 4)
+					{
+						if (m_roundNumber == 2)
+						{
+							redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+							greenSkier.gameObject.SetActive(true); // Player two is a skier.
+							purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+							orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+							planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+						else if (m_roundNumber == 3)
+						{
+							redSkier.gameObject.SetActive(true); // Player one is a skier.
+							greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
+							purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+							orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+							planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+						else if (m_roundNumber == 4)
+						{
+							redSkier.gameObject.SetActive(true); // Player one is a skier.
+							greenSkier.gameObject.SetActive(true); // Player two is a skier.
+							purpleSkier.gameObject.SetActive(false); // Player three is now in the plane.
+							orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+							planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+						}
+						else if (m_roundNumber > 4)
+						{
+							Debug.Log("Game has Ended.");
+						}
+					}
 				}
 
 				break;
@@ -341,10 +341,10 @@ public class GameManager : MonoBehaviour
 				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);	//Round the timer up to the nearest second
 				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
 
-				//scoreRed.text = redSkier.getPlayerScore().ToString();
-				//scoreGreen.text = greenSkier.getPlayerScore().ToString();
-				//scorePurple.text = purpleSkier.getPlayerScore().ToString();
-				//scoreOrange.text = orangeSkier.getPlayerScore().ToString();
+				scoreRed.text = redSkier.getPlayerScore().ToString();
+				scoreGreen.text = greenSkier.getPlayerScore().ToString();
+				scorePurple.text = purpleSkier.getPlayerScore().ToString();
+				scoreOrange.text = orangeSkier.getPlayerScore().ToString();
 
 				break;
 				//-------------------------------------------------------------------------

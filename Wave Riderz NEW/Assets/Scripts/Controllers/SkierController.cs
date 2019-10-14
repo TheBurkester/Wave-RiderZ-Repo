@@ -31,7 +31,8 @@ public class SkierController : MonoBehaviour
 	public int skierLives = 3;      // The amount of lives the skiers will have.
 
 	private Timer m_scoreTimer;    // Timer used to increment score.
-	private int m_playerScore = 0; // Player's Score.
+	private int m_playerScore = 0; // Player's score.
+	private int m_planeScore = 0; // Plane player's score.
 
 	public int numberOfFlashes = 3;		//How many times the mesh should flash when damaged
 	public float flashDelay = 0.3f;     //How fast the mesh should flash on and off when damaged
@@ -119,6 +120,10 @@ public class SkierController : MonoBehaviour
 
 					StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));
 				}
+				else
+				{
+					gameObject.SetActive(false);
+				}
 			}
 		}
 	}
@@ -126,6 +131,16 @@ public class SkierController : MonoBehaviour
 	public int getPlayerScore()
 	{
 		return m_playerScore;
+	}
+
+	public int getPlaneScore()
+	{
+		return m_planeScore;
+	}
+
+	public void removeGreenScore(int one)
+	{
+		m_playerScore -= one;
 	}
 
 	IEnumerator MeshOff(float interval)
