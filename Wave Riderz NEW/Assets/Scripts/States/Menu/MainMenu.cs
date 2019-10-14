@@ -8,7 +8,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using XboxCtrlrInput;		// Be sure to include this if you want an object to have Xbox input
+using XboxCtrlrInput;		// Be sure to include this if you want an object to have Xbox input
 public class MainMenu : MonoBehaviour
 {
 	public enum PanelState
@@ -27,19 +27,14 @@ public class MainMenu : MonoBehaviour
     
     
     public KeyCode addPlayer = KeyCode.A; // Adds a player to the game.
-    public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
+    //public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
 	public KeyCode readyPlayerOne = KeyCode.Alpha1; // Player one is ready.
 	public KeyCode readyPlayerTwo = KeyCode.Alpha2; // Player two is ready.
 	public KeyCode readyPlayerThree = KeyCode.Alpha3; // Player three is ready.
 	public KeyCode readyPlayerFour = KeyCode.Alpha4; // Player four is ready.
-   // public XboxController controller;
-    // public XboxButton addPlayerXboxTwo = XboxButton.A;
-    // public XboxButton addPlayerXboxThird = XboxButton.Y;
-    // public XboxButton addPlayerXboxFourth = XboxButton.B;
-    // public XboxButton addPlayerXbox = XboxButton.A; // Adds a player to the game with Xbox controls.
-    // public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
-   // public XboxButton readyPlayerOneXbox = XboxButton.Start; // Player one is ready.
-   // public XboxButton readyPlayerTwoXbox = XboxButton.Start; // Player two is ready.
+    public XboxButton addPlayerXbox = XboxButton.A; // Adds a player to the game with Xbox controls.
+    public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
+    public XboxButton readyPlayerXbox = XboxButton.Start; // Player one is ready.
 
 
 
@@ -75,7 +70,8 @@ public class MainMenu : MonoBehaviour
 
     private float m_t = 0; // Timer which increases via the panelSpeed.
 	private float m_t2 = 0; // Second TImer for ONLY players.
-	private bool m_buttonPress = false; // Has the button been pressed?
+	private bool m_playButtonPress = false; // Has the play button been clicked?
+    private bool m_addPlayerButtonPress = false;
    // private bool m_XboxbuttonTwoPress = false; // has player two's button been pressed?
     private bool m_removePlayer = false; // Is a player currently being removed from the game?
 	private bool m_showPlay = false;
@@ -130,7 +126,10 @@ public class MainMenu : MonoBehaviour
 		switch (m_eCurrentState)
 		{
 			case PanelState.eSplashScreen: // Splash screen enum.
-				if (m_buttonPress)
+                if (XCI.GetButton(addPlayerXbox, XboxController.First))
+                    m_playButtonPress = true;
+
+				if (m_playButtonPress)
 				{
 					m_t += panelSpeed; // Only used for panels.
 					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
@@ -144,7 +143,7 @@ public class MainMenu : MonoBehaviour
 						m_t = 0; // Reset panel timer.
 						m_t2 = 0; // Reset player timer.
 						playerNumber++;
-						m_buttonPress = false;
+                        m_playButtonPress = false;
 						m_eCurrentState = PanelState.eCharacterScreen; // Change state to the character screen.
 					}
 				}
@@ -152,64 +151,68 @@ public class MainMenu : MonoBehaviour
 			/*-------------------------------------------------------------------*/
 
 			case PanelState.eCharacterScreen: // Character screen enum.
-				if (Input.GetKey(addPlayer)  && playerNumber <= 3)
-				{
-					if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-					{
-						m_buttonPress = true;
-					}
-				}
+                //if (Input.GetKey(addPlayer) && playerNumber <= 3)
+                //{
+                //    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
+                //    {
+                //        m_buttonPress = true;
+                //    }
+                //}
 
-                if (Input.GetKey(removePlayer) && playerNumber >= 2)
-				{
-					if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
-					{
-						m_removePlayer = true;
-					}
-				}
+                //if (Input.GetKey(removePlayer) && playerNumber >= 2)
+                //{
+                //    if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
+                //    {
+                //        m_removePlayer = true;
+                //    }
+                //}
 
-            //  if (XCI.GetButton(addPlayerXbox, XboxController.First) && playerNumber <= 3) // Player One
-            //  {
-            //      if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-            //      {
-            //          m_buttonPress = true;
-            //      }
-            //  }
-             // if (XCI.GetButton(addPlayerXboxTwo, XboxController.Second) && playerNumber <= 3) // Player two
-             // {
-             //     if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-             //     {
-             //     
-             //             // m_buttonPress = true;
-             //     }
-             // }
-             //if (XCI.GetButton(addPlayerXboxThird, XboxController.Third) && playerNumber <= 3) // Player two
-             //{
-             //    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-             //    {
-             //        m_buttonPress = true;
-             //    }
-             //}
-             //if (XCI.GetButton(addPlayerXboxFourth, XboxController.Fourth) && playerNumber <= 3) // Player two
-             //{
-             //    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-             //    {
-             //        m_buttonPress = true;
-             //    }
-             //}
+                if (XCI.GetButton(addPlayerXbox, XboxController.Second) && playerNumber == 1) // Player One
+                {
+                    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
+                    {
+                        m_addPlayerButtonPress = true;
+                    }
+                }
+                if (XCI.GetButton(addPlayerXbox, XboxController.Third) && playerNumber == 2) // Player One
+                {
+                    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
+                    {
+                        m_addPlayerButtonPress = true;
+                    }
+                }
+                if (XCI.GetButton(addPlayerXbox, XboxController.Fourth) && playerNumber == 3) // Player One
+                {
+                    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
+                    {
+                        m_addPlayerButtonPress = true;
+                    }
+                }
 
-          //     if (XCI.GetButton(removePlayerXbox) && playerNumber >= 2)
-          //     {
-          //         if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
-          //         {
-          //             m_removePlayer = true;
-          //         }
-          //     }
+                if (XCI.GetButton(removePlayerXbox, XboxController.Second) && playerNumber == 2)
+                {
+                    if (m_addPlayerButtonPress != true) // Ensures that the buttons don't clash with one another.
+                    {
+                        m_removePlayer = true;
+                    }
+                }
+                if (XCI.GetButton(removePlayerXbox, XboxController.Third) && playerNumber == 3)
+                {
+                    if (m_addPlayerButtonPress != true) // Ensures that the buttons don't clash with one another.
+                    {
+                        m_removePlayer = true;
+                    }
+                }
+                if (XCI.GetButton(removePlayerXbox, XboxController.Fourth) && playerNumber == 4)
+                {
+                    if (m_addPlayerButtonPress != true) // Ensures that the buttons don't clash with one another.
+                    {
+                        m_removePlayer = true;
+                    }
+                }
 
-               
 
-
-                   if (m_buttonPress) // Adding players
+                if (m_addPlayerButtonPress) // Adding players
 				{
 					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
             
@@ -221,7 +224,7 @@ public class MainMenu : MonoBehaviour
 						{
 							m_t2 = 0; // Resets timer.
 							playerNumber++; // Increases player number by 1.
-							m_buttonPress = false;
+                            m_addPlayerButtonPress = false;
 						}
 					}
 					else if (playerNumber == 2) // If there are two players. Adds the 3rd player.
@@ -232,7 +235,7 @@ public class MainMenu : MonoBehaviour
 						{
 							m_t2 = 0; // Resets timer.
 							playerNumber++; // Increases player number by 1.
-							m_buttonPress = false;
+                            m_addPlayerButtonPress = false;
 						}
 					}
 					else if (playerNumber == 3) // If there are 3 players. Adds the 4th player.
@@ -243,7 +246,7 @@ public class MainMenu : MonoBehaviour
 						{
 							m_t2 = 0; // Resets timer.
 							playerNumber++; // Increases player number by 1.
-							m_buttonPress = false;
+                            m_addPlayerButtonPress = false;
 						}
 					}
 				}
@@ -289,7 +292,7 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
-				if (Input.GetKeyUp(readyPlayerOne))
+				if (Input.GetKeyUp(readyPlayerOne) || XCI.GetButtonDown(readyPlayerXbox, XboxController.First))
 				{
 					if (m_playerOneReady)
 					{
@@ -302,7 +305,7 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerOne.enabled = true;
 					}
 				}
-				else if (Input.GetKeyUp(readyPlayerTwo) && playerNumber >= 2)
+				else if ((Input.GetKeyUp(readyPlayerTwo) || XCI.GetButtonDown(readyPlayerXbox, XboxController.Second)) && playerNumber >= 2)
 				{
 					if (m_playerTwoReady)
 					{
@@ -315,7 +318,7 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerTwo.enabled = true;
 					}
 				}
-				else if (Input.GetKeyUp(readyPlayerThree) && playerNumber >= 3)
+				else if ((Input.GetKeyUp(readyPlayerThree) || XCI.GetButtonDown(readyPlayerXbox, XboxController.Third)) && playerNumber >= 3)
 				{
 					if (m_playerThreeReady)
 					{
@@ -328,7 +331,7 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerThree.enabled = true;
 					}
 				}
-				else if (Input.GetKeyUp(readyPlayerFour) && playerNumber == 4)
+				else if ((Input.GetKeyUp(readyPlayerFour) || XCI.GetButtonDown(readyPlayerXbox, XboxController.Fourth)) && playerNumber == 4)
 				{
 					if (m_playerFourReady)
 					{
@@ -424,6 +427,9 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
+                if (m_showPlay && XCI.GetButtonDown(addPlayerXbox, XboxController.First))
+                    PlayGame();
+
 				break;
 		}	
 	}
@@ -441,6 +447,6 @@ public class MainMenu : MonoBehaviour
 
 	public void buttonPress()
 	{
-		m_buttonPress = true;
+		m_playButtonPress = true;
 	}
 }
