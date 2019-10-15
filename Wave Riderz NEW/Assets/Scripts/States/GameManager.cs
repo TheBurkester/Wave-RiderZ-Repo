@@ -345,7 +345,7 @@ public class GameManager : MonoBehaviour
 				scoreGreen.text = greenSkier.getPlayerScore().ToString();
 				scorePurple.text = purpleSkier.getPlayerScore().ToString();
 				scoreOrange.text = orangeSkier.getPlayerScore().ToString();
-				beachBombAbility.text = target.abilityCooldown.T.ToString();
+				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();
 
 				break;
 				//-------------------------------------------------------------------------
