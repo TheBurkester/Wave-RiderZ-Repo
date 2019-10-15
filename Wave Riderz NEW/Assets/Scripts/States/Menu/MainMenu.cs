@@ -36,9 +36,6 @@ public class MainMenu : MonoBehaviour
     public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
     public XboxButton readyPlayerXbox = XboxButton.Start; // Player one is ready.
 
-
-
-
     public Light readyLightPlayerOne; // Ready light which will be turned on when Player One is ready.
 	public Light readyLightPlayerTwo; // Ready light which will be turned on when Player Two is ready.
     public Light readyLightPlayerThree; // Ready light which will be turned on when Player Three is ready.
@@ -119,6 +116,8 @@ public class MainMenu : MonoBehaviour
 		{
 			playerFourBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
 		}
+
+		playerNumber = 0;
 	}
 
 	void Update()

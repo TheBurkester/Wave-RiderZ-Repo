@@ -29,6 +29,7 @@ public class SkierController : MonoBehaviour
 	public int planeBonus = 10;		// Bonus is added if all skiers are eliminated.
 	public int skierBonus = 10;     // Bonus is added if a skier survives the round.
 	public int skierLives = 3;      // The amount of lives the skiers will have.
+	private bool m_isAlive = false;			// If the skier has the will to live
 
 	private Timer m_scoreTimer;    // Timer used to increment score.
 	private int m_playerScore = 0; // Player's score.
@@ -104,6 +105,11 @@ public class SkierController : MonoBehaviour
 			m_scoreTimer.SetTimer();
 		}
 
+		if (skierLives <= 0)
+		{
+			m_isAlive = false;
+			gameObject.SetActive(false);
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -138,7 +144,7 @@ public class SkierController : MonoBehaviour
 				}
 				else
 				{
-					gameObject.SetActive(false);
+					m_isAlive = false;
 				}
 			}
 		}
@@ -152,6 +158,16 @@ public class SkierController : MonoBehaviour
 	public void SetPlayerScore(int score)
 	{
 		m_playerScore = score;
+	}
+
+	public void SetAlive(bool value)
+	{
+		m_isAlive = value;
+	}
+
+	public bool GetAlive()
+	{
+		return m_isAlive;
 	}
 
 	public void removeGreenScore(int one)
