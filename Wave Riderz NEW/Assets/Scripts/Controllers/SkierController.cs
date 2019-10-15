@@ -32,7 +32,6 @@ public class SkierController : MonoBehaviour
 
 	private Timer m_scoreTimer;    // Timer used to increment score.
 	private int m_playerScore = 0; // Player's score.
-	private int m_planeScore = 0; // Plane player's score.
 
 	public int numberOfFlashes = 3;		//How many times the mesh should flash when damaged
 	public float flashDelay = 0.3f;     //How fast the mesh should flash on and off when damaged
@@ -145,14 +144,14 @@ public class SkierController : MonoBehaviour
 		}
 	}
 
-	public int getPlayerScore()
+	public int GetPlayerScore()
 	{
 		return m_playerScore;
 	}
 
-	public int getPlaneScore()
+	public void SetPlayerScore(int score)
 	{
-		return m_planeScore;
+		m_playerScore = score;
 	}
 
 	public void removeGreenScore(int one)

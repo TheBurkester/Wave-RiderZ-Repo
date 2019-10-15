@@ -436,6 +436,13 @@ public class MainMenu : MonoBehaviour
 
 	public void PlayGame()
     {
+		GameInfo.playerOneScore = 0;
+		GameInfo.playerTwoScore = 0;
+		if (playerNumber >= 3)
+			GameInfo.playerThreeScore = 0;
+		if (playerNumber == 4)
+			GameInfo.playerFourScore = 0;
+
 		GameInfo.roundNumber = 1;
         SceneManager.LoadScene(1); // Loads the next scene within build settings.
     }

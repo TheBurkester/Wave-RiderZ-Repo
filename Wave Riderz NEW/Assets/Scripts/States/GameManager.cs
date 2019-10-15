@@ -143,6 +143,13 @@ public class GameManager : MonoBehaviour
 		m_playingRoundTimer.reverseTimer = true;                   //Make the timer count down
 		m_playingRoundTimer.autoDisable = true;                    //Make the timer disable itself after the timelimit
 
+		redSkier.SetPlayerScore(GameInfo.playerOneScore);
+		greenSkier.SetPlayerScore(GameInfo.playerTwoScore);
+		if (m_playerCount >= 3)
+			purpleSkier.SetPlayerScore(GameInfo.playerThreeScore);
+		if (m_playerCount == 4)
+			orangeSkier.SetPlayerScore(GameInfo.playerFourScore);
+
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
 		playingCountDownDisplay.text = "";
@@ -340,10 +347,10 @@ public class GameManager : MonoBehaviour
 				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);	//Round the timer up to the nearest second
 				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
 
-				scoreRed.text = redSkier.getPlayerScore().ToString();
-				scoreGreen.text = greenSkier.getPlayerScore().ToString();
-				scorePurple.text = purpleSkier.getPlayerScore().ToString();
-				scoreOrange.text = orangeSkier.getPlayerScore().ToString();
+				scoreRed.text = redSkier.GetPlayerScore().ToString();
+				scoreGreen.text = greenSkier.GetPlayerScore().ToString();
+				scorePurple.text = purpleSkier.GetPlayerScore().ToString();
+				scoreOrange.text = orangeSkier.GetPlayerScore().ToString();
 				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();
 
 				break;
@@ -353,6 +360,13 @@ public class GameManager : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Space))					//If next round is selected,
 				{
+					GameInfo.playerOneScore = redSkier.GetPlayerScore();
+					GameInfo.playerTwoScore = greenSkier.GetPlayerScore();
+					if (m_playerCount >= 3)
+						GameInfo.playerThreeScore = purpleSkier.GetPlayerScore();
+					if (m_playerCount == 4)
+						GameInfo.playerFourScore = orangeSkier.GetPlayerScore();
+
 					++GameInfo.roundNumber;
 					if (GameInfo.roundNumber <= m_playerCount)              //If the round number is under the number of players,
 					{
