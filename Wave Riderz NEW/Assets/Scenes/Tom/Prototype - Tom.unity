@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -412,6 +412,7 @@ MonoBehaviour:
   scoreGreen: {fileID: 1769892497}
   scorePurple: {fileID: 1156686784}
   scoreOrange: {fileID: 1355766030}
+  beachBombAbility: {fileID: 2082640944}
   roundOverPanel: {fileID: 1462128280}
 --- !u!4 &300776889
 Transform:
@@ -3008,6 +3009,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2014079416}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2082640944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1015660341532909540, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 3615083636884436900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3615083636884436900
 PrefabInstance:
   m_ObjectHideFlags: 0

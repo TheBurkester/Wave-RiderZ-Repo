@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
 	public Text startCountdownDisplay = null;		//Reference to the countdown timer text at the start of the round
 	public Text playingCountDownDisplay = null;     //Reference to the round timer text
 
-
 	// TEMPORARY
 	//-------------------------------------------------------------------------
 	public Text scoreRed = null;
@@ -71,7 +70,6 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
-
 		if (m_playerCount == 2)
 		{
 			redSkier.controller = XboxController.First;     //First player is red
@@ -347,6 +345,7 @@ public class GameManager : MonoBehaviour
 				scoreGreen.text = greenSkier.getPlayerScore().ToString();
 				scorePurple.text = purpleSkier.getPlayerScore().ToString();
 				scoreOrange.text = orangeSkier.getPlayerScore().ToString();
+				beachBombAbility.text = target.abilityCooldown.T.ToString();
 
 				break;
 				//-------------------------------------------------------------------------
