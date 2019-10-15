@@ -51,16 +51,16 @@ public class BeachBallAbility : MonoBehaviour
         abilityCooldown.maxTime = Cooldown;
 		abilityCooldown.reverseTimer = true;
 		abilityCooldown.autoDisable = true;
-
-        if (planeRB != null)
-            m_controller = planeRB.GetComponent<PlaneController>().controller;
     }
 
     void Start()
     {
         abilityCooldown.SetTimer(); // Starts the timer.
         newPosition = transform.position;
-    }
+
+		if (planeRB != null)
+			m_controller = planeRB.GetComponent<PlaneController>().controller;
+	}
 
     void Update()
     {
