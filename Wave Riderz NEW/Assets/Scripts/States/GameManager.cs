@@ -15,6 +15,17 @@ using UnityEngine.SceneManagement;
 using XboxCtrlrInput;
 
 
+//public class GameInfo : MonoBehaviour
+//{
+//	public static GameInfo sharedInstance;
+//	public int roundNumber;          //Stores the current round number
+
+//	void Awake()
+//	{
+//		sharedInstance = this;
+//	}
+//}
+
 public class GameManager : MonoBehaviour
 {
 	//Enum for the different round states
@@ -44,7 +55,7 @@ public class GameManager : MonoBehaviour
 
 	//Round variables
 	private RoundState m_eCurrentState = 0;     //Stores the current state of the game
-	private int m_roundNumber = 1;              //Stores the current round number
+	//private int m_roundNumber = 1;			//Stores the current round number
 	private Timer m_startRoundTimer;            //The countdown at the start of the round
 	private Timer m_playingRoundTimer;			//The round timer
 	public float roundTimeLimit = 45;           //How long a round lasts
@@ -155,7 +166,7 @@ public class GameManager : MonoBehaviour
 
 				if (m_playerCount == 2)
 				{
-					if (m_roundNumber == 2)
+					if (GameInfo.roundNumber == 2)
 					{
 						redSkier.gameObject.SetActive(false); // Player one is now in the plane.
 						greenSkier.gameObject.SetActive(true); // Player two is now the skier.
@@ -163,14 +174,14 @@ public class GameManager : MonoBehaviour
 
 						planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 					}
-					else if (m_roundNumber > 2)
+					else if (GameInfo.roundNumber > 2)
 					{
 						Debug.Log("Game has Ended.");
 					}
 				}
 				else if (m_playerCount == 3)
 				{
-					if (m_roundNumber == 2)
+					if (GameInfo.roundNumber == 2)
 					{
 						redSkier.gameObject.SetActive(false); // Player one is now in the plane.
 						greenSkier.gameObject.SetActive(true); // Player two is a skier.
@@ -179,7 +190,7 @@ public class GameManager : MonoBehaviour
 
 						planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 					}
-					else if (m_roundNumber == 3)
+					else if (GameInfo.roundNumber == 3)
 					{
 						redSkier.gameObject.SetActive(true); // Player one is a skier.
 						greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
@@ -188,14 +199,14 @@ public class GameManager : MonoBehaviour
 
 						planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
 					}
-					else if (m_roundNumber > 3)
+					else if (GameInfo.roundNumber > 3)
 					{
 						Debug.Log("Game has Ended.");
 					}
 				}
 				else if (m_playerCount == 4)
 				{
-					if (m_roundNumber == 2)
+					if (GameInfo.roundNumber == 2)
 					{
 						redSkier.gameObject.SetActive(false); // Player one is now in the plane.
 						greenSkier.gameObject.SetActive(true); // Player two is a skier.
@@ -205,7 +216,7 @@ public class GameManager : MonoBehaviour
 
 						planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 					}
-					else if (m_roundNumber == 3)
+					else if (GameInfo.roundNumber == 3)
 					{
 						redSkier.gameObject.SetActive(true); // Player one is a skier.
 						greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
@@ -215,7 +226,7 @@ public class GameManager : MonoBehaviour
 
 						planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 					}
-					else if (m_roundNumber == 4)
+					else if (GameInfo.roundNumber == 4)
 					{
 						redSkier.gameObject.SetActive(true); // Player one is a skier.
 						greenSkier.gameObject.SetActive(true); // Player two is a skier.
@@ -225,7 +236,7 @@ public class GameManager : MonoBehaviour
 
 						planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 					}
-					else if (m_roundNumber > 4)
+					else if (GameInfo.roundNumber > 4)
 					{
 						Debug.Log("Game has Ended.");
 					}
@@ -260,7 +271,7 @@ public class GameManager : MonoBehaviour
 
 					if (m_playerCount == 2)
 					{
-						if (m_roundNumber == 2)
+						if (GameInfo.roundNumber == 2)
 						{
 							redSkier.gameObject.SetActive(false); // Player one is now in the plane.
 							greenSkier.gameObject.SetActive(true); // Player two is now the skier.
@@ -269,14 +280,14 @@ public class GameManager : MonoBehaviour
 					}
 					else if (m_playerCount == 3)
 					{
-						if (m_roundNumber == 2)
+						if (GameInfo.roundNumber == 2)
 						{
 							redSkier.gameObject.SetActive(false); // Player one is now in the plane.
 							greenSkier.gameObject.SetActive(true); // Player two is a skier.
 							purpleSkier.gameObject.SetActive(true); // Player three is a skier.
 							planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 						}
-						else if (m_roundNumber == 3)
+						else if (GameInfo.roundNumber == 3)
 						{
 							redSkier.gameObject.SetActive(true); // Player one is a skier.
 							greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
@@ -286,7 +297,7 @@ public class GameManager : MonoBehaviour
 					}
 					else if (m_playerCount == 4)
 					{
-						if (m_roundNumber == 2)
+						if (GameInfo.roundNumber == 2)
 						{
 							redSkier.gameObject.SetActive(false); // Player one is now in the plane.
 							greenSkier.gameObject.SetActive(true); // Player two is a skier.
@@ -294,7 +305,7 @@ public class GameManager : MonoBehaviour
 							orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 							planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 						}
-						else if (m_roundNumber == 3)
+						else if (GameInfo.roundNumber == 3)
 						{
 							redSkier.gameObject.SetActive(true); // Player one is a skier.
 							greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
@@ -302,7 +313,7 @@ public class GameManager : MonoBehaviour
 							orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 							planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 						}
-						else if (m_roundNumber == 4)
+						else if (GameInfo.roundNumber == 4)
 						{
 							redSkier.gameObject.SetActive(true); // Player one is a skier.
 							greenSkier.gameObject.SetActive(true); // Player two is a skier.
@@ -342,10 +353,10 @@ public class GameManager : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Space))					//If next round is selected,
 				{
-					++m_roundNumber;
-					if (m_roundNumber <= m_playerCount)              //If the round number is under the number of players,
+					++GameInfo.roundNumber;
+					if (GameInfo.roundNumber <= m_playerCount)              //If the round number is under the number of players,
 					{
-						SceneManager.LoadScene(m_roundNumber);		//Load the next level
+						SceneManager.LoadScene(GameInfo.roundNumber);		//Load the next level
 
 						m_eCurrentState = RoundState.eBeforeRound;		//Go back to round start state
 						m_startRoundTimer.SetTimer();					//Start the countdown timer

@@ -436,6 +436,7 @@ public class MainMenu : MonoBehaviour
 
 	public void PlayGame()
     {
+		GameInfo.roundNumber = 1;
         SceneManager.LoadScene(1); // Loads the next scene within build settings.
     }
 
