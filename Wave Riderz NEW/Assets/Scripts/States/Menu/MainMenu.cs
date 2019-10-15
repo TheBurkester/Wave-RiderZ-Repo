@@ -81,7 +81,7 @@ public class MainMenu : MonoBehaviour
 		m_playerFourPos = new Vector3(3, 9, 3); // Target position to place player four.
 
 		m_panelOffScreenBottomPos = new Vector3(splashPanel.transform.position.x, -900, splashPanel.transform.position.z); // Bottom position for moving onto the canvas.
-		m_panelOffScreenTopPos = new Vector3(splashPanel.transform.position.x, 900, splashPanel.transform.position.z); // Top position for moving off the canvas.
+		m_panelOffScreenTopPos = new Vector3(splashPanel.transform.position.x, 1800, splashPanel.transform.position.z); // Top position for moving off the canvas.
 		m_playerOffScreenLeft = new Vector3(-30, 10, 3); // Offset position outside of the camera view towards the left.
 		m_playerOffScreenRight = new Vector3(30, 10, 3); // Offset position outside of the camera view towards the right.
 		splashPanel.transform.position = canvas.transform.position; // Ensures that the splash starts within the canvas.
