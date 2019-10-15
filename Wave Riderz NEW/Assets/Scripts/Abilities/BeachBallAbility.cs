@@ -36,7 +36,9 @@ public class BeachBallAbility : MonoBehaviour
     private MeshRenderer m_targetMesh; // Target's Mesh.
     private Rigidbody m_targetRB; // Target's Rigidbody.
     private GameObject m_prefab; // Beachball prefab.
-    private Timer m_abilityCooldown; // Timer used for the cooldown.
+
+	[HideInInspector]
+    public Timer abilityCooldown; // Timer used for the cooldown.
 
     void Awake()
     {
@@ -45,8 +47,10 @@ public class BeachBallAbility : MonoBehaviour
         m_targetMesh.enabled = false; // Target's mesh is disabled on startup.
         m_prefab = Resources.Load("BeachBall") as GameObject;
 
-        m_abilityCooldown = gameObject.AddComponent<Timer>();
-        m_abilityCooldown.maxTime = Cooldown;
+        abilityCooldown = gameObject.AddComponent<Timer>();
+        abilityCooldown.maxTime = Cooldown;
+		abilityCooldown.reverseTimer = true;
+		abilityCooldown.autoDisable = true;
 
         if (planeRB != null)
             m_controller = planeRB.GetComponent<PlaneController>().controller;
@@ -54,7 +58,7 @@ public class BeachBallAbility : MonoBehaviour
 
     void Start()
     {
-        m_abilityCooldown.SetTimer(); // Starts the timer.
+        abilityCooldown.SetTimer(); // Starts the timer.
         newPosition = transform.position;
     }
 
@@ -127,7 +131,7 @@ public class BeachBallAbility : MonoBehaviour
             toggleIsShooting(true);
             shootBall(); // Shoots the beachball.
             toggleMeshEnable(true);
-            m_abilityCooldown.SetTimer(); // Resets cooldown.
+            abilityCooldown.SetTimer(); // Resets cooldown.
         }
 
         if((1.0f - XCI.GetAxis(XboxAxis.RightTrigger, m_controller)) < 0.1f && m_targetMesh.enabled)
@@ -135,13 +139,13 @@ public class BeachBallAbility : MonoBehaviour
             toggleIsShooting(true);
             shootBall(); // Shoots the beachball.
             toggleMeshEnable(true);
-            m_abilityCooldown.SetTimer(); // Resets cooldown.
+            abilityCooldown.SetTimer(); // Resets cooldown.
         }
       
       
         /*===========================================================================================*/
 
-        if (Input.GetKeyDown(Aim) && !m_abilityCooldown.UnderMax() || m_isShooting)
+        if (Input.GetKeyDown(Aim) && !abilityCooldown.UnderMax() || m_isShooting)
         {
             m_targetMesh.enabled = true; // Activate target's mesh when aiming.
         }
@@ -150,7 +154,7 @@ public class BeachBallAbility : MonoBehaviour
             m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
         }
         // Right Bumper
-        if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !m_abilityCooldown.UnderMax() || m_isShooting)
+        if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !abilityCooldown.UnderMax() || m_isShooting)
         {
             m_targetMesh.enabled = true; // Activate target's mesh when aiming.
         }
