@@ -408,7 +408,7 @@ public class GameManager : MonoBehaviour
 					}
 					else                                                //The round number exceeds the number of players,
 					{
-						SceneManager.LoadScene(0);             //Go to the game finished scene
+						SceneManager.LoadScene(5);             //Go to the game finished scene
 					}
 				}
 
