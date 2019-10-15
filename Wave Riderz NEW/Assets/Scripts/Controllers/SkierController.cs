@@ -67,6 +67,8 @@ public class SkierController : MonoBehaviour
 
 	private void Update()
     {
+		//KEYBOARD
+		//---------------------------------------------
 		//Tether movement
 		if (Input.GetKey(TetherLengthen))									//If pressing the lengthen key,
 			tether.currentLength += tether.changeSpeed * Time.deltaTime;	//Make the tether longer over time
@@ -81,6 +83,21 @@ public class SkierController : MonoBehaviour
 			if (Input.GetKey(MoveLeft))					//If the left key is pressed,
 				tether.forceToApply.x -= movingForce;	//Apply a force to the left
 		}
+		//---------------------------------------------
+
+		//XBOX
+		//---------------------------------------------
+		//Tether movement
+		float axisY = XCI.GetAxis(XboxAxis.RightStickY, controller);
+		tether.currentLength += tether.changeSpeed * -axisY * Time.deltaTime;
+
+		//Sideways movement
+		if (tether.Distance() >= (tether.currentLength * 0.95)) //As long as the skier is close to the arc of the tether,
+		{
+			float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);
+			tether.forceToApply.x += movingForce * axisX;
+		}
+		//---------------------------------------------
 
 		if (!m_scoreTimer.UnderMax())
 		{

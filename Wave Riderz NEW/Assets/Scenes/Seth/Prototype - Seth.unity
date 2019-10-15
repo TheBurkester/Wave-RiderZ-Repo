@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -336,6 +336,11 @@ MonoBehaviour:
   roundTimeLimit: 45
   startCountdownDisplay: {fileID: 738245676}
   playingCountDownDisplay: {fileID: 244307571}
+  scoreRed: {fileID: 0}
+  scoreGreen: {fileID: 0}
+  scorePurple: {fileID: 0}
+  scoreOrange: {fileID: 0}
+  beachBombAbility: {fileID: 0}
   roundOverPanel: {fileID: 1462128280}
 --- !u!4 &300776889
 Transform:
@@ -777,7 +782,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bcbaa34d3ad1cc14da3e28a492624b7d, type: 2}
+      objectReference: {fileID: 2100000, guid: b0bf639be8b66434e9ef6c691ee81e73, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
 --- !u!1 &704338851
@@ -813,7 +818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4963c0149713d4645bafb8b0ade7cea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 0
   Up: 116
   Down: 103
   Left: 102
@@ -2005,7 +2009,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ff623c6f72e7f5844b6fe9063045f4b3, type: 2}
+  - {fileID: 2100000, guid: ad87cf00d0707a0489a1e991f6166b7a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2471,7 +2475,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb4e81a87e242c84c883cb68fc4a42f4, type: 2}
+  - {fileID: 2100000, guid: 3ce4d1f4d59110440897220c160d2998, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
