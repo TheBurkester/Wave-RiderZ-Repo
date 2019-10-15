@@ -105,7 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4963c0149713d4645bafb8b0ade7cea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 0
   Up: 116
   Down: 103
   Left: 102
@@ -113,11 +112,12 @@ MonoBehaviour:
   Aim: 32
   Shoot: 114
   Cooldown: 5
-  targetMovementSpeed: 10
+  targetMovementSpeed: 25
   riverClampHorizontal: 14
   riverClampForward: 3.5
   riverClampBehind: 5
   planeRB: {fileID: 0}
+  abilityCooldown: {fileID: 0}
 --- !u!54 &3491444408453323355
 Rigidbody:
   m_ObjectHideFlags: 0
