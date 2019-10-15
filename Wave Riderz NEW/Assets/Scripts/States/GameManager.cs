@@ -266,10 +266,6 @@ public class GameManager : MonoBehaviour
 							greenSkier.gameObject.SetActive(true); // Player two is now the skier.
 							planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 						}
-						else if (m_roundNumber > 2)
-						{
-							Debug.Log("Game has Ended.");
-						}
 					}
 					else if (m_playerCount == 3)
 					{
@@ -286,10 +282,6 @@ public class GameManager : MonoBehaviour
 							greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
 							purpleSkier.gameObject.SetActive(true); // Player three is a skier.
 							planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
-						}
-						else if (m_roundNumber > 3)
-						{
-							Debug.Log("Game has Ended.");
 						}
 					}
 					else if (m_playerCount == 4)
@@ -317,10 +309,6 @@ public class GameManager : MonoBehaviour
 							purpleSkier.gameObject.SetActive(false); // Player three is now in the plane.
 							orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 							planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-						}
-						else if (m_roundNumber > 4)
-						{
-							Debug.Log("Game has Ended.");
 						}
 					}
 				}
@@ -355,20 +343,18 @@ public class GameManager : MonoBehaviour
 				if (Input.GetKeyDown(KeyCode.Space))					//If next round is selected,
 				{
 					++m_roundNumber;
-					//if (m_roundNumber <= playerNumber)				//If the round number is under the number of players,
+					if (m_roundNumber <= m_playerCount)              //If the round number is under the number of players,
 					{
-						//SceneManager.LoadScene(m_roundNumber);	//Load the next level
-						//I'm not sure if this just stops running code and moves to a whole new scene?
-						//In that case, we wouldn't need to bother resetting anything. -Seth
+						SceneManager.LoadScene(m_roundNumber);		//Load the next level
 
 						m_eCurrentState = RoundState.eBeforeRound;		//Go back to round start state
 						m_startRoundTimer.SetTimer();					//Start the countdown timer
 						roundOverPanel.SetActive(false);
 					}
-					//else												//The round number exceeds the number of players,
-					//{
-					//	SceneManager.LoadScene("GameOver");				//Go to the game finished scene
-					//}
+					else                                                //The round number exceeds the number of players,
+					{
+						SceneManager.LoadScene(0);             //Go to the game finished scene
+					}
 				}
 
 				break;
