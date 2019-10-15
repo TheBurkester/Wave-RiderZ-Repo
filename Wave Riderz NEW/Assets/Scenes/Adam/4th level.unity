@@ -204,6 +204,7 @@ MonoBehaviour:
   scoreGreen: {fileID: 186373011}
   scorePurple: {fileID: 93209822}
   scoreOrange: {fileID: 1473741671}
+  beachBombAbility: {fileID: 1968474654}
   roundOverPanel: {fileID: 717928791}
 --- !u!4 &300776889
 Transform:
@@ -1182,6 +1183,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27f0864eb7f5524c8081d187a3553df, type: 3}
+--- !u!114 &1968474654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1015660341532909540, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2041993301 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4179917107278278894, guid: 065b92b8fff75814fb834dbc93b30568,
