@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -204,6 +204,10 @@ MonoBehaviour:
   scoreGreen: {fileID: 186373011}
   scorePurple: {fileID: 93209822}
   scoreOrange: {fileID: 1473741671}
+  livesRed: {fileID: 1968474658}
+  livesGreen: {fileID: 1968474657}
+  livesPurple: {fileID: 1968474656}
+  livesOrange: {fileID: 1968474655}
   beachBombAbility: {fileID: 1968474654}
   roundOverPanel: {fileID: 717928791}
 --- !u!4 &300776889
@@ -1186,6 +1190,54 @@ PrefabInstance:
 --- !u!114 &1968474654 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1015660341532909540, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3165861306009613135, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474656 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4210547300914069306, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8641360802250901923, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474658 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3289404818529849289, guid: c27f0864eb7f5524c8081d187a3553df,
     type: 3}
   m_PrefabInstance: {fileID: 1968474653}
   m_PrefabAsset: {fileID: 0}

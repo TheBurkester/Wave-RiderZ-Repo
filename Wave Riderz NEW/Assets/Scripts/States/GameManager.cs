@@ -71,6 +71,10 @@ public class GameManager : MonoBehaviour
 	public Text scoreGreen = null;
 	public Text scorePurple = null;
 	public Text scoreOrange = null;
+	public Text livesRed = null;
+	public Text livesGreen = null;
+	public Text livesPurple = null;
+	public Text livesOrange = null;
 	public Text beachBombAbility = null;
 	//-------------------------------------------------------------------------
 
@@ -157,6 +161,10 @@ public class GameManager : MonoBehaviour
 		scoreGreen.text = "";
 		scorePurple.text = "";
 		scoreOrange.text = "";
+		livesRed.text = "";
+		livesGreen.text = "";
+		livesPurple.text = "";
+		livesOrange.text = "";
 		beachBombAbility.text = "";
 
 		roundOverPanel.SetActive(false);
@@ -217,7 +225,7 @@ public class GameManager : MonoBehaviour
 						redSkier.SetAlive(false);
 						greenSkier.gameObject.SetActive(true); // Player two is now the skier.
 						greenSkier.SetAlive(true);
-						plane.controller = XboxController.First;	//Player one now controls the plane
+						plane.controller = XboxController.First;    //Player one now controls the plane
 
 						planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 					}
@@ -295,22 +303,22 @@ public class GameManager : MonoBehaviour
 					}
 				}
 
-				m_eCurrentState = RoundState.eStartRound;	//After a single frame in the BeforeRound state, start the actual round stuff
+				m_eCurrentState = RoundState.eStartRound;   //After a single frame in the BeforeRound state, start the actual round stuff
 
 				break;
-				//-------------------------------------------------------------------------
+			//-------------------------------------------------------------------------
 
 			case RoundState.eStartRound:
 
 				if (!m_startRoundTimer.UnderMax())              //If the timer has run out,
 				{
 					m_eCurrentState = RoundState.ePlayingRound; //Swap to playing the round
-					m_playingRoundTimer.SetTimer();				//Start the round timer
+					m_playingRoundTimer.SetTimer();             //Start the round timer
 					startCountdownDisplay.text = "GO!";
 					StartCoroutine(clearText(1));               //Set the text to turn off after 1 second
-					SceneMovementActive(true);					//Activate scene movement
+					SceneMovementActive(true);                  //Activate scene movement
 				}
-				else															//Otherwise the timer is still going,
+				else                                                            //Otherwise the timer is still going,
 				{
 					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 
@@ -324,16 +332,16 @@ public class GameManager : MonoBehaviour
 				}
 
 				break;
-				//-------------------------------------------------------------------------
+			//-------------------------------------------------------------------------
 
 			case RoundState.ePlayingRound:
 
-				if (!m_playingRoundTimer.UnderMax())			//If the timer has run out,
+				if (!m_playingRoundTimer.UnderMax())            //If the timer has run out,
 				{
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
-					playingCountDownDisplay.text = "";			//Turn the timer text off
+					playingCountDownDisplay.text = "";          //Turn the timer text off
 					SceneMovementActive(false);                 //Deactivate scene movement
-					roundOverPanel.SetActive(true);				//Show the round over screen
+					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
 
 				if (!redSkier.GetAlive() && !greenSkier.GetAlive() && !purpleSkier.GetAlive() && !orangeSkier.GetAlive())
@@ -344,15 +352,35 @@ public class GameManager : MonoBehaviour
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
 
-				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);	//Round the timer up to the nearest second
+				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);   //Round the timer up to the nearest second
 				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
 
 				scoreRed.text = redSkier.GetPlayerScore().ToString();
+				if (redSkier.GetAlive())
+					livesRed.text = redSkier.skierLives.ToString();
+				else
+					livesRed.text = "";
 				scoreGreen.text = greenSkier.GetPlayerScore().ToString();
+				if (greenSkier.GetAlive())
+					livesGreen.text = greenSkier.skierLives.ToString();
+				else
+					livesGreen.text = "";
 				if (m_playerCount >= 3)
+				{
 					scorePurple.text = purpleSkier.GetPlayerScore().ToString();
+					if (purpleSkier.GetAlive())
+						livesPurple.text = purpleSkier.skierLives.ToString();
+					else
+						livesPurple.text = "";
+				}
 				if (m_playerCount == 4)
+				{
 					scoreOrange.text = orangeSkier.GetPlayerScore().ToString();
+					if (orangeSkier.GetAlive())
+						livesOrange.text = orangeSkier.skierLives.ToString();
+					else
+						livesOrange.text = "";
+				}
 				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();
 				
 				break;
