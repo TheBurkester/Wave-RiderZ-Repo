@@ -14,22 +14,10 @@ using System;
 using UnityEngine.SceneManagement;
 using XboxCtrlrInput;
 
-
-//public class GameInfo : MonoBehaviour
-//{
-//	public static GameInfo sharedInstance;
-//	public int roundNumber;          //Stores the current round number
-
-//	void Awake()
-//	{
-//		sharedInstance = this;
-//	}
-//}
-
 public class GameManager : MonoBehaviour
 {
 	//Enum for the different round states
-	public enum RoundState
+	private enum RoundState
 	{
 		eBeforeRound,	//The single frame before the round for switching players, etc
 		eStartRound,	//The countdown before control is given to the players
@@ -41,12 +29,11 @@ public class GameManager : MonoBehaviour
 	//Player references/variables
 	public PlaneController plane = null;        //Reference to the plane
 	public BeachBallAbility target = null;      //Reference to the target
-	public SkierController redSkier = null;     //Reference to the red skier script.
-	public SkierController greenSkier = null;   //Reference to the green skier script.
-	public SkierController purpleSkier = null;  //Reference to the purple skier script.
-	public SkierController orangeSkier = null;	// Reference to the orange skier script.
-	public GameObject planeBody = null;     // Reference to the body of the plane.
-
+	public SkierController redSkier = null;     //Reference to the red skier script
+	public SkierController greenSkier = null;   //Reference to the green skier script
+	public SkierController purpleSkier = null;  //Reference to the purple skier script
+	public SkierController orangeSkier = null;	//Reference to the orange skier script
+	public GameObject planeBody = null;			// Reference to the body of the plane.
 	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
 	//-------------------------------------------------------------------------
 
@@ -55,7 +42,6 @@ public class GameManager : MonoBehaviour
 
 	//Round variables
 	private RoundState m_eCurrentState = 0;     //Stores the current state of the game
-	//private int m_roundNumber = 1;			//Stores the current round number
 	private Timer m_startRoundTimer;            //The countdown at the start of the round
 	private Timer m_playingRoundTimer;			//The round timer
 	public float roundTimeLimit = 45;           //How long a round lasts
@@ -64,9 +50,6 @@ public class GameManager : MonoBehaviour
 	//UI references
 	public Text startCountdownDisplay = null;		//Reference to the countdown timer text at the start of the round
 	public Text playingCountDownDisplay = null;     //Reference to the round timer text
-
-	// TEMPORARY
-	//-------------------------------------------------------------------------
 	public Text scoreRed = null;
 	public Text scoreGreen = null;
 	public Text scorePurple = null;
@@ -75,62 +58,37 @@ public class GameManager : MonoBehaviour
 	public Text livesGreen = null;
 	public Text livesPurple = null;
 	public Text livesOrange = null;
-	public Text beachBombAbility = null;
-	//-------------------------------------------------------------------------
-
-
+	public Text beachBombAbility = null;			//Reference to the cooldown timer text
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	//-------------------------------------------------------------------------
 
 
 	void Awake()
 	{
+		redSkier.controller = XboxController.First;     //First player is red
+		greenSkier.controller = XboxController.Second;  //Second player is green
+
 		if (m_playerCount == 2)
 		{
-			redSkier.controller = XboxController.First;     //First player is red
-			greenSkier.controller = XboxController.Second;  //Second player is green
-
-			//In the first round, green is plane, red is skier
-			//redSkier.gameObject.SetActive(true);
-			//greenSkier.gameObject.SetActive(false); // Player two will start in the plane.
 			plane.controller = XboxController.Second;	//Make green control the plane this round
-
-			//planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Plane's colour will be the same as player two.
 
 			purpleSkier.gameObject.SetActive(false); // Won't be used.
 			orangeSkier.gameObject.SetActive(false); // Won't be used.
 		}
 		else if (m_playerCount == 3)
 		{
-			redSkier.controller = XboxController.First;     //First player is red
-			greenSkier.controller = XboxController.Second;  //Second player is green
 			purpleSkier.controller = XboxController.Third;	//Third player is purple
 
-			//In the first round, purple is plane, red/green are skiers
-			//redSkier.gameObject.SetActive(true); // Player one skier will be active.
-			//greenSkier.gameObject.SetActive(true);// Player two skier will be active.
-			//purpleSkier.gameObject.SetActive(false); // Player three will start in the plane.
 			plane.controller = XboxController.Third;    //Make purple control the plane this round
-
-			//planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player three colour.
 
 			orangeSkier.gameObject.SetActive(false); // Won't be used.
 		}
 		else if (m_playerCount == 4)
 		{
-			redSkier.controller = XboxController.First;     //First player is red
-			greenSkier.controller = XboxController.Second;  //Second player is green
 			purpleSkier.controller = XboxController.Third;  //Third player is purple
 			orangeSkier.controller = XboxController.Fourth;	//Fourth player is orange
 
-			//In the first round, orange is plane, red/green/purple are skiers
-			//redSkier.gameObject.SetActive(true); // Player one skier will be active.
-			//greenSkier.gameObject.SetActive(true); // Player two skier will be active.
-			//purpleSkier.gameObject.SetActive(true); // Player three skier will be active.
-			//orangeSkier.gameObject.SetActive(false); // Player four will start in the plane.
 			plane.controller = XboxController.Fourth;   //Make orange control the plane this round
-
-			//planeBody.GetComponent<Renderer>().material = orangeSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player four colour.
 		}
 	}
 
@@ -147,6 +105,7 @@ public class GameManager : MonoBehaviour
 		m_playingRoundTimer.reverseTimer = true;                   //Make the timer count down
 		m_playingRoundTimer.autoDisable = true;                    //Make the timer disable itself after the timelimit
 
+		//At the start of each round, set the scores
 		redSkier.SetPlayerScore(GameInfo.playerOneScore);
 		greenSkier.SetPlayerScore(GameInfo.playerTwoScore);
 		if (m_playerCount >= 3)
@@ -323,12 +282,13 @@ public class GameManager : MonoBehaviour
 					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 
 					//Display the countdown
-					if (closestSecond == 3)
-						startCountdownDisplay.text = "3";
-					else if (closestSecond == 2)
-						startCountdownDisplay.text = "2";
-					else if (closestSecond == 1)
-						startCountdownDisplay.text = "1";
+					//if (closestSecond == 3)
+					//	startCountdownDisplay.text = "3";
+					//else if (closestSecond == 2)
+					//	startCountdownDisplay.text = "2";
+					//else if (closestSecond == 1)
+					//	startCountdownDisplay.text = "1";
+					startCountdownDisplay.text = closestSecond.ToString();
 				}
 
 				break;
@@ -336,15 +296,8 @@ public class GameManager : MonoBehaviour
 
 			case RoundState.ePlayingRound:
 
-				if (!m_playingRoundTimer.UnderMax())            //If the timer has run out,
-				{
-					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
-					playingCountDownDisplay.text = "";          //Turn the timer text off
-					SceneMovementActive(false);                 //Deactivate scene movement
-					roundOverPanel.SetActive(true);             //Show the round over screen
-				}
-
-				if (!redSkier.GetAlive() && !greenSkier.GetAlive() && !purpleSkier.GetAlive() && !orangeSkier.GetAlive())
+				if (!m_playingRoundTimer.UnderMax()																				//If the timer has run out,
+					|| !redSkier.GetAlive() && !greenSkier.GetAlive() && !purpleSkier.GetAlive() && !orangeSkier.GetAlive())	//or all skiers are wiped out,
 				{
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
 					playingCountDownDisplay.text = "";          //Turn the timer text off
@@ -355,12 +308,13 @@ public class GameManager : MonoBehaviour
 				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);   //Round the timer up to the nearest second
 				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
 
+				//Display scores and lives
 				scoreRed.text = redSkier.GetPlayerScore().ToString();
+				scoreGreen.text = greenSkier.GetPlayerScore().ToString();
 				if (redSkier.GetAlive())
 					livesRed.text = redSkier.skierLives.ToString();
 				else
 					livesRed.text = "";
-				scoreGreen.text = greenSkier.GetPlayerScore().ToString();
 				if (greenSkier.GetAlive())
 					livesGreen.text = greenSkier.skierLives.ToString();
 				else
@@ -381,7 +335,8 @@ public class GameManager : MonoBehaviour
 					else
 						livesOrange.text = "";
 				}
-				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();
+
+				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();	//Display the beach bomb ability cooldown timer
 				
 				break;
 				//-------------------------------------------------------------------------
@@ -390,6 +345,7 @@ public class GameManager : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Space) || XCI.GetButtonDown(XboxButton.A, XboxController.All))	//If next round is selected,
 				{
+					//Update the static GameInfo scores
 					GameInfo.playerOneScore = redSkier.GetPlayerScore();
 					GameInfo.playerTwoScore = greenSkier.GetPlayerScore();
 					if (m_playerCount >= 3)
@@ -397,19 +353,17 @@ public class GameManager : MonoBehaviour
 					if (m_playerCount == 4)
 						GameInfo.playerFourScore = orangeSkier.GetPlayerScore();
 
-					++GameInfo.roundNumber;
-					if (GameInfo.roundNumber <= m_playerCount)              //If the round number is under the number of players,
+					++GameInfo.roundNumber;								//Update the round number
+					if (GameInfo.roundNumber <= m_playerCount)			//If the round number is under the number of players,
 					{
-						SceneManager.LoadScene(GameInfo.roundNumber);		//Load the next level
+						SceneManager.LoadScene(GameInfo.roundNumber);	//Load the next level
 
-						m_eCurrentState = RoundState.eBeforeRound;		//Go back to round start state
-						m_startRoundTimer.SetTimer();					//Start the countdown timer
-						roundOverPanel.SetActive(false);
+						//m_eCurrentState = RoundState.eBeforeRound;		//Go back to round start state
+						//m_startRoundTimer.SetTimer();					//Start the countdown timer
+						//roundOverPanel.SetActive(false);
 					}
 					else                                                //The round number exceeds the number of players,
-					{
-						SceneManager.LoadScene(5);             //Go to the game finished scene
-					}
+						SceneManager.LoadScene(5);						//Go to the game finished scene
 				}
 
 				break;
@@ -427,10 +381,10 @@ public class GameManager : MonoBehaviour
 		orangeSkier.enabled = value;
 		redSkier.tether.enabled = value;
 		greenSkier.tether.enabled = value;
-		if (purpleSkier.gameObject.activeSelf == true)
-			purpleSkier.tether.enabled = value;
-		if (orangeSkier.gameObject.activeSelf == true)
-			orangeSkier.tether.enabled = value;
+		if (purpleSkier.gameObject.activeSelf == true)	//If the purple skier is in the game,
+			purpleSkier.tether.enabled = value;			//Set them
+		if (orangeSkier.gameObject.activeSelf == true)	//If the orange skier is in the game,
+			orangeSkier.tether.enabled = value;			//Set them too
 		target.enabled = value;
 		mainCamera.enabled = value;
 	}
