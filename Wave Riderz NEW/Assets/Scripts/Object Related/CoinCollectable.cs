@@ -1,7 +1,7 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			CoinCollectable
 |
-|  Author:			Max Atkinson / Seth Johnston
+|  Author:			Max Atkinson
 | 
 |  Description:		Handles the coin rotation and trigger.
 *-------------------------------------------------------------------*/
