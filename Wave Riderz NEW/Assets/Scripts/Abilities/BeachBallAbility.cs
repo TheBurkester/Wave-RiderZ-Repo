@@ -1,44 +1,45 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			BeachBallAbility
 |
-|  Author:		    Thomas Maltezos
+|  Author:		    Thomas Maltezos / Seth Johnston
 | 
 |  Description:		Handles the plane's beach ball ability.
 *-------------------------------------------------------------------*/
 using UnityEngine;
 using XboxCtrlrInput;
-using XInputDotNetPure;
 
 public class BeachBallAbility : MonoBehaviour
 {
-    // These Keycodes will be changed later when Xbox Input is implemented.
-    private XboxController m_controller;
-    private Vector3 newPosition;
-    public KeyCode Up = KeyCode.W;
-    public KeyCode Down = KeyCode.S;
-    public KeyCode Left = KeyCode.A;
-    public KeyCode Right = KeyCode.D;
-    public KeyCode Aim = KeyCode.Space;
-    public KeyCode Shoot = KeyCode.G;
-    public float Cooldown = 5.0f; // Used to define the length of the ability's cooldown.
-    public float targetMovementSpeed = 10.0f; // Target's movement speed when aiming.
+	//Movement
+    private XboxController m_controller;	//Reference to which controller to use (same as plane's)
+    public KeyCode Up = KeyCode.W;			//Keyboard up control
+    public KeyCode Down = KeyCode.S;		//Keyboard down control
+    public KeyCode Left = KeyCode.A;		//Keyboard left control
+    public KeyCode Right = KeyCode.D;		//Keyboard right control
+    public KeyCode Aim = KeyCode.Space;		//Keyboard aim control
+    public KeyCode Shoot = KeyCode.G;		//Keyboard shoot control
+    public float targetMovementSpeed = 10.0f;	// Target's movement speed when aiming.
+    private Vector3 m_newPosition;				//Used to update the target's position each frame 
+    private float m_targetPlaneRelation = 5.0f; // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
+
+	//Clamps
     public float riverClampHorizontal = 14; // Editable horizontal clamp.
     public float riverClampForward = 3.5f; // Editable forward clamp.
     public float riverClampBehind = 5; // Editable behind clamp.
-    public Rigidbody planeRB = null;
-
-    private const float MAX_TRG_SCL = 1.21f;
- 
-    private float m_targetPlaneRelation = 5.0f; // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
-    private bool m_isShooting = false; // Has the player pressed the shoot button.
     private float m_riverClampForwardAlter; // Clamp will always be moving forward.
     private float m_riverClampBehindAlter; // Clamp will always be moving forward.
+
+	//Ability
+    public float cooldown = 5.0f; // Used to define the length of the ability's cooldown.
+    private bool m_isShooting = false; // Has the player pressed the shoot button.
     private MeshRenderer m_targetMesh; // Target's Mesh.
     private Rigidbody m_targetRB; // Target's Rigidbody.
     private GameObject m_prefab; // Beachball prefab.
-
 	[HideInInspector]
     public Timer abilityCooldown; // Timer used for the cooldown.
+ 
+    public Rigidbody planeRB = null;	//Reference to the plane rigidbody
+
 
     void Awake()
     {
@@ -48,7 +49,7 @@ public class BeachBallAbility : MonoBehaviour
         m_prefab = Resources.Load("BeachBall") as GameObject;
 
         abilityCooldown = gameObject.AddComponent<Timer>();
-        abilityCooldown.maxTime = Cooldown;
+        abilityCooldown.maxTime = cooldown;
 		abilityCooldown.reverseTimer = true;
 		abilityCooldown.autoDisable = true;
     }
@@ -56,7 +57,7 @@ public class BeachBallAbility : MonoBehaviour
     void Start()
     {
         abilityCooldown.SetTimer(); // Starts the timer.
-        newPosition = transform.position;
+		m_newPosition = transform.position;
 
 		if (planeRB != null)
 			m_controller = planeRB.GetComponent<PlaneController>().controller;
@@ -64,12 +65,10 @@ public class BeachBallAbility : MonoBehaviour
 
     void Update()
     {
-        aimTarget();
-        
-      
+        AimTarget();
     }
 
-    void aimTarget()
+    public void AimTarget()
     {
         // Target's movement forward in relation to the plane.
         Vector3 v3PlaneRelation = m_targetRB.position + new Vector3(0, 0, m_targetPlaneRelation * Time.deltaTime);
@@ -79,8 +78,8 @@ public class BeachBallAbility : MonoBehaviour
         m_riverClampForwardAlter = planeRB.position.z - riverClampForward;
         m_riverClampBehindAlter = planeRB.position.z - riverClampBehind * 2.5f;
 
-        // RIGHT STICK MOVEMENT 
-        newPosition = transform.position;
+		// RIGHT STICK MOVEMENT 
+		m_newPosition = transform.position;
         float axisX = XCI.GetAxis(XboxAxis.RightStickX, m_controller);
         float axisY = XCI.GetAxis(XboxAxis.RightStickY, m_controller);
         // right trigger 
@@ -92,53 +91,53 @@ public class BeachBallAbility : MonoBehaviour
 
         if (!m_isShooting && m_targetMesh.enabled)
         {
-			Vector3 oldPosition = newPosition;
+			Vector3 currentPosition = m_newPosition;
 
-            newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
-            newPosition.z += (axisY * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position up/down
+			m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
+			m_newPosition.z += (axisY * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position up/down
 
             if (Input.GetKey(Left)) // Movement Left.
             {
-				newPosition += Vector3.left * targetMovementSpeed * Time.deltaTime; // Moving Left = Vector.forward due to scene direction.
+				m_newPosition += Vector3.left * targetMovementSpeed * Time.deltaTime; // Moving Left = Vector.forward due to scene direction.
             }
 
             if (Input.GetKey(Right)) // Movement Right.
             {
-				newPosition += Vector3.right * targetMovementSpeed * Time.deltaTime; // Moving Right = Vector.back due to scene direction.
+				m_newPosition += Vector3.right * targetMovementSpeed * Time.deltaTime; // Moving Right = Vector.back due to scene direction.
             }
 
             if (Input.GetKey(Up)) // Movement Up.
             {
-				newPosition += Vector3.forward * targetMovementSpeed * Time.deltaTime; // Moving Up = Vector.right due to scene direction.
+				m_newPosition += Vector3.forward * targetMovementSpeed * Time.deltaTime; // Moving Up = Vector.right due to scene direction.
             }
 
             if (Input.GetKey(Down)) // Movement Down.
             {
-				newPosition += Vector3.back * targetMovementSpeed * Time.deltaTime; // Moving Down = Vector.left due to scene direction.
+				m_newPosition += Vector3.back * targetMovementSpeed * Time.deltaTime; // Moving Down = Vector.left due to scene direction.
             }
 
-			if (!(newPosition.x < riverClampHorizontal) || !(newPosition.x > -riverClampHorizontal))        //Check if the new position z is oustide the boundaries
-				newPosition.x = oldPosition.x;                     //If it is, undo the z movement
-			if (!(newPosition.z < m_riverClampForwardAlter) || !(newPosition.z > m_riverClampBehindAlter))  //Check if the new position x is oustide the boundaries
-				newPosition.z = oldPosition.z;                     //If it is, undo the x movement
+			if (!(m_newPosition.x < riverClampHorizontal) || !(m_newPosition.x > -riverClampHorizontal))        //Check if the new position z is oustide the boundaries
+				m_newPosition.x = currentPosition.x;															//If it is, undo the z movement
+			if (!(m_newPosition.z < m_riverClampForwardAlter) || !(m_newPosition.z > m_riverClampBehindAlter))  //Check if the new position x is oustide the boundaries
+				m_newPosition.z = currentPosition.z;															//If it is, undo the x movement
 		}
         // Simple transform which combines all directions and allows diagonal movement.
         //m_targetRB.transform.Translate(targetMovementSpeed * v3.normalized * Time.deltaTime);
-        transform.position = newPosition;
+        transform.position = m_newPosition;
 
         if (Input.GetKey(Shoot) && m_targetMesh.enabled)
         {
-            toggleIsShooting(true);
-            shootBall(); // Shoots the beachball.
-            toggleMeshEnable(true);
+			ToggleIsShooting(true);
+			ShootBall(); // Shoots the beachball.
+			ToggleMeshEnable(true);
             abilityCooldown.SetTimer(); // Resets cooldown.
         }
 
-        if((1.0f - XCI.GetAxis(XboxAxis.RightTrigger, m_controller)) < 0.1f && m_targetMesh.enabled)
+        if((1.0f - RT) < 0.1f && m_targetMesh.enabled)	//If the right trigger is mostly pressed
         {
-            toggleIsShooting(true);
-            shootBall(); // Shoots the beachball.
-            toggleMeshEnable(true);
+			ToggleIsShooting(true);
+			ShootBall(); // Shoots the beachball.
+			ToggleMeshEnable(true);
             abilityCooldown.SetTimer(); // Resets cooldown.
         }
       
@@ -153,8 +152,7 @@ public class BeachBallAbility : MonoBehaviour
         {
             m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
         }
-        // Right Bumper
-        if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !abilityCooldown.UnderMax() || m_isShooting)
+        if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !abilityCooldown.UnderMax() || m_isShooting)	//If the right bumper is held,
         {
             m_targetMesh.enabled = true; // Activate target's mesh when aiming.
         }
@@ -164,7 +162,7 @@ public class BeachBallAbility : MonoBehaviour
         }
     }
 
-    void shootBall()
+    public void ShootBall()
     {
         // Gets the beach ball from the Object Pool.
         GameObject BeachBall = ObjectPool.sharedInstance.GetPooledObject("Beach Ball");
@@ -181,12 +179,12 @@ public class BeachBallAbility : MonoBehaviour
     }
 
     // Used in Beachball script.
-    public void toggleIsShooting(bool shooting)
+    public void ToggleIsShooting(bool shooting)
     {
         m_isShooting = shooting;
     }
     // Used in Beachball script.
-    public void toggleMeshEnable(bool enable)
+    public void ToggleMeshEnable(bool enable)
     {
         m_targetMesh.enabled = enable;
     }
