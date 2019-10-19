@@ -3,7 +3,7 @@
 |
 |  Author:			Max Atkinson / Seth Johnston / Thomas Maltezos
 | 
-|  Description:		Handles the skier's collision with obstacles.
+|  Description:		DEPRECIATED. THIS SCRIPT IS A LEGACY SCRIPT FOR REFERENCE ONLY.
 *-------------------------------------------------------------------*/
 
 using System.Collections;
