@@ -16,22 +16,21 @@ public class CameraController : MonoBehaviour
 
 	private float m_speed = 5;				//How fast the camera moves up the river
 
-    private Rigidbody rb = null;
+    private Rigidbody m_rb = null;
 	
     void Awake()
 	{
 		Debug.Assert(plane != null, "CameraController script missing PlaneController reference");
 		m_speed = plane.forwardSpeed;
 
-        rb = GetComponent<Rigidbody>();
-		Debug.Assert(rb != null, "Camera missing rigidbody component");
+		m_rb = GetComponent<Rigidbody>();
+		Debug.Assert(m_rb != null, "Camera missing rigidbody component");
     }
 	
 	void Update()
 	{
-        Vector3 newPos = rb.position + new Vector3(0, 0, m_speed * Time.deltaTime);     //New position is the current position moved forward slightly
-		//rb.position = newPos;
-		rb.MovePosition(newPos);														//Move the camera forward
+        Vector3 newPos = m_rb.position + new Vector3(0, 0, m_speed * Time.deltaTime);	//New position is the current position moved forward slightly
+		m_rb.MovePosition(newPos);														//Move the camera forward
 		//Keep in mind MovePosition doesn't update the position until the end of the frame
     }
 }
