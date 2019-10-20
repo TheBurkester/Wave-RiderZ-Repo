@@ -40,6 +40,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &263392506
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097982785142218589}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &585620964043794867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,6 +208,12 @@ PrefabInstance:
 --- !u!4 &5223689798616815906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4638370186141446289, guid: eb4a4e7e5fa7d7543a17a7b302af636d,
+    type: 3}
+  m_PrefabInstance: {fileID: 585620964043794867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4097982785142218589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3530398282411636462, guid: eb4a4e7e5fa7d7543a17a7b302af636d,
     type: 3}
   m_PrefabInstance: {fileID: 585620964043794867}
   m_PrefabAsset: {fileID: 0}
@@ -201,11 +303,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OpenRock Sandbank
-      objectReference: {fileID: 0}
-    - target: {fileID: 8671916490694154314, guid: 5bcb634c0170224428eba6118bf93b8f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8671916490693985386, guid: 5bcb634c0170224428eba6118bf93b8f,
         type: 3}
@@ -432,11 +529,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UndiscoveredSandbank (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 4421726031261015568, guid: 09efe1b4f70e0c6478c69951abdac210,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4421726031261368880, guid: 09efe1b4f70e0c6478c69951abdac210,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -507,11 +599,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1575350239662654433}
     m_Modifications:
-    - target: {fileID: 3519020031567429553, guid: 7941ddc3ac040a849ad9b1c20587710a,
-        type: 3}
-      propertyPath: m_Name
-      value: ObstacleCourse 2
-      objectReference: {fileID: 0}
     - target: {fileID: 69658127914940264, guid: 7941ddc3ac040a849ad9b1c20587710a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -567,6 +654,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3519020031567429553, guid: 7941ddc3ac040a849ad9b1c20587710a,
+        type: 3}
+      propertyPath: m_Name
+      value: ObstacleCourse 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7941ddc3ac040a849ad9b1c20587710a, type: 3}
 --- !u!4 &6104872974231958098 stripped
@@ -589,13 +681,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 67
+      propertyPath: m_LocalPosition.x
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
+      propertyPath: m_LocalPosition.y
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
         type: 3}
@@ -604,8 +696,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.76
+      propertyPath: m_LocalRotation.x
+      value: 0.6730404
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.21683331
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.21683326
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6730404
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151107526790755538, guid: fa35731b02f8a5f4289d17ce6e954604,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -35.715
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa35731b02f8a5f4289d17ce6e954604, type: 3}
@@ -620,11 +747,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UndiscoveredSandbank (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4421726031261015568, guid: 09efe1b4f70e0c6478c69951abdac210,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4421726031261368880, guid: 09efe1b4f70e0c6478c69951abdac210,
         type: 3}
@@ -771,16 +893,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1575350239662654433}
     m_Modifications:
-    - target: {fileID: 8355913043558049140, guid: 6ce392f8de287214aa3d73f912828f94,
-        type: 3}
-      propertyPath: m_Name
-      value: ' Jungle Sandback'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8355913043558049140, guid: 6ce392f8de287214aa3d73f912828f94,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8355913043557955924, guid: 6ce392f8de287214aa3d73f912828f94,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -835,6 +947,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355913043558049140, guid: 6ce392f8de287214aa3d73f912828f94,
+        type: 3}
+      propertyPath: m_Name
+      value: ' Jungle Sandback'
       objectReference: {fileID: 0}
     - target: {fileID: 7306942709882050109, guid: 6ce392f8de287214aa3d73f912828f94,
         type: 3}
@@ -920,6 +1037,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107925580839682655, guid: 6ce392f8de287214aa3d73f912828f94,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107925580839682655, guid: 6ce392f8de287214aa3d73f912828f94,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.446
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107925580839682655, guid: 6ce392f8de287214aa3d73f912828f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ce392f8de287214aa3d73f912828f94, type: 3}
