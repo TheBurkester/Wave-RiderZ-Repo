@@ -36,7 +36,7 @@ public class Tether : MonoBehaviour
 		Debug.Assert(tetherPoint != null, "Object missing tether point reference");
 
 		m_drag = new Vector3(0, 0, -backwardsDrag);     //Set the backwards drag
-		tetherPosition = new Vector3(tetherPoint.position.x, 0, tetherPoint.position.z);	//Position to tether to is beneath the plane at y = 0
+		tetherPosition = new Vector3(tetherPoint.position.x, 0, tetherPoint.position.z);	//Position the tether so it's beneath the plane at y = 0
 	}
 
     void Update()

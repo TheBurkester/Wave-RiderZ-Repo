@@ -1,84 +1,91 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			MainMenu
 |
-|  Author:			Thomas Maltezos
+|  Author:			Thomas Maltezos / Seth Johnston
 | 
-|  Description:		Handles the main menu.
+|  Description:		Controls UI elements of the main menu and 
 *-------------------------------------------------------------------*/
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using XboxCtrlrInput;		// Be sure to include this if you want an object to have Xbox input
+using XboxCtrlrInput;
 public class MainMenu : MonoBehaviour
 {
+	//Enum for the different UI screens in the menu
 	public enum PanelState
 	{
-		eSplashScreen, // First screen visible when launching game.
-		eCharacterScreen // Character selection / ready screen.
+		eSplashScreen,		// First screen visible when launching game.
+		eCharacterScreen	// Character selection / ready screen.
 	}
 
-	public RectTransform splashPanel;
-	public RectTransform characterPanel;
-	public Canvas canvas;
-	public Transform playerOneBlock; // References the position of the block BEHIND the model.
-	public Transform playerTwoBlock; // References the position of the block BEHIND the model.
-	public Transform playerThreeBlock; // References the position of the block BEHIND the model.
-	public Transform playerFourBlock; // References the position of the block BEHIND the model.
-    
-    
-    public KeyCode addPlayer = KeyCode.A; // Adds a player to the game.
-    //public KeyCode removePlayer = KeyCode.D; // Removes a player from the game.
-	public KeyCode readyPlayerOne = KeyCode.Alpha1; // Player one is ready.
-	public KeyCode readyPlayerTwo = KeyCode.Alpha2; // Player two is ready.
-	public KeyCode readyPlayerThree = KeyCode.Alpha3; // Player three is ready.
-	public KeyCode readyPlayerFour = KeyCode.Alpha4; // Player four is ready.
-    public XboxButton addPlayerXbox = XboxButton.A; // Adds a player to the game with Xbox controls.
-    public XboxButton removePlayerXbox = XboxButton.B; // Removes a player from the game with Xbox controls.
-    public XboxButton readyPlayerXbox = XboxButton.Start; // Player one is ready.
 
-    public Light readyLightPlayerOne; // Ready light which will be turned on when Player One is ready.
-	public Light readyLightPlayerTwo; // Ready light which will be turned on when Player Two is ready.
-    public Light readyLightPlayerThree; // Ready light which will be turned on when Player Three is ready.
-    public Light readyLightPlayerFour; // Ready light which will be turned on when Player Four is ready.
-
-    public float panelSpeed = 40; // How quickly the panels will shift.
-
-    public static int playerNumber = 0; // The number of players.
-
-    // Individual bools for each player.
-    private bool m_playerOneReady = false;
-    private bool m_playerTwoReady = false;
-    private bool m_playerThreeReady = false;
-    private bool m_playerFourReady = false;
-
-	private PanelState m_eCurrentState = 0; // Starting state is splash screen.
-
+	//UI references
+	public Canvas canvas;					//Reference to the UI canvas as a whole
+	public RectTransform splashPanel;		//Reference to the main menu UI transform
+	public RectTransform characterPanel;	//Reference to the character selection UI transform
+	//Positions of the blocks behind skiers in character select
+	public Transform playerOneBlock;
+	public Transform playerTwoBlock;
+	public Transform playerThreeBlock;
+	public Transform playerFourBlock;
+	//Lights to turn on when the corresponding skier is ready
+    public Light readyLightPlayerOne;
+	public Light readyLightPlayerTwo;
+    public Light readyLightPlayerThree;
+    public Light readyLightPlayerFour;
 	// All off-screen positions.
 	private Vector3 m_panelOffScreenBottomPos;
 	private Vector3 m_panelOffScreenTopPos;
 	private Vector3 m_playerOffScreenLeft;
 	private Vector3 m_playerOffScreenRight;
-
 	// All player positions whilst in view of the camera.
 	private Vector3 m_playerOnePos;
 	private Vector3 m_playerTwoPos;
 	private Vector3 m_playerThreePos;
 	private Vector3 m_playerFourPos;
+	//-------------------------------------------------------------------------
 
-    private float m_t = 0; // Timer which increases via the panelSpeed.
-	private float m_t2 = 0; // Second TImer for ONLY players.
-	private bool m_playButtonPress = false; // Has the play button been clicked?
-    private bool m_addPlayerButtonPress = false;
-   // private bool m_XboxbuttonTwoPress = false; // has player two's button been pressed?
-    private bool m_removePlayer = false; // Is a player currently being removed from the game?
-	private bool m_showPlay = false;
+	//UI-related variables
+	public float panelSpeed = 40;					// How quickly the panels will shift.
+    private float m_t = 0;							// Timer which increases via the panelSpeed.
+	private float m_t2 = 0;							// Second timer for ONLY players.
+	private bool m_playButtonPress = false;			// Has the play button been clicked?
+    private bool m_addPlayerButtonPress = false;	// Has the add player button been pressed?
+    private bool m_removePlayer = false;			// Is a player currently being removed from the game?
+	private bool m_showPlay = false;                // Are there enough players ready to show the play button?
+	//-------------------------------------------------------------------------
+
+	//Keyboard controls (OUTDATED)
+	//public KeyCode readyPlayerOne = KeyCode.Alpha1;		// Player one is ready.
+	//public KeyCode readyPlayerTwo = KeyCode.Alpha2;		// Player two is ready.
+	//public KeyCode readyPlayerThree = KeyCode.Alpha3;	// Player three is ready.
+	//public KeyCode readyPlayerFour = KeyCode.Alpha4;    // Player four is ready.
+	//-------------------------------------------------------------------------
+
+	//Xbox controls
+	public XboxButton addPlayerXbox = XboxButton.A;			// Adds a player to the game with Xbox controls.
+    public XboxButton removePlayerXbox = XboxButton.B;		// Removes a player from the game with Xbox controls.
+    public XboxButton readyPlayerXbox = XboxButton.Start;   // Player one is ready.
+	//-------------------------------------------------------------------------
+
+	//Player variables
+	public static int playerNumber = 0; // The number of players.
+    private bool m_playerOneReady = false;
+    private bool m_playerTwoReady = false;
+    private bool m_playerThreeReady = false;
+    private bool m_playerFourReady = false;
+	//-------------------------------------------------------------------------
+
+	//Misc
+	private PanelState m_eCurrentState = 0; // Starting state is splash screen.
+	
 
 	void Awake()
     {
-		m_playerOnePos = new Vector3(-3, 12, 3); // Target position to place player one.
-		m_playerTwoPos = new Vector3(3, 12, 3); // Target position to place player two.
-		m_playerThreePos = new Vector3(-3, 9, 3); // Target position to place player three.
-		m_playerFourPos = new Vector3(3, 9, 3); // Target position to place player four.
+		m_playerOnePos = new Vector3(-3, 12, 3);	// Target position to place player one.
+		m_playerTwoPos = new Vector3(3, 12, 3);		// Target position to place player two.
+		m_playerThreePos = new Vector3(-3, 9, 3);	// Target position to place player three.
+		m_playerFourPos = new Vector3(3, 9, 3);		// Target position to place player four.
 
 		m_panelOffScreenBottomPos = new Vector3(splashPanel.transform.position.x, -900, splashPanel.transform.position.z); // Bottom position for moving onto the canvas.
 		m_panelOffScreenTopPos = new Vector3(splashPanel.transform.position.x, 1800, splashPanel.transform.position.z); // Top position for moving off the canvas.
@@ -98,24 +105,16 @@ public class MainMenu : MonoBehaviour
 		readyLightPlayerFour.enabled = false;
 
 		if (playerOneBlock != null)
-		{
 			playerOneBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the left of the camera.
-		}
 
 		if (playerTwoBlock != null)
-		{
 			playerTwoBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
-		}
 
 		if (playerThreeBlock != null)
-		{
 			playerThreeBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the right of the camera.
-		}
 
 		if (playerFourBlock != null)
-		{
 			playerFourBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
-		}
 
 		playerNumber = 0;
 	}
@@ -124,14 +123,16 @@ public class MainMenu : MonoBehaviour
 	{
 		switch (m_eCurrentState)
 		{
-			case PanelState.eSplashScreen: // Splash screen enum.
-                if (XCI.GetButton(addPlayerXbox, XboxController.First))
-                    m_playButtonPress = true;
+			case PanelState.eSplashScreen:
 
-				if (m_playButtonPress)
+                if (XCI.GetButton(addPlayerXbox, XboxController.First))	//If the first controller presses the play button,
+                    m_playButtonPress = true;							//Activate the play button
+
+				if (m_playButtonPress)	//If the play button is active,
 				{
-					m_t += panelSpeed; // Only used for panels.
-					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
+					//Increment the timers
+					m_t += panelSpeed;	
+					m_t2 += panelSpeed * Time.deltaTime;
 
 					splashPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
 					playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerOnePos, m_t2); // Slowly moves the position to the target.
@@ -139,8 +140,8 @@ public class MainMenu : MonoBehaviour
 					// If everything is in its correct place.
 					if (splashPanel.transform.position == m_panelOffScreenTopPos && playerOneBlock.transform.position == m_playerOnePos)
 					{
-						m_t = 0; // Reset panel timer.
-						m_t2 = 0; // Reset player timer.
+						m_t = 0;	// Reset panel timer.
+						m_t2 = 0;	// Reset player timer.
 						playerNumber++;
                         m_playButtonPress = false;
 						m_eCurrentState = PanelState.eCharacterScreen; // Change state to the character screen.
@@ -149,71 +150,46 @@ public class MainMenu : MonoBehaviour
 				break;
 			/*-------------------------------------------------------------------*/
 
-			case PanelState.eCharacterScreen: // Character screen enum.
-                //if (Input.GetKey(addPlayer) && playerNumber <= 3)
-                //{
-                //    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-                //    {
-                //        m_buttonPress = true;
-                //    }
-                //}
-
-                //if (Input.GetKey(removePlayer) && playerNumber >= 2)
-                //{
-                //    if (m_buttonPress != true) // Ensures that the buttons don't clash with one another.
-                //    {
-                //        m_removePlayer = true;
-                //    }
-                //}
-
-                if (XCI.GetButton(addPlayerXbox, XboxController.Second) && playerNumber == 1) // Player One
+			case PanelState.eCharacterScreen:
+                
+				//'Add player' input checks
+                if (XCI.GetButton(addPlayerXbox, XboxController.Second) && playerNumber == 1) //If player two presses add and the previous player is already added,
                 {
-                    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-                    {
-                        m_addPlayerButtonPress = true;
-                    }
+                    if (m_removePlayer != true)			//As long as a player isn't currently getting removed, 
+                        m_addPlayerButtonPress = true;	//Add a player
                 }
-                if (XCI.GetButton(addPlayerXbox, XboxController.Third) && playerNumber == 2) // Player One
-                {
-                    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-                    {
-                        m_addPlayerButtonPress = true;
-                    }
-                }
-                if (XCI.GetButton(addPlayerXbox, XboxController.Fourth) && playerNumber == 3) // Player One
-                {
-                    if (m_removePlayer != true) // Ensures that the buttons don't clash with one another.
-                    {
-                        m_addPlayerButtonPress = true;
-                    }
-                }
-
-                if (XCI.GetButton(removePlayerXbox, XboxController.Second) && playerNumber == 2)
-                {
-                    if (m_addPlayerButtonPress != true) // Ensures that the buttons don't clash with one another.
-                    {
-                        m_removePlayer = true;
-                    }
-                }
-                if (XCI.GetButton(removePlayerXbox, XboxController.Third) && playerNumber == 3)
-                {
-                    if (m_addPlayerButtonPress != true) // Ensures that the buttons don't clash with one another.
-                    {
-                        m_removePlayer = true;
-                    }
-                }
-                if (XCI.GetButton(removePlayerXbox, XboxController.Fourth) && playerNumber == 4)
-                {
-                    if (m_addPlayerButtonPress != true) // Ensures that the buttons don't clash with one another.
-                    {
-                        m_removePlayer = true;
-                    }
-                }
-
-
-                if (m_addPlayerButtonPress) // Adding players
+                if (XCI.GetButton(addPlayerXbox, XboxController.Third) && playerNumber == 2) //If player three presses add and the previous player is already added,
 				{
-					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
+                    if (m_removePlayer != true)			//As long as a player isn't currently getting removed,
+                        m_addPlayerButtonPress = true;  //Add a player
+				}
+                if (XCI.GetButton(addPlayerXbox, XboxController.Fourth) && playerNumber == 3) //If player four presses add and the previous player is already added,
+				{
+                    if (m_removePlayer != true)			//As long as a player isn't currently getting removed,
+                        m_addPlayerButtonPress = true;  //Add a player
+				}
+
+				//'Remove player' input checks
+                if (XCI.GetButton(removePlayerXbox, XboxController.Second) && playerNumber == 2)    //If player two presses remove and they are the last player,
+				{
+                    if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
+                        m_removePlayer = true;			//Remove a player
+                }
+                if (XCI.GetButton(removePlayerXbox, XboxController.Third) && playerNumber == 3)    //If player three presses remove and they are the last player,
+				{
+					if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
+						m_removePlayer = true;          //Remove a player
+				}
+				if (XCI.GetButton(removePlayerXbox, XboxController.Fourth) && playerNumber == 4)    //If player four presses remove and they are the last player,
+				{
+					if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
+						m_removePlayer = true;          //Remove a player
+				}
+
+				//Adding and moving players
+				if (m_addPlayerButtonPress)
+				{
+					m_t2 += panelSpeed * Time.deltaTime; //Increment the player moving timer
             
 					if (playerNumber == 1) // If there is one player. Adds the 2nd player.
 					{
@@ -221,7 +197,7 @@ public class MainMenu : MonoBehaviour
             
 						if (playerTwoBlock.transform.position == m_playerTwoPos)
 						{
-							m_t2 = 0; // Resets timer.
+							m_t2 = 0;		// Resets timer.
 							playerNumber++; // Increases player number by 1.
                             m_addPlayerButtonPress = false;
 						}
@@ -232,7 +208,7 @@ public class MainMenu : MonoBehaviour
             
 						if (playerThreeBlock.transform.position == m_playerThreePos)
 						{
-							m_t2 = 0; // Resets timer.
+							m_t2 = 0;		// Resets timer.
 							playerNumber++; // Increases player number by 1.
                             m_addPlayerButtonPress = false;
 						}
@@ -243,17 +219,18 @@ public class MainMenu : MonoBehaviour
             
 						if (playerFourBlock.transform.position == m_playerFourPos)
 						{
-							m_t2 = 0; // Resets timer.
+							m_t2 = 0;		// Resets timer.
 							playerNumber++; // Increases player number by 1.
                             m_addPlayerButtonPress = false;
 						}
 					}
 				}
-				else if (m_removePlayer) // Removing player.
+				//Removing and moving players
+				else if (m_removePlayer)
 				{
-					m_t2 += panelSpeed * Time.deltaTime; // Only used for player blocks.
+					m_t2 += panelSpeed * Time.deltaTime;	//Increment the player moving timer
 
-					if (playerNumber == 2)
+					if (playerNumber == 2)	//If there are 2 players, remove the second player
 					{
 						m_playerTwoReady = false;
 						readyLightPlayerTwo.enabled = false;
@@ -265,7 +242,7 @@ public class MainMenu : MonoBehaviour
 							m_removePlayer = false;
 						}
 					}
-					else if (playerNumber == 3)
+					else if (playerNumber == 3) //If there are 3 players, remove the third player
 					{
 						m_playerThreeReady = false;
 						readyLightPlayerThree.enabled = false;
@@ -277,7 +254,7 @@ public class MainMenu : MonoBehaviour
 							m_removePlayer = false;
 						}
 					}
-					else if (playerNumber == 4)
+					else if (playerNumber == 4) //If there are 4 players, remove the fourth player
 					{
 						m_playerFourReady = false;
 						readyLightPlayerFour.enabled = false;
@@ -291,12 +268,14 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
-				if (Input.GetKeyUp(readyPlayerOne) || XCI.GetButtonDown(readyPlayerXbox, XboxController.First))
+				//'Player ready' input checks
+				if (XCI.GetButtonDown(readyPlayerXbox, XboxController.First))	//If the first player presses ready,
 				{
+					//Turn their ready state on/off
 					if (m_playerOneReady)
 					{
-						readyLightPlayerOne.enabled = false;
 						m_playerOneReady = false;
+						readyLightPlayerOne.enabled = false;
 					}
 					else
 					{
@@ -304,12 +283,14 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerOne.enabled = true;
 					}
 				}
-				else if ((Input.GetKeyUp(readyPlayerTwo) || XCI.GetButtonDown(readyPlayerXbox, XboxController.Second)) && playerNumber >= 2)
+				else if (XCI.GetButtonDown(readyPlayerXbox, XboxController.Second)	//If the second player presses ready,
+						&& playerNumber >= 2)										//and there is a second player on screen,
 				{
+					//Turn their ready state on/off
 					if (m_playerTwoReady)
 					{
-						readyLightPlayerTwo.enabled = false;
 						m_playerTwoReady = false;
+						readyLightPlayerTwo.enabled = false;
 					}
 					else
 					{
@@ -317,12 +298,14 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerTwo.enabled = true;
 					}
 				}
-				else if ((Input.GetKeyUp(readyPlayerThree) || XCI.GetButtonDown(readyPlayerXbox, XboxController.Third)) && playerNumber >= 3)
+				else if (XCI.GetButtonDown(readyPlayerXbox, XboxController.Third)	//If the third player presses ready,
+						&& playerNumber >= 3)                                       //and there is a third player on screen,
 				{
+					//Turn their ready state on/off
 					if (m_playerThreeReady)
 					{
-						readyLightPlayerThree.enabled = false;
 						m_playerThreeReady = false;
+						readyLightPlayerThree.enabled = false;
 					}
 					else
 					{
@@ -330,12 +313,14 @@ public class MainMenu : MonoBehaviour
 						readyLightPlayerThree.enabled = true;
 					}
 				}
-				else if ((Input.GetKeyUp(readyPlayerFour) || XCI.GetButtonDown(readyPlayerXbox, XboxController.Fourth)) && playerNumber == 4)
+				else if (XCI.GetButtonDown(readyPlayerXbox, XboxController.Fourth)	//If the fourth player presses ready,
+						&& playerNumber == 4)                                       //and there is a fourth player on screen,
 				{
+					//Turn their ready state on/off
 					if (m_playerFourReady)
 					{
-						readyLightPlayerFour.enabled = false;
 						m_playerFourReady = false;
+						readyLightPlayerFour.enabled = false;
 					}
 					else
 					{
@@ -344,12 +329,14 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
+				//Enough players ready checking
 				if (playerNumber == 2)
 				{
-					if (m_playerOneReady && m_playerTwoReady && characterPanel.transform.position != canvas.transform.position)
+					if (m_playerOneReady && m_playerTwoReady								//If all players are ready,
+						&& characterPanel.transform.position != canvas.transform.position)	//and the play button isn't already on-screen,
 					{
-						m_t += panelSpeed; // Only used for panels.
-						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the position to the target.
+						m_t += panelSpeed;	//Increment the panel movement timer
+						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
 
 						if (characterPanel.transform.position == canvas.transform.position)
 						{
@@ -357,12 +344,12 @@ public class MainMenu : MonoBehaviour
 							m_showPlay = true;
 						}
 					}
-					else if (m_showPlay)
+					else if (m_showPlay)							//If the play button is already on-screen,
 					{
-						if (!m_playerOneReady || !m_playerTwoReady)
+						if (!m_playerOneReady || !m_playerTwoReady)	//And one of the players unreadies,
 						{
-							m_t += panelSpeed; // Only used for panels.
-							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the position to the target.
+							m_t += panelSpeed;	//Increment the panel movement timer
+							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
 							if (characterPanel.transform.position == m_panelOffScreenBottomPos)
 							{
 								m_t = 0;
@@ -375,8 +362,8 @@ public class MainMenu : MonoBehaviour
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && characterPanel.transform.position != canvas.transform.position)
 					{
-						m_t += panelSpeed; // Only used for panels.
-						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the position to the target.
+						m_t += panelSpeed;  //Increment the panel movement timer
+						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
 
 						if (characterPanel.transform.position == canvas.transform.position)
 						{
@@ -384,12 +371,12 @@ public class MainMenu : MonoBehaviour
 							m_showPlay = true;
 						}
 					}
-					else if (m_showPlay)
+					else if (m_showPlay)													//If the play button is already on-screen,
 					{
-						if (!m_playerOneReady || !m_playerTwoReady || !m_playerThreeReady)
+						if (!m_playerOneReady || !m_playerTwoReady || !m_playerThreeReady)  //And one of the players unreadies,
 						{
-							m_t += panelSpeed; // Only used for panels.
-							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the position to the target.
+							m_t += panelSpeed;  //Increment the panel movement timer
+							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
 							if (characterPanel.transform.position == m_panelOffScreenBottomPos)
 							{
 								m_t = 0;
@@ -402,8 +389,8 @@ public class MainMenu : MonoBehaviour
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && m_playerFourReady && characterPanel.transform.position != canvas.transform.position)
 					{
-						m_t += panelSpeed; // Only used for panels.
-						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the position to the target.
+						m_t += panelSpeed;  //Increment the panel movement timer
+						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
 
 						if (characterPanel.transform.position == canvas.transform.position)
 						{
@@ -411,12 +398,12 @@ public class MainMenu : MonoBehaviour
 							m_showPlay = true;
 						}
 					}
-					else if (m_showPlay)
+					else if (m_showPlay)																			//If the play button is already on-screen,
 					{
-						if (!m_playerOneReady || !m_playerTwoReady || !m_playerThreeReady || !m_playerFourReady)
+						if (!m_playerOneReady || !m_playerTwoReady || !m_playerThreeReady || !m_playerFourReady)    //And one of the players unreadies,
 						{
-							m_t += panelSpeed; // Only used for panels.
-							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the position to the target.
+							m_t += panelSpeed;  //Increment the panel movement timer
+							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
 							if (characterPanel.transform.position == m_panelOffScreenBottomPos)
 							{
 								m_t = 0;
@@ -426,7 +413,8 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
-                if (m_showPlay && XCI.GetButtonDown(addPlayerXbox, XboxController.First))
+				//Play button input check
+                if (m_showPlay && XCI.GetButtonDown(addPlayerXbox, XboxController.First))	//If the play button is on-screen and the first controller presses play,
                     PlayGame();
 
 				break;
@@ -435,15 +423,15 @@ public class MainMenu : MonoBehaviour
 
 	public void PlayGame()
     {
+		//Reset all scores
 		GameInfo.playerOneScore = 0;
 		GameInfo.playerTwoScore = 0;
-		if (playerNumber >= 3)
-			GameInfo.playerThreeScore = 0;
-		if (playerNumber == 4)
-			GameInfo.playerFourScore = 0;
+		GameInfo.playerThreeScore = 0;
+		GameInfo.playerFourScore = 0;
+		
+		GameInfo.roundNumber = 1;	//Start the game on round 1
 
-		GameInfo.roundNumber = 1;
-        SceneManager.LoadScene(1); // Loads the next scene within build settings.
+        SceneManager.LoadScene(1); //Load the next scene within build settings
     }
 
     public void QuitGame()
@@ -452,6 +440,7 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+	//Leftover function from mouse-controlled menu button (OUTDATED)
 	public void buttonPress()
 	{
 		m_playButtonPress = true;
