@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1206489430238240975}
   - component: {fileID: 1206489430239043823}
   - component: {fileID: 1206489430240010799}
-  - component: {fileID: 5923585238854317425}
+  - component: {fileID: 981074673838259425}
+  - component: {fileID: 8280088453347628325}
   m_Layer: 0
   m_Name: Umbrella (Obstacle)
   m_TagString: Untagged
@@ -78,8 +79,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5923585238854317425
-MeshCollider:
+--- !u!136 &981074673838259425
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -88,7 +89,20 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 3ab7e0c4eb2a70742aa0f47538464828, type: 3}
+  m_Radius: 0.04
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.01, z: 0}
+--- !u!65 &8280088453347628325
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206489430238084335}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.82, y: 0.62, z: 1.99}
+  m_Center: {x: 0, y: 0.66, z: 0}
