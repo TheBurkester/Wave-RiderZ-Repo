@@ -9,6 +9,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using XboxCtrlrInput;
+using XInputDotNetPure;
 public class MainMenu : MonoBehaviour
 {
 	//Enum for the different UI screens in the menu
@@ -125,8 +126,8 @@ public class MainMenu : MonoBehaviour
 		{
 			case PanelState.eSplashScreen:
 
-                if (XCI.GetButton(addPlayerXbox, XboxController.First))	//If the first controller presses the play button,
-                    m_playButtonPress = true;							//Activate the play button
+                if (GetButtonDownAny(addPlayerXbox))	//If any controller presses the play button,
+                    m_playButtonPress = true;			//Activate the play button
 
 				if (m_playButtonPress)	//If the play button is active,
 				{
@@ -147,40 +148,48 @@ public class MainMenu : MonoBehaviour
 						m_eCurrentState = PanelState.eCharacterScreen; // Change state to the character screen.
 					}
 				}
+
+				//Debug skip menu button, automatically assigns two skiers
+				if (GetButtonDownAny(XboxButton.Y))
+				{
+					playerNumber = 2;
+					PlayGame();
+				}
+
 				break;
 			/*-------------------------------------------------------------------*/
 
 			case PanelState.eCharacterScreen:
                 
 				//'Add player' input checks
-                if (XCI.GetButton(addPlayerXbox, XboxController.Second) && playerNumber == 1) //If player two presses add and the previous player is already added,
+                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Second) && playerNumber == 1) //If player two presses add and the previous player is already added,
                 {
                     if (m_removePlayer != true)			//As long as a player isn't currently getting removed, 
                         m_addPlayerButtonPress = true;	//Add a player
                 }
-                if (XCI.GetButton(addPlayerXbox, XboxController.Third) && playerNumber == 2) //If player three presses add and the previous player is already added,
+                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Third) && playerNumber == 2) //If player three presses add and the previous player is already added,
 				{
                     if (m_removePlayer != true)			//As long as a player isn't currently getting removed,
                         m_addPlayerButtonPress = true;  //Add a player
 				}
-                if (XCI.GetButton(addPlayerXbox, XboxController.Fourth) && playerNumber == 3) //If player four presses add and the previous player is already added,
+                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Fourth) && playerNumber == 3) //If player four presses add and the previous player is already added,
 				{
                     if (m_removePlayer != true)			//As long as a player isn't currently getting removed,
                         m_addPlayerButtonPress = true;  //Add a player
 				}
 
 				//'Remove player' input checks
-                if (XCI.GetButton(removePlayerXbox, XboxController.Second) && playerNumber == 2)    //If player two presses remove and they are the last player,
+                if (XCI.GetButtonDown(removePlayerXbox, XboxController.Second) && playerNumber == 2)    //If player two presses remove and they are the last player,
 				{
                     if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
                         m_removePlayer = true;			//Remove a player
                 }
-                if (XCI.GetButton(removePlayerXbox, XboxController.Third) && playerNumber == 3)    //If player three presses remove and they are the last player,
+                if (XCI.GetButtonDown(removePlayerXbox, XboxController.Third) && playerNumber == 3)    //If player three presses remove and they are the last player,
 				{
 					if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
 						m_removePlayer = true;          //Remove a player
 				}
-				if (XCI.GetButton(removePlayerXbox, XboxController.Fourth) && playerNumber == 4)    //If player four presses remove and they are the last player,
+				if (XCI.GetButtonDown(removePlayerXbox, XboxController.Fourth) && playerNumber == 4)    //If player four presses remove and they are the last player,
 				{
 					if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
 						m_removePlayer = true;          //Remove a player
@@ -414,7 +423,7 @@ public class MainMenu : MonoBehaviour
 				}
 
 				//Play button input check
-                if (m_showPlay && XCI.GetButtonDown(addPlayerXbox, XboxController.First))	//If the play button is on-screen and the first controller presses play,
+                if (m_showPlay && GetButtonDownAny(addPlayerXbox))	//If the play button is on-screen and any controller presses play,
                     PlayGame();
 
 				break;
@@ -444,5 +453,16 @@ public class MainMenu : MonoBehaviour
 	public void buttonPress()
 	{
 		m_playButtonPress = true;
+	}
+
+	//Checks if any controller has the specified button pressed
+	public bool GetButtonDownAny(XboxButton button)
+	{
+		if (XCI.GetButtonDown(button, XboxController.First)
+			|| XCI.GetButtonDown(button, XboxController.Second)
+			|| XCI.GetButtonDown(button, XboxController.Third)
+			|| XCI.GetButtonDown(button, XboxController.Fourth))
+			return true;
+		return false;
 	}
 }
