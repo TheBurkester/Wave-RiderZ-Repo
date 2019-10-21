@@ -123,6 +123,11 @@ public class SkierController : MonoBehaviour
 
 			if (other.CompareTag("Rock"))	//If the other object is a rock,
 				HurtSkier();				//Hurt the skier
+
+			if (other.CompareTag("Mine")) // If the other object is a tethered mine,
+			{
+
+			}
 		}
 	}
 	
