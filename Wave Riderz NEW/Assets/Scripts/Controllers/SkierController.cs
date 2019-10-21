@@ -151,7 +151,8 @@ public class SkierController : MonoBehaviour
 
 	public void HurtSkier()
 	{
-		skierLives--;               //Subtract a life
+		if (!m_invincible)
+			skierLives--;               //Subtract a life
 
 		if (skierLives <= 0)                //If the skier is out of lives,
 		{
@@ -171,6 +172,11 @@ public class SkierController : MonoBehaviour
 
 			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));	//Schedule invincibility to turn off after the flashes are complete
 		}
+	}
+
+	public bool isInvincible()
+	{
+		return m_invincible;
 	}
 
 	IEnumerator MeshOff(float interval)
