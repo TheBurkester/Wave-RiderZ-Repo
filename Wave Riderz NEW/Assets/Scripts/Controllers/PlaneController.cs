@@ -50,28 +50,20 @@ public class PlaneController : MonoBehaviour
     {		
 		Vector3 newPos = rb.position + new Vector3(0, 0, forwardSpeed * Time.deltaTime);	//New position is the current position moved forward slightly
 
-		float tiltAroundZ = Input.GetAxis("Horizontal") * -tiltAngle;
-
-		Quaternion Target = Quaternion.Euler(0, 0, tiltAroundZ);
-		Quaternion Default = Quaternion.Euler(0, 0, 0);
-
-		rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Default, Time.deltaTime * tiltSmoothness);
-
 		//Controller movement
-        float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);	//Get the direction and magnitude of the controller stick
-        newPos.x += (axisX * strafeSpeed * Time.deltaTime);			//Move the plane in that direction and with that % magnitude (0-1)
-     
+        float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);			//Get the direction and magnitude of the controller stick
+        newPos.x += (axisX * strafeSpeed * Time.deltaTime);					//Move the plane in that direction and with that % magnitude (0-1)
+
+		//Rotation
+		float tiltAroundZ = axisX * -tiltAngle;								//What percentage of the tilt should be aimed for based on movement speed
+		Quaternion targetRotation = Quaternion.Euler(0, 0, tiltAroundZ);	//Set the target rotation
+		rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, targetRotation, tiltSmoothness * Time.deltaTime);	//Move towards the target rotation
+		
 		//Keyboard movement
-        if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
-		{
+		if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
 			newPos += new Vector3(-strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the left
-			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
-		}
-        if (Input.GetKey(KeyCode.RightArrow))								//If right is pressed,
-		{
-			newPos += new Vector3(strafeSpeed * Time.deltaTime, 0, 0);		//Move the plane to the right
-			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Target, Time.deltaTime * tiltSmoothness);
-		}
+        if (Input.GetKey(KeyCode.RightArrow))							//If right is pressed,
+			newPos += new Vector3(strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the right
 
 		//Clamp the plane to stay within the river
 		if (newPos.x < -m_clampWidth)
