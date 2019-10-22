@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5760220568402266057}
   - component: {fileID: 5760220568405166057}
   - component: {fileID: 5760220568404165929}
-  - component: {fileID: 5760220569843402895}
+  - component: {fileID: 9069140625935026497}
   m_Layer: 0
   m_Name: largeRock
   m_TagString: Rock
@@ -78,16 +78,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5760220569843402895
-BoxCollider:
+--- !u!136 &9069140625935026497
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5760220568402238441}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.16, y: 2.61, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Height: 2.51
+  m_Direction: 1
+  m_Center: {x: -0.00000011920929, y: -0.09725171, z: -0.0030465722}
