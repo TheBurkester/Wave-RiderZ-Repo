@@ -25,15 +25,19 @@ public class SkierController : MonoBehaviour
 	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
 	//Score/lives
-	private int m_playerScore = 0;	// Player's score.
-	public int coinScore = 2;		// Score increased everytime collision with a coin occurs.
-	public int skierScoreInc = 1;	// Increase every second.
-	public int planeScoreInc = 5;	// Increase every time a skier loses a life.
-	public int planeBonus = 10;		// Bonus is added if all skiers are eliminated.
-	public int skierBonus = 10;     // Bonus is added if a skier survives the round.
-	private Timer m_scoreTimer;		// Timer used to increment score.
-	public int skierLives = 3;      // The amount of lives the skiers will have.
-	private bool m_isAlive = false;	//If the skier has the will to live
+	private int m_playerScore = 0;		// Player's score.
+	public int coinScore = 2;			// Score increased everytime collision with a coin occurs.
+	public int skierScoreInc = 1;		// Increase every second.
+	public int planeScoreInc = 5;		// Increase every time a skier loses a life.
+	public int planeBonus = 10;			// Bonus is added if all skiers are eliminated.
+	public int skierBonus = 10;			// Bonus is added if a skier survives the round.
+
+	private int skierMultiplier = 1;	// Skier's multiplier.
+
+	private Timer m_scoreTimer;			// Timer used to increment score.
+	private Timer m_skierMultiplier;	// 
+	public int skierLives = 3;			// The amount of lives the skiers will have.
+	private bool m_isAlive = false;		// If the skier has the will to live
 
 	//Invincibility
 	public int numberOfFlashes = 3;			//How many times the mesh should flash when damaged
@@ -123,11 +127,6 @@ public class SkierController : MonoBehaviour
 
 			if (other.CompareTag("Rock"))	//If the other object is a rock,
 				HurtSkier();				//Hurt the skier
-
-			if (other.CompareTag("Mine")) // If the other object is a tethered mine,
-			{
-
-			}
 		}
 	}
 	

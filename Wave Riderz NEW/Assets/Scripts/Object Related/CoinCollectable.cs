@@ -1,7 +1,7 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			CoinCollectable
 |
-|  Author:			Max Atkinson
+|  Author:			Max Atkinson / Thomas Maltezos
 | 
 |  Description:		Handles the coin rotation and trigger.
 *-------------------------------------------------------------------*/
@@ -12,12 +12,7 @@ using UnityEngine;
 
 public class CoinCollectable : MonoBehaviour
 {
-	public float spinSpeed = 5;		//How fast the coin spins
-
-    void Start()
-    {
-        
-    }
+	public float spinSpeed = 5;     //How fast the coin spins
 	
     void Update()
     {
@@ -26,7 +21,12 @@ public class CoinCollectable : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-		if (collider.gameObject.CompareTag("Skier"))				//If colliding with a skier,
-			gameObject.GetComponent<Renderer>().enabled = false;	//Stop rendering the coin
+		if (collider.gameObject.CompareTag("Skier"))                //If colliding with a skier,
+		{
+			SkierController skier = collider.gameObject.GetComponent<SkierController>();
+
+			if (!skier.isInvincible())
+				gameObject.GetComponent<Renderer>().enabled = false;    //Stop rendering the coin
+		}
     }
 }
