@@ -25,17 +25,18 @@ public class SkierController : MonoBehaviour
 	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
 	//Score/lives
-	private int m_playerScore = 0;		// Player's score.
-	public int coinScore = 2;			// Score increased everytime collision with a coin occurs.
-	public int skierScoreInc = 1;		// Increase every second.
-	public int planeScoreInc = 5;		// Increase every time a skier loses a life.
-	public int planeBonus = 10;			// Bonus is added if all skiers are eliminated.
-	public int skierBonus = 10;			// Bonus is added if a skier survives the round.
+	private int m_playerScore = 0;		    // Player's score.
+	public int coinScore = 2;			    // Score increased everytime collision with a coin occurs.
+	public int skierScoreInc = 1;		    // Base Increase every second.
+	public int planeScoreInc = 5;		    // Increase every time a skier loses a life.
+	public int planeBonus = 10;			    // Bonus is added if all skiers are eliminated.
+	public int skierBonus = 10;			    // Bonus is added if a skier survives the round.
 
-	private int skierMultiplier = 1;	// Skier's multiplier.
+    public int skierMultiplierSpeed = 5;  // The time it takes for the skier's multiplier to increase.
+	private int m_skierMultiplier = 1;	// Skier's multiplier.
 
 	private Timer m_scoreTimer;			// Timer used to increment score.
-	private Timer m_skierMultiplier;	// 
+	private Timer m_skierMultiplierTimer;	// Timer used to add the multiplier to the score over time.
 	public int skierLives = 3;			// The amount of lives the skiers will have.
 	private bool m_isAlive = false;		// If the skier has the will to live
 
@@ -59,10 +60,17 @@ public class SkierController : MonoBehaviour
 
 	void Start()
 	{
+        m_skierMultiplierTimer = gameObject.AddComponent<Timer>();
+        m_skierMultiplierTimer.maxTime = skierMultiplierSpeed;
+        m_skierMultiplierTimer.autoDisable = true;
+          
+
 		m_scoreTimer = gameObject.AddComponent<Timer>();	//Create the score timer
 		m_scoreTimer.maxTime = 1;							//The timer will go for one second,
-		m_scoreTimer.autoDisable = true;					//then automatically disable and be reset
-		m_scoreTimer.SetTimer();							//Start the timer
+		m_scoreTimer.autoDisable = true;                    //then automatically disable and be reset
+
+        m_scoreTimer.SetTimer();							//Start the timer
+        m_skierMultiplierTimer.SetTimer();                  // Start the multiplier timer.
 	}
 
 
@@ -107,9 +115,15 @@ public class SkierController : MonoBehaviour
 
 		if (!m_scoreTimer.UnderMax())			//If the score timer goes past 1,
 		{
-			m_playerScore += skierScoreInc;		//Increment the score once
+			m_playerScore += skierScoreInc * m_skierMultiplier;		//Increment the score once
 			m_scoreTimer.SetTimer();			//Reset the timer
 		}
+
+        if (!m_skierMultiplierTimer.UnderMax())
+        {
+            m_skierMultiplier++;
+            m_skierMultiplierTimer.SetTimer();
+        }
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -161,7 +175,8 @@ public class SkierController : MonoBehaviour
 		else						//If the skier is still alive,
 		{
 			m_invincible = true;    //Make it invincible
-
+            m_skierMultiplier = 1; // Multiplier is reset back to 1.
+            m_skierMultiplierTimer.SetTimer(); // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
 			//Flash the skier mesh
 			for (int i = 0; i < numberOfFlashes; ++i)                       //Repeating for the number of flashes,
 			{
@@ -170,6 +185,9 @@ public class SkierController : MonoBehaviour
 			}
 
 			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));	//Schedule invincibility to turn off after the flashes are complete
+            m_skierMultiplier = 1; // Sets it back to 1 incase it ever increases during the invincibility.
+            m_skierMultiplierTimer.SetTimer(); // Resets the timer again to ensure that the time is fresh out of invincibility.
+
 		}
 	}
 
