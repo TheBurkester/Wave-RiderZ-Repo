@@ -9,10 +9,7 @@
 using UnityEngine;
 
 public class BeachBall : MonoBehaviour
-{
-    public float radius = 5.0f;
-    public float power = 10.0f;
-	
+{	
     private BeachBallAbility m_bbAbility;
     private Rigidbody m_rb;
 
@@ -31,7 +28,7 @@ public class BeachBall : MonoBehaviour
         {
             Vector3 explosionPos = transform.position;	// explosion will occur at the impact site.
 			explosionPos.y = 0;							//Make sure that there is no y component
-            Collider[] colliders = Physics.OverlapSphere(explosionPos, radius); // List of colliders within the radius.
+            Collider[] colliders = Physics.OverlapSphere(explosionPos, m_bbAbility.getRadius()); // List of colliders within the radius.
 
             foreach (Collider hit in colliders)										//For all the objects in the radius,
             {
@@ -41,7 +38,7 @@ public class BeachBall : MonoBehaviour
 					Vector3 distanceToHit = hit.transform.position - explosionPos;	//Get the difference in position between the skier and the explosion point
 					distanceToHit.y = 0;											//Make sure there is no y compenent
 					//float distanceToHit.magnitude		*Do a check of distance magnitude and adjust force amount here*
-					tether.forceToApply += power * distanceToHit.normalized;		//Add a force on the skier, pushing away from the explosion point
+					tether.forceToApply += m_bbAbility.getPower() * distanceToHit.normalized;		//Add a force on the skier, pushing away from the explosion point
 				}
             }
 
