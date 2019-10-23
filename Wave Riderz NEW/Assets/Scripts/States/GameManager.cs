@@ -58,8 +58,13 @@ public class GameManager : MonoBehaviour
 	public Text livesGreen = null;
 	public Text livesPurple = null;
 	public Text livesOrange = null;
+	public Text multiplierRed = null;
+	public Text multiplierGreen = null;
+	public Text multiplierPurple = null;
+	public Text multiplierOrange = null;
 	public Text beachBombAbility = null;			//Reference to the cooldown timer text
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
+	public Text bonus = null;
 	//-------------------------------------------------------------------------
 
 
@@ -124,7 +129,12 @@ public class GameManager : MonoBehaviour
 		livesGreen.text = "";
 		livesPurple.text = "";
 		livesOrange.text = "";
+		multiplierRed.text = "";
+		multiplierGreen.text = "";
+		multiplierPurple.text = "";
+		multiplierOrange.text = "";
 		beachBombAbility.text = "";
+		bonus.text = "";
 
 		roundOverPanel.SetActive(false);
 
@@ -296,12 +306,46 @@ public class GameManager : MonoBehaviour
 
 			case RoundState.ePlayingRound:
 
-				if (!m_playingRoundTimer.UnderMax()																				//If the timer has run out,
-					|| !redSkier.GetAlive() && !greenSkier.GetAlive() && !purpleSkier.GetAlive() && !orangeSkier.GetAlive())	//or all skiers are wiped out,
+				if (!m_playingRoundTimer.UnderMax())
 				{
+					if (redSkier.GetAlive()) // If red skier was alive at the end of the timer.
+						redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.skierBonus); // Increase its score by the bonus.
+					if (greenSkier.GetAlive()) //  If green skier was alive at the end of the timer. 
+						greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.skierBonus); // Increase its score by the bonus.
+					if (purpleSkier) // If purple skier exists.
+					{
+						if (purpleSkier.GetAlive()) // If purple skier was alive at the end of the timer.
+							purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.skierBonus); // Increase its score by the bonus.
+					}
+					if (orangeSkier) // If orange skier exists.
+					{
+						if (orangeSkier.GetAlive()) // If the orange skier was alive at the end of the timer.
+						{
+							orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.skierBonus); // Increase its score by the bonus.
+						}
+					}
+
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
 					playingCountDownDisplay.text = "";          //Turn the timer text off
 					SceneMovementActive(false);                 //Deactivate scene movement
+					bonus.text = "Alive skiers get a bonus of " + redSkier.skierBonus.ToString();
+					roundOverPanel.SetActive(true);             //Show the round over screen
+				}
+				else if (!redSkier.GetAlive() && !greenSkier.GetAlive() && !purpleSkier.GetAlive() && !orangeSkier.GetAlive())
+				{
+					if (plane.controller == XboxController.First)
+						redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeBonus);
+					else if (plane.controller == XboxController.Second)
+						greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeBonus);
+					else if (plane.controller == XboxController.Third)
+						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeBonus);
+					else if (plane.controller == XboxController.Fourth)
+						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeBonus);
+
+					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
+					playingCountDownDisplay.text = "";          //Turn the timer text off
+					SceneMovementActive(false);                 //Deactivate scene movement
+					bonus.text = "All skiers wiped out! Plane gets " + redSkier.planeBonus.ToString() + " bonus score!";
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
 
@@ -310,34 +354,104 @@ public class GameManager : MonoBehaviour
 
 				//Display scores and lives
 				scoreRed.text = redSkier.GetPlayerScore().ToString();
+				multiplierRed.text = "x" + redSkier.GetPlayerMultiplier().ToString();
 				scoreGreen.text = greenSkier.GetPlayerScore().ToString();
+				multiplierGreen.text = "x" + greenSkier.GetPlayerMultiplier().ToString();
 				if (redSkier.GetAlive())
 					livesRed.text = redSkier.skierLives.ToString();
 				else
+				{ 
 					livesRed.text = "";
+					multiplierRed.text = "";
+				}
 				if (greenSkier.GetAlive())
 					livesGreen.text = greenSkier.skierLives.ToString();
 				else
+				{
 					livesGreen.text = "";
+					multiplierGreen.text = "";
+				}
 				if (m_playerCount >= 3)
 				{
 					scorePurple.text = purpleSkier.GetPlayerScore().ToString();
+					multiplierPurple.text = "x" + purpleSkier.GetPlayerMultiplier().ToString();
 					if (purpleSkier.GetAlive())
 						livesPurple.text = purpleSkier.skierLives.ToString();
 					else
+					{
 						livesPurple.text = "";
+						multiplierPurple.text = "";
+					}
 				}
 				if (m_playerCount == 4)
 				{
 					scoreOrange.text = orangeSkier.GetPlayerScore().ToString();
+					multiplierOrange.text = "x" + orangeSkier.GetPlayerMultiplier().ToString();
 					if (orangeSkier.GetAlive())
 						livesOrange.text = orangeSkier.skierLives.ToString();
 					else
+					{
 						livesOrange.text = "";
+						multiplierOrange.text = "";
+					}
 				}
 
 				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();	//Display the beach bomb ability cooldown timer
 				
+				if (plane.controller == XboxController.First)
+				{
+					if (greenSkier.hurt && greenSkier.GetAlive())
+						redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
+					if (purpleSkier)
+					{
+						if (purpleSkier.hurt && purpleSkier.GetAlive())
+							redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
+					}
+					if (orangeSkier)
+					{
+						if (orangeSkier.hurt && orangeSkier.GetAlive())
+							redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
+					}
+				}
+				else if (plane.controller == XboxController.Second)
+				{
+					if (redSkier.hurt && redSkier.GetAlive())
+						greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
+					if (purpleSkier)
+					{
+						if (purpleSkier.hurt && purpleSkier.GetAlive())
+							greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
+					}
+					if (orangeSkier)
+					{
+						if (orangeSkier.hurt && orangeSkier.GetAlive())
+							greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
+					}
+				}
+				else if (plane.controller == XboxController.Third)
+				{
+					if (redSkier.hurt && redSkier.GetAlive())
+						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
+					if (greenSkier.hurt && greenSkier.GetAlive())
+						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
+					if (orangeSkier) // If orange skier exists.
+					{
+						if (orangeSkier.hurt && orangeSkier.GetAlive())
+						{
+							purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
+						}
+					}
+				}
+				else if (plane.controller == XboxController.Fourth)
+				{
+					if (redSkier.hurt)
+						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
+					if (greenSkier.hurt)
+						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
+					if (purpleSkier.hurt)
+						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
+				}
+
 				break;
 				//-------------------------------------------------------------------------
 

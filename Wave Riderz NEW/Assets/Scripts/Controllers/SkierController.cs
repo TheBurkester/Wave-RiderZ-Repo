@@ -32,8 +32,9 @@ public class SkierController : MonoBehaviour
 	public int planeBonus = 10;			    // Bonus is added if all skiers are eliminated.
 	public int skierBonus = 10;			    // Bonus is added if a skier survives the round.
 
-    public int skierMultiplierSpeed = 5;  // The time it takes for the skier's multiplier to increase.
-	private int m_skierMultiplier = 1;	// Skier's multiplier.
+    public int skierMultiplierSpeed = 5;	// The time it takes for the skier's multiplier to increase.
+	public int skierMultiplierCap = 5;		// The max value that the multipler can be.
+	private int m_skierMultiplier = 1;		// Skier's multiplier.
 
 	private Timer m_scoreTimer;			// Timer used to increment score.
 	private Timer m_skierMultiplierTimer;	// Timer used to add the multiplier to the score over time.
@@ -47,8 +48,9 @@ public class SkierController : MonoBehaviour
 	private MeshRenderer m_meshRend = null;	//Reference to the mesh to be flashed during invincibility
 
 	[HideInInspector]
-	public Tether tether = null;	//Reference to the tether attached to this skier, public so forces can be applied from other scripts
-
+	public Tether tether = null;    //Reference to the tether attached to this skier, public so forces can be applied from other scripts
+	[HideInInspector]
+	public bool hurt = false;
 
 	void Awake()
     {
@@ -121,8 +123,11 @@ public class SkierController : MonoBehaviour
 
         if (!m_skierMultiplierTimer.UnderMax())
         {
-            m_skierMultiplier++;
-            m_skierMultiplierTimer.SetTimer();
+			if (m_skierMultiplier < skierMultiplierCap)
+			{
+				m_skierMultiplier++;
+				m_skierMultiplierTimer.SetTimer();
+			}
         }
 	}
 
@@ -153,6 +158,11 @@ public class SkierController : MonoBehaviour
 		return m_playerScore;
 	}
 
+	public int GetPlayerMultiplier()
+	{
+		return m_skierMultiplier;
+	}
+
 	public void SetAlive(bool value)
 	{
 		m_isAlive = value;
@@ -164,19 +174,25 @@ public class SkierController : MonoBehaviour
 
 	public void HurtSkier()
 	{
+		if (skierLives > 0)
+			hurt = true;
+		
 		if (!m_invincible)
 			skierLives--;               //Subtract a life
 
 		if (skierLives <= 0)                //If the skier is out of lives,
 		{
-			m_isAlive = false;              //Kill it
-			gameObject.SetActive(false);    //Disable it
+			if (m_isAlive)
+			{
+				hurt = true;
+				StartCoroutine(HurtOffKilled());
+			}
 		}
 		else						//If the skier is still alive,
 		{
 			m_invincible = true;    //Make it invincible
             m_skierMultiplier = 1; // Multiplier is reset back to 1.
-            m_skierMultiplierTimer.SetTimer(); // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
+			m_skierMultiplierTimer.enabled = false; // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
 			//Flash the skier mesh
 			for (int i = 0; i < numberOfFlashes; ++i)                       //Repeating for the number of flashes,
 			{
@@ -184,10 +200,10 @@ public class SkierController : MonoBehaviour
 				StartCoroutine(MeshOn(flashDelay * i * 2 + flashDelay));    //Schedule the mesh to turn on, every odd interval
 			}
 
-			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));	//Schedule invincibility to turn off after the flashes are complete
-            m_skierMultiplier = 1; // Sets it back to 1 incase it ever increases during the invincibility.
+			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));    //Schedule invincibility to turn off after the flashes are complete
+			StartCoroutine(HurtOff());
+			m_skierMultiplierTimer.enabled = true;
             m_skierMultiplierTimer.SetTimer(); // Resets the timer again to ensure that the time is fresh out of invincibility.
-
 		}
 	}
 
@@ -210,5 +226,17 @@ public class SkierController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
 		m_invincible = false;                       //Make vincible
+	}
+	IEnumerator HurtOff()
+	{
+		yield return new WaitForEndOfFrame();
+		hurt = false;
+	}
+	IEnumerator HurtOffKilled()
+	{
+		yield return new WaitForEndOfFrame();
+		hurt = false;
+		m_isAlive = false;
+		gameObject.SetActive(false);
 	}
 }
