@@ -8,34 +8,35 @@
 |  Where to Place:	Place on the plane's hatch.
 *-------------------------------------------------------------------*/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using XboxCtrlrInput;
 
 public class TetheredMineAbility : MonoBehaviour
 {
-
-	public KeyCode shoot = KeyCode.G;
+	private XboxController m_controller;        // Reference to which controller to use (same as plane's)
 	public Rigidbody mineRB;
+	public Rigidbody planeRB = null;
 
 	private Transform m_planeHatch;
 	private bool m_isUsingAbility = false;
 
-	void Awake()
+	void Start() // KEEP THIS AS START OR I WILL PERSONALLY SMITE YOU. WE SPENT TOO LONG ON THIS.
     {
 		mineRB.gameObject.SetActive(false); // Disables the mine on startup.
 		m_planeHatch = GetComponent<Transform>();
+		m_controller = planeRB.GetComponent<PlaneController>().controller;
     }
 
     void Update()
     {
-		if (Input.GetKey(shoot) && !m_isUsingAbility)
+		float LT = XCI.GetAxis(XboxAxis.LeftTrigger, m_controller);
+		
+		if ((1.0f - LT) < 0.1f && !m_isUsingAbility)
 		{
 			mineRB.transform.position = m_planeHatch.transform.position;
 			mineRB.gameObject.SetActive(true);
 			m_isUsingAbility = true;
 		}
-
 
         if (m_isUsingAbility)
 		{

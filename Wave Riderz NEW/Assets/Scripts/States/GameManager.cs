@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
 	//Player references/variables
 	public PlaneController plane = null;        //Reference to the plane
+	public TetheredMineAbility planeHatch = null;        // Reference to the plane's hatch.
+	public Tether mine = null;					// Reference to the mine.
 	public BeachBallAbility target = null;      //Reference to the target
 	public SkierController redSkier = null;     //Reference to the red skier script
 	public SkierController greenSkier = null;   //Reference to the green skier script
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
+		planeHatch.setIsUsingAbility(false);
 		redSkier.controller = XboxController.First;     //First player is red
 		greenSkier.controller = XboxController.Second;  //Second player is green
 
@@ -142,41 +145,125 @@ public class GameManager : MonoBehaviour
 
 		if (m_playerCount == 2)
 		{
-			//In the first round, green is plane, red is skier
-			redSkier.gameObject.SetActive(true);
-			redSkier.SetAlive(true);
-			greenSkier.gameObject.SetActive(false); // Player two will start in the plane.
-			greenSkier.SetAlive(false);
+			if (GameInfo.roundNumber == 1)
+			{
+				//In the first round, green is plane, red is skier
+				redSkier.gameObject.SetActive(true);
+				redSkier.SetAlive(true);
+				greenSkier.gameObject.SetActive(false); // Player two will start in the plane.
+				greenSkier.SetAlive(false);
 
-			planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Plane's colour will be the same as player two.
+				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Plane's colour will be the same as player two.
+			}
+			if (GameInfo.roundNumber == 2)
+			{
+				redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+				redSkier.SetAlive(false);
+				greenSkier.gameObject.SetActive(true); // Player two is now the skier.
+				greenSkier.SetAlive(true);
+				plane.controller = XboxController.First;    //Player one now controls the plane
+
+				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+			}
 		}
 		else if (m_playerCount == 3)
 		{
-			//In the first round, purple is plane, red/green are skiers
-			redSkier.gameObject.SetActive(true); // Player one skier will be active.
-			redSkier.SetAlive(true);
-			greenSkier.gameObject.SetActive(true);// Player two skier will be active.
-			greenSkier.SetAlive(true);
-			purpleSkier.gameObject.SetActive(false); // Player three will start in the plane.
-			purpleSkier.SetAlive(false);
+			if (GameInfo.roundNumber == 1)
+			{
+				//In the first round, purple is plane, red/green are skiers
+				redSkier.gameObject.SetActive(true); // Player one skier will be active.
+				redSkier.SetAlive(true);
+				greenSkier.gameObject.SetActive(true);// Player two skier will be active.
+				greenSkier.SetAlive(true);
+				purpleSkier.gameObject.SetActive(false); // Player three will start in the plane.
+				purpleSkier.SetAlive(false);
 
-			planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player three colour.
+				planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player three colour.
+			}
+			if (GameInfo.roundNumber == 2)
+			{
+				redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+				redSkier.SetAlive(false);
+				greenSkier.gameObject.SetActive(true); // Player two is a skier.
+				greenSkier.SetAlive(true);
+				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				purpleSkier.SetAlive(true);
+				plane.controller = XboxController.First;    //Player one now controls the plane
+
+				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+			}
+			else if (GameInfo.roundNumber == 3)
+			{
+				redSkier.gameObject.SetActive(true); // Player one is a skier.
+				redSkier.SetAlive(true);
+				greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
+				greenSkier.SetAlive(false);
+				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				purpleSkier.SetAlive(true);
+				plane.controller = XboxController.Second;    //Player one now controls the plane
+
+				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
+			}
 		}
 		else if (m_playerCount == 4)
 		{
-			//In the first round, orange is plane, red/green/purple are skiers
-			redSkier.gameObject.SetActive(true); // Player one skier will be active.
-			redSkier.SetAlive(true);
-			greenSkier.gameObject.SetActive(true); // Player two skier will be active.
-			greenSkier.SetAlive(true);
-			purpleSkier.gameObject.SetActive(true); // Player three skier will be active.
-			purpleSkier.SetAlive(true);
-			orangeSkier.gameObject.SetActive(false); // Player four will start in the plane.
-			orangeSkier.SetAlive(false);
+			if (GameInfo.roundNumber == 1)
+			{
+				//In the first round, orange is plane, red/green/purple are skiers
+				redSkier.gameObject.SetActive(true); // Player one skier will be active.
+				redSkier.SetAlive(true);
+				greenSkier.gameObject.SetActive(true); // Player two skier will be active.
+				greenSkier.SetAlive(true);
+				purpleSkier.gameObject.SetActive(true); // Player three skier will be active.
+				purpleSkier.SetAlive(true);
+				orangeSkier.gameObject.SetActive(false); // Player four will start in the plane.
+				orangeSkier.SetAlive(false);
 
-			planeBody.GetComponent<Renderer>().material = orangeSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player four colour.
+				planeBody.GetComponent<Renderer>().material = orangeSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player four colour. 
+			}
+			if (GameInfo.roundNumber == 2)
+			{
+				redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+				redSkier.SetAlive(false);
+				greenSkier.gameObject.SetActive(true); // Player two is a skier.
+				greenSkier.SetAlive(true);
+				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				purpleSkier.SetAlive(true);
+				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+				orangeSkier.SetAlive(true);
+				plane.controller = XboxController.First;    //Player one now controls the plane
+
+				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+			}
+			else if (GameInfo.roundNumber == 3)
+			{
+				redSkier.gameObject.SetActive(true); // Player one is a skier.
+				redSkier.SetAlive(true);
+				greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
+				greenSkier.SetAlive(false);
+				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				purpleSkier.SetAlive(true);
+				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+				orangeSkier.SetAlive(true);
+				plane.controller = XboxController.Second;    //Player one now controls the plane
+
+				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+			}
+			else if (GameInfo.roundNumber == 4)
+			{
+				redSkier.gameObject.SetActive(true); // Player one is a skier.
+				redSkier.SetAlive(true);
+				greenSkier.gameObject.SetActive(true); // Player two is a skier.
+				greenSkier.SetAlive(true);
+				purpleSkier.gameObject.SetActive(false); // Player three is now in the plane.
+				purpleSkier.SetAlive(false);
+				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+				orangeSkier.SetAlive(true);
+				plane.controller = XboxController.Third;    //Player one now controls the plane
+
+				planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+			}
 		}
-
 	}
 
 	void Update()
@@ -186,91 +273,91 @@ public class GameManager : MonoBehaviour
 		{
 			case RoundState.eBeforeRound:
 
-				if (m_playerCount == 2)
-				{
-					if (GameInfo.roundNumber == 2)
-					{
-						redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-						redSkier.SetAlive(false);
-						greenSkier.gameObject.SetActive(true); // Player two is now the skier.
-						greenSkier.SetAlive(true);
-						plane.controller = XboxController.First;    //Player one now controls the plane
+				//if (m_playerCount == 2)
+				//{
+				//	if (GameInfo.roundNumber == 2)
+				//	{
+				//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+				//		redSkier.SetAlive(false);
+				//		greenSkier.gameObject.SetActive(true); // Player two is now the skier.
+				//		greenSkier.SetAlive(true);
+				//		plane.controller = XboxController.First;    //Player one now controls the plane
 
-						planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					}
-				}
-				else if (m_playerCount == 3)
-				{
-					if (GameInfo.roundNumber == 2)
-					{
-						redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-						redSkier.SetAlive(false);
-						greenSkier.gameObject.SetActive(true); // Player two is a skier.
-						greenSkier.SetAlive(true);
-						purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-						purpleSkier.SetAlive(true);
-						plane.controller = XboxController.First;    //Player one now controls the plane
+				//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+				//	}
+				//}
+				//else if (m_playerCount == 3)
+				//{
+				//	if (GameInfo.roundNumber == 2)
+				//	{
+				//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+				//		redSkier.SetAlive(false);
+				//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
+				//		greenSkier.SetAlive(true);
+				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				//		purpleSkier.SetAlive(true);
+				//		plane.controller = XboxController.First;    //Player one now controls the plane
 
-						planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					}
-					else if (GameInfo.roundNumber == 3)
-					{
-						redSkier.gameObject.SetActive(true); // Player one is a skier.
-						redSkier.SetAlive(true);
-						greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
-						greenSkier.SetAlive(false);
-						purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-						purpleSkier.SetAlive(true);
-						plane.controller = XboxController.Second;    //Player one now controls the plane
+				//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+				//	}
+				//	else if (GameInfo.roundNumber == 3)
+				//	{
+				//		redSkier.gameObject.SetActive(true); // Player one is a skier.
+				//		redSkier.SetAlive(true);
+				//		greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
+				//		greenSkier.SetAlive(false);
+				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				//		purpleSkier.SetAlive(true);
+				//		plane.controller = XboxController.Second;    //Player one now controls the plane
 
-						planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
-					}
-				}
-				else if (m_playerCount == 4)
-				{
-					if (GameInfo.roundNumber == 2)
-					{
-						redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-						redSkier.SetAlive(false);
-						greenSkier.gameObject.SetActive(true); // Player two is a skier.
-						greenSkier.SetAlive(true);
-						purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-						purpleSkier.SetAlive(true);
-						orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-						orangeSkier.SetAlive(true);
-						plane.controller = XboxController.First;    //Player one now controls the plane
+				//		planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
+				//	}
+				//}
+				//else if (m_playerCount == 4)
+				//{
+				//	if (GameInfo.roundNumber == 2)
+				//	{
+				//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
+				//		redSkier.SetAlive(false);
+				//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
+				//		greenSkier.SetAlive(true);
+				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				//		purpleSkier.SetAlive(true);
+				//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+				//		orangeSkier.SetAlive(true);
+				//		plane.controller = XboxController.First;    //Player one now controls the plane
 
-						planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					}
-					else if (GameInfo.roundNumber == 3)
-					{
-						redSkier.gameObject.SetActive(true); // Player one is a skier.
-						redSkier.SetAlive(true);
-						greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
-						greenSkier.SetAlive(false);
-						purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-						purpleSkier.SetAlive(true);
-						orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-						orangeSkier.SetAlive(true);
-						plane.controller = XboxController.Second;    //Player one now controls the plane
+				//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+				//	}
+				//	else if (GameInfo.roundNumber == 3)
+				//	{
+				//		redSkier.gameObject.SetActive(true); // Player one is a skier.
+				//		redSkier.SetAlive(true);
+				//		greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
+				//		greenSkier.SetAlive(false);
+				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
+				//		purpleSkier.SetAlive(true);
+				//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+				//		orangeSkier.SetAlive(true);
+				//		plane.controller = XboxController.Second;    //Player one now controls the plane
 
-						planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					}
-					else if (GameInfo.roundNumber == 4)
-					{
-						redSkier.gameObject.SetActive(true); // Player one is a skier.
-						redSkier.SetAlive(true);
-						greenSkier.gameObject.SetActive(true); // Player two is a skier.
-						greenSkier.SetAlive(true);
-						purpleSkier.gameObject.SetActive(false); // Player three is now in the plane.
-						purpleSkier.SetAlive(false);
-						orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-						orangeSkier.SetAlive(true);
-						plane.controller = XboxController.Third;    //Player one now controls the plane
+				//		planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+				//	}
+				//	else if (GameInfo.roundNumber == 4)
+				//	{
+				//		redSkier.gameObject.SetActive(true); // Player one is a skier.
+				//		redSkier.SetAlive(true);
+				//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
+				//		greenSkier.SetAlive(true);
+				//		purpleSkier.gameObject.SetActive(false); // Player three is now in the plane.
+				//		purpleSkier.SetAlive(false);
+				//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
+				//		orangeSkier.SetAlive(true);
+				//		plane.controller = XboxController.Third;    //Player one now controls the plane
 
-						planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-					}
-				}
+				//		planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+				//	}
+				//}
 
 				m_eCurrentState = RoundState.eStartRound;   //After a single frame in the BeforeRound state, start the actual round stuff
 
@@ -498,7 +585,8 @@ public class GameManager : MonoBehaviour
 		if (purpleSkier.gameObject.activeSelf == true)	//If the purple skier is in the game,
 			purpleSkier.tether.enabled = value;			//Set them
 		if (orangeSkier.gameObject.activeSelf == true)	//If the orange skier is in the game,
-			orangeSkier.tether.enabled = value;			//Set them too
+			orangeSkier.tether.enabled = value;         //Set them too
+		mine.enabled = value;
 		target.enabled = value;
 		mainCamera.enabled = value;
 	}

@@ -183,6 +183,11 @@ public class BeachBallAbility : MonoBehaviour
 		}
     }
 
+	public bool isShotting()
+	{
+		return m_isShooting;
+	}
+
     // Used in Beachball script.
     public void ToggleIsShooting(bool shooting)
     {

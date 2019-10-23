@@ -22,6 +22,8 @@ public class PlaneController : MonoBehaviour
 	//Visual tilting
     public float tiltAngle = 20.0f;     //How far the plane tilts when moving left/right
     public float tiltSmoothness = 2.0f; //How quickly the plane tilts
+	public GameObject beachBallTarget = null; // Reference to the target so that when using the beach ball ability, the rotation of the plane stops.
+	private BeachBallAbility m_bba = null;
 
 	//Clamping
 	public Transform river = null;		//Reference to the river transform
@@ -32,6 +34,7 @@ public class PlaneController : MonoBehaviour
 
 	void Awake()
     {
+		m_bba = beachBallTarget.GetComponent<BeachBallAbility>();
 		rb = GetComponent<Rigidbody>();
 		Debug.Assert(rb != null, "Plane missing rigidbody component");
 
@@ -52,12 +55,20 @@ public class PlaneController : MonoBehaviour
 
 		//Controller movement
         float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);			//Get the direction and magnitude of the controller stick
-        newPos.x += (axisX * strafeSpeed * Time.deltaTime);					//Move the plane in that direction and with that % magnitude (0-1)
+        newPos.x += (axisX * strafeSpeed * Time.deltaTime);                 //Move the plane in that direction and with that % magnitude (0-1)
 
 		//Rotation
-		float tiltAroundZ = axisX * -tiltAngle;								//What percentage of the tilt should be aimed for based on movement speed
-		Quaternion targetRotation = Quaternion.Euler(0, 0, tiltAroundZ);	//Set the target rotation
-		rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, targetRotation, tiltSmoothness * Time.deltaTime);	//Move towards the target rotation
+		if (!m_bba.isShotting())
+		{
+			float tiltAroundZ = axisX * -tiltAngle;                             //What percentage of the tilt should be aimed for based on movement speed
+			Quaternion targetRotation = Quaternion.Euler(0, 0, tiltAroundZ);    //Set the target rotation
+			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, targetRotation, tiltSmoothness * Time.deltaTime);   //Move towards the target rotation
+		}
+		else
+		{
+			Quaternion targetRotation = Quaternion.Euler(0, 0, 0);    //Set the target rotation
+			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, targetRotation, tiltSmoothness * Time.deltaTime);   //Move towards the target rotation
+		}
 		
 		//Keyboard movement
 		if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
