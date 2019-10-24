@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8591419056696781227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8478395926762815144}
@@ -60,7 +60,7 @@ PrefabInstance:
     - target: {fileID: 7260058022942055113, guid: 1a0033e9f74a28b4c8937838a7661adf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7260058022942055113, guid: 1a0033e9f74a28b4c8937838a7661adf,
         type: 3}
@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 4638370186141446289, guid: eb4a4e7e5fa7d7543a17a7b302af636d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4638370186141446289, guid: eb4a4e7e5fa7d7543a17a7b302af636d,
         type: 3}
@@ -582,6 +582,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8642424442142159568}
     m_Modifications:
+    - target: {fileID: 3519020031567429553, guid: 7941ddc3ac040a849ad9b1c20587710a,
+        type: 3}
+      propertyPath: m_Name
+      value: ObstacleCourse 2
+      objectReference: {fileID: 0}
     - target: {fileID: 69658127914940264, guid: 7941ddc3ac040a849ad9b1c20587710a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -590,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 69658127914940264, guid: 7941ddc3ac040a849ad9b1c20587710a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 69658127914940264, guid: 7941ddc3ac040a849ad9b1c20587710a,
         type: 3}
@@ -637,11 +642,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3519020031567429553, guid: 7941ddc3ac040a849ad9b1c20587710a,
-        type: 3}
-      propertyPath: m_Name
-      value: ObstacleCourse 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7941ddc3ac040a849ad9b1c20587710a, type: 3}
 --- !u!4 &938718515166100251 stripped
@@ -670,7 +670,7 @@ PrefabInstance:
     - target: {fileID: 7054493163130198458, guid: 7392c1c1d95343344b07bc8345d3d97f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7054493163130198458, guid: 7392c1c1d95343344b07bc8345d3d97f,
         type: 3}
