@@ -150,7 +150,7 @@ public class MainMenu : MonoBehaviour
 				}
 
 				//Debug skip menu button, automatically assigns two skiers
-				if (GetButtonDownAny(XboxButton.Y))
+				if (GetButtonDownAny(XboxButton.Y) || Input.GetKeyDown(KeyCode.Space))
 				{
 					playerNumber = 2;
 					PlayGame();
