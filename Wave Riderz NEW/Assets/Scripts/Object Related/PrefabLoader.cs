@@ -51,6 +51,10 @@ public class PrefabLoader : MonoBehaviour
 					{
 						Vector3 positionAlongRiver = new Vector3(0, 0, 40 * i + forwardsOffset);    //Calculate how far down the river it should spawn
 						m_obstacles[prefabToSpawn].transform.position = positionAlongRiver;         //Set its position
+
+						if (UnityEngine.Random.value > 0.5f)										//50% chance
+							m_obstacles[prefabToSpawn].transform.localScale = new Vector3(-1, 1, 1);//Mirror the entire prefab horizontally
+
 						Instantiate(m_obstacles[prefabToSpawn]);                                    //Spawn the prefab
 						m_obstacleActive[prefabToSpawn] = true;                                     //Store that it has been spawned
 					}
@@ -82,6 +86,10 @@ public class PrefabLoader : MonoBehaviour
 					{
 						Vector3 positionAlongRiver = new Vector3(0, 0, 80 * i + forwardsOffset - 60);   //Calculate how far down the river it should spawn
 						m_environment[prefabToSpawn].transform.position = positionAlongRiver;           //Set its position
+
+						if (UnityEngine.Random.value > 0.5f)											//50% chance
+							m_environment[prefabToSpawn].transform.localScale = new Vector3(-1, 1, 1);	//Mirror the entire prefab horizontally
+
 						Instantiate(m_environment[prefabToSpawn]);                                      //Spawn the prefab
 						m_environmentActive[prefabToSpawn] = true;                                      //Store that it has been spawned
 					}
