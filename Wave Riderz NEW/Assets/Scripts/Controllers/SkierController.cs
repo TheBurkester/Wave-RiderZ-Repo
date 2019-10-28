@@ -16,7 +16,8 @@ public class SkierController : MonoBehaviour
 	//Movement
 	public XboxController controller;	//Reference to the in-scene assigned controller
 	public float movingForce = 5;   //How fast the skier moves sideways
-	public float bonkForce = 10;    //How strong bonking other players is
+	public float bonkForce = 300;    //How strong bonking other players is
+	public float obstacleForce = 2000;
 
 	//Keyboard controls
 	public KeyCode MoveLeft;		//Which keyboard key moves the skier left
@@ -137,15 +138,25 @@ public class SkierController : MonoBehaviour
 		{
 			if (other.CompareTag("Skier"))	//If the other object is a skier,
 			{
-				Tether otherTether = other.GetComponent<Tether>();			//Get the other skier's tether
+				Tether otherTether = other.GetComponent<Tether>();          //Get the other skier's tether
+				otherTether.forceToApply = Vector3.zero;
 				otherTether.forceToApply += bonkForce * tether.Direction();	//Add a force to the other skier, in the direction which this skier is currently moving
 			}
 
 			if (other.CompareTag("Coin"))	//If the other object is a coin,
-				m_playerScore += coinScore;	//Add a coin's worth of points to the score
+				m_playerScore += coinScore; //Add a coin's worth of points to the score
 
-			if (other.CompareTag("Rock"))	//If the other object is a rock,
-				HurtSkier();				//Hurt the skier
+			if (other.CompareTag("Rock"))   //If the other object is a rock,
+				HurtSkier();                //Hurt the skier
+		}
+		if (other.CompareTag("Rock"))
+		{
+			float pushDirection = transform.position.x - other.transform.position.x;
+			tether.forceToApply = Vector3.zero;
+			if (pushDirection > 0)
+				tether.forceToApply += new Vector3(obstacleForce, 0, 0);
+			else
+				tether.forceToApply += new Vector3(-obstacleForce, 0, 0);
 		}
 	}
 	
