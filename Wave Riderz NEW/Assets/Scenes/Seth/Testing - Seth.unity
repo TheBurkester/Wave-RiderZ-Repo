@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -127,6 +127,18 @@ MonoBehaviour:
 --- !u!114 &68610201 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3615083638214733482, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1951041495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &171545742 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 431122940412075775, guid: c27f0864eb7f5524c8081d187a3553df,
     type: 3}
   m_PrefabInstance: {fileID: 1951041495}
   m_PrefabAsset: {fileID: 0}
@@ -227,6 +239,7 @@ MonoBehaviour:
   multiplierPurple: {fileID: 57002621}
   multiplierOrange: {fileID: 233316112}
   beachBombAbility: {fileID: 991627930}
+  tetheredMineAbility: {fileID: 171545742}
   roundOverPanel: {fileID: 438385735}
   bonus: {fileID: 506455264}
 --- !u!4 &300776889

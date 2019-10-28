@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 	//Enum for the different round states
 	private enum RoundState
 	{
-		eBeforeRound,	//The single frame before the round for switching players, etc
 		eStartRound,	//The countdown before control is given to the players
 		ePlayingRound,	//When players are in control and playing the game
 		eRoundOver		//Once time is out or all skiers are wiped out, show scoreboard
@@ -273,99 +272,6 @@ public class GameManager : MonoBehaviour
 		//The state machine
 		switch (m_eCurrentState)
 		{
-			case RoundState.eBeforeRound:
-
-				//if (m_playerCount == 2)
-				//{
-				//	if (GameInfo.roundNumber == 2)
-				//	{
-				//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-				//		redSkier.SetAlive(false);
-				//		greenSkier.gameObject.SetActive(true); // Player two is now the skier.
-				//		greenSkier.SetAlive(true);
-				//		plane.controller = XboxController.First;    //Player one now controls the plane
-
-				//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-				//	}
-				//}
-				//else if (m_playerCount == 3)
-				//{
-				//	if (GameInfo.roundNumber == 2)
-				//	{
-				//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-				//		redSkier.SetAlive(false);
-				//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
-				//		greenSkier.SetAlive(true);
-				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-				//		purpleSkier.SetAlive(true);
-				//		plane.controller = XboxController.First;    //Player one now controls the plane
-
-				//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-				//	}
-				//	else if (GameInfo.roundNumber == 3)
-				//	{
-				//		redSkier.gameObject.SetActive(true); // Player one is a skier.
-				//		redSkier.SetAlive(true);
-				//		greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
-				//		greenSkier.SetAlive(false);
-				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-				//		purpleSkier.SetAlive(true);
-				//		plane.controller = XboxController.Second;    //Player one now controls the plane
-
-				//		planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
-				//	}
-				//}
-				//else if (m_playerCount == 4)
-				//{
-				//	if (GameInfo.roundNumber == 2)
-				//	{
-				//		redSkier.gameObject.SetActive(false); // Player one is now in the plane.
-				//		redSkier.SetAlive(false);
-				//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
-				//		greenSkier.SetAlive(true);
-				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-				//		purpleSkier.SetAlive(true);
-				//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-				//		orangeSkier.SetAlive(true);
-				//		plane.controller = XboxController.First;    //Player one now controls the plane
-
-				//		planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-				//	}
-				//	else if (GameInfo.roundNumber == 3)
-				//	{
-				//		redSkier.gameObject.SetActive(true); // Player one is a skier.
-				//		redSkier.SetAlive(true);
-				//		greenSkier.gameObject.SetActive(false); // Player two is now in the plane.
-				//		greenSkier.SetAlive(false);
-				//		purpleSkier.gameObject.SetActive(true); // Player three is a skier.
-				//		purpleSkier.SetAlive(true);
-				//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-				//		orangeSkier.SetAlive(true);
-				//		plane.controller = XboxController.Second;    //Player one now controls the plane
-
-				//		planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-				//	}
-				//	else if (GameInfo.roundNumber == 4)
-				//	{
-				//		redSkier.gameObject.SetActive(true); // Player one is a skier.
-				//		redSkier.SetAlive(true);
-				//		greenSkier.gameObject.SetActive(true); // Player two is a skier.
-				//		greenSkier.SetAlive(true);
-				//		purpleSkier.gameObject.SetActive(false); // Player three is now in the plane.
-				//		purpleSkier.SetAlive(false);
-				//		orangeSkier.gameObject.SetActive(true); // Player four is a skier.
-				//		orangeSkier.SetAlive(true);
-				//		plane.controller = XboxController.Third;    //Player one now controls the plane
-
-				//		planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-				//	}
-				//}
-
-				m_eCurrentState = RoundState.eStartRound;   //After a single frame in the BeforeRound state, start the actual round stuff
-
-				break;
-			//-------------------------------------------------------------------------
-
 			case RoundState.eStartRound:
 
 				if (!m_startRoundTimer.UnderMax())              //If the timer has run out,
@@ -379,14 +285,6 @@ public class GameManager : MonoBehaviour
 				else                                                            //Otherwise the timer is still going,
 				{
 					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
-
-					//Display the countdown
-					//if (closestSecond == 3)
-					//	startCountdownDisplay.text = "3";
-					//else if (closestSecond == 2)
-					//	startCountdownDisplay.text = "2";
-					//else if (closestSecond == 1)
-					//	startCountdownDisplay.text = "1";
 					startCountdownDisplay.text = closestSecond.ToString();
 				}
 
@@ -557,17 +455,11 @@ public class GameManager : MonoBehaviour
 					if (m_playerCount == 4)
 						GameInfo.playerFourScore = orangeSkier.GetPlayerScore();
 
-					++GameInfo.roundNumber;								//Update the round number
-					if (GameInfo.roundNumber <= m_playerCount)			//If the round number is under the number of players,
-					{
-						SceneManager.LoadScene(GameInfo.roundNumber);	//Load the next level
-
-						//m_eCurrentState = RoundState.eBeforeRound;		//Go back to round start state
-						//m_startRoundTimer.SetTimer();					//Start the countdown timer
-						//roundOverPanel.SetActive(false);
-					}
-					else                                                //The round number exceeds the number of players,
-						SceneManager.LoadScene(5);						//Go to the game finished scene
+					++GameInfo.roundNumber;						//Update the round number
+					if (GameInfo.roundNumber <= m_playerCount)	//If the round number is under the number of players,
+						SceneManager.LoadScene(1);				//Load the next level
+					else                                        //The round number exceeds the number of players,
+						SceneManager.LoadScene(2);				//Go to the game finished scene
 				}
 
 				break;
