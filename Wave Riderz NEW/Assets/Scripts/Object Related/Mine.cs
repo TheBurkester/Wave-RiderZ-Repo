@@ -48,6 +48,7 @@ public class Mine : MonoBehaviour
 			m_rb.angularVelocity = Vector3.zero; // Resets angular velocity.
 			m_rb.transform.rotation = Quaternion.Euler(Vector3.zero); // Resets rotation.
 			m_tmAbility.setIsUsingAbility(false);
+			m_tmAbility.abilityCooldown.SetTimer();
 		}
 	}
 }

@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
 	public Text multiplierGreen = null;
 	public Text multiplierPurple = null;
 	public Text multiplierOrange = null;
-	public Text beachBombAbility = null;			//Reference to the cooldown timer text
+	public Text beachBombAbility = null;            //Reference to the cooldown timer text
+	public Text tetheredMineAbility = null;			// Reference to the cooldown timer text.
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	public Text bonus = null;
 	//-------------------------------------------------------------------------
@@ -137,6 +138,7 @@ public class GameManager : MonoBehaviour
 		multiplierPurple.text = "";
 		multiplierOrange.text = "";
 		beachBombAbility.text = "";
+		tetheredMineAbility.text = "";
 		bonus.text = "";
 
 		roundOverPanel.SetActive(false);
@@ -483,7 +485,8 @@ public class GameManager : MonoBehaviour
 					}
 				}
 
-				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();	//Display the beach bomb ability cooldown timer
+				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();   //Display the beach bomb ability cooldown timer
+				tetheredMineAbility.text = ((int)Math.Ceiling(planeHatch.abilityCooldown.T)).ToString(); // Display the mine ability cooldown timer.
 				
 				if (plane.controller == XboxController.First)
 				{
