@@ -29,9 +29,11 @@ public class MainMenu : MonoBehaviour
 
 
 	//UI references
-	public Canvas canvas;					//Reference to the UI canvas as a whole
-	public RectTransform splashPanel;		//Reference to the main menu UI transform
-	public RectTransform characterPanel;	//Reference to the character selection UI transform
+	public Canvas canvas;					// Reference to the UI canvas as a whole
+	public RectTransform splashPanel;		// Reference to the main menu UI transform
+	public RectTransform characterPanel;    // Reference to the character selection UI transform
+	public RectTransform controllsPanel;	// Reference to the controlls panel UI transform.
+	public RectTransform creditsPanel;		// Reference to the credits panel UI transforn.
 	//Positions of the blocks behind skiers in character select
 	public Transform playerOneBlock;
 	public Transform playerTwoBlock;
