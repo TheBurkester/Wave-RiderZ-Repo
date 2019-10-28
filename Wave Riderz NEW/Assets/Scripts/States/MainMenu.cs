@@ -19,6 +19,14 @@ public class MainMenu : MonoBehaviour
 		eCharacterScreen	// Character selection / ready screen.
 	}
 
+	public enum CharacterState
+	{
+		eJoining,
+		eJoined,
+		eLeaving,
+		eIdle
+	}
+
 
 	//UI references
 	public Canvas canvas;					//Reference to the UI canvas as a whole
@@ -70,11 +78,14 @@ public class MainMenu : MonoBehaviour
 	//-------------------------------------------------------------------------
 
 	//Player variables
-	public static int playerNumber = 0; // The number of players.
+	public static int playerNumber = 0;			// The number of players.
     private bool m_playerOneReady = false;
     private bool m_playerTwoReady = false;
-    private bool m_playerThreeReady = false;
-    private bool m_playerFourReady = false;
+	private CharacterState m_playerTwoState = CharacterState.eIdle;
+	private bool m_playerThreeReady = false;
+	private CharacterState m_playerThreeState = CharacterState.eIdle;
+	private bool m_playerFourReady = false;
+	private CharacterState m_playerFourState = CharacterState.eIdle;
 	//-------------------------------------------------------------------------
 
 	//Misc
@@ -162,37 +173,55 @@ public class MainMenu : MonoBehaviour
 			case PanelState.eCharacterScreen:
                 
 				//'Add player' input checks
-                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Second) && playerNumber == 1) //If player two presses add and the previous player is already added,
+                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Second) && m_playerTwoState != CharacterState.eJoined)		// If player two presses add.
                 {
-                    if (m_removePlayer != true)			//As long as a player isn't currently getting removed, 
-                        m_addPlayerButtonPress = true;	//Add a player
+					if (m_removePlayer != true)							//As long as a player isn't currently getting removed, 
+					{
+						m_addPlayerButtonPress = true;					//Add a player
+						m_playerTwoState = CharacterState.eJoining;		// Player two is now joining.
+					}
                 }
-                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Third) && playerNumber == 2) //If player three presses add and the previous player is already added,
+                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Third) && m_playerThreeState != CharacterState.eJoined)		// If player three presses add.
 				{
-                    if (m_removePlayer != true)			//As long as a player isn't currently getting removed,
-                        m_addPlayerButtonPress = true;  //Add a player
+					if (m_removePlayer != true)							//As long as a player isn't currently getting removed,
+					{
+						m_addPlayerButtonPress = true;					//Add a player
+						m_playerThreeState = CharacterState.eJoining;	// Player three is now joining.
+					}
 				}
-                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Fourth) && playerNumber == 3) //If player four presses add and the previous player is already added,
+                if (XCI.GetButtonDown(addPlayerXbox, XboxController.Fourth) && m_playerFourState != CharacterState.eJoined)		// If player four presses add.
 				{
-                    if (m_removePlayer != true)			//As long as a player isn't currently getting removed,
-                        m_addPlayerButtonPress = true;  //Add a player
+					if (m_removePlayer != true)							//As long as a player isn't currently getting removed,
+					{
+						m_addPlayerButtonPress = true;					//Add a player
+						m_playerFourState = CharacterState.eJoining;	// Player four is now joining.
+					}
 				}
 
 				//'Remove player' input checks
-                if (XCI.GetButtonDown(removePlayerXbox, XboxController.Second) && playerNumber == 2)    //If player two presses remove and they are the last player,
+                if (XCI.GetButtonDown(removePlayerXbox, XboxController.Second) && m_playerTwoState == CharacterState.eJoined)	// If player two presses remove.
 				{
-                    if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
-                        m_removePlayer = true;			//Remove a player
+					if (m_addPlayerButtonPress != true)					//As long as a player isn't currently getting added,
+					{
+						m_removePlayer = true;                          //Remove a player
+						m_playerTwoState = CharacterState.eLeaving;		// Player two is leaving.
+					}
                 }
-                if (XCI.GetButtonDown(removePlayerXbox, XboxController.Third) && playerNumber == 3)    //If player three presses remove and they are the last player,
+                if (XCI.GetButtonDown(removePlayerXbox, XboxController.Third) && m_playerThreeState == CharacterState.eJoined)	// If player three presses remove.
 				{
-					if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
-						m_removePlayer = true;          //Remove a player
+					if (m_addPlayerButtonPress != true)					//As long as a player isn't currently getting added,
+					{
+						m_removePlayer = true;                          //Remove a player
+						m_playerThreeState = CharacterState.eLeaving;	// Player three is leaving.
+					}
 				}
-				if (XCI.GetButtonDown(removePlayerXbox, XboxController.Fourth) && playerNumber == 4)    //If player four presses remove and they are the last player,
+				if (XCI.GetButtonDown(removePlayerXbox, XboxController.Fourth) && m_playerFourState == CharacterState.eJoined)	// If player four presses remove.
 				{
-					if (m_addPlayerButtonPress != true) //As long as a player isn't currently getting added,
-						m_removePlayer = true;          //Remove a player
+					if (m_addPlayerButtonPress != true)					//As long as a player isn't currently getting added,
+					{
+						m_removePlayer = true;                          //Remove a player
+						m_playerFourState = CharacterState.eLeaving;	// Player four is leaving.
+					}
 				}
 
 				//Adding and moving players
@@ -200,7 +229,7 @@ public class MainMenu : MonoBehaviour
 				{
 					m_t2 += panelSpeed * Time.deltaTime; //Increment the player moving timer
             
-					if (playerNumber == 1) // If there is one player. Adds the 2nd player.
+					if (m_playerTwoState == CharacterState.eJoining) // If player two is in the process of joining.
 					{
 						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerTwoPos, m_t2); // Slowly moves the position to the target.
             
@@ -209,9 +238,10 @@ public class MainMenu : MonoBehaviour
 							m_t2 = 0;		// Resets timer.
 							playerNumber++; // Increases player number by 1.
                             m_addPlayerButtonPress = false;
+							m_playerTwoState = CharacterState.eJoined;
 						}
 					}
-					else if (playerNumber == 2) // If there are two players. Adds the 3rd player.
+					else if (m_playerThreeState == CharacterState.eJoining) // If player three is joining.
 					{
 						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerThreePos, m_t2); // Slowly moves the position to the target.
             
@@ -220,9 +250,10 @@ public class MainMenu : MonoBehaviour
 							m_t2 = 0;		// Resets timer.
 							playerNumber++; // Increases player number by 1.
                             m_addPlayerButtonPress = false;
+							m_playerThreeState = CharacterState.eJoined;
 						}
 					}
-					else if (playerNumber == 3) // If there are 3 players. Adds the 4th player.
+					else if (m_playerFourState == CharacterState.eJoining) // If player four is joining.
 					{
 						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerFourPos, m_t2); // Slowly moves the position to the target.
             
@@ -231,6 +262,7 @@ public class MainMenu : MonoBehaviour
 							m_t2 = 0;		// Resets timer.
 							playerNumber++; // Increases player number by 1.
                             m_addPlayerButtonPress = false;
+							m_playerFourState = CharacterState.eJoined;
 						}
 					}
 				}
@@ -239,7 +271,7 @@ public class MainMenu : MonoBehaviour
 				{
 					m_t2 += panelSpeed * Time.deltaTime;	//Increment the player moving timer
 
-					if (playerNumber == 2)	//If there are 2 players, remove the second player
+					if (m_playerTwoState == CharacterState.eLeaving)	// If player two is leaving.
 					{
 						m_playerTwoReady = false;
 						readyLightPlayerTwo.enabled = false;
@@ -249,9 +281,10 @@ public class MainMenu : MonoBehaviour
 							m_t2 = 0;
 							playerNumber--;
 							m_removePlayer = false;
+							m_playerTwoState = CharacterState.eIdle;
 						}
 					}
-					else if (playerNumber == 3) //If there are 3 players, remove the third player
+					else if (m_playerThreeState == CharacterState.eLeaving) // If player three is leaving.
 					{
 						m_playerThreeReady = false;
 						readyLightPlayerThree.enabled = false;
@@ -261,9 +294,10 @@ public class MainMenu : MonoBehaviour
 							m_t2 = 0;
 							playerNumber--;
 							m_removePlayer = false;
+							m_playerThreeState = CharacterState.eIdle;
 						}
 					}
-					else if (playerNumber == 4) //If there are 4 players, remove the fourth player
+					else if (m_playerFourState == CharacterState.eLeaving) // If player four is leaving.
 					{
 						m_playerFourReady = false;
 						readyLightPlayerFour.enabled = false;
@@ -273,6 +307,7 @@ public class MainMenu : MonoBehaviour
 							m_t2 = 0;
 							playerNumber--;
 							m_removePlayer = false;
+							m_playerFourState = CharacterState.eIdle;
 						}
 					}
 				}
@@ -293,7 +328,7 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 				else if (XCI.GetButtonDown(readyPlayerXbox, XboxController.Second)	//If the second player presses ready,
-						&& playerNumber >= 2)										//and there is a second player on screen,
+						&& m_playerTwoState == CharacterState.eJoined)				//and player two has joined.
 				{
 					//Turn their ready state on/off
 					if (m_playerTwoReady)
@@ -308,7 +343,7 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 				else if (XCI.GetButtonDown(readyPlayerXbox, XboxController.Third)	//If the third player presses ready,
-						&& playerNumber >= 3)                                       //and there is a third player on screen,
+						&& m_playerThreeState == CharacterState.eJoined)            //and player three joined.
 				{
 					//Turn their ready state on/off
 					if (m_playerThreeReady)
@@ -323,7 +358,7 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 				else if (XCI.GetButtonDown(readyPlayerXbox, XboxController.Fourth)	//If the fourth player presses ready,
-						&& playerNumber == 4)                                       //and there is a fourth player on screen,
+						&& m_playerFourState == CharacterState.eJoined)             //and player four joined.
 				{
 					//Turn their ready state on/off
 					if (m_playerFourReady)
@@ -339,7 +374,7 @@ public class MainMenu : MonoBehaviour
 				}
 
 				//Enough players ready checking
-				if (playerNumber == 2)
+				if (m_playerTwoState == CharacterState.eJoined && m_playerThreeState != CharacterState.eJoined && m_playerFourState != CharacterState.eJoined) // If only player one and two are in the game.
 				{
 					if (m_playerOneReady && m_playerTwoReady								//If all players are ready,
 						&& characterPanel.transform.position != canvas.transform.position)	//and the play button isn't already on-screen,
@@ -367,7 +402,7 @@ public class MainMenu : MonoBehaviour
 						}
 					}
 				}
-				else if (playerNumber == 3)
+				else if (m_playerTwoState == CharacterState.eJoined && m_playerThreeState == CharacterState.eJoined && m_playerFourState != CharacterState.eJoined) // If player one, two and three have joined without player four.
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && characterPanel.transform.position != canvas.transform.position)
 					{
@@ -394,7 +429,7 @@ public class MainMenu : MonoBehaviour
 						}
 					}
 				}
-				else if (playerNumber == 4)
+				else if (m_playerTwoState == CharacterState.eJoined && m_playerThreeState == CharacterState.eJoined && m_playerFourState == CharacterState.eJoined) // If all players have joined.
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && m_playerFourReady && characterPanel.transform.position != canvas.transform.position)
 					{
