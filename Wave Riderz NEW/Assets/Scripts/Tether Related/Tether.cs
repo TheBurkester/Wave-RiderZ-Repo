@@ -17,7 +17,9 @@ public class Tether : MonoBehaviour
 
 	private Vector3 m_velocity;     //How fast the object is moving in which directions
 	private Vector3 m_drag;         //How much drag force is applied to the object
+	[HideInInspector]
 	public Vector3 forceToApply;	//Extra force to put onto the object from other scripts
+	private Timer m_forceTimer;
 
 	public float backwardsDrag = 5;		//How much force will be applied backwards on the object
 
@@ -36,10 +38,19 @@ public class Tether : MonoBehaviour
 		Debug.Assert(tetherPoint != null, "Object missing tether point reference");
 
 		m_drag = new Vector3(0, 0, -backwardsDrag);     //Set the backwards drag
-		tetherPosition = new Vector3(tetherPoint.position.x, 0, tetherPoint.position.z);	//Position the tether so it's beneath the plane at y = 0
+		tetherPosition = new Vector3(tetherPoint.position.x, 0, tetherPoint.position.z);    //Position the tether so it's beneath the plane at y = 0
+
+		m_forceTimer = gameObject.AddComponent<Timer>();   //Create the timer
+		m_forceTimer.autoDisable = true;
 	}
 
-    void Update()
+	private void FixedUpdate()
+	{
+		if (!m_forceTimer.UnderMax())
+			forceToApply = new Vector3(0, 0, 0);  //Reset the previous frame's force before any physics/updates
+	}
+
+	void Update()
     {
 		//Update the tether position
 		tetherPosition.x = tetherPoint.position.x;
@@ -69,6 +80,19 @@ public class Tether : MonoBehaviour
 		//Set the final values
 		m_velocity = (testPosition - transform.position) / Time.deltaTime;  //Adjust the velocity to force it to move to the new position
 		transform.position = testPosition;                                  //Move to the new position
+	}
+
+	public void ApplyForce(Vector3 force)
+	{
+		if (!m_forceTimer.UnderMax())
+			forceToApply += force;
+	}
+
+	public void ForceOverTime(Vector3 force, float time)
+	{
+		forceToApply = force;
+		m_forceTimer.maxTime = time;
+		m_forceTimer.SetTimer();
 	}
 
 	//Returns the distance between the object and the tether point
