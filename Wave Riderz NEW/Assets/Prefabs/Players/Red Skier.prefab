@@ -149,7 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: 0
   movingForce: 50
-  bonkForce: 300
+  bonkForce: 150
+  bonkForceDuration: 0.5
+  obstacleForce: 100
+  obstacleForceDuration: 0.5
   MoveLeft: 97
   MoveRight: 100
   TetherLengthen: 115
@@ -159,10 +162,13 @@ MonoBehaviour:
   planeScoreInc: 5
   planeBonus: 10
   skierBonus: 10
+  skierMultiplierSpeed: 5
+  skierMultiplierCap: 5
   skierLives: 3
   numberOfFlashes: 3
   flashDelay: 0.3
   tether: {fileID: 0}
+  hurt: 0
 --- !u!65 &4408586461628728277
 BoxCollider:
   m_ObjectHideFlags: 0

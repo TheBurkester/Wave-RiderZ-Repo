@@ -548,9 +548,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86aea077ac069e540b0014c553dd4e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shoot: 103
   mineRB: {fileID: 0}
   planeRB: {fileID: 8928308243186015382}
+  abilityCooldown: {fileID: 0}
+  cooldown: 10
 --- !u!1 &8928308244592503124
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +628,7 @@ MonoBehaviour:
   tiltSmoothness: 2
   beachBallTarget: {fileID: 0}
   river: {fileID: 0}
-  riverBorderSize: 10
+  riverBorderSize: 5
 --- !u!82 &1987766135325528761
 AudioSource:
   m_ObjectHideFlags: 0

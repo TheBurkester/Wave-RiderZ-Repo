@@ -235,7 +235,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4f935ec0a8e174046b2526f31c7f02bb, type: 2}
+  - {fileID: 2100000, guid: bcbaa34d3ad1cc14da3e28a492624b7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -298,7 +298,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: 0
   movingForce: 50
-  bonkForce: 300
+  bonkForce: 150
+  bonkForceDuration: 0.5
+  obstacleForce: 100
+  obstacleForceDuration: 0.5
   MoveLeft: 260
   MoveRight: 262
   TetherLengthen: 261
@@ -308,10 +311,13 @@ MonoBehaviour:
   planeScoreInc: 5
   planeBonus: 10
   skierBonus: 10
+  skierMultiplierSpeed: 5
+  skierMultiplierCap: 5
   skierLives: 3
   numberOfFlashes: 3
   flashDelay: 0.3
   tether: {fileID: 0}
+  hurt: 0
 --- !u!114 &6073448096713628417
 MonoBehaviour:
   m_ObjectHideFlags: 0

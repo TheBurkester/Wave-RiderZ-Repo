@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -217,28 +217,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 148536750}
-  - component: {fileID: 148536749}
-  - component: {fileID: 148536751}
   m_Layer: 0
   m_Name: BeachColliders
-  m_TagString: Rock
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &148536749
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148536748}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 10, z: 400}
-  m_Center: {x: 20.32, y: 5, z: 85}
 --- !u!4 &148536750
 Transform:
   m_ObjectHideFlags: 0
@@ -249,23 +234,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 446427125}
+  - {fileID: 1465600442}
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &148536751
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148536748}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 10, z: 400}
-  m_Center: {x: -20.32, y: 5, z: 85}
 --- !u!114 &183699964 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 431122940412075775, guid: c27f0864eb7f5524c8081d187a3553df,
@@ -416,6 +390,50 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &446427124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446427125}
+  - component: {fileID: 446427126}
+  m_Layer: 0
+  m_Name: Left_Beach_Collider
+  m_TagString: Rock
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &446427125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446427124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 148536750}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &446427126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446427124}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 400}
+  m_Center: {x: -25, y: 4, z: 85}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1115,50 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1465600441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1465600442}
+  - component: {fileID: 1465600443}
+  m_Layer: 0
+  m_Name: 'Right_Beach_Collider '
+  m_TagString: Rock
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1465600442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465600441}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 148536750}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1465600443
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465600441}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 400}
+  m_Center: {x: 25, y: 4, z: 85}
 --- !u!114 &1473741671 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3615083638214733482, guid: c27f0864eb7f5524c8081d187a3553df,
@@ -1972,24 +2034,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
-      propertyPath: river
-      value: 
-      objectReference: {fileID: 1830143216}
-    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
-        type: 3}
-      propertyPath: forwardSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
-        type: 3}
       propertyPath: beachBallTarget
       value: 
       objectReference: {fileID: 1056967429}
     - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
-      propertyPath: riverBorderSize
-      value: 5
-      objectReference: {fileID: 0}
+      propertyPath: river
+      value: 
+      objectReference: {fileID: 1830143216}
     - target: {fileID: 3283679067084173432, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: mineRB
