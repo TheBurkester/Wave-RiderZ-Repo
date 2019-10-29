@@ -88,15 +88,27 @@ public class Tether : MonoBehaviour
 			forceToApply += force;
 	}
 
-	public void ForceOverTime(Vector3 force, float time)
+	public void ForceOverTime(Vector3 force, float duration)
 	{
 		forceToApply = force;
-		m_forceTimer.maxTime = time;
+		m_forceTimer.maxTime = duration;
 		m_forceTimer.SetTimer();
+		StartCoroutine(ReduceForce(force, duration));
 	}
 
-	//Returns the distance between the object and the tether point
-	public float Distance()
+	IEnumerator ReduceForce(Vector3 force, float duration)
+	{
+		float time = 0;
+		while (time < duration)
+		{
+			time += Time.deltaTime / duration;
+			forceToApply = Vector3.Lerp(force, Vector3.zero, time);
+			yield return null;
+		}
+	}
+
+		//Returns the distance between the object and the tether point
+		public float Distance()
 	{
 		return (transform.position - tetherPoint.position).magnitude;
 	}

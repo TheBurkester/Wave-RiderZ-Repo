@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -695,6 +695,11 @@ PrefabInstance:
       propertyPath: planeTetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
+    - target: {fileID: 6942492563686094267, guid: 1a2d0cf029595974cb183dfa182391f0,
+        type: 3}
+      propertyPath: bonkForce
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a2d0cf029595974cb183dfa182391f0, type: 3}
 --- !u!114 &982468776 stripped
@@ -915,6 +920,11 @@ PrefabInstance:
       propertyPath: planeTetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
+    - target: {fileID: 6073448096713628422, guid: 47e7c038536706640a89b188c18707e6,
+        type: 3}
+      propertyPath: bonkForce
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47e7c038536706640a89b188c18707e6, type: 3}
 --- !u!114 &1328587711 stripped
@@ -1247,6 +1257,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3615083637354154894, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3615083636843160022, guid: c27f0864eb7f5524c8081d187a3553df,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1367,11 +1382,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 63.72
       objectReference: {fileID: 0}
-    - target: {fileID: 3615083637354154894, guid: c27f0864eb7f5524c8081d187a3553df,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27f0864eb7f5524c8081d187a3553df, type: 3}
 --- !u!1001 &1968990012
@@ -1451,6 +1461,11 @@ PrefabInstance:
       propertyPath: planeTetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
+    - target: {fileID: 798391617790647765, guid: 644701bf4b578f84c92d201677a6a93d,
+        type: 3}
+      propertyPath: bonkForce
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 644701bf4b578f84c92d201677a6a93d, type: 3}
 --- !u!114 &1968990013 stripped
@@ -1542,6 +1557,16 @@ PrefabInstance:
       propertyPath: planeTetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
+    - target: {fileID: 4179917107278278894, guid: 0f54b2a877cf6ef4e96155e27dbd2608,
+        type: 3}
+      propertyPath: bonkForce
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179917107278278892, guid: 0f54b2a877cf6ef4e96155e27dbd2608,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f54b2a877cf6ef4e96155e27dbd2608, type: 3}
 --- !u!114 &2066981692 stripped
@@ -1590,6 +1615,11 @@ PrefabInstance:
       propertyPath: planeRB
       value: 
       objectReference: {fileID: 878083786}
+    - target: {fileID: 3491444408453323350, guid: 337ab2b5c58c278489204c7b5de5d78d,
+        type: 3}
+      propertyPath: power
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 3491444408453323354, guid: 337ab2b5c58c278489204c7b5de5d78d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1739,12 +1769,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane V2
       objectReference: {fileID: 0}
-    - target: {fileID: 3283679067084173432, guid: c65db4207dd24734e962120744ef30f2,
-        type: 3}
-      propertyPath: mineRB
-      value: 
-      objectReference: {fileID: 5941212763762676077, guid: 415eea88a975e2247b36d9acd5140d34,
-        type: 3}
     - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: river
@@ -1755,6 +1779,12 @@ PrefabInstance:
       propertyPath: beachBallTarget
       value: 
       objectReference: {fileID: 375519337}
+    - target: {fileID: 3283679067084173432, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: mineRB
+      value: 
+      objectReference: {fileID: 5941212763762676077, guid: 415eea88a975e2247b36d9acd5140d34,
+        type: 3}
     - target: {fileID: 8928308244592932212, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.x

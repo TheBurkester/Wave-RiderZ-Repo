@@ -33,7 +33,8 @@ public class BeachBallAbility : MonoBehaviour
 	//Ability
     public float cooldown = 5.0f;		// Used to define the length of the ability's cooldown.
 	public float radius = 5.0f;			// The radius of the ability.
-	public float power = 2000.0f;		// Force of the push.
+	public float power = 250;			// Force of the push.
+	public float forceDuration = 0.5f;	//How long to push for
 	public float downwardSpeed = 10.0f;	// How quickly the ball will fall from the sky.
 	private bool m_isShooting = false;	// Has the player pressed the shoot button.
     private MeshRenderer m_targetMesh;	// Target's Mesh.
