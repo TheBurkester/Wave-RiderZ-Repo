@@ -19,7 +19,9 @@ public class SkierController : MonoBehaviour
 	public float bonkForce = 150;    //How strong bonking other players is
 	public float bonkForceDuration = 0.5f;	//How long bonking forces are applied
 	public float obstacleForce = 100;			//How much sidewards force is applied when hitting an obstacle
-	public float obstacleForceDuration = 0.5f;	//How long obstacle forces are applied
+	public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
+	[HideInInspector]
+	public bool bonkResolved = false;
 
 	//Keyboard controls
 	public KeyCode MoveLeft;		//Which keyboard key moves the skier left
@@ -126,17 +128,25 @@ public class SkierController : MonoBehaviour
 				m_skierMultiplierTimer.SetTimer();
 			}
         }
+
+		bonkResolved = false;
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (!m_invincible)					//If the skier is not currently invincible,
 		{
-			if (other.CompareTag("Skier"))	//If the other object is a skier,
+			if (other.CompareTag("Skier") && !bonkResolved)	//If the other object is a skier,
 			{
 				Tether otherTether = other.GetComponent<Tether>();          //Get the other skier's tether
 				//otherTether.forceToApply += bonkForce * tether.Direction(); //Add a force to the other skier, in the direction which this skier is currently moving
-				otherTether.ForceOverTime(bonkForce * tether.Direction(), bonkForceDuration);
+				//otherTether.ForceOverTime(bonkForce * tether.Direction(), bonkForceDuration);
+				if (tether.VelocityMagnitude() > otherTether.VelocityMagnitude())
+				{ 
+					otherTether.ForceOverTime(bonkForce * tether.Direction(), bonkForceDuration);
+					tether.ReduceVelocity();
+					other.GetComponent<SkierController>().bonkResolved = true;
+				}
 			}
 
 			if (other.CompareTag("Coin"))	//If the other object is a coin,

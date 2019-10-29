@@ -107,8 +107,8 @@ public class Tether : MonoBehaviour
 		}
 	}
 
-		//Returns the distance between the object and the tether point
-		public float Distance()
+	//Returns the distance between the object and the tether point
+	public float Distance()
 	{
 		return (transform.position - tetherPoint.position).magnitude;
 	}
@@ -117,5 +117,15 @@ public class Tether : MonoBehaviour
 	public Vector3 Direction()
 	{
 		return m_velocity.normalized;
+	}
+
+	public float VelocityMagnitude()
+	{
+		return m_velocity.magnitude;
+	}
+
+	public void ReduceVelocity()
+	{
+		m_velocity /= 2;
 	}
 }
