@@ -38,8 +38,16 @@ public class BeachBall : MonoBehaviour
 					Vector3 distanceToHit = hit.transform.position - explosionPos;	//Get the difference in position between the skier and the explosion point
 					distanceToHit.y = 0;											//Make sure there is no y compenent
 					//float distanceToHit.magnitude		*Do a check of distance magnitude and adjust force amount here*
-					tether.ForceOverTime(m_bbAbility.getPower() * distanceToHit.normalized, m_bbAbility.forceDuration); //Add a force on the skier, pushing away from the explosion point
+					tether.ForceOverTime(m_bbAbility.power * distanceToHit.normalized, m_bbAbility.forceDuration); //Add a force on the skier, pushing away from the explosion point
 				}
+                else if (hit.CompareTag("Mine"))
+                {
+                    Tether tether = hit.GetComponent<Tether>();                     //Get their tether
+                    Vector3 distanceToHit = hit.transform.position - explosionPos;  //Get the difference in position between the skier and the explosion point
+                    distanceToHit.y = 0;                                            //Make sure there is no y compenent
+                    //float distanceToHit.magnitude		*Do a check of distance magnitude and adjust force amount here*
+                    tether.ForceOverTime(m_bbAbility.minePower * distanceToHit.normalized, m_bbAbility.forceDuration); //Add a force on the mine, pushing away from the explosion point
+                }
             }
 
             gameObject.SetActive(false); // Deactivates the beachball.

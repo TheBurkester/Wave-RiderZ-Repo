@@ -25,7 +25,10 @@ public class TetheredMineAbility : MonoBehaviour
 
 	public float cooldown = 10;			// Cooldown for the ability.
 
-	void Start() // KEEP THIS AS START OR I WILL PERSONALLY SMITE YOU. WE SPENT TOO LONG ON THIS.
+    public float obstacleForce = 75;           //How much sidewards force is applied when hitting an obstacle
+    public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
+
+    void Start() // KEEP THIS AS START OR I WILL PERSONALLY SMITE YOU. WE SPENT TOO LONG ON THIS.
     {
 		mineRB.gameObject.SetActive(false); // Disables the mine on startup.
 		m_planeHatch = GetComponent<Transform>();
@@ -49,7 +52,13 @@ public class TetheredMineAbility : MonoBehaviour
 			mineRB.gameObject.SetActive(true);
 			m_isUsingAbility = true;
 		}
-
+        if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !abilityCooldown.UnderMax())
+        {
+            mineRB.transform.position = m_planeHatch.transform.position;
+            mineRB.gameObject.SetActive(true);
+            m_isUsingAbility = true;
+        }
+        
         if (m_isUsingAbility)
 		{
 			ActivateAbility();

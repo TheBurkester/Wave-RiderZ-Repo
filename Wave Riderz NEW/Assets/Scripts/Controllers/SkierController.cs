@@ -155,13 +155,13 @@ public class SkierController : MonoBehaviour
 			if (other.CompareTag("Rock"))   //If the other object is a rock,
 				HurtSkier();                //Hurt the skier
 		}
-		if (other.CompareTag("Rock"))
+		if (other.CompareTag("Rock"))	//Regardless of if invincible or not, if colliding with an obstacle,
 		{
-			float pushDirection = transform.position.x - other.transform.position.x;
-			if (pushDirection > 0)
-				tether.ForceOverTime(new Vector3(obstacleForce, 0, 0), obstacleForceDuration);
-			else
-				tether.ForceOverTime(new Vector3(-obstacleForce, 0, 0), obstacleForceDuration);
+			float pushDirection = transform.position.x - other.transform.position.x;			//Calculate if the mine should be pushed left or right
+			if (pushDirection > 0)																//If positive,
+				tether.ForceOverTime(new Vector3(obstacleForce, 0, 0), obstacleForceDuration);	//Push right
+			else																				//If negative,
+				tether.ForceOverTime(new Vector3(-obstacleForce, 0, 0), obstacleForceDuration); //Push left
 		}
 	}
 	
