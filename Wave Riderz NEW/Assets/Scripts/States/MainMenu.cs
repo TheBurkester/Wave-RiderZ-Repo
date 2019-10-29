@@ -147,9 +147,6 @@ public class MainMenu : MonoBehaviour
 		switch (m_eCurrentState)
 		{
 			case PanelState.eSplashScreen:
-
-
-
 				//if (GetButtonDownAny(addPlayerXbox))    //If any controller presses the play button,
 				//	m_playButtonPress = true;           //Activate the play button
 
@@ -223,37 +220,49 @@ public class MainMenu : MonoBehaviour
 
 				if (m_returningToMenu)
 				{
+					m_playerOneReady = false;
+					readyLightPlayerOne.enabled = false;
+					m_playerTwoReady = false;
+					readyLightPlayerTwo.enabled = false;
+					m_playerTwoState = CharacterState.eIdle;
+					m_playerThreeReady = false;
+					readyLightPlayerThree.enabled = false;
+					m_playerThreeState = CharacterState.eIdle;
+					m_playerFourReady = false;
+					readyLightPlayerFour.enabled = false;
+					m_playerFourState = CharacterState.eIdle;
+
+
 					m_t += panelSpeed;
 					m_t2 += panelSpeed * Time.deltaTime;
 
-					if (characterPanel.transform.position == canvas.transform.position)
+					if (characterPanel.transform.position != m_panelOffScreenTopPos && characterPanel.transform.position != m_panelOffScreenBottomPos)
 						characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
 
-					playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOnePos, m_playerOffScreenLeft, m_t2);
-
-					if (playerTwoBlock.transform.position == m_playerTwoPos)
+					if (playerOneBlock.transform.position != m_playerOffScreenLeft)
+						playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOnePos, m_playerOffScreenLeft, m_t2);
+					if (playerTwoBlock.transform.position != m_playerOffScreenRight)
 						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerTwoPos, m_playerOffScreenRight, m_t2);
-					if (playerThreeBlock.transform.position == m_playerThreePos)
+					if (playerThreeBlock.transform.position != m_playerOffScreenLeft)
 						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerThreePos, m_playerOffScreenLeft, m_t2);
-					if (playerFourBlock.transform.position == m_playerFourPos)
+					if (playerFourBlock.transform.position != m_playerOffScreenRight)
 						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerFourPos, m_playerOffScreenRight, m_t2);
 
 					splashPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
 
-					if (splashPanel.transform.position == canvas.transform.position && playerOneBlock.transform.position == m_playerOffScreenLeft)
+					if (splashPanel.transform.position == canvas.transform.position && characterPanel.transform.position == m_panelOffScreenBottomPos || characterPanel.transform.position == m_panelOffScreenTopPos )
 					{
-						m_t = 0;    // Reset panel timer.
-						m_t2 = 0;
-						playerNumber = 0;
-						m_playerOneReady = false;
-						m_playerTwoReady = false;
-						m_playerThreeReady = false;
-						m_playerFourReady = false;
+						if (playerOneBlock.transform.position == m_playerOffScreenLeft && playerTwoBlock.transform.position == m_playerOffScreenRight)
+						{
+							m_t = 0;    // Reset panel timer.
+							m_t2 = 0;
+							playerNumber = 0;
 
-						splashPanel.GetComponentInChildren<Button>().enabled = true;
+							splashPanel.GetComponentInChildren<Button>().enabled = true;
 
-						m_returningToMenu = false;
-						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+							m_returningToMenu = false;
+							m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+						}
 					}
 				}
 
@@ -459,7 +468,7 @@ public class MainMenu : MonoBehaviour
 				}
 
 				//Enough players ready checking
-				if (m_playerTwoState == CharacterState.eJoined && m_playerThreeState != CharacterState.eJoined && m_playerFourState != CharacterState.eJoined) // If only player one and two are in the game.
+				if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eJoined && m_playerFourState != CharacterState.eJoined) // If only player one and two are in the game.
 				{
 					if (m_playerOneReady && m_playerTwoReady								//If all players are ready,
 						&& characterPanel.transform.position != canvas.transform.position)	//and the play button isn't already on-screen,
@@ -487,7 +496,7 @@ public class MainMenu : MonoBehaviour
 						}
 					}
 				}
-				else if (m_playerTwoState == CharacterState.eJoined && m_playerThreeState == CharacterState.eJoined && m_playerFourState != CharacterState.eJoined) // If player one, two and three have joined without player four.
+				else if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eIdle && m_playerFourState != CharacterState.eJoined) // If player one, two and three have joined without player four.
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && characterPanel.transform.position != canvas.transform.position)
 					{
@@ -514,7 +523,7 @@ public class MainMenu : MonoBehaviour
 						}
 					}
 				}
-				else if (m_playerTwoState == CharacterState.eJoined && m_playerThreeState == CharacterState.eJoined && m_playerFourState == CharacterState.eJoined) // If all players have joined.
+				else if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eIdle && m_playerFourState != CharacterState.eIdle) // If all players have joined.
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && m_playerFourReady && characterPanel.transform.position != canvas.transform.position)
 					{
@@ -543,13 +552,13 @@ public class MainMenu : MonoBehaviour
 				}
 
 				//Play button input check
-                if (m_showPlay && GetButtonDownAny(addPlayerXbox))	//If the play button is on-screen and any controller presses play,
+                if (m_showPlay && XCI.GetButton(addPlayerXbox, XboxController.First))	//If the play button is on-screen and any controller presses play,
                     PlayGame();
 
 				break;
 
 			case PanelState.eControlsScreen:
-				if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
+				if (GetButtonDownAny(removePlayerXbox)) // If player one presses the 'B' button.
 				{
 					m_returningToMenu = true;
 				}
@@ -573,16 +582,25 @@ public class MainMenu : MonoBehaviour
 				break;
 
 			case PanelState.eCreditsScreen:
-				if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
+				if (GetButtonDownAny(removePlayerXbox)) // If any player presses the 'B' button.
 				{
-					
+					m_returningToMenu = true;
 				}
 
-				if (splashPanel.transform.position == canvas.transform.position && creditsPanel.transform.position == m_panelOffScreenTopPos)
+				if (m_returningToMenu)
 				{
-					splashPanel.GetComponentInChildren<Button>().enabled = true;
-					m_returningToMenu = true;
-					m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+					m_t += panelSpeed;
+
+					creditsPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
+					splashPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
+
+					if (splashPanel.transform.position == canvas.transform.position && creditsPanel.transform.position == m_panelOffScreenTopPos)
+					{
+						m_t = 0;
+						splashPanel.GetComponentInChildren<Button>().enabled = true;
+						m_returningToMenu = false;
+						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+					}
 				}
 
 				break;
