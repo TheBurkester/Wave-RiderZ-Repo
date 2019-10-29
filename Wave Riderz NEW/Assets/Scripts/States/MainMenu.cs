@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using XboxCtrlrInput;
 using XInputDotNetPure;
 public class MainMenu : MonoBehaviour
@@ -16,15 +17,17 @@ public class MainMenu : MonoBehaviour
 	public enum PanelState
 	{
 		eSplashScreen,		// First screen visible when launching game.
-		eCharacterScreen	// Character selection / ready screen.
+		eCharacterScreen,	// Character selection / ready screen.
+		eControlsScreen,	// Controls for both the plane and skiers.
+		eCreditsScreen		// Credits.
 	}
 
 	public enum CharacterState
 	{
-		eJoining,
-		eJoined,
-		eLeaving,
-		eIdle
+		eJoining,			// In the process of joining.
+		eJoined,			// Has joined the game.
+		eLeaving,			// In the process of leaving.
+		eIdle				// Idle for when they aren't in the game and aren't joining.
 	}
 
 
@@ -32,8 +35,9 @@ public class MainMenu : MonoBehaviour
 	public Canvas canvas;					// Reference to the UI canvas as a whole
 	public RectTransform splashPanel;		// Reference to the main menu UI transform
 	public RectTransform characterPanel;    // Reference to the character selection UI transform
-	public RectTransform controllsPanel;	// Reference to the controlls panel UI transform.
-	public RectTransform creditsPanel;		// Reference to the credits panel UI transforn.
+	public RectTransform controlsPanel;		// Reference to the controls panel UI transform.
+	public RectTransform creditsPanel;      // Reference to the credits panel UI transforn.
+
 	//Positions of the blocks behind skiers in character select
 	public Transform playerOneBlock;
 	public Transform playerTwoBlock;
@@ -60,10 +64,13 @@ public class MainMenu : MonoBehaviour
 	public float panelSpeed = 40;					// How quickly the panels will shift.
     private float m_t = 0;							// Timer which increases via the panelSpeed.
 	private float m_t2 = 0;							// Second timer for ONLY players.
-	private bool m_playButtonPress = false;			// Has the play button been clicked?
+	private bool m_playButtonPress = false;         // Has the play button been selected?
+	private bool m_controlsButtonPress = false;		// Has the controls button been selected?
+	private bool m_creditsButtonPress = false;		// Has the credits button been selected?
     private bool m_addPlayerButtonPress = false;	// Has the add player button been pressed?
     private bool m_removePlayer = false;			// Is a player currently being removed from the game?
 	private bool m_showPlay = false;                // Are there enough players ready to show the play button?
+	private bool m_returningToMenu = false;			// Are the players returning to the menu?
 	//-------------------------------------------------------------------------
 
 	//Keyboard controls (OUTDATED)
@@ -107,6 +114,8 @@ public class MainMenu : MonoBehaviour
 		m_playerOffScreenRight = new Vector3(30, 10, 3); // Offset position outside of the camera view towards the right.
 		splashPanel.transform.position = canvas.transform.position; // Ensures that the splash starts within the canvas.
 		characterPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the character panel starts at the bottom.
+		controlsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the controls panel starts at the bottom.
+		creditsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the credits panel starts at the bottom.
 
 		readyLightPlayerOne.transform.position = new Vector3(-3, 12, 0);
 		readyLightPlayerTwo.transform.position = new Vector3(3, 12, 0);
@@ -139,8 +148,10 @@ public class MainMenu : MonoBehaviour
 		{
 			case PanelState.eSplashScreen:
 
-                if (GetButtonDownAny(addPlayerXbox))	//If any controller presses the play button,
-                    m_playButtonPress = true;			//Activate the play button
+
+
+				//if (GetButtonDownAny(addPlayerXbox))    //If any controller presses the play button,
+				//	m_playButtonPress = true;           //Activate the play button
 
 				if (m_playButtonPress)	//If the play button is active,
 				{
@@ -162,6 +173,37 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
+				if (m_controlsButtonPress)
+				{
+					m_t += panelSpeed;
+
+					splashPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
+					controlsPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
+
+					if (splashPanel.transform.position == m_panelOffScreenTopPos && controlsPanel.transform.position == canvas.transform.position)
+					{
+						m_t = 0;    // Reset panel timer.
+						m_controlsButtonPress = false;
+						m_eCurrentState = PanelState.eControlsScreen; // Change state to the controls screen.
+					}
+
+				}
+
+				if (m_creditsButtonPress)
+				{
+					m_t += panelSpeed;
+
+					splashPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
+					creditsPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
+
+					if (splashPanel.transform.position == m_panelOffScreenTopPos && creditsPanel.transform.position == canvas.transform.position)
+					{
+						m_t = 0;    // Reset panel timer.
+						m_creditsButtonPress = false;
+						m_eCurrentState = PanelState.eCreditsScreen; // Change state to the credits screen.
+					}
+				}
+
 				//Debug skip menu button, automatically assigns two skiers
 				if (GetButtonDownAny(XboxButton.Y) || Input.GetKeyDown(KeyCode.Space))
 				{
@@ -174,6 +216,47 @@ public class MainMenu : MonoBehaviour
 
 			case PanelState.eCharacterScreen:
                 
+				if (XCI.GetButtonDown(removePlayerXbox, XboxController.First))
+				{
+					m_returningToMenu = true;
+				}
+
+				if (m_returningToMenu)
+				{
+					m_t += panelSpeed;
+					m_t2 += panelSpeed * Time.deltaTime;
+
+					if (characterPanel.transform.position == canvas.transform.position)
+						characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
+
+					playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOnePos, m_playerOffScreenLeft, m_t2);
+
+					if (playerTwoBlock.transform.position == m_playerTwoPos)
+						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerTwoPos, m_playerOffScreenRight, m_t2);
+					if (playerThreeBlock.transform.position == m_playerThreePos)
+						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerThreePos, m_playerOffScreenLeft, m_t2);
+					if (playerFourBlock.transform.position == m_playerFourPos)
+						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerFourPos, m_playerOffScreenRight, m_t2);
+
+					splashPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
+
+					if (splashPanel.transform.position == canvas.transform.position && playerOneBlock.transform.position == m_playerOffScreenLeft)
+					{
+						m_t = 0;    // Reset panel timer.
+						m_t2 = 0;
+						playerNumber = 0;
+						m_playerOneReady = false;
+						m_playerTwoReady = false;
+						m_playerThreeReady = false;
+						m_playerFourReady = false;
+
+						splashPanel.GetComponentInChildren<Button>().enabled = true;
+
+						m_returningToMenu = false;
+						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+					}
+				}
+
 				//'Add player' input checks
                 if (XCI.GetButtonDown(addPlayerXbox, XboxController.Second) && m_playerTwoState != CharacterState.eJoined)		// If player two presses add.
                 {
@@ -464,6 +547,45 @@ public class MainMenu : MonoBehaviour
                     PlayGame();
 
 				break;
+
+			case PanelState.eControlsScreen:
+				if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
+				{
+					m_returningToMenu = true;
+				}
+
+				if (m_returningToMenu)
+				{
+					m_t += panelSpeed;
+
+					controlsPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
+					splashPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
+
+					if (splashPanel.transform.position == canvas.transform.position && controlsPanel.transform.position == m_panelOffScreenTopPos)
+					{
+						m_t = 0;    // Reset panel timer.
+						splashPanel.GetComponentInChildren<Button>().enabled = true;
+						m_returningToMenu = false;
+						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+					}
+				}
+
+				break;
+
+			case PanelState.eCreditsScreen:
+				if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
+				{
+					
+				}
+
+				if (splashPanel.transform.position == canvas.transform.position && creditsPanel.transform.position == m_panelOffScreenTopPos)
+				{
+					splashPanel.GetComponentInChildren<Button>().enabled = true;
+					m_returningToMenu = true;
+					m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+				}
+
+				break;
 		}	
 	}
 
@@ -486,10 +608,22 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-	//Leftover function from mouse-controlled menu button (OUTDATED)
-	public void buttonPress()
+	public void playButtonPress()
 	{
 		m_playButtonPress = true;
+		splashPanel.GetComponentInChildren<Button>().enabled = false;
+	}
+
+	public void controlsButtonPress()
+	{
+		m_controlsButtonPress = true;
+		splashPanel.GetComponentInChildren<Button>().enabled = false;
+	}
+
+	public void creditsButtonPress()
+	{
+		m_creditsButtonPress = true;
+		splashPanel.GetComponentInChildren<Button>().enabled = false;
 	}
 
 	//Checks if any controller has the specified button pressed
