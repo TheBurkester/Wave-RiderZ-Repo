@@ -74,7 +74,7 @@ public class Tether : MonoBehaviour
 		//Tether physics
 		Vector3 testPosition = transform.position + (testVelocity) * Time.deltaTime;    //Where is the object going to go next?
 		Vector3 testDistance = testPosition - tetherPosition;							//Distance between the new point and the tether point
-		if (testDistance.magnitude > currentLength)										//If the new point is outside the length of the rope,
+		if (testDistance.magnitude > (currentLength - 0.1f))							//If the new point is outside the length of the rope, or a tiny bit shorter,
 			testPosition = tetherPosition + testDistance.normalized * currentLength;	//Pull it back to the rope length in the direction of the rope
 
 		//Set the final values
