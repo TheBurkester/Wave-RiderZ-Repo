@@ -30,7 +30,7 @@ public class SkierController : MonoBehaviour
 	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
 	//Score/lives
-	private int m_playerScore = 0;		    // Player's score.
+	private int m_score = 0;		    // Player's score.
 	public int coinScore = 2;			    // Score increased everytime collision with a coin occurs.
 	public int skierScoreInc = 1;		    // Base Increase every second.
 	public int planeScoreInc = 5;		    // Increase every time a skier loses a life.
@@ -42,7 +42,7 @@ public class SkierController : MonoBehaviour
 	private int m_skierMultiplier = 1;		// Skier's multiplier.
 
 	private Timer m_scoreTimer;			// Timer used to increment score.
-	private Timer m_skierMultiplierTimer;	// Timer used to add the multiplier to the score over time.
+	private Timer m_scoreMultiplierTimer;	// Timer used to add the multiplier to the score over time.
 	public int skierLives = 3;			// The amount of lives the skiers will have.
 	private bool m_isAlive = false;		// If the skier has the will to live
 
@@ -67,17 +67,18 @@ public class SkierController : MonoBehaviour
 
 	void Start()
 	{
-        m_skierMultiplierTimer = gameObject.AddComponent<Timer>();
-        m_skierMultiplierTimer.maxTime = skierMultiplierSpeed;
-        m_skierMultiplierTimer.autoDisable = true;
+		m_scoreMultiplierTimer = gameObject.AddComponent<Timer>();  //Create the timer
+		m_scoreMultiplierTimer.maxTime = skierMultiplierSpeed;      //Set how often the multiplier increases
+		m_scoreMultiplierTimer.autoRepeat = true;                   //Make it repeat on its own
+		m_scoreMultiplierTimer.SetRepeatFunction(AddMultiplier);    //Make the timer call the AddMultiplier function each time it repeats
+		m_scoreMultiplierTimer.SetTimer();							//Start the timer
           
 
 		m_scoreTimer = gameObject.AddComponent<Timer>();	//Create the score timer
 		m_scoreTimer.maxTime = 1;							//The timer will go for one second,
-		m_scoreTimer.autoDisable = true;                    //then automatically disable and be reset
-
+		m_scoreTimer.autoRepeat = true;                     //Then automatically repeat
+		m_scoreTimer.SetRepeatFunction(IncrementScore);		//Make the timer call the IncrementScore function each time it repeats
         m_scoreTimer.SetTimer();							//Start the timer
-        m_skierMultiplierTimer.SetTimer();                  // Start the multiplier timer.
 	}
 
 	private void Update()
@@ -113,22 +114,7 @@ public class SkierController : MonoBehaviour
 			tether.ApplyForce(new Vector3(movingForce * axisX, 0, 0));
 		}
 		//---------------------------------------------
-
-		if (!m_scoreTimer.UnderMax())			//If the score timer goes past 1,
-		{
-			m_playerScore += skierScoreInc * m_skierMultiplier;		//Increment the score once
-			m_scoreTimer.SetTimer();			//Reset the timer
-		}
-
-        if (!m_skierMultiplierTimer.UnderMax())
-        {
-			if (m_skierMultiplier < skierMultiplierCap)
-			{
-				m_skierMultiplier++;
-				m_skierMultiplierTimer.SetTimer();
-			}
-        }
-
+		
 		bonkResolved = false;
 	}
 
@@ -136,28 +122,28 @@ public class SkierController : MonoBehaviour
 	{
 		if (!m_invincible)					//If the skier is not currently invincible,
 		{
-			if (other.CompareTag("Skier") && !bonkResolved)	//If the other object is a skier,
+			if (other.CompareTag("Skier") && !bonkResolved)				//If the other object is a skier and this collision hasn't been resolved yet,
 			{
-				Tether otherTether = other.GetComponent<Tether>();          //Get the other skier's tether
-				//otherTether.forceToApply += bonkForce * tether.Direction(); //Add a force to the other skier, in the direction which this skier is currently moving
-				//otherTether.ForceOverTime(bonkForce * tether.Direction(), bonkForceDuration);
-				if (tether.VelocityMagnitude() > otherTether.VelocityMagnitude())
+				Tether otherTether = other.GetComponent<Tether>();		//Get the other skier's tether
+
+				if (tether.VelocityMagnitude() > otherTether.VelocityMagnitude())	//If this skier is moving faster than the other skier,
 				{ 
+					//Add a flat force on the other skier in the direction this skier is moving
 					otherTether.ForceOverTime(bonkForce * tether.Direction(), bonkForceDuration);
-					tether.ReduceVelocity();
-					other.GetComponent<SkierController>().bonkResolved = true;
+					tether.ReduceVelocity();	//Reduce the velocity of this skier
+					other.GetComponent<SkierController>().bonkResolved = true;		//For this frame, set the collision as resolved
 				}
 			}
 
-			if (other.CompareTag("Coin"))	//If the other object is a coin,
-				m_playerScore += coinScore; //Add a coin's worth of points to the score
+			if (other.CompareTag("Coin"))   //If the other object is a coin,
+				m_score += coinScore;		//Add a coin's worth of points to the score
 
 			if (other.CompareTag("Rock"))   //If the other object is a rock,
 				HurtSkier();                //Hurt the skier
 		}
 		if (other.CompareTag("Rock"))	//Regardless of if invincible or not, if colliding with an obstacle,
 		{
-			float pushDirection = transform.position.x - other.transform.position.x;			//Calculate if the mine should be pushed left or right
+			float pushDirection = transform.position.x - other.transform.position.x;			//Calculate if the skier should be pushed left or right
 			if (pushDirection > 0)																//If positive,
 				tether.ForceOverTime(new Vector3(obstacleForce, 0, 0), obstacleForceDuration);	//Push right
 			else																				//If negative,
@@ -167,16 +153,27 @@ public class SkierController : MonoBehaviour
 	
 	public void SetPlayerScore(int score)
 	{
-		m_playerScore = score;
+		m_score = score;
 	}
 	public int GetPlayerScore()
 	{
-		return m_playerScore;
+		return m_score;
 	}
 
 	public int GetPlayerMultiplier()
 	{
 		return m_skierMultiplier;
+	}
+
+	public void IncrementScore()
+	{
+		m_score += skierScoreInc * m_skierMultiplier;
+	}
+
+	public void AddMultiplier()
+	{
+		if (m_skierMultiplier < skierMultiplierCap)
+			m_skierMultiplier++;
 	}
 
 	public void SetAlive(bool value)
@@ -208,7 +205,7 @@ public class SkierController : MonoBehaviour
 		{
 			m_invincible = true;    //Make it invincible
             m_skierMultiplier = 1; // Multiplier is reset back to 1.
-			m_skierMultiplierTimer.enabled = false; // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
+			m_scoreMultiplierTimer.enabled = false; // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
 			//Flash the skier mesh
 			for (int i = 0; i < numberOfFlashes; ++i)                       //Repeating for the number of flashes,
 			{
@@ -218,8 +215,6 @@ public class SkierController : MonoBehaviour
 
 			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));    //Schedule invincibility to turn off after the flashes are complete
 			StartCoroutine(HurtOff());
-			m_skierMultiplierTimer.enabled = true;
-            m_skierMultiplierTimer.SetTimer(); // Resets the timer again to ensure that the time is fresh out of invincibility.
 		}
 	}
 
@@ -242,6 +237,7 @@ public class SkierController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
 		m_invincible = false;                       //Make vincible
+		m_scoreMultiplierTimer.SetTimer();			//Restart the multiplier timer
 	}
 	IEnumerator HurtOff()
 	{
