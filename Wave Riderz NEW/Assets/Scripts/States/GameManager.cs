@@ -154,6 +154,8 @@ public class GameManager : MonoBehaviour
 				greenSkier.gameObject.SetActive(false); // Player two will start in the plane.
 				greenSkier.SetAlive(false);
 
+				SetPlaneTetherReferences(redSkier);
+
 				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Plane's colour will be the same as player two.
 			}
 			if (GameInfo.roundNumber == 2)
@@ -163,6 +165,8 @@ public class GameManager : MonoBehaviour
 				greenSkier.gameObject.SetActive(true); // Player two is now the skier.
 				greenSkier.SetAlive(true);
 				plane.controller = XboxController.First;    //Player one now controls the plane
+
+				SetPlaneTetherReferences(greenSkier);
 
 				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 			}
@@ -179,6 +183,8 @@ public class GameManager : MonoBehaviour
 				purpleSkier.gameObject.SetActive(false); // Player three will start in the plane.
 				purpleSkier.SetAlive(false);
 
+				SetPlaneTetherReferences(redSkier, greenSkier);
+
 				planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player three colour.
 			}
 			if (GameInfo.roundNumber == 2)
@@ -191,6 +197,8 @@ public class GameManager : MonoBehaviour
 				purpleSkier.SetAlive(true);
 				plane.controller = XboxController.First;    //Player one now controls the plane
 
+				SetPlaneTetherReferences(greenSkier, purpleSkier);
+
 				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 			}
 			else if (GameInfo.roundNumber == 3)
@@ -201,7 +209,9 @@ public class GameManager : MonoBehaviour
 				greenSkier.SetAlive(false);
 				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
 				purpleSkier.SetAlive(true);
-				plane.controller = XboxController.Second;    //Player one now controls the plane
+				plane.controller = XboxController.Second;    //Player two now controls the plane
+
+				SetPlaneTetherReferences(redSkier, purpleSkier);
 
 				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to the player two.
 			}
@@ -220,6 +230,8 @@ public class GameManager : MonoBehaviour
 				orangeSkier.gameObject.SetActive(false); // Player four will start in the plane.
 				orangeSkier.SetAlive(false);
 
+				SetPlaneTetherReferences(redSkier, greenSkier, purpleSkier);
+
 				planeBody.GetComponent<Renderer>().material = orangeSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player four colour. 
 			}
 			if (GameInfo.roundNumber == 2)
@@ -234,6 +246,8 @@ public class GameManager : MonoBehaviour
 				orangeSkier.SetAlive(true);
 				plane.controller = XboxController.First;    //Player one now controls the plane
 
+				SetPlaneTetherReferences(greenSkier, purpleSkier, orangeSkier);
+
 				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 			}
 			else if (GameInfo.roundNumber == 3)
@@ -246,7 +260,9 @@ public class GameManager : MonoBehaviour
 				purpleSkier.SetAlive(true);
 				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 				orangeSkier.SetAlive(true);
-				plane.controller = XboxController.Second;    //Player one now controls the plane
+				plane.controller = XboxController.Second;    //Player two now controls the plane
+
+				SetPlaneTetherReferences(redSkier, purpleSkier, orangeSkier);
 
 				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 			}
@@ -260,7 +276,9 @@ public class GameManager : MonoBehaviour
 				purpleSkier.SetAlive(false);
 				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 				orangeSkier.SetAlive(true);
-				plane.controller = XboxController.Third;    //Player one now controls the plane
+				plane.controller = XboxController.Third;    //Player three now controls the plane
+
+				SetPlaneTetherReferences(redSkier, greenSkier, orangeSkier);
 
 				planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
 			}
@@ -484,6 +502,20 @@ public class GameManager : MonoBehaviour
 		mine.enabled = value;
 		target.enabled = value;
 		mainCamera.enabled = value;
+	}
+
+	//Takes in 1-3 skier references, gets their tethers, and passes them on to the plane
+	private void SetPlaneTetherReferences(SkierController skierOne, SkierController skierTwo = null, SkierController skierThree = null)
+	{
+		Tether[] skierTethers = new Tether[3];
+		skierTethers[0] = skierOne.GetComponent<Tether>();
+		if (skierTwo != null)
+		{
+			skierTethers[1] = skierTwo.GetComponent<Tether>();
+			if (skierThree != null)
+				skierTethers[2] = skierThree.GetComponent<Tether>();
+		}
+		plane.SetTetherReferences(skierTethers);
 	}
 
 	//Coroutine to turn off countdown text

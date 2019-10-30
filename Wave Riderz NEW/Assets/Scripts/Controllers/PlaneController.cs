@@ -28,7 +28,15 @@ public class PlaneController : MonoBehaviour
 	//Clamping
 	public Transform river = null;		//Reference to the river transform
 	public float riverBorderSize = 0;	//The minimum distance the plane must be from the sides of the river
-	private float m_clampWidth = 75;	//How far side-to-side the plane can move, calculated automatically, default 75
+	private float m_clampWidth = 75;    //How far side-to-side the plane can move, calculated automatically, default 75
+
+	//Swinging
+	public float swingMoveTimeRequirement = 2;
+	public float swingForce = 100;
+	public float swingForceDuration = 0.5f;
+	private Tether[] m_skierTethers;
+	private Timer m_movementTimer;
+	private int m_movementDirection = 0;
 
 	private Rigidbody rb = null;        //Keep reference to the plane rigidbody
 
@@ -48,14 +56,46 @@ public class PlaneController : MonoBehaviour
 				m_clampWidth = 75;	//Reset to default
 		}
 	}
-    
-    void Update()
+
+	private void Start()
+	{
+		m_movementTimer = gameObject.AddComponent<Timer>();		//Create the timer
+		m_movementTimer.maxTime = swingMoveTimeRequirement;		//Set the max time
+		m_movementTimer.autoDisable = true;						//Make the timer stop when it's reached max
+	}
+
+	void Update()
     {		
 		Vector3 newPos = rb.position + new Vector3(0, 0, forwardSpeed * Time.deltaTime);	//New position is the current position moved forward slightly
 
 		//Controller movement
         float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);			//Get the direction and magnitude of the controller stick
         newPos.x += (axisX * strafeSpeed * Time.deltaTime);                 //Move the plane in that direction and with that % magnitude (0-1)
+
+		//Skier swinging
+		if (axisX > 0.9f)					//If the plane is moving strongly right,
+		{
+			m_movementDirection = 1;		//Set direction to positive
+			if (m_movementTimer.T == 0)		//If the timer hasn't been started yet,
+				m_movementTimer.SetTimer();	//Start the timer
+			//If the plane is moving but the timer is already started, 
+			//Do nothing and let the timer keep counting
+		}
+		else if (axisX < -0.9f)
+		{
+			m_movementDirection = -1;        //Set direction to positive
+			if (m_movementTimer.T == 0)     //If the timer hasn't been started yet,
+				m_movementTimer.SetTimer(); //Start the timer
+			//If the plane is moving but the timer is already started, 
+			//Do nothing and let the timer keep counting
+		}
+		else if (m_movementTimer.UnderMax())	//Otherwise if the timer hasn't reached max yet,
+			m_movementTimer.enabled = false;	//Turn the timer off
+		else									//Otherwise the plane must have stopped moving whilst at max time,
+		{
+			ApplySwingForce();
+			m_movementTimer.enabled = false;
+		}
 
 		//Rotation
 		if (!m_bba.isShotting())
@@ -83,5 +123,15 @@ public class PlaneController : MonoBehaviour
 			newPos.x = m_clampWidth;
 
 		rb.transform.position = newPos;		//Set the new position
+	}
+
+	public void ApplySwingForce()
+	{
+
+	}
+
+	public void SetTetherReferences(Tether[] skierTethers)
+	{
+		m_skierTethers = skierTethers;
 	}
 }
