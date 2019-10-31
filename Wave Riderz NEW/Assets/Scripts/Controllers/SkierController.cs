@@ -10,18 +10,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XboxCtrlrInput;
+using System;
 
 public class SkierController : MonoBehaviour
 {
 	//Movement
 	public XboxController controller;	//Reference to the in-scene assigned controller
-	public float movingForce = 5;   //How fast the skier moves sideways
-	public float bonkForce = 150;    //How strong bonking other players is
-	public float bonkForceDuration = 0.5f;	//How long bonking forces are applied
+	public float movingForce = 50;   //How fast the skier moves sideways
+
+	//Bonking
+	public float bonkForce = 100;				//How much force to always apply when bonking other skiers
+	public float bonkVelocityForce = 75;		//How much maximum additional force to apply based on how fast this skier is moving
+	public float bonkForceDuration = 0.5f;		//How long bonking forces are applied
+	private float maxXVelocity = 8;				//The maximum reachable velocity of the skiers, based on testing, used for proportioning the bonk velocity transfer
 	public float obstacleForce = 100;			//How much sidewards force is applied when hitting an obstacle
 	public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
 	[HideInInspector]
-	public bool bonkResolved = false;
+	public bool bonkResolved = false;			//If another skier has pushed this skier this frame already
 
 	//Keyboard controls
 	public KeyCode MoveLeft;		//Which keyboard key moves the skier left
@@ -30,12 +35,12 @@ public class SkierController : MonoBehaviour
 	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
 	//Score/lives
-	private int m_score = 0;		    // Player's score.
-	public int coinScore = 2;			    // Score increased everytime collision with a coin occurs.
-	public int skierScoreInc = 1;		    // Base Increase every second.
-	public int planeScoreInc = 5;		    // Increase every time a skier loses a life.
-	public int planeBonus = 10;			    // Bonus is added if all skiers are eliminated.
-	public int skierBonus = 10;			    // Bonus is added if a skier survives the round.
+	private int m_score = 0;			// Player's score.
+	public int coinScore = 2;			// Score increased everytime collision with a coin occurs.
+	public int skierScoreInc = 1;		// Base Increase every second.
+	public int planeScoreInc = 5;		// Increase every time a skier loses a life.
+	public int planeBonus = 10;			// Bonus is added if all skiers are eliminated.
+	public int skierBonus = 10;			// Bonus is added if a skier survives the round.
 
     public int skierMultiplierSpeed = 5;	// The time it takes for the skier's multiplier to increase.
 	public int skierMultiplierCap = 5;		// The max value that the multipler can be.
@@ -127,10 +132,11 @@ public class SkierController : MonoBehaviour
 				Tether otherTether = other.GetComponent<Tether>();		//Get the other skier's tether
 
 				if (tether.VelocityMagnitude() > otherTether.VelocityMagnitude())	//If this skier is moving faster than the other skier,
-				{ 
-					//Add a flat force on the other skier in the direction this skier is moving
-					otherTether.ForceOverTime(bonkForce * tether.Direction(), bonkForceDuration);
-					tether.ReduceVelocity();	//Reduce the velocity of this skier
+				{
+					float velocityForce = (tether.VelocityXMagnitude() / maxXVelocity) * bonkVelocityForce;	//Proportion the force based on how close to max velocity this skier is
+					Vector3 totalBonkForce = (bonkForce + velocityForce) * tether.Direction();				//Add the flat force and velocity-dependent force, then point them in the direction of movement
+					otherTether.ForceOverTime(totalBonkForce, bonkForceDuration);							//Apply the final force to the other skier
+					tether.ReduceVelocity(2);																//Reduce the velocity of this skier
 					other.GetComponent<SkierController>().bonkResolved = true;		//For this frame, set the collision as resolved
 				}
 			}
@@ -191,9 +197,9 @@ public class SkierController : MonoBehaviour
 			hurt = true;
 		
 		if (!m_invincible)
-			skierLives--;               //Subtract a life
+			skierLives--;
 
-		if (skierLives <= 0)                //If the skier is out of lives,
+		if (skierLives <= 0)	//If the skier is out of lives,
 		{
 			if (m_isAlive)
 			{

@@ -149,10 +149,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: 0
   movingForce: 50
-  bonkForce: 150
+  bonkForce: 50
+  bonkVelocityTransfer: 3
   bonkForceDuration: 0.5
   obstacleForce: 100
   obstacleForceDuration: 0.5
+  bonkResolved: 0
   MoveLeft: 97
   MoveRight: 100
   TetherLengthen: 115

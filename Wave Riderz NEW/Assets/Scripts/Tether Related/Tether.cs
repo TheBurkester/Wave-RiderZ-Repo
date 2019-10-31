@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Tether : MonoBehaviour
 {
@@ -124,8 +125,13 @@ public class Tether : MonoBehaviour
 		return m_velocity.magnitude;
 	}
 
-	public void ReduceVelocity()
+	public float VelocityXMagnitude()
 	{
-		m_velocity /= 2;
+		return Math.Abs(m_velocity.x);
+	}
+
+	public void ReduceVelocity(float reduction)
+	{
+		m_velocity /= reduction;
 	}
 }

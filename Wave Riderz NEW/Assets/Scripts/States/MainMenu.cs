@@ -208,6 +208,13 @@ public class MainMenu : MonoBehaviour
 					PlayGame();
 				}
 
+				//Debug skip menu button, automatically assigns three skiers
+				if (Input.GetKeyDown(KeyCode.Alpha3))
+				{
+					playerNumber = 3;
+					PlayGame();
+				}
+
 				break;
 			/*-------------------------------------------------------------------*/
 
