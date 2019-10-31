@@ -1769,6 +1769,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane V2
       objectReference: {fileID: 0}
+    - target: {fileID: 3283679067084173432, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: mineRB
+      value: 
+      objectReference: {fileID: 5941212763762676077, guid: 415eea88a975e2247b36d9acd5140d34,
+        type: 3}
     - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: river
@@ -1779,12 +1785,11 @@ PrefabInstance:
       propertyPath: beachBallTarget
       value: 
       objectReference: {fileID: 375519337}
-    - target: {fileID: 3283679067084173432, guid: c65db4207dd24734e962120744ef30f2,
+    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
-      propertyPath: mineRB
+      propertyPath: swingDisplay
       value: 
-      objectReference: {fileID: 5941212763762676077, guid: 415eea88a975e2247b36d9acd5140d34,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8928308244592932212, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.x

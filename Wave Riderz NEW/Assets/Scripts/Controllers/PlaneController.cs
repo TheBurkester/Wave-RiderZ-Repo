@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XboxCtrlrInput;
+using UnityEngine.UI;
 
 public class PlaneController : MonoBehaviour
 {
@@ -31,12 +32,12 @@ public class PlaneController : MonoBehaviour
 	private float m_clampWidth = 75;    //How far side-to-side the plane can move, calculated automatically, default 75
 
 	//Swinging
-	public float swingMoveTimeRequirement = 2;
-	public float swingForce = 100;
-	public float swingForceDuration = 0.5f;
-	private Tether[] m_skierTethers;
-	private Timer m_movementTimer;
-	private int m_movementDirection = 0;
+	public float swingMoveTimeRequirement = 2;	//How long the plane must be moving in one direction to charge the swing
+	public float swingForce = 150;				//How much force to apply to the skiers
+	public float swingForceDuration = 0.3f;		//How long to push skiers for
+	private Tether[] m_skierTethers;			//Reference to all the current skier tethers
+	private Timer m_movementTimer;				//Timer that counts when the plane is moving one direction fast enough
+	private int m_movementDirection = 0;		//Represents which direction the plane was last moving in, either -1 or 1
 
 	private Rigidbody rb = null;        //Keep reference to the plane rigidbody
 
@@ -76,25 +77,31 @@ public class PlaneController : MonoBehaviour
 		if (axisX > 0.9f)					//If the plane is moving strongly right,
 		{
 			m_movementDirection = 1;		//Set direction to positive
-			if (m_movementTimer.T == 0)		//If the timer hasn't been started yet,
+			if (m_movementTimer.enabled == false && m_movementTimer.UnderMax())		//If the timer was stopped and not at max yet,
 				m_movementTimer.SetTimer();	//Start the timer
-			//If the plane is moving but the timer is already started, 
+			//If the plane is moving but the timer is already started,
 			//Do nothing and let the timer keep counting
 		}
 		else if (axisX < -0.9f)
 		{
 			m_movementDirection = -1;        //Set direction to positive
-			if (m_movementTimer.T == 0)     //If the timer hasn't been started yet,
+			if (m_movementTimer.enabled == false && m_movementTimer.UnderMax())		//If the timer was stopped and not at max yet,
 				m_movementTimer.SetTimer(); //Start the timer
-			//If the plane is moving but the timer is already started, 
+			//If the plane is moving but the timer is already started,
 			//Do nothing and let the timer keep counting
 		}
 		else if (m_movementTimer.UnderMax())	//Otherwise if the timer hasn't reached max yet,
 			m_movementTimer.enabled = false;	//Turn the timer off
 		else									//Otherwise the plane must have stopped moving whilst at max time,
 		{
-			ApplySwingForce();
-			m_movementTimer.enabled = false;
+			ApplySwingForce();					//Apply a force on all the skiers
+			m_movementTimer.SetTimer();			//Reset the timer to 0
+			m_movementTimer.enabled = false;	//Stop the timer
+		}
+
+		if (!m_movementTimer.UnderMax())
+		{
+			//Do visual cue that plane is ready to swing here
 		}
 
 		//Rotation
@@ -125,11 +132,17 @@ public class PlaneController : MonoBehaviour
 		rb.transform.position = newPos;		//Set the new position
 	}
 
+	//Adds a left/right force on all skiers in the game
 	public void ApplySwingForce()
 	{
-
+		foreach (Tether tether in m_skierTethers)	//Repeating this loop three times,
+		{
+			if (tether != null)						//As long as this tether was set,
+				tether.ForceOverTime(new Vector3(swingForce * m_movementDirection, 0, 0), swingForceDuration);	//Push in the direction the plane was travelling
+		}
 	}
 
+	//Uses a passed-in array of all the skier tethers in the scene to set the plane's references
 	public void SetTetherReferences(Tether[] skierTethers)
 	{
 		m_skierTethers = skierTethers;
