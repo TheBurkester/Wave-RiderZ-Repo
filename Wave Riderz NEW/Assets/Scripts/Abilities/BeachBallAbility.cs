@@ -99,29 +99,21 @@ public class BeachBallAbility : MonoBehaviour
         {
 			Vector3 currentPosition = m_newPosition;
 
+			//Xbox movement
 			m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
 			m_newPosition.z += (axisY * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position up/down
 
+			//Keyboard movement
             if (Input.GetKey(Left)) // Movement Left.
-            {
 				m_newPosition += Vector3.left * targetMovementSpeed * Time.deltaTime; // Moving Left = Vector.left
-            }
-
             if (Input.GetKey(Right)) // Movement Right.
-            {
 				m_newPosition += Vector3.right * targetMovementSpeed * Time.deltaTime; // Moving Right = Vector.right.
-            }
-
             if (Input.GetKey(Up)) // Movement Up.
-            {
 				m_newPosition += Vector3.forward * targetMovementSpeed * Time.deltaTime; // Moving Up = Vector.forward.
-            }
-
             if (Input.GetKey(Down)) // Movement Down.
-            {
 				m_newPosition += Vector3.back * targetMovementSpeed * Time.deltaTime; // Moving Down = Vector.back.
-            }
 
+			//Clamping
 			if (!(m_newPosition.x < riverClampHorizontal) || !(m_newPosition.x > -riverClampHorizontal))        //Check if the new position z is oustide the boundaries
 				m_newPosition.x = currentPosition.x;															//If it is, undo the z movement
 			if (!(m_newPosition.z < m_riverClampForwardAlter) || !(m_newPosition.z > m_riverClampBehindAlter))  //Check if the new position x is oustide the boundaries
@@ -150,22 +142,23 @@ public class BeachBallAbility : MonoBehaviour
       
         /*===========================================================================================*/
 
-        if (Input.GetKeyDown(Aim) && !abilityCooldown.UnderMax() || m_isShooting)
+        if (Input.GetKeyDown(Aim) && !abilityCooldown.UnderMax())	//If the aim button is pressed,
         {
-            m_targetMesh.enabled = true; // Activate target's mesh when aiming.
+			if (m_targetMesh.enabled == false)	//If the target is off,
+				m_targetMesh.enabled = true;	//Turn it on
+			else								//If the target is on,
+				m_targetMesh.enabled = false;	//Turn it off
         }
-        else if (Input.GetKeyUp(Aim))
+		if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !abilityCooldown.UnderMax())	//If the right bumper is pressed,
         {
-            m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
-        }
-        if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !abilityCooldown.UnderMax() || m_isShooting)	//If the right bumper is held,
-        {
-            m_targetMesh.enabled = true; // Activate target's mesh when aiming.
-        }
-        else if (XCI.GetButtonUp(XboxButton.RightBumper, m_controller))
-        {
-            m_targetMesh.enabled = false; // Disable target's mesh when not aiming.
-        }
+			if (m_targetMesh.enabled == false)  //If the target is off,
+				m_targetMesh.enabled = true;    //Turn it on
+			else                                //If the target is on,
+				m_targetMesh.enabled = false;   //Turn it off
+		}
+
+		if (m_isShooting)					//If the ability is currently shooting,
+			m_targetMesh.enabled = true;	//Make sure the target is on
     }
 
     public void ShootBall()
