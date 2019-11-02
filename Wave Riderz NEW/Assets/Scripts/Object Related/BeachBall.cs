@@ -13,6 +13,8 @@ public class BeachBall : MonoBehaviour
     private BeachBallAbility m_bbAbility;
     private Rigidbody m_rb;
 
+	public GameObject explosionPrefab = null;
+
     void Awake()
     {
         m_rb = gameObject.GetComponent<Rigidbody>();
@@ -20,6 +22,8 @@ public class BeachBall : MonoBehaviour
         GameObject target = GameObject.FindWithTag("Target"); // Will search for the target with the tag.
         if (target != null)
             m_bbAbility = target.GetComponent<BeachBallAbility>(); // Will get the script from the target.
+
+		Debug.Assert(explosionPrefab != null, "The explosion prefab hasn't been added to the beachball script");
     }
 
     void OnCollisionEnter(Collision collision)
@@ -57,6 +61,9 @@ public class BeachBall : MonoBehaviour
 
             m_bbAbility.ToggleIsShooting(false); // Player isn't shooting anymore.
             m_bbAbility.ToggleMeshEnable(false); // Disabled target's mesh.
+
+			explosionPrefab.transform.position = explosionPos;
+			Instantiate(explosionPrefab);
         }
     }
 }

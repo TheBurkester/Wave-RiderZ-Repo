@@ -17,6 +17,8 @@ public class Mine : MonoBehaviour
 
     private Tether m_tether;
 
+	public GameObject explosionPrefab = null;
+
 	void Awake()
 	{
 		m_rb = gameObject.GetComponent<Rigidbody>();
@@ -26,6 +28,8 @@ public class Mine : MonoBehaviour
 			m_tmAbility = hatch.GetComponent<TetheredMineAbility>(); // Will get the script from the hatch.
 
         m_tether = GetComponent<Tether>();
+
+		Debug.Assert(explosionPrefab != null, "The explosion prefab hasn't been added to the mine script");
 	}
 
 	void OnTriggerEnter(Collider collision)
@@ -53,7 +57,10 @@ public class Mine : MonoBehaviour
             m_rb.transform.rotation = Quaternion.Euler(Vector3.zero); // Resets rotation.
             m_tmAbility.setIsUsingAbility(false);
             m_tmAbility.abilityCooldown.SetTimer();
-        }
+
+			explosionPrefab.transform.position = explosionPos;
+			Instantiate(explosionPrefab);
+		}
         else if (collision.CompareTag("Rock"))	//If colliding with an obstacle,
         {
             float pushDirection = transform.position.x - collision.transform.position.x;	//Calculate if the mine should be pushed left or right
