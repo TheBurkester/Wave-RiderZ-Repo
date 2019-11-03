@@ -127,13 +127,18 @@ PrefabInstance:
     - target: {fileID: 2916948933623820412, guid: 415eea88a975e2247b36d9acd5140d34,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8397574437126982634, guid: 415eea88a975e2247b36d9acd5140d34,
         type: 3}
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
+    - target: {fileID: 8397574437126982634, guid: 415eea88a975e2247b36d9acd5140d34,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3168116481337689345, guid: 415eea88a975e2247b36d9acd5140d34,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -142,12 +147,12 @@ PrefabInstance:
     - target: {fileID: 3168116481337689345, guid: 415eea88a975e2247b36d9acd5140d34,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.12
       objectReference: {fileID: 0}
     - target: {fileID: 3168116481337689345, guid: 415eea88a975e2247b36d9acd5140d34,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -7.29
       objectReference: {fileID: 0}
     - target: {fileID: 3168116481337689345, guid: 415eea88a975e2247b36d9acd5140d34,
         type: 3}
@@ -385,7 +390,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 17312214}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92a9f4cf4b4179945a09988957db2142, type: 3}
   m_Name: 
@@ -2072,6 +2077,16 @@ PrefabInstance:
       propertyPath: river
       value: 
       objectReference: {fileID: 1830143216}
+    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: forwardSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: strafeSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8928308244592932212, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.x
