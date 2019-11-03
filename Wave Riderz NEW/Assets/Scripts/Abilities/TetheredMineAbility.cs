@@ -45,7 +45,7 @@ public class TetheredMineAbility : MonoBehaviour
     void Update()
     {
 		float LT = XCI.GetAxis(XboxAxis.LeftTrigger, m_controller);
-		
+
 		if ((1.0f - LT) < 0.1f && !m_isUsingAbility && !abilityCooldown.UnderMax())
 		{
 			mineRB.transform.position = m_planeHatch.transform.position;

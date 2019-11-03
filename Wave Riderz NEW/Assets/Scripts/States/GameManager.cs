@@ -78,25 +78,40 @@ public class GameManager : MonoBehaviour
 
 		if (m_playerCount == 2)
 		{
-			plane.controller = XboxController.Second;	//Make green control the plane this round
+			if (GameInfo.roundNumber == 1)
+				plane.controller = XboxController.Second;   //Make green control the plane this round
+			else if (GameInfo.roundNumber == 2)
+				plane.controller = XboxController.First;
 
 			purpleSkier.gameObject.SetActive(false); // Won't be used.
 			orangeSkier.gameObject.SetActive(false); // Won't be used.
 		}
 		else if (m_playerCount == 3)
 		{
-			purpleSkier.controller = XboxController.Third;	//Third player is purple
+			purpleSkier.controller = XboxController.Third;  //Third player is purple
 
-			plane.controller = XboxController.Third;    //Make purple control the plane this round
+			if (GameInfo.roundNumber == 1)
+				plane.controller = XboxController.Third;    //Make purple control the plane this round
+			else if (GameInfo.roundNumber == 2)
+				plane.controller = XboxController.First;
+			else if (GameInfo.roundNumber == 3)
+				plane.controller = XboxController.Second;
 
 			orangeSkier.gameObject.SetActive(false); // Won't be used.
 		}
 		else if (m_playerCount == 4)
 		{
 			purpleSkier.controller = XboxController.Third;  //Third player is purple
-			orangeSkier.controller = XboxController.Fourth;	//Fourth player is orange
+			orangeSkier.controller = XboxController.Fourth; //Fourth player is orange
 
-			plane.controller = XboxController.Fourth;   //Make orange control the plane this round
+			if (GameInfo.roundNumber == 1)
+				plane.controller = XboxController.Fourth;   //Make orange control the plane this round
+			else if (GameInfo.roundNumber == 2)
+				plane.controller = XboxController.First;
+			else if (GameInfo.roundNumber == 3)
+				plane.controller = XboxController.Second;
+			else if (GameInfo.roundNumber == 4)
+				plane.controller = XboxController.Third;
 		}
 	}
 
@@ -164,7 +179,7 @@ public class GameManager : MonoBehaviour
 				redSkier.SetAlive(false);
 				greenSkier.gameObject.SetActive(true); // Player two is now the skier.
 				greenSkier.SetAlive(true);
-				plane.controller = XboxController.First;    //Player one now controls the plane
+				//plane.controller = XboxController.First;    //Player one now controls the plane
 
 				SetPlaneTetherReferences(greenSkier);
 
@@ -195,7 +210,7 @@ public class GameManager : MonoBehaviour
 				greenSkier.SetAlive(true);
 				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
 				purpleSkier.SetAlive(true);
-				plane.controller = XboxController.First;    //Player one now controls the plane
+				//plane.controller = XboxController.First;    //Player one now controls the plane
 
 				SetPlaneTetherReferences(greenSkier, purpleSkier);
 
@@ -209,7 +224,7 @@ public class GameManager : MonoBehaviour
 				greenSkier.SetAlive(false);
 				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
 				purpleSkier.SetAlive(true);
-				plane.controller = XboxController.Second;    //Player two now controls the plane
+				//plane.controller = XboxController.Second;    //Player two now controls the plane
 
 				SetPlaneTetherReferences(redSkier, purpleSkier);
 
@@ -244,7 +259,7 @@ public class GameManager : MonoBehaviour
 				purpleSkier.SetAlive(true);
 				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 				orangeSkier.SetAlive(true);
-				plane.controller = XboxController.First;    //Player one now controls the plane
+				//plane.controller = XboxController.First;    //Player one now controls the plane
 
 				SetPlaneTetherReferences(greenSkier, purpleSkier, orangeSkier);
 
@@ -260,7 +275,7 @@ public class GameManager : MonoBehaviour
 				purpleSkier.SetAlive(true);
 				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 				orangeSkier.SetAlive(true);
-				plane.controller = XboxController.Second;    //Player two now controls the plane
+				//plane.controller = XboxController.Second;    //Player two now controls the plane
 
 				SetPlaneTetherReferences(redSkier, purpleSkier, orangeSkier);
 
@@ -276,7 +291,7 @@ public class GameManager : MonoBehaviour
 				purpleSkier.SetAlive(false);
 				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 				orangeSkier.SetAlive(true);
-				plane.controller = XboxController.Third;    //Player three now controls the plane
+				//plane.controller = XboxController.Third;    //Player three now controls the plane
 
 				SetPlaneTetherReferences(redSkier, greenSkier, orangeSkier);
 
