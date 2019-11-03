@@ -121,6 +121,19 @@ public class SkierController : MonoBehaviour
 		//---------------------------------------------
 		
 		bonkResolved = false;
+
+		if (m_isAlive == false)	//If the skier has wiped out,
+		{
+			//Make them sink
+			Vector3 newPos = transform.position;
+			newPos.y -= Time.deltaTime;
+			transform.position = newPos;
+
+			//Make their tether fade
+			RopeLine renderedTether = GetComponentInChildren<RopeLine>();
+			if (renderedTether != null)
+				renderedTether.Fade(1);
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -205,6 +218,7 @@ public class SkierController : MonoBehaviour
 			{
 				hurt = true;
 				StartCoroutine(HurtOffKilled());
+				tether.enabled = false;
 			}
 		}
 		else						//If the skier is still alive,
@@ -255,6 +269,5 @@ public class SkierController : MonoBehaviour
 		yield return new WaitForEndOfFrame();
 		hurt = false;
 		m_isAlive = false;
-		gameObject.SetActive(false);
 	}
 }
