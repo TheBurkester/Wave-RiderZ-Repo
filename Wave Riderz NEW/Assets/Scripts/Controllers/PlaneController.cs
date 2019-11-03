@@ -147,4 +147,9 @@ public class PlaneController : MonoBehaviour
 	{
 		m_skierTethers = skierTethers;
 	}
+
+    public float GetPlaneSpeed()
+    {
+       return forwardSpeed;
+    }
 }

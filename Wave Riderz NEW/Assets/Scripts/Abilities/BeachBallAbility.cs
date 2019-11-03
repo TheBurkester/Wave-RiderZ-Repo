@@ -20,7 +20,8 @@ public class BeachBallAbility : MonoBehaviour
     public KeyCode Shoot = KeyCode.G;			// Keyboard shoot control
     public float targetMovementSpeed = 10.0f;	// Target's movement speed when aiming.
     private Vector3 m_newPosition;				// Used to update the target's position each frame 
-    private float m_targetPlaneRelation = 5.0f; // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
+    private float m_targetPlaneRelation;        // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
+    private PlaneController m_planeController;
 	private Vector3 m_debugLandingPos;			// Holds the position for the radius debug sphere.
 
 	//Clamps
@@ -65,8 +66,12 @@ public class BeachBallAbility : MonoBehaviour
         abilityCooldown.SetTimer(); // Starts the timer.
 		m_newPosition = transform.position;
 
-		if (planeRB != null)
-			m_controller = planeRB.GetComponent<PlaneController>().controller;
+        if (planeRB != null)
+        {
+            m_controller = planeRB.GetComponent<PlaneController>().controller;
+            m_planeController = planeRB.GetComponent<PlaneController>();
+            m_targetPlaneRelation = m_planeController.GetPlaneSpeed();
+        }
 	}
 
     void Update()
