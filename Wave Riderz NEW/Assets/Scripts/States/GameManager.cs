@@ -36,6 +36,12 @@ public class GameManager : MonoBehaviour
 	public SkierController orangeSkier = null;	//Reference to the orange skier script
 	public GameObject planeBody = null;			// Reference to the body of the plane.
 	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
+	private Vector3 m_twoPlayerSkierPos = new Vector3(0, 0, -11);
+	private Vector3 m_threePlayerSkierPosOne = new Vector3(-1, 0, -11);
+	private Vector3 m_threePlayerSkierPosTwo = new Vector3(1, 0, -11);
+	private Vector3 m_fourPlayerSkierPosOne = new Vector3(0, 0, -11);
+	private Vector3 m_fourPlayerSkierPosTwo = new Vector3(-2, 0, -11);
+	private Vector3 m_fourPlayerSkierPosThree = new Vector3(2, 0, -11);
 	//-------------------------------------------------------------------------
 
 	//Camera reference
@@ -44,7 +50,8 @@ public class GameManager : MonoBehaviour
 	//Round variables
 	private RoundState m_eCurrentState = 0;     //Stores the current state of the game
 	private Timer m_startRoundTimer;            //The countdown at the start of the round
-	private Timer m_playingRoundTimer;			//The round timer
+	private Timer m_playingRoundTimer;          //The round timer
+	private int m_randomPlane;					// Random number to select the plane player.
 	public float roundTimeLimit = 45;           //How long a round lasts
 	//-------------------------------------------------------------------------
 
@@ -79,9 +86,32 @@ public class GameManager : MonoBehaviour
 		if (m_playerCount == 2)
 		{
 			if (GameInfo.roundNumber == 1)
-				plane.controller = XboxController.Second;   //Make green control the plane this round
+			{
+				m_randomPlane = UnityEngine.Random.Range(1, 2);
+				if (m_randomPlane == 1)
+				{
+					plane.controller = XboxController.First;
+					GameInfo.playerOneHasPlane = true;
+				}
+				else
+				{
+					plane.controller = XboxController.Second;   //Make green control the plane this round
+					GameInfo.playerTwoHasPlane = true;
+				}
+			}
 			else if (GameInfo.roundNumber == 2)
-				plane.controller = XboxController.First;
+			{
+				if (GameInfo.playerOneHasPlane)
+				{
+					plane.controller = XboxController.Second;
+					GameInfo.playerTwoHasPlane = true;
+				}
+				else
+				{
+					plane.controller = XboxController.First;
+					GameInfo.playerOneHasPlane = true;
+				}
+			}
 
 			purpleSkier.gameObject.SetActive(false); // Won't be used.
 			orangeSkier.gameObject.SetActive(false); // Won't be used.
@@ -91,11 +121,73 @@ public class GameManager : MonoBehaviour
 			purpleSkier.controller = XboxController.Third;  //Third player is purple
 
 			if (GameInfo.roundNumber == 1)
-				plane.controller = XboxController.Third;    //Make purple control the plane this round
+			{
+				m_randomPlane = UnityEngine.Random.Range(1, 3);
+				if (m_randomPlane == 1)
+				{
+					plane.controller = XboxController.First;
+					GameInfo.playerOneHasPlane = true;
+				}
+				else if (m_randomPlane == 2)
+				{
+					plane.controller = XboxController.Second;
+					GameInfo.playerTwoHasPlane = true;
+				}
+				else if (m_randomPlane == 3)
+				{
+					plane.controller = XboxController.Third;    //Make purple control the plane this round
+					GameInfo.playerThreeHasPlane = true;
+				}
+			}
 			else if (GameInfo.roundNumber == 2)
-				plane.controller = XboxController.First;
+			{
+				m_randomPlane = UnityEngine.Random.Range(1, 2); // Between 1 and 2,
+
+				if (m_randomPlane == 1) // First available player.
+				{
+					if (GameInfo.playerOneHasPlane) // Player one has already been in the plane.
+					{
+						plane.controller = XboxController.Second; // Player two is now in the plane.
+						GameInfo.playerTwoHasPlane = true;
+					}
+					else if (GameInfo.playerTwoHasPlane || GameInfo.playerThreeHasPlane) // Player two has already been in the plane.
+					{
+						plane.controller = XboxController.First; // Player one is now in the plane.
+						GameInfo.playerOneHasPlane = true;
+					}
+				}
+				else if (m_randomPlane == 2) // Second available player.
+				{
+					if (GameInfo.playerOneHasPlane || GameInfo.playerThreeHasPlane) // Player one has already been in the plane.
+					{
+						plane.controller = XboxController.Third; // Player three is now in the plane.
+						GameInfo.playerThreeHasPlane = true;
+					}
+					else if (GameInfo.playerThreeHasPlane) // Player three has already been in the plane.s
+					{
+						plane.controller = XboxController.Second; // Player two is now in the plane.
+						GameInfo.playerTwoHasPlane = true;
+					}
+				}
+			}
 			else if (GameInfo.roundNumber == 3)
-				plane.controller = XboxController.Second;
+			{
+				if (!GameInfo.playerOneHasPlane) // If player one hasn't been in the plane.
+				{
+					plane.controller = XboxController.First; // Player one is now in the plane.
+					GameInfo.playerOneHasPlane = true;
+				}
+				else if (!GameInfo.playerTwoHasPlane) // If player two hasn't been in the plane.
+				{
+					plane.controller = XboxController.Second; // Player two is now in the plane.
+					GameInfo.playerTwoHasPlane = true;
+				}
+				else if (!GameInfo.playerThreeHasPlane) // If player three hasn't been in the plane.
+				{
+					plane.controller = XboxController.Third; // Player three is now in the plane.
+					GameInfo.playerThreeHasPlane = true;
+				}
+			}
 
 			orangeSkier.gameObject.SetActive(false); // Won't be used.
 		}
@@ -105,11 +197,74 @@ public class GameManager : MonoBehaviour
 			orangeSkier.controller = XboxController.Fourth; //Fourth player is orange
 
 			if (GameInfo.roundNumber == 1)
-				plane.controller = XboxController.Fourth;   //Make orange control the plane this round
+			{
+				m_randomPlane = UnityEngine.Random.Range(1, 4); // Between 1 and 4,
+
+				if (m_randomPlane == 1) // First available player.
+				{
+					plane.controller = XboxController.First; // Player one is now in the plane.
+					GameInfo.playerOneHasPlane = true;
+				}
+				else if (m_randomPlane == 2) // Second available player.
+				{
+					plane.controller = XboxController.Second; // Player two is now in the plane.
+					GameInfo.playerTwoHasPlane = true;
+				}
+				else if (m_randomPlane == 3) // Third available player.
+				{
+					plane.controller = XboxController.Third; // Player three is now in the plane.
+					GameInfo.playerThreeHasPlane = true;
+				}
+				else if (m_randomPlane == 4) // Fourth available player.
+				{
+					plane.controller = XboxController.Fourth; // Player four is now in the plane.
+					GameInfo.playerFourHasPlane = true;
+				}
+			}
 			else if (GameInfo.roundNumber == 2)
-				plane.controller = XboxController.First;
+			{
+				m_randomPlane = UnityEngine.Random.Range(1, 3); // Between 1 and 3,
+
+				if (m_randomPlane == 1) // First available player.
+				{
+					if (GameInfo.playerOneHasPlane) // Player one has already been in the plane.
+					{
+						plane.controller = XboxController.Second; // Second player is in the plane.
+						GameInfo.playerTwoHasPlane = true;
+					}
+					else if (GameInfo.playerTwoHasPlane || GameInfo.playerThreeHasPlane || GameInfo.playerFourHasPlane) // Player two has already been in the plane.
+					{
+						plane.controller = XboxController.First; // First player is in the plane.
+						GameInfo.playerOneHasPlane = true;
+					}
+				}
+				else if (m_randomPlane == 2) // Second available player.
+				{
+					if (GameInfo.playerOneHasPlane || GameInfo.playerThreeHasPlane || GameInfo.playerFourHasPlane) // Player one has been in the plane.
+					{
+						plane.controller = XboxController.Second; // Second player in plane.
+						GameInfo.playerTwoHasPlane = true;
+					}
+					else if (GameInfo.playerTwoHasPlane) // Player two has been in the plane.
+					{
+						plane.controller = XboxController.Third; // Third player in plane.
+						GameInfo.playerThreeHasPlane = true;
+					}
+				}
+				else if (m_randomPlane == 3) // Third available player.
+				{
+					if (GameInfo.playerOneHasPlane) // Player one has been in the plane.
+					{
+						plane.controller = XboxController.Third; // Third player in plane.
+						GameInfo.playerThreeHasPlane = true;
+					}
+				}
+			}
 			else if (GameInfo.roundNumber == 3)
-				plane.controller = XboxController.Second;
+			{
+				m_randomPlane = UnityEngine.Random.Range(1, 2); // Between 1 and 2,
+
+			}
 			else if (GameInfo.roundNumber == 4)
 				plane.controller = XboxController.Third;
 		}
@@ -169,6 +324,8 @@ public class GameManager : MonoBehaviour
 				greenSkier.gameObject.SetActive(false); // Player two will start in the plane.
 				greenSkier.SetAlive(false);
 
+				redSkier.transform.position = m_twoPlayerSkierPos;
+
 				SetPlaneTetherReferences(redSkier);
 
 				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Plane's colour will be the same as player two.
@@ -180,6 +337,8 @@ public class GameManager : MonoBehaviour
 				greenSkier.gameObject.SetActive(true); // Player two is now the skier.
 				greenSkier.SetAlive(true);
 				//plane.controller = XboxController.First;    //Player one now controls the plane
+
+				greenSkier.transform.position = m_twoPlayerSkierPos;
 
 				SetPlaneTetherReferences(greenSkier);
 
@@ -198,6 +357,9 @@ public class GameManager : MonoBehaviour
 				purpleSkier.gameObject.SetActive(false); // Player three will start in the plane.
 				purpleSkier.SetAlive(false);
 
+				redSkier.transform.position = m_threePlayerSkierPosOne;
+				greenSkier.transform.position = m_threePlayerSkierPosTwo;
+
 				SetPlaneTetherReferences(redSkier, greenSkier);
 
 				planeBody.GetComponent<Renderer>().material = purpleSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player three colour.
@@ -212,6 +374,9 @@ public class GameManager : MonoBehaviour
 				purpleSkier.SetAlive(true);
 				//plane.controller = XboxController.First;    //Player one now controls the plane
 
+				greenSkier.transform.position = m_threePlayerSkierPosOne;
+				purpleSkier.transform.position = m_threePlayerSkierPosTwo;
+
 				SetPlaneTetherReferences(greenSkier, purpleSkier);
 
 				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
@@ -225,6 +390,9 @@ public class GameManager : MonoBehaviour
 				purpleSkier.gameObject.SetActive(true); // Player three is a skier.
 				purpleSkier.SetAlive(true);
 				//plane.controller = XboxController.Second;    //Player two now controls the plane
+
+				purpleSkier.transform.position = m_threePlayerSkierPosOne;
+				redSkier.transform.position = m_threePlayerSkierPosTwo;
 
 				SetPlaneTetherReferences(redSkier, purpleSkier);
 
@@ -245,6 +413,10 @@ public class GameManager : MonoBehaviour
 				orangeSkier.gameObject.SetActive(false); // Player four will start in the plane.
 				orangeSkier.SetAlive(false);
 
+				redSkier.transform.position = m_fourPlayerSkierPosOne;
+				greenSkier.transform.position = m_fourPlayerSkierPosTwo;
+				purpleSkier.transform.position = m_fourPlayerSkierPosThree;
+
 				SetPlaneTetherReferences(redSkier, greenSkier, purpleSkier);
 
 				planeBody.GetComponent<Renderer>().material = orangeSkier.gameObject.GetComponent<Renderer>().material; // Plane colour = player four colour. 
@@ -260,6 +432,10 @@ public class GameManager : MonoBehaviour
 				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 				orangeSkier.SetAlive(true);
 				//plane.controller = XboxController.First;    //Player one now controls the plane
+
+				greenSkier.transform.position = m_fourPlayerSkierPosOne;
+				purpleSkier.transform.position = m_fourPlayerSkierPosTwo;
+				orangeSkier.transform.position = m_fourPlayerSkierPosThree;
 
 				SetPlaneTetherReferences(greenSkier, purpleSkier, orangeSkier);
 
@@ -277,6 +453,10 @@ public class GameManager : MonoBehaviour
 				orangeSkier.SetAlive(true);
 				//plane.controller = XboxController.Second;    //Player two now controls the plane
 
+				purpleSkier.transform.position = m_fourPlayerSkierPosOne;
+				orangeSkier.transform.position = m_fourPlayerSkierPosTwo;
+				redSkier.transform.position = m_fourPlayerSkierPosThree;
+
 				SetPlaneTetherReferences(redSkier, purpleSkier, orangeSkier);
 
 				planeBody.GetComponent<Renderer>().material = greenSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
@@ -292,6 +472,10 @@ public class GameManager : MonoBehaviour
 				orangeSkier.gameObject.SetActive(true); // Player four is a skier.
 				orangeSkier.SetAlive(true);
 				//plane.controller = XboxController.Third;    //Player three now controls the plane
+
+				orangeSkier.transform.position = m_fourPlayerSkierPosOne;
+				redSkier.transform.position = m_fourPlayerSkierPosTwo;
+				greenSkier.transform.position = m_fourPlayerSkierPosThree;
 
 				SetPlaneTetherReferences(redSkier, greenSkier, orangeSkier);
 
