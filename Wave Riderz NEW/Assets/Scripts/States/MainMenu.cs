@@ -19,7 +19,8 @@ public class MainMenu : MonoBehaviour
 		eSplashScreen,		// First screen visible when launching game.
 		eCharacterScreen,	// Character selection / ready screen.
 		eControlsScreen,	// Controls for both the plane and skiers.
-		eCreditsScreen		// Credits.
+		eCreditsScreen,		// Credits.
+		eQuitScreen			// Warning before quitting.
 	}
 
 	public enum CharacterState
@@ -37,6 +38,7 @@ public class MainMenu : MonoBehaviour
 	public RectTransform characterPanel;    // Reference to the character selection UI transform
 	public RectTransform controlsPanel;		// Reference to the controls panel UI transform.
 	public RectTransform creditsPanel;      // Reference to the credits panel UI transforn.
+	public RectTransform quitPanel;			// Reference to the quit panel UI transform.
 
 	//Positions of the blocks behind skiers in character select
 	public Transform playerOneBlock;
@@ -66,7 +68,8 @@ public class MainMenu : MonoBehaviour
 	private float m_t2 = 0;							// Second timer for ONLY players.
 	private bool m_playButtonPress = false;         // Has the play button been selected?
 	private bool m_controlsButtonPress = false;		// Has the controls button been selected?
-	private bool m_creditsButtonPress = false;		// Has the credits button been selected?
+	private bool m_creditsButtonPress = false;      // Has the credits button been selected?
+	private bool m_quitButtonPress = false;			// Has the quit button been selected?
     private bool m_addPlayerButtonPress = false;	// Has the add player button been pressed?
     private bool m_removePlayer = false;			// Is a player currently being removed from the game?
 	private bool m_showPlay = false;                // Are there enough players ready to show the play button?
@@ -116,6 +119,7 @@ public class MainMenu : MonoBehaviour
 		characterPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the character panel starts at the bottom.
 		controlsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the controls panel starts at the bottom.
 		creditsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the credits panel starts at the bottom.
+		quitPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the quit panel starts at the bottom.
 
 		readyLightPlayerOne.transform.position = new Vector3(-3, 12, 0);
 		readyLightPlayerTwo.transform.position = new Vector3(3, 12, 0);
@@ -147,8 +151,14 @@ public class MainMenu : MonoBehaviour
 		switch (m_eCurrentState)
 		{
 			case PanelState.eSplashScreen:
-				//if (GetButtonDownAny(addPlayerXbox))    //If any controller presses the play button,
-				//	m_playButtonPress = true;           //Activate the play button
+				if (XCI.GetButtonDown(addPlayerXbox, XboxController.First))	// If player one presses the A button,
+					playButtonPress();										// Activate the play button
+				if (XCI.GetButtonDown(XboxButton.X, XboxController.First))	// If player one presses the X button.
+					controlsButtonPress();
+				if (XCI.GetButtonDown(XboxButton.Y, XboxController.First))	// If player one presses the Y button.
+					creditsButtonPress();
+				if (XCI.GetButtonDown(XboxButton.Back, XboxController.First))   // Only player one can quit the game.
+					quitButtonPress();
 
 				if (m_playButtonPress)	//If the play button is active,
 				{
@@ -201,8 +211,19 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
+				if (m_quitButtonPress)
+				{
+					quitPanel.transform.position = canvas.transform.position;
+
+					if (quitPanel.transform.position == canvas.transform.position)
+					{
+						m_quitButtonPress = false;
+						m_eCurrentState = PanelState.eQuitScreen;
+					}
+				}
+
 				//Debug skip menu button, automatically assigns two skiers
-				if (GetButtonDownAny(XboxButton.Y) || Input.GetKeyDown(KeyCode.Space))
+				if (GetButtonDownAny(XboxButton.RightBumper) || Input.GetKeyDown(KeyCode.Alpha2))
 				{
 					playerNumber = 2;
 					PlayGame();
@@ -530,7 +551,7 @@ public class MainMenu : MonoBehaviour
 						}
 					}
 				}
-				else if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eIdle && m_playerFourState != CharacterState.eIdle) // If all players have joined.
+				else if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eIdle || m_playerThreeState != CharacterState.eJoined && m_playerFourState != CharacterState.eIdle) // If all players have joined.
 				{
 					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && m_playerFourReady && characterPanel.transform.position != canvas.transform.position)
 					{
@@ -565,7 +586,7 @@ public class MainMenu : MonoBehaviour
 				break;
 
 			case PanelState.eControlsScreen:
-				if (GetButtonDownAny(removePlayerXbox)) // If player one presses the 'B' button.
+				if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
 				{
 					m_returningToMenu = true;
 				}
@@ -589,7 +610,7 @@ public class MainMenu : MonoBehaviour
 				break;
 
 			case PanelState.eCreditsScreen:
-				if (GetButtonDownAny(removePlayerXbox)) // If any player presses the 'B' button.
+				if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
 				{
 					m_returningToMenu = true;
 				}
@@ -611,6 +632,27 @@ public class MainMenu : MonoBehaviour
 				}
 
 				break;
+
+			case PanelState.eQuitScreen:
+				if (XCI.GetButtonDown(XboxButton.A, XboxController.First))
+					QuitGame();
+
+				if (XCI.GetButtonDown(XboxButton.B, XboxController.First))
+					m_returningToMenu = true;
+
+				if (m_returningToMenu)
+				{
+					quitPanel.transform.position = m_panelOffScreenBottomPos;
+
+					if (quitPanel.transform.position == m_panelOffScreenBottomPos)
+					{
+						m_returningToMenu = false;
+						m_eCurrentState = PanelState.eSplashScreen;
+					}
+				}
+
+				break;
+
 		}	
 	}
 
@@ -649,6 +691,11 @@ public class MainMenu : MonoBehaviour
 	{
 		m_creditsButtonPress = true;
 		splashPanel.GetComponentInChildren<Button>().enabled = false;
+	}
+
+	public void quitButtonPress()
+	{
+		m_quitButtonPress = true;
 	}
 
 	//Checks if any controller has the specified button pressed
