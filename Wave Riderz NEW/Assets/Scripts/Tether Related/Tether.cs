@@ -111,7 +111,7 @@ public class Tether : MonoBehaviour
 	//Returns the distance between the object and the tether point
 	public float Distance()
 	{
-		return (transform.position - tetherPoint.position).magnitude;
+		return (transform.position - tetherPosition).magnitude;
 	}
 
 	//Returns the direction that the object is moving in

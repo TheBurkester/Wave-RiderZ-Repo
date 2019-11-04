@@ -113,7 +113,7 @@ public class SkierController : MonoBehaviour
 		tether.currentLength += tether.changeSpeed * -axisY * Time.deltaTime;	//Move tether length up/down based on this
 
 		//Sideways movement
-		if (tether.Distance() >= (tether.currentLength * 0.95))			//As long as the skier is close to the arc of the tether,
+		if (tether.Distance() >= (tether.currentLength * 0.95f))			//As long as the skier is close to the arc of the tether,
 		{
 			float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);	//Store the direction and magnitude of the left joystick X axis
 			tether.ApplyForce(new Vector3(movingForce * axisX, 0, 0));
