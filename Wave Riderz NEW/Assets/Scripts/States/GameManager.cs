@@ -97,14 +97,15 @@ public class GameManager : MonoBehaviour
 		{
 			if (GameInfo.roundNumber == 1)
 			{
-				m_randomPlane = UnityEngine.Random.Range(1, 2);
+				m_randomPlane = UnityEngine.Random.Range(1, 3);
+
 				if (m_randomPlane == 1)
 				{
                     m_eCurrentPlaneState = PlaneState.eFirst;
 					plane.controller = XboxController.First;
 					GameInfo.playerOneHasPlane = true;
 				}
-				else
+				else if (m_randomPlane == 2)
 				{
                     m_eCurrentPlaneState = PlaneState.eSecond;
 					plane.controller = XboxController.Second;   //Make green control the plane this round
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
                     plane.controller = XboxController.Second;
 					GameInfo.playerTwoHasPlane = true;
 				}
-				else
+				else if (GameInfo.playerTwoHasPlane)
 				{
                     m_eCurrentPlaneState = PlaneState.eFirst;
                     plane.controller = XboxController.First;
@@ -136,7 +137,7 @@ public class GameManager : MonoBehaviour
 
 			if (GameInfo.roundNumber == 1)
 			{
-				m_randomPlane = UnityEngine.Random.Range(1, 3);
+				m_randomPlane = UnityEngine.Random.Range(1, 4);
 				if (m_randomPlane == 1)
 				{
                     m_eCurrentPlaneState = PlaneState.eFirst;
@@ -158,7 +159,7 @@ public class GameManager : MonoBehaviour
 			}
 			else if (GameInfo.roundNumber == 2)
 			{
-				m_randomPlane = UnityEngine.Random.Range(1, 2); // Between 1 and 2,
+				m_randomPlane = UnityEngine.Random.Range(1, 3); // Between 1 and 2,
 
 				if (m_randomPlane == 1) // First available player.
 				{
@@ -222,7 +223,7 @@ public class GameManager : MonoBehaviour
 
 			if (GameInfo.roundNumber == 1)
 			{
-				m_randomPlane = UnityEngine.Random.Range(1, 4); // Between 1 and 4,
+				m_randomPlane = UnityEngine.Random.Range(1, 5); // Between 1 and 4,
 
 				if (m_randomPlane == 1) // First available player.
 				{
@@ -251,7 +252,7 @@ public class GameManager : MonoBehaviour
 			}
 			else if (GameInfo.roundNumber == 2)
 			{
-				m_randomPlane = UnityEngine.Random.Range(1, 3); // Between 1 and 3,
+				m_randomPlane = UnityEngine.Random.Range(1, 4); // Between 1 and 3,
 
 				if (m_randomPlane == 1) // First available player.
 				{
@@ -301,7 +302,7 @@ public class GameManager : MonoBehaviour
 			}
 			else if (GameInfo.roundNumber == 3)
 			{
-				m_randomPlane = UnityEngine.Random.Range(1, 2); // Between 1 and 2,
+				m_randomPlane = UnityEngine.Random.Range(1, 3); // Between 1 and 2,
 
                 if (m_randomPlane == 1) // First available player.
                 {

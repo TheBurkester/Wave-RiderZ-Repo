@@ -214,6 +214,8 @@ public class SkierController : MonoBehaviour
 
 		if (skierLives <= 0)	//If the skier is out of lives,
 		{
+			m_scoreTimer.enabled = false;
+
 			if (m_isAlive)
 			{
 				hurt = true;

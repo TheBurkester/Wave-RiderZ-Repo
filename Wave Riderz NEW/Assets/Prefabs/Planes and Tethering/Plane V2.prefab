@@ -516,7 +516,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
+  - {fileID: 2100000, guid: 83a3b9046b342074a871f7aa6a9f5413, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -866,7 +866,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
+  - {fileID: 2100000, guid: 83a3b9046b342074a871f7aa6a9f5413, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -943,7 +943,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
+  - {fileID: 2100000, guid: 83a3b9046b342074a871f7aa6a9f5413, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -970,11 +970,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8928308244592932212}
     m_Modifications:
-    - target: {fileID: 1550508849745259434, guid: 98d28513c65b87f4ab814381ff9fb2d9,
-        type: 3}
-      propertyPath: m_Name
-      value: PlaneParticle_1_Slipstream
-      objectReference: {fileID: 0}
     - target: {fileID: 1550508849745259432, guid: 98d28513c65b87f4ab814381ff9fb2d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1030,6 +1025,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1550508849745259434, guid: 98d28513c65b87f4ab814381ff9fb2d9,
+        type: 3}
+      propertyPath: m_Name
+      value: PlaneParticle_1_Slipstream
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98d28513c65b87f4ab814381ff9fb2d9, type: 3}
 --- !u!4 &7954265819072293144 stripped
@@ -1045,11 +1045,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8928308244592932212}
     m_Modifications:
-    - target: {fileID: 1550508849745259434, guid: 98d28513c65b87f4ab814381ff9fb2d9,
-        type: 3}
-      propertyPath: m_Name
-      value: PlaneParticle_1_Slipstream (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 1550508849745259432, guid: 98d28513c65b87f4ab814381ff9fb2d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1104,6 +1099,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550508849745259434, guid: 98d28513c65b87f4ab814381ff9fb2d9,
+        type: 3}
+      propertyPath: m_Name
+      value: PlaneParticle_1_Slipstream (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98d28513c65b87f4ab814381ff9fb2d9, type: 3}
