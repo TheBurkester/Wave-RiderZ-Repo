@@ -79,7 +79,8 @@ public class Tether : MonoBehaviour
 			testPosition = tetherPosition + testDistance.normalized * currentLength;	//Pull it back to the rope length in the direction of the rope
 
 		//Set the final values
-		m_velocity = (testPosition - transform.position) / Time.deltaTime;  //Adjust the velocity to force it to move to the new position
+		if (Time.deltaTime != 0)
+			m_velocity = (testPosition - transform.position) / Time.deltaTime;  //Adjust the velocity to force it to move to the new position
 		transform.position = testPosition;                                  //Move to the new position
 	}
 
