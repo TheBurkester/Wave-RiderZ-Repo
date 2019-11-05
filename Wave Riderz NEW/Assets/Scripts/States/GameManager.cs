@@ -66,8 +66,9 @@ public class GameManager : MonoBehaviour
 	//-------------------------------------------------------------------------
 
 	//UI references
-	public Text startCountdownDisplay = null;		//Reference to the countdown timer text at the start of the round
-	public Text playingCountDownDisplay = null;     //Reference to the round timer text
+	public Text startCountdownDisplay = null;       //Reference to the countdown timer text at the start of the round
+	public GameObject roundTimerPanel = null;		// Reference to the round timer panel.
+	public Image playingCountDownDisplay = null;    //Reference to the round timer image
 	public Text scoreRed = null;
 	public Text scoreGreen = null;
 	public Text scorePurple = null;
@@ -406,7 +407,7 @@ public class GameManager : MonoBehaviour
 
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
-		playingCountDownDisplay.text = "";
+		roundTimerPanel.SetActive(false);
 		scoreRed.text = "";
 		scoreGreen.text = "";
 		scorePurple.text = "";
@@ -633,7 +634,7 @@ public class GameManager : MonoBehaviour
 					}
 
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
-					playingCountDownDisplay.text = "";          //Turn the timer text off
+					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
 					bonus.text = "Alive skiers get a bonus of " + redSkier.skierBonus.ToString();
 					roundOverPanel.SetActive(true);             //Show the round over screen
@@ -650,14 +651,14 @@ public class GameManager : MonoBehaviour
 						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeBonus);
 
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
-					playingCountDownDisplay.text = "";          //Turn the timer text off
+					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
 					bonus.text = "All skiers wiped out! Plane gets " + redSkier.planeBonus.ToString() + " bonus score!";
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
 
-				int nearestSecond = (int)Math.Ceiling(m_playingRoundTimer.T);   //Round the timer up to the nearest second
-				playingCountDownDisplay.text = nearestSecond.ToString();        //Show the timer
+				roundTimerPanel.SetActive(true);
+				playingCountDownDisplay.fillAmount = m_playingRoundTimer.T / roundTimeLimit;
 
 				//Display scores and lives
 				scoreRed.text = redSkier.GetPlayerScore().ToString();
