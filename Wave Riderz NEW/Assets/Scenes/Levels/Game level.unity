@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3358,6 +3358,11 @@ PrefabInstance:
       propertyPath: power
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 3491444408453323350, guid: 337ab2b5c58c278489204c7b5de5d78d,
+        type: 3}
+      propertyPath: downwardSpeed
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3491444408453323354, guid: 337ab2b5c58c278489204c7b5de5d78d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3522,6 +3527,16 @@ PrefabInstance:
       propertyPath: river
       value: 
       objectReference: {fileID: 1830143216}
+    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: strafeSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: swingMoveTimeRequirement
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8928308244592932212, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.x
