@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -551,7 +551,8 @@ MonoBehaviour:
   mainCamera: {fileID: 534669907}
   roundTimeLimit: 45
   startCountdownDisplay: {fileID: 1391626339}
-  playingCountDownDisplay: {fileID: 1551550171}
+  roundTimerPanel: {fileID: 1968474659}
+  playingCountDownDisplay: {fileID: 556790706}
   scoreRed: {fileID: 210996447}
   scoreGreen: {fileID: 186373011}
   scorePurple: {fileID: 93209822}
@@ -769,6 +770,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 878083785}
+--- !u!114 &556790706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7764706713549604974, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &582922509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,18 +2117,6 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1551550171 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3615083636843160023, guid: c27f0864eb7f5524c8081d187a3553df,
-    type: 3}
-  m_PrefabInstance: {fileID: 1968474653}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1639234356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2507,6 +2508,12 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1968474659 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8295441261418205958, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1968990012
 PrefabInstance:
   m_ObjectHideFlags: 0
