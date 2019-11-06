@@ -15,10 +15,13 @@ public class TetheredMineAbility : MonoBehaviour
 {
 	private XboxController m_controller;        // Reference to which controller to use (same as plane's)
 	public Rigidbody mineRB;
+	private Tether m_mineTether = null;
 	public Rigidbody planeRB = null;
+	private PlaneController m_planeController;
 
 	private Transform m_planeHatch;
 	private bool m_isUsingAbility = false;
+	private float m_planeRelation;
 
 	[HideInInspector]
 	public Timer abilityCooldown;       // Timer used for the cooldown.
@@ -33,6 +36,9 @@ public class TetheredMineAbility : MonoBehaviour
 		mineRB.gameObject.SetActive(false); // Disables the mine on startup.
 		m_planeHatch = GetComponent<Transform>();
 		m_controller = planeRB.GetComponent<PlaneController>().controller;
+		m_planeController = planeRB.GetComponent<PlaneController>();
+		m_planeRelation = m_planeController.GetPlaneSpeed();
+		m_mineTether = mineRB.GetComponent<Tether>();
 
 		abilityCooldown = gameObject.AddComponent<Timer>();
 		abilityCooldown.maxTime = cooldown;
@@ -48,13 +54,15 @@ public class TetheredMineAbility : MonoBehaviour
 
 		if ((1.0f - LT) < 0.1f && !m_isUsingAbility && !abilityCooldown.UnderMax())
 		{
+			//m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
 			mineRB.gameObject.SetActive(true);
 			m_isUsingAbility = true;
 		}
         if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !abilityCooldown.UnderMax())
         {
-            mineRB.transform.position = m_planeHatch.transform.position;
+			//m_mineTether.ResetVelocity();
+			mineRB.transform.position = m_planeHatch.transform.position;
             mineRB.gameObject.SetActive(true);
             m_isUsingAbility = true;
         }
@@ -67,9 +75,14 @@ public class TetheredMineAbility : MonoBehaviour
 
 	void ActivateAbility()
 	{
-
-		if (mineRB.transform.position.y <= 0)
+		if (mineRB.transform.position.y > 0)
 		{
+			mineRB.isKinematic = false;
+			mineRB.velocity = new Vector3(0, -5.0f, m_planeRelation - 3);
+		}
+		else if (mineRB.transform.position.y <= 0)
+		{
+			mineRB.isKinematic = true;
 			mineRB.transform.position = new Vector3(mineRB.transform.position.x, 0, mineRB.transform.position.z);
 		}
 	}
