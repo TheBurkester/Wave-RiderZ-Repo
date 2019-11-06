@@ -37,7 +37,8 @@ public class PlaneController : MonoBehaviour
 	public float swingForceDuration = 0.3f;		//How long to push skiers for
 	private Tether[] m_skierTethers;			//Reference to all the current skier tethers
 	private Timer m_movementTimer;				//Timer that counts when the plane is moving one direction fast enough
-	private int m_movementDirection = 0;		//Represents which direction the plane was last moving in, either -1 or 1
+	private int m_movementDirection = 0;        //Represents which direction the plane was last moving in, either -1 or 1
+	public ParticleSystem[] swingParticles = null;
 
 	private Rigidbody rb = null;        //Keep reference to the plane rigidbody
 
@@ -56,13 +57,25 @@ public class PlaneController : MonoBehaviour
 			if (m_clampWidth <= 0)  //If the clamp width is too small,
 				m_clampWidth = 75;	//Reset to default
 		}
+
+		foreach (ParticleSystem particle in swingParticles)
+		{
+			Debug.Assert(particle != null, "Plane controller missing swing particle reference");
+		}
+		if (swingParticles != null)
+		{
+			foreach (ParticleSystem particle in swingParticles)
+			{
+				particle.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			}
+		}
 	}
 
 	private void Start()
 	{
 		m_movementTimer = gameObject.AddComponent<Timer>();		//Create the timer
 		m_movementTimer.maxTime = swingMoveTimeRequirement;		//Set the max time
-		m_movementTimer.autoDisable = true;						//Make the timer stop when it's reached max
+		m_movementTimer.autoDisable = true;                     //Make the timer stop when it's reached max
 	}
 
 	void Update()
@@ -96,12 +109,20 @@ public class PlaneController : MonoBehaviour
 		{
 			ApplySwingForce();					//Apply a force on all the skiers
 			m_movementTimer.SetTimer();			//Reset the timer to 0
-			m_movementTimer.enabled = false;	//Stop the timer
+			m_movementTimer.enabled = false;    //Stop the timer
+
+			foreach (ParticleSystem particle in swingParticles)
+			{
+				particle.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			}
 		}
 
 		if (!m_movementTimer.UnderMax())
 		{
-			//Do visual cue that plane is ready to swing here
+			foreach (ParticleSystem particle in swingParticles)
+			{
+				particle.Play();
+			}
 		}
 
 		//Rotation

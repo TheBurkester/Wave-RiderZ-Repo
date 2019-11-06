@@ -636,6 +636,9 @@ MonoBehaviour:
   swingMoveTimeRequirement: 2
   swingForce: 150
   swingForceDuration: 0.3
+  swingParticles:
+  - {fileID: 7954265818794061318}
+  - {fileID: 7954265817249477988}
 --- !u!82 &1987766135325528761
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1038,6 +1041,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8928308243332039344}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &7954265818794061318 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1550508849486621878, guid: 98d28513c65b87f4ab814381ff9fb2d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8928308243332039344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8928308245002459602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1110,6 +1119,12 @@ PrefabInstance:
 --- !u!4 &7954265817526989434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1550508849745259432, guid: 98d28513c65b87f4ab814381ff9fb2d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8928308245002459602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7954265817249477988 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1550508849486621878, guid: 98d28513c65b87f4ab814381ff9fb2d9,
     type: 3}
   m_PrefabInstance: {fileID: 8928308245002459602}
   m_PrefabAsset: {fileID: 0}
