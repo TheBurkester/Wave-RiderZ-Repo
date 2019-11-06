@@ -705,7 +705,7 @@ public class GameManager : MonoBehaviour
 				}
 
 				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();   //Display the beach bomb ability cooldown timer
-				tetheredMineAbility.text = ((int)Math.Ceiling(planeHatch.abilityCooldown.T)).ToString(); // Display the mine ability cooldown timer.
+				tetheredMineAbility.text = ((int)Math.Ceiling(planeHatch.mineAbilityCooldown.T)).ToString(); // Display the mine ability cooldown timer.
 				
 				if (plane.controller == XboxController.First)
 				{
@@ -803,6 +803,7 @@ public class GameManager : MonoBehaviour
 		if (orangeSkier.gameObject.activeSelf == true)	//If the orange skier is in the game,
 			orangeSkier.tether.enabled = value;         //Set them too
 		mine.enabled = value;
+		planeHatch.mineAbilityCooldown.enabled = value;
 		target.enabled = value;
 		mainCamera.enabled = value;
 	}

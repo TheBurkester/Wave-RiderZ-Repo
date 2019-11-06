@@ -24,7 +24,7 @@ public class TetheredMineAbility : MonoBehaviour
 	private float m_planeRelation;
 
 	[HideInInspector]
-	public Timer abilityCooldown;       // Timer used for the cooldown.
+	public Timer mineAbilityCooldown;       // Timer used for the cooldown.
 
 	public float cooldown = 10;			// Cooldown for the ability.
 
@@ -40,28 +40,28 @@ public class TetheredMineAbility : MonoBehaviour
 		m_planeRelation = m_planeController.GetPlaneSpeed();
 		m_mineTether = mineRB.GetComponent<Tether>();
 
-		abilityCooldown = gameObject.AddComponent<Timer>();
-		abilityCooldown.maxTime = cooldown;
-		abilityCooldown.reverseTimer = true;
-		abilityCooldown.autoDisable = true;
+		mineAbilityCooldown = gameObject.AddComponent<Timer>();
+		mineAbilityCooldown.maxTime = cooldown;
+		mineAbilityCooldown.reverseTimer = true;
+		mineAbilityCooldown.autoDisable = true;
 
-		abilityCooldown.SetTimer(); // Starts the timer.
+		mineAbilityCooldown.SetTimer(); // Starts the timer.
 	}
 
     void Update()
     {
 		float LT = XCI.GetAxis(XboxAxis.LeftTrigger, m_controller);
 
-		if ((1.0f - LT) < 0.1f && !m_isUsingAbility && !abilityCooldown.UnderMax())
+		if ((1.0f - LT) < 0.1f && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
 		{
-			//m_mineTether.ResetVelocity();
+			m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
 			mineRB.gameObject.SetActive(true);
 			m_isUsingAbility = true;
 		}
-        if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !abilityCooldown.UnderMax())
+        if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
         {
-			//m_mineTether.ResetVelocity();
+			m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
             mineRB.gameObject.SetActive(true);
             m_isUsingAbility = true;
