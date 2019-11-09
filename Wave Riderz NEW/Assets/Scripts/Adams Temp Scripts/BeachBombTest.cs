@@ -6,7 +6,7 @@ public class BeachBombTest : MonoBehaviour
 {
     public Animator PlaneAnim;
 
-
+    /*
 
     // Update is called once per frame
     void Update()
@@ -32,4 +32,5 @@ public class BeachBombTest : MonoBehaviour
             Debug.Log("Closed");
         }
     }
+    */
 }
