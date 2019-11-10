@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2023016260457707924}
   - component: {fileID: 2023016260457707925}
   - component: {fileID: 2023016260457707922}
-  - component: {fileID: 2023016260457707923}
+  - component: {fileID: 3912071571983027291}
   m_Layer: 0
   m_Name: Small cube
   m_TagString: Rock
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023016260457707920}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: a682a2e830873004681a608745cb287a, type: 3}
 --- !u!23 &2023016260457707922
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -78,8 +78,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2023016260457707923
-BoxCollider:
+--- !u!136 &3912071571983027291
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -88,6 +88,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.46
+  m_Height: 1.27
+  m_Direction: 1
+  m_Center: {x: -0.05, y: 0, z: -0.03}
