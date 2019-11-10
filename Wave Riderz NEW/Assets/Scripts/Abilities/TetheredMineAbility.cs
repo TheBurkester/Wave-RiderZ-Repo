@@ -42,7 +42,7 @@ public class TetheredMineAbility : MonoBehaviour
 
 		mineAbilityCooldown = gameObject.AddComponent<Timer>();
 		mineAbilityCooldown.maxTime = cooldown;
-		mineAbilityCooldown.reverseTimer = true;
+		mineAbilityCooldown.reverseTimer = false;
 		mineAbilityCooldown.autoDisable = true;
 
 		mineAbilityCooldown.SetTimer(); // Starts the timer.

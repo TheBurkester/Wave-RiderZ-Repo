@@ -73,16 +73,28 @@ public class GameManager : MonoBehaviour
 	public Text scoreGreen = null;
 	public Text scorePurple = null;
 	public Text scoreOrange = null;
-	public Text livesRed = null;
-	public Text livesGreen = null;
-	public Text livesPurple = null;
-	public Text livesOrange = null;
+	public GameObject playerOneUI = null;
+	public GameObject playerTwoUI = null;
+	public GameObject playerThreeUI = null;
+	public GameObject playerFourUI = null;
+	public GameObject beachBombAbilityUI = null;
+	public GameObject tetheredMineAbilityUI = null;
+	public Image livesRed = null;
+	public Image livesGreen = null;
+	public Image livesPurple = null;
+	public Image livesOrange = null;
+	//public Text livesRed = null;
+	//public Text livesGreen = null;
+	//public Text livesPurple = null;
+	//public Text livesOrange = null;
 	public Text multiplierRed = null;
 	public Text multiplierGreen = null;
 	public Text multiplierPurple = null;
 	public Text multiplierOrange = null;
-	public Text beachBombAbility = null;            //Reference to the cooldown timer text
-	public Text tetheredMineAbility = null;			// Reference to the cooldown timer text.
+	public Image beachBombAbility = null;
+	public Image tetheredMineAbility = null;
+	//public Text beachBombAbility = null;            //Reference to the cooldown timer text
+	//public Text tetheredMineAbility = null;			// Reference to the cooldown timer text.
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	public Text bonus = null;
 	//-------------------------------------------------------------------------
@@ -408,20 +420,26 @@ public class GameManager : MonoBehaviour
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
 		roundTimerPanel.SetActive(false);
+		playerOneUI.SetActive(false);
+		playerTwoUI.SetActive(false);
+		playerThreeUI.SetActive(false);
+		playerFourUI.SetActive(false);
+		beachBombAbilityUI.SetActive(false);
+		tetheredMineAbilityUI.SetActive(false);
 		scoreRed.text = "";
 		scoreGreen.text = "";
 		scorePurple.text = "";
 		scoreOrange.text = "";
-		livesRed.text = "";
-		livesGreen.text = "";
-		livesPurple.text = "";
-		livesOrange.text = "";
+		livesRed.fillAmount = 0;
+		livesGreen.fillAmount = 0;
+		livesPurple.fillAmount = 0;
+		livesOrange.fillAmount = 0;
 		multiplierRed.text = "";
 		multiplierGreen.text = "";
 		multiplierPurple.text = "";
 		multiplierOrange.text = "";
-		beachBombAbility.text = "";
-		tetheredMineAbility.text = "";
+		beachBombAbility.fillAmount = 0;
+		tetheredMineAbility.fillAmount = 0;
 		bonus.text = "";
 
 		roundOverPanel.SetActive(false);
@@ -665,29 +683,58 @@ public class GameManager : MonoBehaviour
 				multiplierRed.text = "x" + redSkier.GetPlayerMultiplier().ToString();
 				scoreGreen.text = greenSkier.GetPlayerScore().ToString();
 				multiplierGreen.text = "x" + greenSkier.GetPlayerMultiplier().ToString();
+
+				playerOneUI.SetActive(true);
+				playerTwoUI.SetActive(true);
+				beachBombAbilityUI.SetActive(true);
+				tetheredMineAbilityUI.SetActive(true);
+				
 				if (redSkier.GetAlive())
-					livesRed.text = redSkier.skierLives.ToString();
+				{
+					if (redSkier.skierLives == 3)
+						livesRed.fillAmount = 1;
+					else if (redSkier.skierLives == 2)
+						livesRed.fillAmount = 0.66f;
+					else if (redSkier.skierLives == 1)
+						livesRed.fillAmount = 0.33f;
+				}
 				else
 				{ 
-					livesRed.text = "";
+					livesRed.fillAmount = 0;
 					multiplierRed.text = "";
 				}
 				if (greenSkier.GetAlive())
-					livesGreen.text = greenSkier.skierLives.ToString();
+				{
+					if (greenSkier.skierLives == 3)
+						livesGreen.fillAmount = 1;
+					else if (greenSkier.skierLives == 2)
+						livesGreen.fillAmount = 0.66f;
+					else if (greenSkier.skierLives == 1)
+						livesGreen.fillAmount = 0.33f;
+				}
 				else
 				{
-					livesGreen.text = "";
+					livesGreen.fillAmount = 0;
 					multiplierGreen.text = "";
 				}
 				if (m_playerCount >= 3)
 				{
 					scorePurple.text = purpleSkier.GetPlayerScore().ToString();
 					multiplierPurple.text = "x" + purpleSkier.GetPlayerMultiplier().ToString();
+					playerThreeUI.SetActive(true);
+
 					if (purpleSkier.GetAlive())
-						livesPurple.text = purpleSkier.skierLives.ToString();
+					{
+						if (purpleSkier.skierLives == 3)
+							livesPurple.fillAmount = 1;
+						else if (purpleSkier.skierLives == 2)
+							livesPurple.fillAmount = 0.66f;
+						else if (purpleSkier.skierLives == 1)
+							livesPurple.fillAmount = 0.33f;
+					}
 					else
 					{
-						livesPurple.text = "";
+						livesPurple.fillAmount = 0;
 						multiplierPurple.text = "";
 					}
 				}
@@ -695,17 +742,28 @@ public class GameManager : MonoBehaviour
 				{
 					scoreOrange.text = orangeSkier.GetPlayerScore().ToString();
 					multiplierOrange.text = "x" + orangeSkier.GetPlayerMultiplier().ToString();
+					playerFourUI.SetActive(true);
+
 					if (orangeSkier.GetAlive())
-						livesOrange.text = orangeSkier.skierLives.ToString();
+					{
+						if (orangeSkier.skierLives == 3)
+							livesOrange.fillAmount = 1;
+						else if (orangeSkier.skierLives == 2)
+							livesOrange.fillAmount = 0.66f;
+						else if (orangeSkier.skierLives == 1)
+							livesOrange.fillAmount = 0.33f;
+					}
 					else
 					{
-						livesOrange.text = "";
+						livesOrange.fillAmount = 0;
 						multiplierOrange.text = "";
 					}
 				}
 
-				beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();   //Display the beach bomb ability cooldown timer
-				tetheredMineAbility.text = ((int)Math.Ceiling(planeHatch.mineAbilityCooldown.T)).ToString(); // Display the mine ability cooldown timer.
+				beachBombAbility.fillAmount = target.abilityCooldown.T / target.abilityCooldown.maxTime;
+				tetheredMineAbility.fillAmount = planeHatch.mineAbilityCooldown.T / planeHatch.mineAbilityCooldown.maxTime;
+				//beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();   //Display the beach bomb ability cooldown timer
+				//tetheredMineAbility.text = ((int)Math.Ceiling(planeHatch.mineAbilityCooldown.T)).ToString(); // Display the mine ability cooldown timer.
 				
 				if (plane.controller == XboxController.First)
 				{

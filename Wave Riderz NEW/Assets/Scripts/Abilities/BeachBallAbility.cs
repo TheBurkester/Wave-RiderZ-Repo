@@ -57,7 +57,7 @@ public class BeachBallAbility : MonoBehaviour
 
         abilityCooldown = gameObject.AddComponent<Timer>();
         abilityCooldown.maxTime = cooldown;
-		abilityCooldown.reverseTimer = true;
+		abilityCooldown.reverseTimer = false;
 		abilityCooldown.autoDisable = true;
     }
 
