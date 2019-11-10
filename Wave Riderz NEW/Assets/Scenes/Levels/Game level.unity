@@ -2421,6 +2421,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3615083638599270873, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas
+      objectReference: {fileID: 0}
     - target: {fileID: 3615083638599270693, guid: c27f0864eb7f5524c8081d187a3553df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2526,15 +2531,50 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3615083638599270873, guid: c27f0864eb7f5524c8081d187a3553df,
+    - target: {fileID: 7121066130911676781, guid: c27f0864eb7f5524c8081d187a3553df,
         type: 3}
-      propertyPath: m_Name
-      value: Canvas
+      propertyPath: m_AnchoredPosition.x
+      value: 61
       objectReference: {fileID: 0}
-    - target: {fileID: 4715238763070756884, guid: c27f0864eb7f5524c8081d187a3553df,
+    - target: {fileID: 1207204389435310155, guid: c27f0864eb7f5524c8081d187a3553df,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_AnchoredPosition.x
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 90027559940580085, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908907021692350999, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 942610582760432392, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049558289744165896, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 30793913516701637, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596651138590784441, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483872679838094930, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 58
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27f0864eb7f5524c8081d187a3553df, type: 3}
@@ -3624,6 +3664,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane V2
       objectReference: {fileID: 0}
+    - target: {fileID: 3283679067084173432, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: mineRB
+      value: 
+      objectReference: {fileID: 316059917}
     - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: beachBallTarget
@@ -3692,33 +3737,28 @@ PrefabInstance:
     - target: {fileID: 7954265819072293144, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.83
+      value: 1.89
       objectReference: {fileID: 0}
     - target: {fileID: 7954265819072293144, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.55
+      value: -0.011
       objectReference: {fileID: 0}
     - target: {fileID: 7954265817526989434, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8299999
+      value: 1.8899999
       objectReference: {fileID: 0}
     - target: {fileID: 7954265817526989434, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.55
+      value: -0.010999978
       objectReference: {fileID: 0}
     - target: {fileID: 8928308244592503122, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_TagString
       value: PlaneHatch
       objectReference: {fileID: 0}
-    - target: {fileID: 3283679067084173432, guid: c65db4207dd24734e962120744ef30f2,
-        type: 3}
-      propertyPath: mineRB
-      value: 
-      objectReference: {fileID: 316059917}
     - target: {fileID: 4280543728931010119, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: m_TagString
