@@ -31,6 +31,17 @@ public class TetheredMineAbility : MonoBehaviour
     public float obstacleForce = 75;           //How much sidewards force is applied when hitting an obstacle
     public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
 
+    private void Awake()
+    {
+        //Create timer first so that it's created before gamemanager tries to use it
+        mineAbilityCooldown = gameObject.AddComponent<Timer>();
+        mineAbilityCooldown.maxTime = cooldown;
+        mineAbilityCooldown.reverseTimer = false;
+        mineAbilityCooldown.autoDisable = true;
+
+        mineAbilityCooldown.SetTimer(); // Starts the timer.
+    }
+
     void Start() // KEEP THIS AS START OR I WILL PERSONALLY SMITE YOU. WE SPENT TOO LONG ON THIS.
     {
 		mineRB.gameObject.SetActive(false); // Disables the mine on startup.
@@ -39,13 +50,6 @@ public class TetheredMineAbility : MonoBehaviour
 		m_planeController = planeRB.GetComponent<PlaneController>();
 		m_planeRelation = m_planeController.GetPlaneSpeed();
 		m_mineTether = mineRB.GetComponent<Tether>();
-
-		mineAbilityCooldown = gameObject.AddComponent<Timer>();
-		mineAbilityCooldown.maxTime = cooldown;
-		mineAbilityCooldown.reverseTimer = false;
-		mineAbilityCooldown.autoDisable = true;
-
-		mineAbilityCooldown.SetTimer(); // Starts the timer.
 	}
 
     void Update()
