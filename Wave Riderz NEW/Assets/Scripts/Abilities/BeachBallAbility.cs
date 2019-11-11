@@ -107,7 +107,9 @@ public class BeachBallAbility : MonoBehaviour
             //Animates the plane doors opening
             BeachBallAnimation.SetBool("IsAiming", true);
             BeachBallAnimation.SetBool("IsShooting", false);
-            Debug.Log(BeachBallAnimation.tag);
+           
+            AudioManager.Play("BeachBallFired");
+            //AudioManager.Play("BeachBombExplosion");
 
             //Xbox movement
             m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
