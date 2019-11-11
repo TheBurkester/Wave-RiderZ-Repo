@@ -44,10 +44,13 @@ public class Mine : MonoBehaviour
             Vector3 explosionPos = transform.position;  // explosion will occur at the impact site.
             explosionPos.y = 0;                         //Make sure that there is no y component
             Collider[] colliders = Physics.OverlapSphere(explosionPos, radius); // List of colliders within the radius.
+           TetheredMineAnimation.SetBool("IsDoorOpen", true);
+            TetheredMineAnimation.SetBool("IsDoorClosed", false);
             TetheredMineAnimation.SetBool("IsDoorClosed", true);
            TetheredMineAnimation.SetBool("IsDoorOpen", false);
             
 
+            AudioManager.Play("TetheredMineExplosion");
             foreach (Collider hit in colliders)                                     //For all the objects in the radius,
             {
                 if (hit.CompareTag("Skier"))                                        //If this object is a skier,
@@ -66,7 +69,9 @@ public class Mine : MonoBehaviour
             m_tmAbility.setIsUsingAbility(false);
             m_tmAbility.mineAbilityCooldown.SetTimer();
 
-			explosionPrefab.transform.position = explosionPos;
+
+           
+            explosionPrefab.transform.position = explosionPos;
 			Instantiate(explosionPrefab);
 
 			GameFreezer.Freeze(freezeAmount, freezeFrames);
