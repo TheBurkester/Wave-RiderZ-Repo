@@ -11,6 +11,7 @@ using UnityEngine;
 public class BeachBall : MonoBehaviour
 {
 	public float freezeAmount = 0.05f;
+	public int freezeFrames = 20;
 
     private BeachBallAbility m_bbAbility;
     private Rigidbody m_rb;
@@ -67,7 +68,7 @@ public class BeachBall : MonoBehaviour
 			explosionPrefab.transform.position = explosionPos;
 			Instantiate(explosionPrefab);
 
-			GameFreezer.Freeze(freezeAmount);
+			GameFreezer.Freeze(freezeAmount, freezeFrames);
         }
     }
 }

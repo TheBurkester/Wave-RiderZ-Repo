@@ -12,6 +12,7 @@ public class Mine : MonoBehaviour
 {
 	public float radius = 5.0f;
 	public float freezeAmount = 0.05f;
+	public int freezeFrames = 20;
 
 	private TetheredMineAbility m_tmAbility;
 	private Rigidbody m_rb;
@@ -62,7 +63,7 @@ public class Mine : MonoBehaviour
 			explosionPrefab.transform.position = explosionPos;
 			Instantiate(explosionPrefab);
 
-			GameFreezer.Freeze(freezeAmount);
+			GameFreezer.Freeze(freezeAmount, freezeFrames);
 		}
         else if (collision.CompareTag("Rock"))	//If colliding with an obstacle,
         {
