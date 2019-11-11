@@ -21,7 +21,9 @@ public class Mine : MonoBehaviour
 
 	public GameObject explosionPrefab = null;
 
-	void Awake()
+    public Animator TetheredMineAnimation;
+
+    void Awake()
 	{
 		m_rb = gameObject.GetComponent<Rigidbody>();
 
@@ -38,9 +40,12 @@ public class Mine : MonoBehaviour
 	{
         if (collision.CompareTag("Skier")) // Will be called if collision with a skier occurs.
         {
+
             Vector3 explosionPos = transform.position;  // explosion will occur at the impact site.
             explosionPos.y = 0;                         //Make sure that there is no y component
             Collider[] colliders = Physics.OverlapSphere(explosionPos, radius); // List of colliders within the radius.
+             TetheredMineAnimation.SetBool("IsDoorClosed", true);
+            TetheredMineAnimation.SetBool("IsDoorOpen", false);
 
             foreach (Collider hit in colliders)                                     //For all the objects in the radius,
             {
