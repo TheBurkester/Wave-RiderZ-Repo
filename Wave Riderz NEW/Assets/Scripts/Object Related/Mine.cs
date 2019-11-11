@@ -44,8 +44,9 @@ public class Mine : MonoBehaviour
             Vector3 explosionPos = transform.position;  // explosion will occur at the impact site.
             explosionPos.y = 0;                         //Make sure that there is no y component
             Collider[] colliders = Physics.OverlapSphere(explosionPos, radius); // List of colliders within the radius.
-             TetheredMineAnimation.SetBool("IsDoorClosed", true);
-            TetheredMineAnimation.SetBool("IsDoorOpen", false);
+            TetheredMineAnimation.SetBool("IsDoorClosed", true);
+           TetheredMineAnimation.SetBool("IsDoorOpen", false);
+            
 
             foreach (Collider hit in colliders)                                     //For all the objects in the radius,
             {
