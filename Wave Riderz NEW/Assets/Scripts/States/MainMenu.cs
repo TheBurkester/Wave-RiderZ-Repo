@@ -33,12 +33,23 @@ public class MainMenu : MonoBehaviour
 
 
 	//UI references
-	public Canvas canvas;					// Reference to the UI canvas as a whole
-	public RectTransform splashPanel;		// Reference to the main menu UI transform
-	public RectTransform characterPanel;    // Reference to the character selection UI transform
-	public RectTransform controlsPanel;		// Reference to the controls panel UI transform.
-	public RectTransform creditsPanel;      // Reference to the credits panel UI transforn.
-	public RectTransform quitPanel;			// Reference to the quit panel UI transform.
+	public Canvas canvas;						// Reference to the UI canvas as a whole
+	public RectTransform splashPanel;			// Reference to the main menu UI transform
+	public RectTransform characterPanel;		// Reference to the character selection UI transform
+	public RectTransform allPLayersReadyPanel;	// Reference to the all players ready panel.
+	public RectTransform controlsPanel;			// Reference to the controls panel UI transform.
+	public RectTransform creditsPanel;			// Reference to the credits panel UI transforn.
+	public RectTransform quitPanel;             // Reference to the quit panel UI transform.
+	public Image addPlayerTwoButton;
+	public Image addPlayerThreeButton;
+	public Image addPlayerFourButton;
+	public Image removePlayerTwoButton;
+	public Image removePlayerThreeButton;
+	public Image removePlayerFourButton;
+	public Image readyPlayerOneButton;
+	public Image readyPlayerTwoButton;
+	public Image readyPlayerThreeButton;
+	public Image readyPlayerFourButton;
 
 	//Positions of the blocks behind skiers in character select
 	public Transform playerOneBlock;
@@ -117,6 +128,7 @@ public class MainMenu : MonoBehaviour
 		m_playerOffScreenRight = new Vector3(30, 10, 3); // Offset position outside of the camera view towards the right.
 		splashPanel.transform.position = canvas.transform.position; // Ensures that the splash starts within the canvas.
 		characterPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the character panel starts at the bottom.
+		allPLayersReadyPanel.transform.position = m_panelOffScreenBottomPos;
 		controlsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the controls panel starts at the bottom.
 		creditsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the credits panel starts at the bottom.
 		quitPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the quit panel starts at the bottom.
@@ -130,6 +142,19 @@ public class MainMenu : MonoBehaviour
 		readyLightPlayerTwo.enabled = false;
 		readyLightPlayerThree.enabled = false;
 		readyLightPlayerFour.enabled = false;
+
+		addPlayerTwoButton.enabled = true;
+		addPlayerThreeButton.enabled = true;
+		addPlayerFourButton.enabled = true;
+
+		removePlayerTwoButton.enabled = false;
+		removePlayerThreeButton.enabled = false;
+		removePlayerFourButton.enabled = false;
+
+		readyPlayerOneButton.enabled = true;
+		readyPlayerTwoButton.enabled = false;
+		readyPlayerThreeButton.enabled = false;
+		readyPlayerFourButton.enabled = false;
 
 		if (playerOneBlock != null)
 			playerOneBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the left of the camera.
@@ -168,9 +193,13 @@ public class MainMenu : MonoBehaviour
 
 					splashPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
 					playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerOnePos, m_t2); // Slowly moves the position to the target.
+					characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
 
+					addPlayerTwoButton.enabled = true;
+					addPlayerThreeButton.enabled = true;
+					addPlayerFourButton.enabled = true;
 					// If everything is in its correct place.
-					if (splashPanel.transform.position == m_panelOffScreenTopPos && playerOneBlock.transform.position == m_playerOnePos)
+					if (splashPanel.transform.position == m_panelOffScreenTopPos && playerOneBlock.transform.position == m_playerOnePos && characterPanel.transform.position == canvas.transform.position)
 					{
 						m_t = 0;	// Reset panel timer.
 						m_t2 = 0;	// Reset player timer.
@@ -260,9 +289,20 @@ public class MainMenu : MonoBehaviour
 					readyLightPlayerFour.enabled = false;
 					m_playerFourState = CharacterState.eIdle;
 
+					removePlayerTwoButton.enabled = false;
+					removePlayerThreeButton.enabled = false;
+					removePlayerFourButton.enabled = false;
+
+					readyPlayerOneButton.enabled = false;
+					readyPlayerTwoButton.enabled = false;
+					readyPlayerThreeButton.enabled = false;
+					readyPlayerFourButton.enabled = false;
 
 					m_t += panelSpeed;
 					m_t2 += panelSpeed * Time.deltaTime;
+
+					if (allPLayersReadyPanel.transform.position != m_panelOffScreenTopPos && allPLayersReadyPanel.transform.position != m_panelOffScreenBottomPos)
+						allPLayersReadyPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
 
 					if (characterPanel.transform.position != m_panelOffScreenTopPos && characterPanel.transform.position != m_panelOffScreenBottomPos)
 						characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
@@ -278,7 +318,7 @@ public class MainMenu : MonoBehaviour
 
 					splashPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
 
-					if (splashPanel.transform.position == canvas.transform.position && characterPanel.transform.position == m_panelOffScreenBottomPos || characterPanel.transform.position == m_panelOffScreenTopPos )
+					if (splashPanel.transform.position == canvas.transform.position && (characterPanel.transform.position == m_panelOffScreenBottomPos || characterPanel.transform.position == m_panelOffScreenTopPos) && (allPLayersReadyPanel.transform.position == m_panelOffScreenBottomPos || allPLayersReadyPanel.transform.position == m_panelOffScreenTopPos))
 					{
 						if (playerOneBlock.transform.position == m_playerOffScreenLeft && playerTwoBlock.transform.position == m_playerOffScreenRight)
 						{
@@ -299,6 +339,9 @@ public class MainMenu : MonoBehaviour
                 {
 					if (m_removePlayer != true)							//As long as a player isn't currently getting removed, 
 					{
+						readyPlayerTwoButton.enabled = true;
+						removePlayerTwoButton.enabled = true;
+						addPlayerTwoButton.enabled = false;
 						m_addPlayerButtonPress = true;					//Add a player
 						m_playerTwoState = CharacterState.eJoining;		// Player two is now joining.
 					}
@@ -307,6 +350,9 @@ public class MainMenu : MonoBehaviour
 				{
 					if (m_removePlayer != true)							//As long as a player isn't currently getting removed,
 					{
+						readyPlayerThreeButton.enabled = true;
+						removePlayerThreeButton.enabled = true;
+						addPlayerThreeButton.enabled = false;
 						m_addPlayerButtonPress = true;					//Add a player
 						m_playerThreeState = CharacterState.eJoining;	// Player three is now joining.
 					}
@@ -315,6 +361,9 @@ public class MainMenu : MonoBehaviour
 				{
 					if (m_removePlayer != true)							//As long as a player isn't currently getting removed,
 					{
+						readyPlayerFourButton.enabled = true;
+						removePlayerFourButton.enabled = true;
+						addPlayerFourButton.enabled = false;
 						m_addPlayerButtonPress = true;					//Add a player
 						m_playerFourState = CharacterState.eJoining;	// Player four is now joining.
 					}
@@ -325,6 +374,9 @@ public class MainMenu : MonoBehaviour
 				{
 					if (m_addPlayerButtonPress != true)					//As long as a player isn't currently getting added,
 					{
+						readyPlayerTwoButton.enabled = false;
+						removePlayerTwoButton.enabled = false;
+						addPlayerTwoButton.enabled = true;
 						m_removePlayer = true;                          //Remove a player
 						m_playerTwoState = CharacterState.eLeaving;		// Player two is leaving.
 					}
@@ -333,6 +385,9 @@ public class MainMenu : MonoBehaviour
 				{
 					if (m_addPlayerButtonPress != true)					//As long as a player isn't currently getting added,
 					{
+						readyPlayerThreeButton.enabled = false;
+						removePlayerThreeButton.enabled = false;
+						addPlayerThreeButton.enabled = true;
 						m_removePlayer = true;                          //Remove a player
 						m_playerThreeState = CharacterState.eLeaving;	// Player three is leaving.
 					}
@@ -341,6 +396,9 @@ public class MainMenu : MonoBehaviour
 				{
 					if (m_addPlayerButtonPress != true)					//As long as a player isn't currently getting added,
 					{
+						readyPlayerFourButton.enabled = false;
+						removePlayerFourButton.enabled = false;
+						addPlayerFourButton.enabled = true;
 						m_removePlayer = true;                          //Remove a player
 						m_playerFourState = CharacterState.eLeaving;	// Player four is leaving.
 					}
@@ -499,12 +557,12 @@ public class MainMenu : MonoBehaviour
 				if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eJoined && m_playerFourState != CharacterState.eJoined) // If only player one and two are in the game.
 				{
 					if (m_playerOneReady && m_playerTwoReady								//If all players are ready,
-						&& characterPanel.transform.position != canvas.transform.position)	//and the play button isn't already on-screen,
+						&& allPLayersReadyPanel.transform.position != canvas.transform.position)	//and the play button isn't already on-screen,
 					{
 						m_t += panelSpeed;	//Increment the panel movement timer
-						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+						allPLayersReadyPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
 
-						if (characterPanel.transform.position == canvas.transform.position)
+						if (allPLayersReadyPanel.transform.position == canvas.transform.position)
 						{
 							m_t = 0;
 							m_showPlay = true;
@@ -515,8 +573,8 @@ public class MainMenu : MonoBehaviour
 						if (!m_playerOneReady || !m_playerTwoReady)	//And one of the players unreadies,
 						{
 							m_t += panelSpeed;	//Increment the panel movement timer
-							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
-							if (characterPanel.transform.position == m_panelOffScreenBottomPos)
+							allPLayersReadyPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
+							if (allPLayersReadyPanel.transform.position == m_panelOffScreenBottomPos)
 							{
 								m_t = 0;
 								m_showPlay = false;
@@ -526,12 +584,12 @@ public class MainMenu : MonoBehaviour
 				}
 				else if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eIdle && m_playerFourState != CharacterState.eJoined) // If player one, two and three have joined without player four.
 				{
-					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && characterPanel.transform.position != canvas.transform.position)
+					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && allPLayersReadyPanel.transform.position != canvas.transform.position)
 					{
 						m_t += panelSpeed;  //Increment the panel movement timer
-						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+						allPLayersReadyPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
 
-						if (characterPanel.transform.position == canvas.transform.position)
+						if (allPLayersReadyPanel.transform.position == canvas.transform.position)
 						{
 							m_t = 0;
 							m_showPlay = true;
@@ -542,8 +600,8 @@ public class MainMenu : MonoBehaviour
 						if (!m_playerOneReady || !m_playerTwoReady || !m_playerThreeReady)  //And one of the players unreadies,
 						{
 							m_t += panelSpeed;  //Increment the panel movement timer
-							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
-							if (characterPanel.transform.position == m_panelOffScreenBottomPos)
+							allPLayersReadyPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
+							if (allPLayersReadyPanel.transform.position == m_panelOffScreenBottomPos)
 							{
 								m_t = 0;
 								m_showPlay = false;
@@ -553,12 +611,12 @@ public class MainMenu : MonoBehaviour
 				}
 				else if (m_playerTwoState != CharacterState.eIdle && m_playerThreeState != CharacterState.eIdle || m_playerThreeState != CharacterState.eJoined && m_playerFourState != CharacterState.eIdle) // If all players have joined.
 				{
-					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && m_playerFourReady && characterPanel.transform.position != canvas.transform.position)
+					if (m_playerOneReady && m_playerTwoReady && m_playerThreeReady && m_playerFourReady && allPLayersReadyPanel.transform.position != canvas.transform.position)
 					{
 						m_t += panelSpeed;  //Increment the panel movement timer
-						characterPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+						allPLayersReadyPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
 
-						if (characterPanel.transform.position == canvas.transform.position)
+						if (allPLayersReadyPanel.transform.position == canvas.transform.position)
 						{
 							m_t = 0;
 							m_showPlay = true;
@@ -569,8 +627,8 @@ public class MainMenu : MonoBehaviour
 						if (!m_playerOneReady || !m_playerTwoReady || !m_playerThreeReady || !m_playerFourReady)    //And one of the players unreadies,
 						{
 							m_t += panelSpeed;  //Increment the panel movement timer
-							characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
-							if (characterPanel.transform.position == m_panelOffScreenBottomPos)
+							allPLayersReadyPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenBottomPos, m_t); // Slowly moves the panel to the target.
+							if (allPLayersReadyPanel.transform.position == m_panelOffScreenBottomPos)
 							{
 								m_t = 0;
 								m_showPlay = false;
