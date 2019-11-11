@@ -723,6 +723,7 @@ MonoBehaviour:
   cooldown: 10
   obstacleForce: 75
   obstacleForceDuration: 0.5
+  TetheredMineAnimation: {fileID: 5820887554119264952}
 --- !u!1 &8928308244592503124
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,6 +959,12 @@ PrefabInstance:
 --- !u!4 &5820887554111800668 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6105212455693073313, guid: aafee272567ecb9448dd65da3f08a8a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 323661049309150973}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5820887554119264952 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6105212455686165573, guid: aafee272567ecb9448dd65da3f08a8a7,
     type: 3}
   m_PrefabInstance: {fileID: 323661049309150973}
   m_PrefabAsset: {fileID: 0}
