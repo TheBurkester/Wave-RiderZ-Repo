@@ -404,6 +404,11 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[19].z
       value: -2.03
       objectReference: {fileID: 0}
+    - target: {fileID: 3812862998390334542, guid: 415eea88a975e2247b36d9acd5140d34,
+        type: 3}
+      propertyPath: TetheredMineAnimation
+      value: 
+      objectReference: {fileID: 1051250262}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 415eea88a975e2247b36d9acd5140d34, type: 3}
 --- !u!114 &50833639 stripped
@@ -947,6 +952,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3615083638312712508, guid: c27f0864eb7f5524c8081d187a3553df,
     type: 3}
   m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &836667944 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8520147676838048935, guid: c65db4207dd24734e962120744ef30f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8928308244055401052}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &851524844 stripped
 MonoBehaviour:
@@ -1676,6 +1687,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7031289147563257726, guid: c27f0864eb7f5524c8081d187a3553df,
     type: 3}
   m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1051250262 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5820887554119264952, guid: c65db4207dd24734e962120744ef30f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8928308244055401052}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056967429 stripped
 GameObject:
@@ -3724,6 +3741,11 @@ PrefabInstance:
       propertyPath: riverClampForward
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3491444408453323350, guid: 337ab2b5c58c278489204c7b5de5d78d,
+        type: 3}
+      propertyPath: BeachBallAnimation
+      value: 
+      objectReference: {fileID: 836667944}
     - target: {fileID: 3491444408453323354, guid: 337ab2b5c58c278489204c7b5de5d78d,
         type: 3}
       propertyPath: m_LocalPosition.x
