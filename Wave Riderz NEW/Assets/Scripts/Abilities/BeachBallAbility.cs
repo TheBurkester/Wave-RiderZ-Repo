@@ -46,6 +46,7 @@ public class BeachBallAbility : MonoBehaviour
     public Timer abilityCooldown;		// Timer used for the cooldown.
  
     public Rigidbody planeRB = null;	//Reference to the plane rigidbody
+    public Animator BeachBallAnimation;
 
 
     void Awake()
@@ -103,9 +104,13 @@ public class BeachBallAbility : MonoBehaviour
         if (!m_isShooting && m_targetMesh.enabled)
         {
 			Vector3 currentPosition = m_newPosition;
+            //Animates the plane doors opening
+            BeachBallAnimation.SetBool("IsAiming", true);
+            BeachBallAnimation.SetBool("IsShooting", false);
+            Debug.Log(BeachBallAnimation.tag);
 
-			//Xbox movement
-			m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
+            //Xbox movement
+            m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
 			m_newPosition.z += (axisY * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position up/down
 
 			//Keyboard movement
@@ -130,7 +135,10 @@ public class BeachBallAbility : MonoBehaviour
 
         if (Input.GetKey(Shoot) && m_targetMesh.enabled)
         {
-			ToggleIsShooting(true);
+            //Animates the beachbomb firing
+           
+
+            ToggleIsShooting(true);
 			ShootBall(); // Shoots the beachball.
 			ToggleMeshEnable(true);
             abilityCooldown.SetTimer(); // Resets cooldown.
@@ -172,8 +180,10 @@ public class BeachBallAbility : MonoBehaviour
         GameObject BeachBall = ObjectPool.sharedInstance.GetPooledObject("Beach Ball");
         if (BeachBall != null)
         {
+            BeachBallAnimation.SetBool("IsShooting", true);
+            BeachBallAnimation.SetBool("IsAiming", false);
             // Landing position travels with the plane. Also keeps the ball from spawning within the camera's view.
-            Vector3 v3LandingPos = m_targetRB.position + new Vector3(0, 20, m_targetPlaneRelation * Time.deltaTime);
+            Vector3 v3LandingPos = m_targetRB.position + new Vector3(0, 30, m_targetPlaneRelation * Time.deltaTime);
             BeachBall.transform.position = v3LandingPos;
 
             Rigidbody rb = BeachBall.GetComponent<Rigidbody>();

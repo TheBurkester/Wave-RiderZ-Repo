@@ -30,6 +30,7 @@ public class TetheredMineAbility : MonoBehaviour
 
     public float obstacleForce = 75;           //How much sidewards force is applied when hitting an obstacle
     public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
+    public Animator TetheredMineAnimation;
 
     private void Awake()
     {
@@ -58,17 +59,23 @@ public class TetheredMineAbility : MonoBehaviour
 
 		if ((1.0f - LT) < 0.1f && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
 		{
-			m_mineTether.ResetVelocity();
+            TetheredMineAnimation.SetBool("IsDoorOpen", true);
+            m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
-			mineRB.gameObject.SetActive(true);
+            
+            mineRB.gameObject.SetActive(true);
 			m_isUsingAbility = true;
+            
 		}
         if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
         {
+            
+            TetheredMineAnimation.SetBool("IsDoorOpen", true);
 			m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
             mineRB.gameObject.SetActive(true);
             m_isUsingAbility = true;
+           
         }
         
         if (m_isUsingAbility)
