@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 077c92021f4bce2479fc7a681e612833
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Handle_1_v01:HandleMesh
+    100002: Skin_1_Axel_v02:back
+    100004: Skin_1_Axel_v02:Controls
+    100006: Skin_1_Axel_v02:CTRL_Back
+    100008: Skin_1_Axel_v02:CTRL_Head
+    100010: Skin_1_Axel_v02:CTRL_LElbow
+    100012: Skin_1_Axel_v02:CTRL_LFoot
+    100014: Skin_1_Axel_v02:CTRL_LHand
+    100016: Skin_1_Axel_v02:CTRL_LKnee
+    100018: Skin_1_Axel_v02:CTRL_Neck
+    100020: Skin_1_Axel_v02:CTRL_Pelvis
+    100022: Skin_1_Axel_v02:CTRL_RElbow
+    100024: Skin_1_Axel_v02:CTRL_RFoot
+    100026: Skin_1_Axel_v02:CTRL_RHand
+    100028: Skin_1_Axel_v02:CTRL_RKnee
+    100030: Skin_1_Axel_v02:CTRL_Waist
+    100032: Skin_1_Axel_v02:IK_LArm
+    100034: Skin_1_Axel_v02:IK_LLeg
+    100036: Skin_1_Axel_v02:IK_RArm
+    100038: Skin_1_Axel_v02:IK_RLeg
+    100040: Skin_1_Axel_v02:JNT_Back
+    100042: Skin_1_Axel_v02:JNT_Face
+    100044: Skin_1_Axel_v02:JNT_Head
+    100046: Skin_1_Axel_v02:JNT_Jaw
+    100048: Skin_1_Axel_v02:JNT_LClavicle
+    100050: Skin_1_Axel_v02:JNT_LElbow
+    100052: Skin_1_Axel_v02:JNT_LFingers
+    100054: Skin_1_Axel_v02:JNT_LFoot
+    100056: Skin_1_Axel_v02:JNT_LHand
+    100058: Skin_1_Axel_v02:JNT_LHip
+    100060: Skin_1_Axel_v02:JNT_LKnee
+    100062: Skin_1_Axel_v02:JNT_LShoulder
+    100064: Skin_1_Axel_v02:JNT_LToes
+    100066: Skin_1_Axel_v02:JNT_Neck
+    100068: Skin_1_Axel_v02:JNT_Pelvis
+    100070: Skin_1_Axel_v02:JNT_RClavicle
+    100072: Skin_1_Axel_v02:JNT_RElbow
+    100074: Skin_1_Axel_v02:JNT_RFingers
+    100076: Skin_1_Axel_v02:JNT_RFoot
+    100078: Skin_1_Axel_v02:JNT_RHand
+    100080: Skin_1_Axel_v02:JNT_RHip
+    100082: Skin_1_Axel_v02:JNT_RKnee
+    100084: Skin_1_Axel_v02:JNT_RShoulder
+    100086: Skin_1_Axel_v02:JNT_RToes
+    100088: Skin_1_Axel_v02:JNT_Waist
+    100090: Skin_1_Axel_v02:MeshAxel
+    100092: Skin_1_Axel_v02:ROOT
+    100094: Skin_1_Axel_v02:Skeleton
+    100096: Wakeboard_1_v01:WakeboardMesh
+    100098: //RootNode
+    400000: Handle_1_v01:HandleMesh
+    400002: Skin_1_Axel_v02:back
+    400004: Skin_1_Axel_v02:Controls
+    400006: Skin_1_Axel_v02:CTRL_Back
+    400008: Skin_1_Axel_v02:CTRL_Head
+    400010: Skin_1_Axel_v02:CTRL_LElbow
+    400012: Skin_1_Axel_v02:CTRL_LFoot
+    400014: Skin_1_Axel_v02:CTRL_LHand
+    400016: Skin_1_Axel_v02:CTRL_LKnee
+    400018: Skin_1_Axel_v02:CTRL_Neck
+    400020: Skin_1_Axel_v02:CTRL_Pelvis
+    400022: Skin_1_Axel_v02:CTRL_RElbow
+    400024: Skin_1_Axel_v02:CTRL_RFoot
+    400026: Skin_1_Axel_v02:CTRL_RHand
+    400028: Skin_1_Axel_v02:CTRL_RKnee
+    400030: Skin_1_Axel_v02:CTRL_Waist
+    400032: Skin_1_Axel_v02:IK_LArm
+    400034: Skin_1_Axel_v02:IK_LLeg
+    400036: Skin_1_Axel_v02:IK_RArm
+    400038: Skin_1_Axel_v02:IK_RLeg
+    400040: Skin_1_Axel_v02:JNT_Back
+    400042: Skin_1_Axel_v02:JNT_Face
+    400044: Skin_1_Axel_v02:JNT_Head
+    400046: Skin_1_Axel_v02:JNT_Jaw
+    400048: Skin_1_Axel_v02:JNT_LClavicle
+    400050: Skin_1_Axel_v02:JNT_LElbow
+    400052: Skin_1_Axel_v02:JNT_LFingers
+    400054: Skin_1_Axel_v02:JNT_LFoot
+    400056: Skin_1_Axel_v02:JNT_LHand
+    400058: Skin_1_Axel_v02:JNT_LHip
+    400060: Skin_1_Axel_v02:JNT_LKnee
+    400062: Skin_1_Axel_v02:JNT_LShoulder
+    400064: Skin_1_Axel_v02:JNT_LToes
+    400066: Skin_1_Axel_v02:JNT_Neck
+    400068: Skin_1_Axel_v02:JNT_Pelvis
+    400070: Skin_1_Axel_v02:JNT_RClavicle
+    400072: Skin_1_Axel_v02:JNT_RElbow
+    400074: Skin_1_Axel_v02:JNT_RFingers
+    400076: Skin_1_Axel_v02:JNT_RFoot
+    400078: Skin_1_Axel_v02:JNT_RHand
+    400080: Skin_1_Axel_v02:JNT_RHip
+    400082: Skin_1_Axel_v02:JNT_RKnee
+    400084: Skin_1_Axel_v02:JNT_RShoulder
+    400086: Skin_1_Axel_v02:JNT_RToes
+    400088: Skin_1_Axel_v02:JNT_Waist
+    400090: Skin_1_Axel_v02:MeshAxel
+    400092: Skin_1_Axel_v02:ROOT
+    400094: Skin_1_Axel_v02:Skeleton
+    400096: Wakeboard_1_v01:WakeboardMesh
+    400098: //RootNode
+    2000000: Skin_1_Axel_v02:back
+    2100000: Skin_1_Axel_v02_lambert2
+    2100002: Skin_1_Axel_v02_lambert3
+    2100004: Wakeboard_1_v01_lambert1
+    2100006: Handle_1_v01_lambert1
+    2300000: Handle_1_v01:HandleMesh
+    2300002: Wakeboard_1_v01:WakeboardMesh
+    3300000: Handle_1_v01:HandleMesh
+    3300002: Wakeboard_1_v01:WakeboardMesh
+    4300000: Skin_1_Axel_v02:MeshAxel
+    4300002: Wakeboard_1_v01:WakeboardMesh
+    4300004: Handle_1_v01:HandleMesh
+    7400000: Wipeout_1_V2
+    9500000: //RootNode
+    13700000: Skin_1_Axel_v02:MeshAxel
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

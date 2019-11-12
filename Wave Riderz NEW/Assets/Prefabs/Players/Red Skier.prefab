@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4179917107278278889}
   - component: {fileID: 4179917107278278894}
   - component: {fileID: 4408586461628728277}
+  - component: {fileID: 1054157484827550198}
   m_Layer: 0
   m_Name: Red Skier
   m_TagString: Skier
@@ -46,7 +47,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4179917107252545443}
-  m_Mesh: {fileID: 4300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
+  m_Mesh: {fileID: 4300000, guid: ad58582737ec264428b99545ef2a4386, type: 3}
 --- !u!23 &4179917107254745443
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,6 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
   - {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -185,6 +187,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 1.0745914, z: 1.2}
   m_Center: {x: 0.05, y: 0.5353173, z: 0}
+--- !u!95 &1054157484827550198
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179917107252545443}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: ad58582737ec264428b99545ef2a4386, type: 3}
+  m_Controller: {fileID: 9100000, guid: dff19368435714e4fa1394cf5c3fe7cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4179917108658340393
 GameObject:
   m_ObjectHideFlags: 0

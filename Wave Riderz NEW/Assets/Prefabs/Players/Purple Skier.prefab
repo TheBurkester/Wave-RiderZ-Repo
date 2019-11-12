@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 798391617790647765}
   - component: {fileID: 798391617790647766}
   - component: {fileID: 4582036941921092584}
+  - component: {fileID: 5894835025428484268}
   m_Layer: 0
   m_Name: Purple Skier
   m_TagString: Skier
@@ -236,7 +237,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798391616984113312}
-  m_Mesh: {fileID: 4300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
+  m_Mesh: {fileID: 4300000, guid: adcf32243c1ae20459ab5eb2e3793d15, type: 3}
 --- !u!23 &798391616982122080
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -375,6 +376,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 1.0745914, z: 1.2}
   m_Center: {x: 0.05, y: 0.5353173, z: 0}
+--- !u!95 &5894835025428484268
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798391616984113312}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: adcf32243c1ae20459ab5eb2e3793d15, type: 3}
+  m_Controller: {fileID: 9100000, guid: dff19368435714e4fa1394cf5c3fe7cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7523529533326590415
 PrefabInstance:
   m_ObjectHideFlags: 0

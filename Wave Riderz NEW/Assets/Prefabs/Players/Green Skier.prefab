@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6551537828939484217}
   - component: {fileID: 6942492563686094267}
   - component: {fileID: 6942492563686094264}
+  - component: {fileID: 1292070677629662070}
   m_Layer: 0
   m_Name: Green Skier
   m_TagString: Skier
@@ -46,7 +47,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6942492564544231776}
-  m_Mesh: {fileID: 4300000, guid: 639b0eb5d9f0d194095e1eace548e009, type: 3}
+  m_Mesh: {fileID: 4300000, guid: c46c954118a72ad40b334492acd42b5e, type: 3}
 --- !u!23 &6942492564542031776
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -185,6 +186,25 @@ MonoBehaviour:
   velocityCapZ: 2.5
   resistanceX: 1.15
   resistanceZ: 1.15
+--- !u!95 &1292070677629662070
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6942492564544231776}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c46c954118a72ad40b334492acd42b5e, type: 3}
+  m_Controller: {fileID: 9100000, guid: dff19368435714e4fa1394cf5c3fe7cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6942492564683872184
 GameObject:
   m_ObjectHideFlags: 0
