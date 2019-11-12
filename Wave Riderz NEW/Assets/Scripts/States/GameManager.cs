@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
 	public Text multiplierOrange = null;
 	public Image beachBombAbility = null;
 	public Image tetheredMineAbility = null;
+	public Image beachBombController = null;
 	//public Text beachBombAbility = null;            //Reference to the cooldown timer text
 	//public Text tetheredMineAbility = null;			// Reference to the cooldown timer text.
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
@@ -762,6 +763,11 @@ public class GameManager : MonoBehaviour
 
 				beachBombAbility.fillAmount = target.abilityCooldown.T / target.abilityCooldown.maxTime;
 				tetheredMineAbility.fillAmount = planeHatch.mineAbilityCooldown.T / planeHatch.mineAbilityCooldown.maxTime;
+
+				if (beachBombAbility.fillAmount == 1)
+					beachBombController.enabled = true;
+				else
+					beachBombController.enabled = false;
 				//beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();   //Display the beach bomb ability cooldown timer
 				//tetheredMineAbility.text = ((int)Math.Ceiling(planeHatch.mineAbilityCooldown.T)).ToString(); // Display the mine ability cooldown timer.
 				

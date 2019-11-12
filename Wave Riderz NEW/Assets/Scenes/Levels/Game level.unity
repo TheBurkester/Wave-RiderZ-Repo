@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -566,6 +566,7 @@ MonoBehaviour:
   multiplierOrange: {fileID: 505447927}
   beachBombAbility: {fileID: 190007157}
   tetheredMineAbility: {fileID: 459213122}
+  beachBombController: {fileID: 1968474654}
   roundOverPanel: {fileID: 717928791}
   bonus: {fileID: 2090130789}
 --- !u!4 &300776889
@@ -2850,8 +2851,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 2861252957644217104, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000038146973
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27f0864eb7f5524c8081d187a3553df, type: 3}
+--- !u!114 &1968474654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4440374554912525913, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1968474659 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8295441261418205958, guid: c27f0864eb7f5524c8081d187a3553df,
