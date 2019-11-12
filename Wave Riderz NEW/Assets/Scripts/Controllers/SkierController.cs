@@ -151,11 +151,13 @@ public class SkierController : MonoBehaviour
 					otherTether.ForceOverTime(totalBonkForce, bonkForceDuration);							//Apply the final force to the other skier
 					tether.ReduceVelocity(2);																//Reduce the velocity of this skier
 					other.GetComponent<SkierController>().bonkResolved = true;		//For this frame, set the collision as resolved
+                    AudioManager.Play("Bonk3"); // plays bonk sound effect 
 				}
 			}
 
 			if (other.CompareTag("Coin"))   //If the other object is a coin,
-				m_score += coinScore;		//Add a coin's worth of points to the score
+				m_score += coinScore;       //Add a coin's worth of points to the score
+            
 
 			if (other.CompareTag("Rock"))   //If the other object is a rock,
 				HurtSkier();                //Hurt the skier

@@ -73,7 +73,8 @@ public class PlaneController : MonoBehaviour
 
 	private void Start()
 	{
-		m_movementTimer = gameObject.AddComponent<Timer>();		//Create the timer
+        AudioManager.Play("PlaneAudio"); 
+        m_movementTimer = gameObject.AddComponent<Timer>();		//Create the timer
 		m_movementTimer.maxTime = swingMoveTimeRequirement;		//Set the max time
 		m_movementTimer.autoDisable = true;                     //Make the timer stop when it's reached max
 	}
@@ -83,7 +84,7 @@ public class PlaneController : MonoBehaviour
 		Vector3 newPos = rb.position + new Vector3(0, 0, forwardSpeed * Time.deltaTime);	//New position is the current position moved forward slightly
 
 		//Controller movement
-        float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);			//Get the direction and magnitude of the controller stick
+        float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);			//Get the direction and magnitude of the controller stick 
         newPos.x += (axisX * strafeSpeed * Time.deltaTime);                 //Move the plane in that direction and with that % magnitude (0-1)
 
 		//Skier swinging
