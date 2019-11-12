@@ -346,8 +346,6 @@ public class MainMenu : MonoBehaviour
 						//m_t2 = 0;
 						playerNumber = 0;
 
-						splashPanel.GetComponentInChildren<Button>().enabled = true;
-
 						m_returningToMenu = false;
 						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
 						
@@ -725,7 +723,6 @@ public class MainMenu : MonoBehaviour
 					if (splashPanel.transform.position == canvas.transform.position && controlsPanel.transform.position == m_panelOffScreenTopPos)
 					{
 						m_t = 0;    // Reset panel timer.
-						splashPanel.GetComponentInChildren<Button>().enabled = true;
 						m_returningToMenu = false;
 						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
 					}
@@ -749,7 +746,6 @@ public class MainMenu : MonoBehaviour
 					if (splashPanel.transform.position == canvas.transform.position && creditsPanel.transform.position == m_panelOffScreenTopPos)
 					{
 						m_t = 0;
-						splashPanel.GetComponentInChildren<Button>().enabled = true;
 						m_returningToMenu = false;
 						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
 					}
@@ -806,19 +802,16 @@ public class MainMenu : MonoBehaviour
 	public void playButtonPress()
 	{
 		m_playButtonPress = true;
-		splashPanel.GetComponentInChildren<Button>().enabled = false;
 	}
 
 	public void controlsButtonPress()
 	{
 		m_controlsButtonPress = true;
-		splashPanel.GetComponentInChildren<Button>().enabled = false;
 	}
 
 	public void creditsButtonPress()
 	{
 		m_creditsButtonPress = true;
-		splashPanel.GetComponentInChildren<Button>().enabled = false;
 	}
 
 	public void quitButtonPress()
