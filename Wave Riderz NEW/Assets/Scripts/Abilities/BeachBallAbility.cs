@@ -108,7 +108,7 @@ public class BeachBallAbility : MonoBehaviour
             BeachBallAnimation.SetBool("IsAiming", true);
             BeachBallAnimation.SetBool("IsShooting", false);
            
-            AudioManager.Play("BeachBallFired");
+            
             //AudioManager.Play("BeachBombExplosion");
 
             //Xbox movement
@@ -191,8 +191,9 @@ public class BeachBallAbility : MonoBehaviour
             Rigidbody rb = BeachBall.GetComponent<Rigidbody>();
             rb.velocity = new Vector3(0, -downwardSpeed, m_targetPlaneRelation - 0.8f); // Keeps the velocity inline with the plane's movement forward.
             BeachBall.SetActive(true);
+            AudioManager.Play("BeachBallFired");
 
-		}
+        }
     }
 
 	public bool isShotting()
