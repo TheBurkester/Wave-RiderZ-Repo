@@ -45,7 +45,10 @@ public class BeachBallAbility : MonoBehaviour
 	[HideInInspector]
     public Timer abilityCooldown;		// Timer used for the cooldown.
     private bool m_abilityReady = false;
- 
+
+	[HideInInspector]
+	public bool isAiming = false;
+
     public Rigidbody planeRB = null;	//Reference to the plane rigidbody
     public Animator BeachBallAnimation;
 
@@ -153,6 +156,7 @@ public class BeachBallAbility : MonoBehaviour
 			ShootBall(); // Shoots the beachball.
 			ToggleMeshEnable(true);
             abilityCooldown.SetTimer(); // Resets cooldown.
+			isAiming = false;
         }
       
       
@@ -168,9 +172,15 @@ public class BeachBallAbility : MonoBehaviour
 		if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !abilityCooldown.UnderMax())	//If the right bumper is pressed,
         {
 			if (m_targetMesh.enabled == false)  //If the target is off,
+			{
 				m_targetMesh.enabled = true;    //Turn it on
+				isAiming = true;
+			}
 			else                                //If the target is on,
+			{
 				m_targetMesh.enabled = false;   //Turn it off
+				isAiming = false;
+			}
 		}
 
 		if (m_isShooting)					//If the ability is currently shooting,

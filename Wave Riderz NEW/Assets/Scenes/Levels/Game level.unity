@@ -339,7 +339,9 @@ MonoBehaviour:
   multiplierOrange: {fileID: 505447927}
   beachBombAbility: {fileID: 190007157}
   tetheredMineAbility: {fileID: 459213122}
-  beachBombController: {fileID: 1968474654}
+  beachBombControllerAim: {fileID: 1968474654}
+  beachBombControllerShoot: {fileID: 1968474656}
+  tetheredMineController: {fileID: 1968474655}
   roundOverPanel: {fileID: 717928791}
   bonus: {fileID: 2090130789}
   axolotlPlaneTexture: {fileID: 2800000, guid: b3ff0afa9fe077944a2d2e5b03a367b5, type: 3}
@@ -2635,6 +2637,30 @@ PrefabInstance:
 --- !u!114 &1968474654 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4440374554912525913, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3773820530855612157, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474656 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6742912096312617739, guid: c27f0864eb7f5524c8081d187a3553df,
     type: 3}
   m_PrefabInstance: {fileID: 1968474653}
   m_PrefabAsset: {fileID: 0}
