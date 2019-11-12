@@ -47,7 +47,8 @@ public class Mine : MonoBehaviour
                 // animation for the door 
             TetheredMineAnimation.SetBool("IsDoorClosed", true);
             TetheredMineAnimation.SetBool("IsDoorOpen", false);
-        
+            // Hatch Close Door sound
+            AudioManager.Play("TetherObs&BBHatchDoorClosed");
 
 
 

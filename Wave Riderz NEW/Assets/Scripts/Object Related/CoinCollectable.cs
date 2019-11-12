@@ -25,8 +25,11 @@ public class CoinCollectable : MonoBehaviour
 		{
 			SkierController skier = collider.gameObject.GetComponent<SkierController>();
 
-			if (!skier.isInvincible())
-				gameObject.GetComponent<Renderer>().enabled = false;    //Stop rendering the coin
+            if (!skier.isInvincible())
+            {
+                gameObject.GetComponent<Renderer>().enabled = false;    //Stop rendering the coin
+                AudioManager.Play("CoinCollected"); // plays coin sound effect 
+            }
 		}
     }
 }
