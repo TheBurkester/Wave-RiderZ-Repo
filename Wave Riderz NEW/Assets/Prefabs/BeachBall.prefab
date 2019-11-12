@@ -62,8 +62,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df53b3832b60f1849b7ea72482bd49e2, type: 3}
-  - {fileID: 2100002, guid: df53b3832b60f1849b7ea72482bd49e2, type: 3}
+  - {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
+  - {fileID: 2100000, guid: 8f21e74bfff100045ba0372804aeb254, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b29c44ce6d62694fa320cf6ee0d17d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freezeAmount: 0.05
+  freezeFrames: 20
   explosionPrefab: {fileID: 1332101522959151437, guid: 28afa15eeda01f3499c22158dc73302c,
     type: 3}
 --- !u!1 &8705405139963488995
