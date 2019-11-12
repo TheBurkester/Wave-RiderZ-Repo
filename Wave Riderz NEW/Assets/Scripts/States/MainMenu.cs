@@ -52,33 +52,37 @@ public class MainMenu : MonoBehaviour
 	public Image notReadyPlayerTwoImage;
 	public Image notReadyPlayerThreeImage;
 	public Image notReadyPlayerFourImage;
+	public Image redColour;
+	public Image greenColour;
+	public Image purpleColour;
+	public Image orangeColour;
 
 	//Positions of the blocks behind skiers in character select
-	public Transform playerOneBlock;
-	public Transform playerTwoBlock;
-	public Transform playerThreeBlock;
-	public Transform playerFourBlock;
+	//public Transform playerOneBlock;
+	//public Transform playerTwoBlock;
+	//public Transform playerThreeBlock;
+	//public Transform playerFourBlock;
 	//Lights to turn on when the corresponding skier is ready
-    public Light readyLightPlayerOne;
-	public Light readyLightPlayerTwo;
-    public Light readyLightPlayerThree;
-    public Light readyLightPlayerFour;
+ //   public Light readyLightPlayerOne;
+//public Light readyLightPlayerTwo;
+ //   public Light readyLightPlayerThree;
+ //   public Light readyLightPlayerFour;
 	// All off-screen positions.
 	private Vector3 m_panelOffScreenBottomPos;
 	private Vector3 m_panelOffScreenTopPos;
-	private Vector3 m_playerOffScreenLeft;
-	private Vector3 m_playerOffScreenRight;
+	//private Vector3 m_playerOffScreenLeft;
+	//private Vector3 m_playerOffScreenRight;
 	// All player positions whilst in view of the camera.
-	private Vector3 m_playerOnePos;
-	private Vector3 m_playerTwoPos;
-	private Vector3 m_playerThreePos;
-	private Vector3 m_playerFourPos;
+	//private Vector3 m_playerOnePos;
+	//private Vector3 m_playerTwoPos;
+	//private Vector3 m_playerThreePos;
+	//private Vector3 m_playerFourPos;
 	//-------------------------------------------------------------------------
 
 	//UI-related variables
 	public float panelSpeed = 40;					// How quickly the panels will shift.
     private float m_t = 0;							// Timer which increases via the panelSpeed.
-	private float m_t2 = 0;							// Second timer for ONLY players.
+	//private float m_t2 = 0;							// Second timer for ONLY players.
 	private bool m_playButtonPress = false;         // Has the play button been selected?
 	private bool m_controlsButtonPress = false;		// Has the controls button been selected?
 	private bool m_creditsButtonPress = false;      // Has the credits button been selected?
@@ -120,15 +124,15 @@ public class MainMenu : MonoBehaviour
 
 	void Awake()
     {
-		m_playerOnePos = new Vector3(-3, 12, 3);	// Target position to place player one.
-		m_playerTwoPos = new Vector3(3, 12, 3);		// Target position to place player two.
-		m_playerThreePos = new Vector3(-3, 9, 3);	// Target position to place player three.
-		m_playerFourPos = new Vector3(3, 9, 3);		// Target position to place player four.
+		//m_playerOnePos = new Vector3(-3, 12, 3);	// Target position to place player one.
+		//m_playerTwoPos = new Vector3(3, 12, 3);		// Target position to place player two.
+		//m_playerThreePos = new Vector3(-3, 9, 3);	// Target position to place player three.
+		//m_playerFourPos = new Vector3(3, 9, 3);		// Target position to place player four.
 
 		m_panelOffScreenBottomPos = new Vector3(splashPanel.transform.position.x, -900, splashPanel.transform.position.z); // Bottom position for moving onto the canvas.
 		m_panelOffScreenTopPos = new Vector3(splashPanel.transform.position.x, 1800, splashPanel.transform.position.z); // Top position for moving off the canvas.
-		m_playerOffScreenLeft = new Vector3(-30, 10, 3); // Offset position outside of the camera view towards the left.
-		m_playerOffScreenRight = new Vector3(30, 10, 3); // Offset position outside of the camera view towards the right.
+		//m_playerOffScreenLeft = new Vector3(-30, 10, 3); // Offset position outside of the camera view towards the left.
+		//m_playerOffScreenRight = new Vector3(30, 10, 3); // Offset position outside of the camera view towards the right.
 		splashPanel.transform.position = canvas.transform.position; // Ensures that the splash starts within the canvas.
 		characterPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the character panel starts at the bottom.
 		allPLayersReadyPanel.transform.position = m_panelOffScreenBottomPos;
@@ -136,15 +140,15 @@ public class MainMenu : MonoBehaviour
 		creditsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the credits panel starts at the bottom.
 		quitPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the quit panel starts at the bottom.
 
-		readyLightPlayerOne.transform.position = new Vector3(-3, 12, 0);
-		readyLightPlayerTwo.transform.position = new Vector3(3, 12, 0);
-		readyLightPlayerThree.transform.position = new Vector3(-3, 9, 0);
-		readyLightPlayerFour.transform.position = new Vector3(3, 9, 0);
+		//readyLightPlayerOne.transform.position = new Vector3(-3, 12, 0);
+		//readyLightPlayerTwo.transform.position = new Vector3(3, 12, 0);
+		//readyLightPlayerThree.transform.position = new Vector3(-3, 9, 0);
+		//readyLightPlayerFour.transform.position = new Vector3(3, 9, 0);
 
-		readyLightPlayerOne.enabled = false;
-		readyLightPlayerTwo.enabled = false;
-		readyLightPlayerThree.enabled = false;
-		readyLightPlayerFour.enabled = false;
+		//readyLightPlayerOne.enabled = false;
+		//readyLightPlayerTwo.enabled = false;
+		//readyLightPlayerThree.enabled = false;
+		//readyLightPlayerFour.enabled = false;
 
 		addPlayerOneImage.enabled = true;
 		addPlayerTwoImage.enabled = true;
@@ -161,17 +165,22 @@ public class MainMenu : MonoBehaviour
 		notReadyPlayerThreeImage.enabled = false;
 		notReadyPlayerFourImage.enabled = false;
 
-		if (playerOneBlock != null)
-			playerOneBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the left of the camera.
+		redColour.enabled = false;
+		greenColour.enabled = false;
+		purpleColour.enabled = false;
+		orangeColour.enabled = false;
 
-		if (playerTwoBlock != null)
-			playerTwoBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
+		//if (playerOneBlock != null)
+		//	playerOneBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the left of the camera.
 
-		if (playerThreeBlock != null)
-			playerThreeBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the right of the camera.
+		//if (playerTwoBlock != null)
+		//	playerTwoBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
 
-		if (playerFourBlock != null)
-			playerFourBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
+		//if (playerThreeBlock != null)
+		//	playerThreeBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the right of the camera.
+
+		//if (playerFourBlock != null)
+		//	playerFourBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
 
 		playerNumber = 0;
 	}
@@ -284,16 +293,16 @@ public class MainMenu : MonoBehaviour
 				if (m_returningToMenu)
 				{
 					m_playerOneReady = false;
-					readyLightPlayerOne.enabled = false;
+					//readyLightPlayerOne.enabled = false;
 					m_playerOneState = CharacterState.eIdle;
 					m_playerTwoReady = false;
-					readyLightPlayerTwo.enabled = false;
+					//readyLightPlayerTwo.enabled = false;
 					m_playerTwoState = CharacterState.eIdle;
 					m_playerThreeReady = false;
-					readyLightPlayerThree.enabled = false;
+					//readyLightPlayerThree.enabled = false;
 					m_playerThreeState = CharacterState.eIdle;
 					m_playerFourReady = false;
-					readyLightPlayerFour.enabled = false;
+					//readyLightPlayerFour.enabled = false;
 					m_playerFourState = CharacterState.eIdle;
 
 					readyPlayerOneImage.enabled = false;
@@ -306,8 +315,13 @@ public class MainMenu : MonoBehaviour
 					notReadyPlayerThreeImage.enabled = false;
 					notReadyPlayerFourImage.enabled = false;
 
+					redColour.enabled = false;
+					greenColour.enabled = false;
+					purpleColour.enabled = false;
+					orangeColour.enabled = false;
+
 					m_t += panelSpeed;
-					m_t2 += panelSpeed * Time.deltaTime;
+					//m_t2 += panelSpeed * Time.deltaTime;
 
 					if (allPLayersReadyPanel.transform.position != m_panelOffScreenTopPos && allPLayersReadyPanel.transform.position != m_panelOffScreenBottomPos)
 						allPLayersReadyPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
@@ -315,30 +329,28 @@ public class MainMenu : MonoBehaviour
 					if (characterPanel.transform.position != m_panelOffScreenTopPos && characterPanel.transform.position != m_panelOffScreenBottomPos)
 						characterPanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenTopPos, m_t); // Slowly moves the position to the target.
 
-					if (playerOneBlock.transform.position != m_playerOffScreenLeft)
-						playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOnePos, m_playerOffScreenLeft, m_t2);
-					if (playerTwoBlock.transform.position != m_playerOffScreenRight)
-						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerTwoPos, m_playerOffScreenRight, m_t2);
-					if (playerThreeBlock.transform.position != m_playerOffScreenLeft)
-						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerThreePos, m_playerOffScreenLeft, m_t2);
-					if (playerFourBlock.transform.position != m_playerOffScreenRight)
-						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerFourPos, m_playerOffScreenRight, m_t2);
+					//if (playerOneBlock.transform.position != m_playerOffScreenLeft)
+					//	playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOnePos, m_playerOffScreenLeft, m_t2);
+					//if (playerTwoBlock.transform.position != m_playerOffScreenRight)
+					//	playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerTwoPos, m_playerOffScreenRight, m_t2);
+					//if (playerThreeBlock.transform.position != m_playerOffScreenLeft)
+					//	playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerThreePos, m_playerOffScreenLeft, m_t2);
+					//if (playerFourBlock.transform.position != m_playerOffScreenRight)
+					//	playerFourBlock.transform.position = Vector3.MoveTowards(m_playerFourPos, m_playerOffScreenRight, m_t2);
 
 					splashPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t);
 
 					if (splashPanel.transform.position == canvas.transform.position && (characterPanel.transform.position == m_panelOffScreenBottomPos || characterPanel.transform.position == m_panelOffScreenTopPos) && (allPLayersReadyPanel.transform.position == m_panelOffScreenBottomPos || allPLayersReadyPanel.transform.position == m_panelOffScreenTopPos))
 					{
-						if (playerOneBlock.transform.position == m_playerOffScreenLeft && playerTwoBlock.transform.position == m_playerOffScreenRight)
-						{
-							m_t = 0;    // Reset panel timer.
-							m_t2 = 0;
-							playerNumber = 0;
+						m_t = 0;    // Reset panel timer.
+						//m_t2 = 0;
+						playerNumber = 0;
 
-							splashPanel.GetComponentInChildren<Button>().enabled = true;
+						splashPanel.GetComponentInChildren<Button>().enabled = true;
 
-							m_returningToMenu = false;
-							m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
-						}
+						m_returningToMenu = false;
+						m_eCurrentState = PanelState.eSplashScreen; // Change state to the splash screen.
+						
 					}
 				}
 
@@ -349,6 +361,7 @@ public class MainMenu : MonoBehaviour
 					{
 						notReadyPlayerOneImage.enabled = true;
 						addPlayerOneImage.enabled = false;
+						redColour.enabled = true;
 						m_addPlayerButtonPress = true;                  //Add a player
 						m_playerOneState = CharacterState.eJoining;     // Player one is now joining.
 					}
@@ -359,6 +372,7 @@ public class MainMenu : MonoBehaviour
 					{
 						notReadyPlayerTwoImage.enabled = true;
 						addPlayerTwoImage.enabled = false;
+						greenColour.enabled = true;
 						m_addPlayerButtonPress = true;					//Add a player
 						m_playerTwoState = CharacterState.eJoining;		// Player two is now joining.
 					}
@@ -369,6 +383,7 @@ public class MainMenu : MonoBehaviour
 					{
 						notReadyPlayerThreeImage.enabled = true;
 						addPlayerThreeImage.enabled = false;
+						purpleColour.enabled = true;
 						m_addPlayerButtonPress = true;					//Add a player
 						m_playerThreeState = CharacterState.eJoining;	// Player three is now joining.
 					}
@@ -379,6 +394,7 @@ public class MainMenu : MonoBehaviour
 					{
 						notReadyPlayerFourImage.enabled = true;
 						addPlayerFourImage.enabled = false;
+						orangeColour.enabled = true;
 						m_addPlayerButtonPress = true;					//Add a player
 						m_playerFourState = CharacterState.eJoining;	// Player four is now joining.
 					}
@@ -392,6 +408,7 @@ public class MainMenu : MonoBehaviour
 						notReadyPlayerOneImage.enabled = false;
 						readyPlayerOneImage.enabled = false;
 						addPlayerOneImage.enabled = true;
+						redColour.enabled = false;
 						m_removePlayer = true;                          //Remove a player
 						m_playerOneState = CharacterState.eLeaving;     // Player one is leaving.
 					}
@@ -403,6 +420,7 @@ public class MainMenu : MonoBehaviour
 						notReadyPlayerTwoImage.enabled = false;
 						readyPlayerTwoImage.enabled = false;
 						addPlayerTwoImage.enabled = true;
+						greenColour.enabled = false;
 						m_removePlayer = true;                          //Remove a player
 						m_playerTwoState = CharacterState.eLeaving;		// Player two is leaving.
 					}
@@ -414,6 +432,7 @@ public class MainMenu : MonoBehaviour
 						notReadyPlayerThreeImage.enabled = false;
 						readyPlayerThreeImage.enabled = false;
 						addPlayerThreeImage.enabled = true;
+						purpleColour.enabled = false;
 						m_removePlayer = true;                          //Remove a player
 						m_playerThreeState = CharacterState.eLeaving;	// Player three is leaving.
 					}
@@ -425,6 +444,7 @@ public class MainMenu : MonoBehaviour
 						notReadyPlayerFourImage.enabled = false;
 						readyPlayerFourImage.enabled = false;
 						addPlayerFourImage.enabled = true;
+						orangeColour.enabled = false;
 						m_removePlayer = true;                          //Remove a player
 						m_playerFourState = CharacterState.eLeaving;	// Player four is leaving.
 					}
@@ -433,111 +453,95 @@ public class MainMenu : MonoBehaviour
 				//Adding and moving players
 				if (m_addPlayerButtonPress)
 				{
-					m_t2 += panelSpeed * Time.deltaTime; //Increment the player moving timer
+					//m_t2 += panelSpeed * Time.deltaTime; //Increment the player moving timer
 					if (m_playerOneState == CharacterState.eJoining) // If player one is in the process of joining.
 					{
-						playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerOnePos, m_t2); // Slowly moves the position to the target.
-
-						if (playerOneBlock.transform.position == m_playerOnePos)
-						{
-							m_t2 = 0;       // Resets timer.
-							playerNumber++; // Increases player number by 1.
-							m_addPlayerButtonPress = false;
-							m_playerOneState = CharacterState.eJoined;
-						}
+						//playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerOnePos, m_t2); // Slowly moves the position to the target.
+						//m_t2 = 0;       // Resets timer.
+						playerNumber++; // Increases player number by 1.
+						m_addPlayerButtonPress = false;
+						m_playerOneState = CharacterState.eJoined;
+						
 					}
 					else if (m_playerTwoState == CharacterState.eJoining) // If player two is in the process of joining.
 					{
-						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerTwoPos, m_t2); // Slowly moves the position to the target.
+						//playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerTwoPos, m_t2); // Slowly moves the position to the target.
             
-						if (playerTwoBlock.transform.position == m_playerTwoPos)
-						{
-							m_t2 = 0;		// Resets timer.
-							playerNumber++; // Increases player number by 1.
-                            m_addPlayerButtonPress = false;
-							m_playerTwoState = CharacterState.eJoined;
-						}
+						//m_t2 = 0;		// Resets timer.
+						playerNumber++; // Increases player number by 1.
+                        m_addPlayerButtonPress = false;
+						m_playerTwoState = CharacterState.eJoined;
+						
 					}
 					else if (m_playerThreeState == CharacterState.eJoining) // If player three is joining.
 					{
-						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerThreePos, m_t2); // Slowly moves the position to the target.
+						//playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenLeft, m_playerThreePos, m_t2); // Slowly moves the position to the target.
             
-						if (playerThreeBlock.transform.position == m_playerThreePos)
-						{
-							m_t2 = 0;		// Resets timer.
-							playerNumber++; // Increases player number by 1.
-                            m_addPlayerButtonPress = false;
-							m_playerThreeState = CharacterState.eJoined;
-						}
+						//m_t2 = 0;		// Resets timer.
+						playerNumber++; // Increases player number by 1.
+                        m_addPlayerButtonPress = false;
+						m_playerThreeState = CharacterState.eJoined;
+						
 					}
 					else if (m_playerFourState == CharacterState.eJoining) // If player four is joining.
 					{
-						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerFourPos, m_t2); // Slowly moves the position to the target.
+						//playerFourBlock.transform.position = Vector3.MoveTowards(m_playerOffScreenRight, m_playerFourPos, m_t2); // Slowly moves the position to the target.
             
-						if (playerFourBlock.transform.position == m_playerFourPos)
-						{
-							m_t2 = 0;		// Resets timer.
-							playerNumber++; // Increases player number by 1.
-                            m_addPlayerButtonPress = false;
-							m_playerFourState = CharacterState.eJoined;
-						}
+						//m_t2 = 0;		// Resets timer.
+						playerNumber++; // Increases player number by 1.
+                        m_addPlayerButtonPress = false;
+						m_playerFourState = CharacterState.eJoined;
+						
 					}
 				}
 				//Removing and moving players
 				else if (m_removePlayer)
 				{
-					m_t2 += panelSpeed * Time.deltaTime;    //Increment the player moving timer
+					//m_t2 += panelSpeed * Time.deltaTime;    //Increment the player moving timer
 					if (m_playerOneState == CharacterState.eLeaving)    // If player two is leaving.
 					{
 						m_playerOneReady = false;
-						readyLightPlayerOne.enabled = false;
-						playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOnePos, m_playerOffScreenLeft, m_t2); // Moves player one back to its starting pos.
-						if (playerOneBlock.transform.position == m_playerOffScreenLeft)
-						{
-							m_t2 = 0;
-							playerNumber--;
-							m_removePlayer = false;
-							m_playerOneState = CharacterState.eIdle;
-						}
+						//readyLightPlayerOne.enabled = false;
+						//playerOneBlock.transform.position = Vector3.MoveTowards(m_playerOnePos, m_playerOffScreenLeft, m_t2); // Moves player one back to its starting pos.
+
+						//m_t2 = 0;
+						playerNumber--;
+						m_removePlayer = false;
+						m_playerOneState = CharacterState.eIdle;
+						
 					}
 					else if (m_playerTwoState == CharacterState.eLeaving)	// If player two is leaving.
 					{
 						m_playerTwoReady = false;
-						readyLightPlayerTwo.enabled = false;
-						playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerTwoPos, m_playerOffScreenRight, m_t2); // Moves player two back to its starting pos.
-						if (playerTwoBlock.transform.position == m_playerOffScreenRight)
-						{
-							m_t2 = 0;
-							playerNumber--;
-							m_removePlayer = false;
-							m_playerTwoState = CharacterState.eIdle;
-						}
+						//readyLightPlayerTwo.enabled = false;
+						//playerTwoBlock.transform.position = Vector3.MoveTowards(m_playerTwoPos, m_playerOffScreenRight, m_t2); // Moves player two back to its starting pos.
+						//m_t2 = 0;
+						playerNumber--;
+						m_removePlayer = false;
+						m_playerTwoState = CharacterState.eIdle;
+						
 					}
 					else if (m_playerThreeState == CharacterState.eLeaving) // If player three is leaving.
 					{
 						m_playerThreeReady = false;
-						readyLightPlayerThree.enabled = false;
-						playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerThreePos, m_playerOffScreenLeft, m_t2); // Moves player three back to its starting pos.
-						if (playerThreeBlock.transform.position == m_playerOffScreenLeft)
-						{
-							m_t2 = 0;
-							playerNumber--;
-							m_removePlayer = false;
-							m_playerThreeState = CharacterState.eIdle;
-						}
+						//readyLightPlayerThree.enabled = false;
+						//playerThreeBlock.transform.position = Vector3.MoveTowards(m_playerThreePos, m_playerOffScreenLeft, m_t2); // Moves player three back to its starting pos.
+						//m_t2 = 0;
+						playerNumber--;
+						m_removePlayer = false;
+						m_playerThreeState = CharacterState.eIdle;
+						
 					}
 					else if (m_playerFourState == CharacterState.eLeaving) // If player four is leaving.
 					{
 						m_playerFourReady = false;
-						readyLightPlayerFour.enabled = false;
-						playerFourBlock.transform.position = Vector3.MoveTowards(m_playerFourPos, m_playerOffScreenRight, m_t2); // Moves player four back to its starting pos.
-						if (playerFourBlock.transform.position == m_playerOffScreenRight)
-						{
-							m_t2 = 0;
-							playerNumber--;
-							m_removePlayer = false;
-							m_playerFourState = CharacterState.eIdle;
-						}
+						//readyLightPlayerFour.enabled = false;
+						//playerFourBlock.transform.position = Vector3.MoveTowards(m_playerFourPos, m_playerOffScreenRight, m_t2); // Moves player four back to its starting pos.
+						//m_t2 = 0;
+						playerNumber--;
+						m_removePlayer = false;
+						m_playerFourState = CharacterState.eIdle;
+						
 					}
 				}
 
@@ -548,14 +552,14 @@ public class MainMenu : MonoBehaviour
 					if (m_playerOneReady)
 					{
 						m_playerOneReady = false;
-						readyLightPlayerOne.enabled = false;
+						//readyLightPlayerOne.enabled = false;
 						readyPlayerOneImage.enabled = false;
 						notReadyPlayerOneImage.enabled = true;
 					}
 					else
 					{
 						m_playerOneReady = true;
-						readyLightPlayerOne.enabled = true;
+						//readyLightPlayerOne.enabled = true;
 						readyPlayerOneImage.enabled = true;
 						notReadyPlayerOneImage.enabled = false;
 					}
@@ -566,14 +570,14 @@ public class MainMenu : MonoBehaviour
 					if (m_playerTwoReady)
 					{
 						m_playerTwoReady = false;
-						readyLightPlayerTwo.enabled = false;
+						//readyLightPlayerTwo.enabled = false;
 						readyPlayerTwoImage.enabled = false;
 						notReadyPlayerTwoImage.enabled = true;
 					}
 					else
 					{
 						m_playerTwoReady = true;
-						readyLightPlayerTwo.enabled = true;
+						//readyLightPlayerTwo.enabled = true;
 						readyPlayerTwoImage.enabled = true;
 						notReadyPlayerTwoImage.enabled = false;
 					}
@@ -584,14 +588,14 @@ public class MainMenu : MonoBehaviour
 					if (m_playerThreeReady)
 					{
 						m_playerThreeReady = false;
-						readyLightPlayerThree.enabled = false;
+						//readyLightPlayerThree.enabled = false;
 						readyPlayerThreeImage.enabled = false;
 						notReadyPlayerThreeImage.enabled = true;
 					}
 					else
 					{
 						m_playerThreeReady = true;
-						readyLightPlayerThree.enabled = true;
+						//readyLightPlayerThree.enabled = true;
 						readyPlayerThreeImage.enabled = true;
 						notReadyPlayerThreeImage.enabled = false;
 					}
@@ -602,14 +606,14 @@ public class MainMenu : MonoBehaviour
 					if (m_playerFourReady)
 					{
 						m_playerFourReady = false;
-						readyLightPlayerFour.enabled = false;
+						//readyLightPlayerFour.enabled = false;
 						readyPlayerFourImage.enabled = false;
 						notReadyPlayerFourImage.enabled = true;
 					}
 					else
 					{
 						m_playerFourReady = true;
-						readyLightPlayerFour.enabled = true;
+						//readyLightPlayerFour.enabled = true;
 						readyPlayerFourImage.enabled = true;
 						notReadyPlayerFourImage.enabled = false;
 					}
