@@ -59,7 +59,9 @@ public class TetheredMineAbility : MonoBehaviour
 
 		if ((1.0f - LT) < 0.1f && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
 		{
+            // animation for the door
             TetheredMineAnimation.SetBool("IsDoorOpen", true);
+
             m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
             
@@ -70,7 +72,7 @@ public class TetheredMineAbility : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
         {
             
-            TetheredMineAnimation.SetBool("IsDoorOpen", true);
+         
 			m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
             mineRB.gameObject.SetActive(true);
@@ -80,7 +82,7 @@ public class TetheredMineAbility : MonoBehaviour
         
         if (m_isUsingAbility)
 		{
-			ActivateAbility();
+            ActivateAbility();
 		}
     }
 
