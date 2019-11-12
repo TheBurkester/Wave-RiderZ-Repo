@@ -44,6 +44,7 @@ public class BeachBallAbility : MonoBehaviour
     private GameObject m_prefab;		// Beachball prefab.
 	[HideInInspector]
     public Timer abilityCooldown;		// Timer used for the cooldown.
+    private bool m_abilityReady = false;
  
     public Rigidbody planeRB = null;	//Reference to the plane rigidbody
     public Animator BeachBallAnimation;
@@ -137,7 +138,7 @@ public class BeachBallAbility : MonoBehaviour
 
         if (Input.GetKey(Shoot) && m_targetMesh.enabled)
         {
-            //Animates the beachbomb firing
+       
            
 
             ToggleIsShooting(true);
@@ -174,6 +175,14 @@ public class BeachBallAbility : MonoBehaviour
 
 		if (m_isShooting)					//If the ability is currently shooting,
 			m_targetMesh.enabled = true;	//Make sure the target is on
+
+        if (!abilityCooldown.UnderMax() && !m_abilityReady)
+        {
+            AudioManager.Play("BothPlaneCooldownAbiltysReady");
+            m_abilityReady = true;
+        }
+        else if (abilityCooldown.UnderMax())
+            m_abilityReady = false;
     }
 
     public void ShootBall()

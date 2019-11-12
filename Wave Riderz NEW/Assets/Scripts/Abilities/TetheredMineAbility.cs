@@ -61,6 +61,9 @@ public class TetheredMineAbility : MonoBehaviour
 		{
             // animation for the door
             TetheredMineAnimation.SetBool("IsDoorOpen", true);
+            TetheredMineAnimation.SetBool("IsDoorClosed", false);
+            // Hatch Open Door Sound
+            AudioManager.Play("TetherObs&BBHatchDoorOpen");
 
             m_mineTether.ResetVelocity();
 			mineRB.transform.position = m_planeHatch.transform.position;
