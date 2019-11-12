@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
 	public Text bonus = null;
 	//-------------------------------------------------------------------------
 
+	public Texture axolotlPlaneTexture = null;
 
 	void Awake()
 	{
@@ -458,8 +459,10 @@ public class GameManager : MonoBehaviour
 
                 greenSkier.transform.position = m_twoPlayerSkierPos;
                 SetPlaneTetherReferences(greenSkier);
-                planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-            }
+                //planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+				planeBody.GetComponent<Renderer>().material.SetTexture("CharacterPattern", axolotlPlaneTexture);
+
+			}
             else if (m_eCurrentPlaneState == PlaneState.eSecond)
             {
                 //In the first round, green is plane, red is skier

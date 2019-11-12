@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3168116481337689345
 Transform:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2916948933623820412}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92a9f4cf4b4179945a09988957db2142, type: 3}
   m_Name: 
@@ -147,8 +147,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 5
+  freezeAmount: 0.05
+  freezeFrames: 20
   explosionPrefab: {fileID: 1332101522959151437, guid: 28afa15eeda01f3499c22158dc73302c,
     type: 3}
+  TetheredMineAnimation: {fileID: 0}
 --- !u!1 &7513970931256158755
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,26 +267,26 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 1.12, z: -7.29}
+  - {x: 0, y: 0.9105785, z: -7.0131583}
+  - {x: 0, y: 0.7447768, z: -6.7363157}
+  - {x: 0, y: 0.62259513, z: -6.459474}
+  - {x: 0, y: 0.54403335, z: -6.182632}
+  - {x: 0, y: 0.5090915, z: -5.905789}
+  - {x: 0, y: 0.51776963, z: -5.6289477}
+  - {x: 0, y: 0.57006776, z: -5.352105}
+  - {x: 0, y: 0.6659857, z: -5.075263}
+  - {x: 0, y: 0.80552363, z: -4.798421}
+  - {x: 0, y: 0.98868155, z: -4.521579}
+  - {x: 0, y: 1.2154593, z: -4.2447367}
+  - {x: 0, y: 1.485857, z: -3.9678946}
+  - {x: 0, y: 1.799875, z: -3.6910524}
+  - {x: 0, y: 2.1575124, z: -3.4142103}
+  - {x: 0, y: 2.5587702, z: -3.1373682}
+  - {x: 0, y: 3.0036478, z: -2.8605263}
+  - {x: 0, y: 3.492145, z: -2.5836844}
+  - {x: 0, y: 4.024263, z: -2.3068419}
+  - {x: 0, y: 4.6, z: -2.03}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.09870375
