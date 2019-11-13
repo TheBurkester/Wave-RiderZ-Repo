@@ -12,11 +12,11 @@ using UnityEngine;
 
 public class CoinCollectable : MonoBehaviour
 {
-	public float spinSpeed = 5;     //How fast the coin spins
+	public float spinSpeed = 180;     //How fast the coin spins
 	
     void Update()
     {
-        transform.Rotate(0, 0, spinSpeed);		//Spin the coin around its z-axis (globally y-axis)
+        transform.Rotate(0, spinSpeed * Time.deltaTime, 0);		//Spin the coin around the Y axis
     }
 
     void OnTriggerEnter(Collider collider)
