@@ -461,9 +461,8 @@ public class GameManager : MonoBehaviour
 
                 greenSkier.transform.position = m_twoPlayerSkierPos;
                 SetPlaneTetherReferences(greenSkier);
-                //planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
-				planeBody.GetComponent<Renderer>().material.SetTexture("CharacterPattern", axolotlPlaneTexture);
-
+				planeBody.GetComponent<Renderer>().material = redSkier.gameObject.GetComponent<Renderer>().material; // Changes colour to player one.
+				//planeBody.GetComponent<Renderer>().material.SetTexture("Texture2D_C6055840", axolotlPlaneTexture);
 			}
             else if (m_eCurrentPlaneState == PlaneState.eSecond)
             {
