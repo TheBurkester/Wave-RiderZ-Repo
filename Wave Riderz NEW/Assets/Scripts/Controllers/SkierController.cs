@@ -46,10 +46,10 @@ public class SkierController : MonoBehaviour
 	public int skierMultiplierCap = 5;		// The max value that the multipler can be.
 	private int m_skierMultiplier = 1;		// Skier's multiplier.
 
-	private Timer m_scoreTimer;			// Timer used to increment score.
+	private Timer m_scoreTimer;				// Timer used to increment score.
 	private Timer m_scoreMultiplierTimer;	// Timer used to add the multiplier to the score over time.
-	public int skierLives = 3;			// The amount of lives the skiers will have.
-	private bool m_isAlive = false;		// If the skier has the will to live
+	public int skierLives = 3;				// The amount of lives the skier has
+	private bool m_isAlive = false;			//If the skier has the will to live
 
 	//Invincibility
 	public int numberOfFlashes = 3;			//How many times the mesh should flash when damaged
@@ -60,7 +60,7 @@ public class SkierController : MonoBehaviour
 	[HideInInspector]
 	public Tether tether = null;    //Reference to the tether attached to this skier, public so forces can be applied from other scripts
 	[HideInInspector]
-	public bool hurt = false;
+	public bool hurtThisFrame = false;
 
 	void Awake()
     {
@@ -120,9 +120,8 @@ public class SkierController : MonoBehaviour
 		}
 		//---------------------------------------------
 		
-		bonkResolved = false;
-
-		if (m_isAlive == false)	//If the skier has wiped out,
+		//Wipeout
+		if (m_isAlive == false)
 		{
 			//Make them sink
 			Vector3 newPos = transform.position;
@@ -134,6 +133,8 @@ public class SkierController : MonoBehaviour
 			if (renderedTether != null)
 				renderedTether.Fade(1);
 		}
+
+		bonkResolved = false;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -149,8 +150,8 @@ public class SkierController : MonoBehaviour
 					float velocityForce = (tether.VelocityXMagnitude() / maxXVelocity) * bonkVelocityForce;	//Proportion the force based on how close to max velocity this skier is
 					Vector3 totalBonkForce = (bonkForce + velocityForce) * tether.Direction();				//Add the flat force and velocity-dependent force, then point them in the direction of movement
 					otherTether.ForceOverTime(totalBonkForce, bonkForceDuration);							//Apply the final force to the other skier
-					tether.ReduceVelocity(2);																//Reduce the velocity of this skier
-					other.GetComponent<SkierController>().bonkResolved = true;		//For this frame, set the collision as resolved
+					tether.ReduceVelocity(2);																//Halve the velocity of this skier
+					other.GetComponent<SkierController>().bonkResolved = true;								//For this frame, set the collision as resolved
                     AudioManager.Play("Bonk3"); // plays bonk sound effect 
 				}
 			}
@@ -158,10 +159,10 @@ public class SkierController : MonoBehaviour
 			if (other.CompareTag("Coin"))   //If the other object is a coin,
 				m_score += coinScore;       //Add a coin's worth of points to the score
             
-
 			if (other.CompareTag("Rock"))   //If the other object is a rock,
 				HurtSkier();                //Hurt the skier
 		}
+
 		if (other.CompareTag("Rock"))	//Regardless of if invincible or not, if colliding with an obstacle,
 		{
 			float pushDirection = transform.position.x - other.transform.position.x;			//Calculate if the skier should be pushed left or right
@@ -172,6 +173,38 @@ public class SkierController : MonoBehaviour
 		}
 	}
 	
+	//Hurts the skier and checks their lives
+	public void HurtSkier()
+	{
+		if (!m_invincible)  //Double checking that they aren't invincible,
+		{
+			skierLives--;   //Hurt the skier
+			hurtThisFrame = true;
+			StartCoroutine(HurtOff());
+		}
+
+		if (skierLives <= 0)				//If the skier is out of lives,
+		{
+			m_isAlive = false;				//He dead
+			tether.enabled = false;			//Turn movement off
+			m_scoreTimer.enabled = false;	//Stop the score from increasing
+		}
+		else										//If the skier is still alive,
+		{
+			m_invincible = true;					//Make it invincible
+            m_skierMultiplier = 1;					// Multiplier is reset back to 1.
+			m_scoreMultiplierTimer.enabled = false; // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
+
+			//Flash the skier mesh
+			for (int i = 0; i < numberOfFlashes; ++i)                       //Repeating for the number of flashes,
+			{
+				StartCoroutine(MeshOff(flashDelay * i * 2));                //Schedule the mesh to turn off, every even interval
+				StartCoroutine(MeshOn(flashDelay * i * 2 + flashDelay));    //Schedule the mesh to turn on, every odd interval
+			}
+			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));    //Schedule invincibility to turn off after the flashes are complete
+		}
+	}
+
 	public void SetPlayerScore(int score)
 	{
 		m_score = score;
@@ -186,17 +219,20 @@ public class SkierController : MonoBehaviour
 		return m_skierMultiplier;
 	}
 
+	//Increments the score based on preset amount and score multiplier
 	public void IncrementScore()
 	{
 		m_score += skierScoreInc * m_skierMultiplier;
 	}
 
+	//Makes the multiplier go up by one
 	public void AddMultiplier()
 	{
 		if (m_skierMultiplier < skierMultiplierCap)
 			m_skierMultiplier++;
 	}
 
+	//To set the skier to wiped out if not in the game
 	public void SetAlive(bool value)
 	{
 		m_isAlive = value;
@@ -206,47 +242,11 @@ public class SkierController : MonoBehaviour
 		return m_isAlive;
 	}
 
-	public void HurtSkier()
-	{
-		if (skierLives > 0)
-			hurt = true;
-		
-		if (!m_invincible)
-			skierLives--;
-
-		if (skierLives <= 0)	//If the skier is out of lives,
-		{
-			m_scoreTimer.enabled = false;
-
-			if (m_isAlive)
-			{
-				hurt = true;
-				StartCoroutine(HurtOffKilled());
-				tether.enabled = false;
-			}
-		}
-		else						//If the skier is still alive,
-		{
-			m_invincible = true;    //Make it invincible
-            m_skierMultiplier = 1; // Multiplier is reset back to 1.
-			m_scoreMultiplierTimer.enabled = false; // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
-			//Flash the skier mesh
-			for (int i = 0; i < numberOfFlashes; ++i)                       //Repeating for the number of flashes,
-			{
-				StartCoroutine(MeshOff(flashDelay * i * 2));                //Schedule the mesh to turn off, every even interval
-				StartCoroutine(MeshOn(flashDelay * i * 2 + flashDelay));    //Schedule the mesh to turn on, every odd interval
-			}
-
-			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));    //Schedule invincibility to turn off after the flashes are complete
-			StartCoroutine(HurtOff());
-		}
-	}
-
-	public bool isInvincible()
+	public bool IsInvincible()
 	{
 		return m_invincible;
 	}
-
+	
 	IEnumerator MeshOff(float interval)
 	{
 		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
@@ -266,12 +266,6 @@ public class SkierController : MonoBehaviour
 	IEnumerator HurtOff()
 	{
 		yield return new WaitForEndOfFrame();
-		hurt = false;
-	}
-	IEnumerator HurtOffKilled()
-	{
-		yield return new WaitForEndOfFrame();
-		hurt = false;
-		m_isAlive = false;
+		hurtThisFrame = false;
 	}
 }

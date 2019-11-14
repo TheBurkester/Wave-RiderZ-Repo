@@ -49,7 +49,7 @@ public class TetheredMineAbility : MonoBehaviour
 		m_planeHatch = GetComponent<Transform>();
 		m_controller = planeRB.GetComponent<PlaneController>().controller;
 		m_planeController = planeRB.GetComponent<PlaneController>();
-		m_planeRelation = m_planeController.GetPlaneSpeed();
+		m_planeRelation = m_planeController.forwardSpeed;
 		m_mineTether = mineRB.GetComponent<Tether>();
 	}
 

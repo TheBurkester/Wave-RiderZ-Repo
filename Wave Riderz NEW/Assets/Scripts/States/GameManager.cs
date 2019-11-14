@@ -790,43 +790,43 @@ public class GameManager : MonoBehaviour
 				
 				if (plane.controller == XboxController.First)
 				{
-					if (greenSkier.hurt && greenSkier.GetAlive())
+					if (greenSkier.hurtThisFrame && greenSkier.GetAlive())
 						redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
 					if (purpleSkier)
 					{
-						if (purpleSkier.hurt && purpleSkier.GetAlive())
+						if (purpleSkier.hurtThisFrame && purpleSkier.GetAlive())
 							redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
 					}
 					if (orangeSkier)
 					{
-						if (orangeSkier.hurt && orangeSkier.GetAlive())
+						if (orangeSkier.hurtThisFrame && orangeSkier.GetAlive())
 							redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
 					}
 				}
 				else if (plane.controller == XboxController.Second)
 				{
-					if (redSkier.hurt && redSkier.GetAlive())
+					if (redSkier.hurtThisFrame && redSkier.GetAlive())
 						greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
 					if (purpleSkier)
 					{
-						if (purpleSkier.hurt && purpleSkier.GetAlive())
+						if (purpleSkier.hurtThisFrame && purpleSkier.GetAlive())
 							greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
 					}
 					if (orangeSkier)
 					{
-						if (orangeSkier.hurt && orangeSkier.GetAlive())
+						if (orangeSkier.hurtThisFrame && orangeSkier.GetAlive())
 							greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
 					}
 				}
 				else if (plane.controller == XboxController.Third)
 				{
-					if (redSkier.hurt && redSkier.GetAlive())
+					if (redSkier.hurtThisFrame && redSkier.GetAlive())
 						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
-					if (greenSkier.hurt && greenSkier.GetAlive())
+					if (greenSkier.hurtThisFrame && greenSkier.GetAlive())
 						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
 					if (orangeSkier) // If orange skier exists.
 					{
-						if (orangeSkier.hurt && orangeSkier.GetAlive())
+						if (orangeSkier.hurtThisFrame && orangeSkier.GetAlive())
 						{
 							purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
 						}
@@ -834,11 +834,11 @@ public class GameManager : MonoBehaviour
 				}
 				else if (plane.controller == XboxController.Fourth)
 				{
-					if (redSkier.hurt)
+					if (redSkier.hurtThisFrame)
 						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
-					if (greenSkier.hurt)
+					if (greenSkier.hurtThisFrame)
 						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
-					if (purpleSkier.hurt)
+					if (purpleSkier.hurtThisFrame)
 						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
 				}
 

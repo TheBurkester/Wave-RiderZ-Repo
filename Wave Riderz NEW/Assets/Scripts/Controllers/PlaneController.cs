@@ -6,11 +6,8 @@
 |  Description:		Handles the plane's movement.
 *-------------------------------------------------------------------*/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using XboxCtrlrInput;
-using UnityEngine.UI;
 
 public class PlaneController : MonoBehaviour
 {
@@ -23,8 +20,6 @@ public class PlaneController : MonoBehaviour
 	//Visual tilting
     public float tiltAngle = 20.0f;     //How far the plane tilts when moving left/right
     public float tiltSmoothness = 2.0f; //How quickly the plane tilts
-	public GameObject beachBallTarget = null; // Reference to the target so that when using the beach ball ability, the rotation of the plane stops.
-	private BeachBallAbility m_bba = null;
 
 	//Clamping
 	public Transform river = null;		//Reference to the river transform
@@ -32,19 +27,19 @@ public class PlaneController : MonoBehaviour
 	private float m_clampWidth = 75;    //How far side-to-side the plane can move, calculated automatically, default 75
 
 	//Swinging
-	public float swingMoveTimeRequirement = 2;	//How long the plane must be moving in one direction to charge the swing
-	public float swingForce = 150;				//How much force to apply to the skiers
-	public float swingForceDuration = 0.3f;		//How long to push skiers for
-	private Tether[] m_skierTethers;			//Reference to all the current skier tethers
-	private Timer m_movementTimer;				//Timer that counts when the plane is moving one direction fast enough
-	private int m_movementDirection = 0;        //Represents which direction the plane was last moving in, either -1 or 1
-	public ParticleSystem[] swingParticles = null;
+	public float swingMoveTimeRequirement = 2;		//How long the plane must be moving in one direction to charge the swing
+	public float swingForce = 150;					//How much force to apply to the skiers
+	public float swingForceDuration = 0.3f;			//How long to push skiers for
+	private Tether[] m_skierTethers;				//Reference to all the current skier tethers
+	private Timer m_movementTimer;					//Timer that counts when the plane is moving one direction fast enough
+	private int m_movementDirection = 0;			//Represents which direction the plane was last moving in, either -1 or 1
+	public ParticleSystem[] swingParticles = null;	//Reference to the particle effects to play when swing is ready
 
-	private Rigidbody rb = null;        //Keep reference to the plane rigidbody
+	private Rigidbody rb = null;					//Keep reference to the plane rigidbody
+	public BeachBallAbility beachBallTarget = null; // Reference to the target so that when using the beach ball ability, the rotation of the plane stops.
 
 	void Awake()
     {
-		m_bba = beachBallTarget.GetComponent<BeachBallAbility>();
 		rb = GetComponent<Rigidbody>();
 		Debug.Assert(rb != null, "Plane missing rigidbody component");
 
@@ -58,16 +53,15 @@ public class PlaneController : MonoBehaviour
 				m_clampWidth = 75;	//Reset to default
 		}
 
+		//Check that the particle system references are set
 		foreach (ParticleSystem particle in swingParticles)
-		{
 			Debug.Assert(particle != null, "Plane controller missing swing particle reference");
-		}
+		
+		//Make sure the particle effects aren't immediately active
 		if (swingParticles != null)
 		{
 			foreach (ParticleSystem particle in swingParticles)
-			{
 				particle.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-			}
 		}
 	}
 
@@ -83,9 +77,11 @@ public class PlaneController : MonoBehaviour
     {		
 		Vector3 newPos = rb.position + new Vector3(0, 0, forwardSpeed * Time.deltaTime);	//New position is the current position moved forward slightly
 
+
 		//Controller movement
         float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);			//Get the direction and magnitude of the controller stick 
         newPos.x += (axisX * strafeSpeed * Time.deltaTime);                 //Move the plane in that direction and with that % magnitude (0-1)
+
 
 		//Skier swinging
 		if (axisX > 0.9f)					//If the plane is moving strongly right,
@@ -112,22 +108,20 @@ public class PlaneController : MonoBehaviour
 			m_movementTimer.SetTimer();			//Reset the timer to 0
 			m_movementTimer.enabled = false;    //Stop the timer
 
+			//Stop the particle effects
 			foreach (ParticleSystem particle in swingParticles)
-			{
 				particle.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-			}
+		}
+		if (!m_movementTimer.UnderMax())	//If a swing is ready,
+		{
+			//Play the particle effects
+			foreach (ParticleSystem particle in swingParticles)
+				particle.Play();
 		}
 
-		if (!m_movementTimer.UnderMax())
-		{
-			foreach (ParticleSystem particle in swingParticles)
-			{
-				particle.Play();
-			}
-		}
 
 		//Rotation
-		if (!m_bba.isShotting())
+		if (!beachBallTarget.GetShooting())
 		{
 			float tiltAroundZ = axisX * -tiltAngle;                             //What percentage of the tilt should be aimed for based on movement speed
 			Quaternion targetRotation = Quaternion.Euler(0, 0, tiltAroundZ);    //Set the target rotation
@@ -139,6 +133,7 @@ public class PlaneController : MonoBehaviour
 			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, targetRotation, tiltSmoothness * Time.deltaTime);   //Move towards the target rotation
 		}
 		
+
 		//Keyboard movement
 		if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
 			newPos += new Vector3(-strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the left
@@ -153,6 +148,7 @@ public class PlaneController : MonoBehaviour
 
 		rb.transform.position = newPos;		//Set the new position
 	}
+
 
 	//Adds a left/right force on all skiers in the game
 	public void ApplySwingForce()
@@ -169,9 +165,4 @@ public class PlaneController : MonoBehaviour
 	{
 		m_skierTethers = skierTethers;
 	}
-
-    public float GetPlaneSpeed()
-    {
-       return forwardSpeed;
-    }
 }

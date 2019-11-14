@@ -59,7 +59,7 @@ public class Mine : MonoBehaviour
                 {
                     SkierController controller = hit.GetComponent<SkierController>(); // Gets all controllers within the radius.
 
-                    if (!controller.isInvincible())
+                    if (!controller.IsInvincible())
                         controller.HurtSkier(); // Hurts the skier within the radius.
                 }
             }

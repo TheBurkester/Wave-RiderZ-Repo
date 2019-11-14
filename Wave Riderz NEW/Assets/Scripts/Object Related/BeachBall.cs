@@ -35,7 +35,7 @@ public class BeachBall : MonoBehaviour
         {
             Vector3 explosionPos = transform.position;	// explosion will occur at the impact site.
 			explosionPos.y = 0;							//Make sure that there is no y component
-            Collider[] colliders = Physics.OverlapSphere(explosionPos, m_bbAbility.getRadius()); // List of colliders within the radius.
+            Collider[] colliders = Physics.OverlapSphere(explosionPos, m_bbAbility.radius); // List of colliders within the radius.
 
             foreach (Collider hit in colliders)										//For all the objects in the radius,
             {

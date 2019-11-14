@@ -12,17 +12,10 @@ public class BeachBallAbility : MonoBehaviour
 {
 	//Movement
     private XboxController m_controller;		// Reference to which controller to use (same as plane's)
-    public KeyCode Up = KeyCode.W;				// Keyboard up control
-    public KeyCode Down = KeyCode.S;			// Keyboard down control
-    public KeyCode Left = KeyCode.A;			// Keyboard left control
-    public KeyCode Right = KeyCode.D;			// Keyboard right control
-    public KeyCode Aim = KeyCode.Space;			// Keyboard aim control
-    public KeyCode Shoot = KeyCode.G;			// Keyboard shoot control
     public float targetMovementSpeed = 10.0f;	// Target's movement speed when aiming.
     private Vector3 m_newPosition;				// Used to update the target's position each frame 
-    private float m_targetPlaneRelation;        // Moves the target along with the plane and camera. KEEP VARIABLE THE SAME AS PLANE SPEED IN PLANE CONTROLLER.
-    private PlaneController m_planeController;
-	private Vector3 m_debugLandingPos;			// Holds the position for the radius debug sphere.
+    private float m_targetPlaneRelation;        // Moves the target along with the plane and camera
+    private PlaneController m_planeController;	//Reference to the plane to get its speed
 
 	//Clamps
     public float riverClampHorizontal = 14;		// Editable horizontal clamp.
@@ -41,10 +34,9 @@ public class BeachBallAbility : MonoBehaviour
 	private bool m_isShooting = false;	// Has the player pressed the shoot button.
     private MeshRenderer m_targetMesh;	// Target's Mesh.
     private Rigidbody m_targetRB;		// Target's Rigidbody.
-    private GameObject m_prefab;		// Beachball prefab.
 	[HideInInspector]
     public Timer abilityCooldown;		// Timer used for the cooldown.
-    private bool m_abilityReady = false;
+    private bool m_abilityReady = false;//True on the frame that the ability becomes ready
 
 	[HideInInspector]
 	public bool isAiming = false;
@@ -52,13 +44,20 @@ public class BeachBallAbility : MonoBehaviour
     public Rigidbody planeRB = null;	//Reference to the plane rigidbody
     public Animator BeachBallAnimation;
 
+	//Remove in gold
+    public KeyCode Up = KeyCode.W;				// Keyboard up control
+    public KeyCode Down = KeyCode.S;			// Keyboard down control
+    public KeyCode Left = KeyCode.A;			// Keyboard left control
+    public KeyCode Right = KeyCode.D;			// Keyboard right control
+    public KeyCode Aim = KeyCode.Space;			// Keyboard aim control
+    public KeyCode Shoot = KeyCode.G;			// Keyboard shoot control
+
 
     void Awake()
     {
         m_targetRB = gameObject.GetComponent<Rigidbody>();
         m_targetMesh = gameObject.GetComponent<MeshRenderer>();
         m_targetMesh.enabled = false; // Target's mesh is disabled on startup.
-        m_prefab = Resources.Load("BeachBall") as GameObject;
 
         abilityCooldown = gameObject.AddComponent<Timer>();
         abilityCooldown.maxTime = cooldown;
@@ -75,7 +74,7 @@ public class BeachBallAbility : MonoBehaviour
         {
             m_controller = planeRB.GetComponent<PlaneController>().controller;
             m_planeController = planeRB.GetComponent<PlaneController>();
-            m_targetPlaneRelation = m_planeController.GetPlaneSpeed();
+            m_targetPlaneRelation = m_planeController.forwardSpeed;
         }
 	}
 
@@ -111,9 +110,6 @@ public class BeachBallAbility : MonoBehaviour
             //Animates the plane doors opening
             BeachBallAnimation.SetBool("IsAiming", true);
             BeachBallAnimation.SetBool("IsShooting", false);
-           
-            
-            //AudioManager.Play("BeachBombExplosion");
 
             //Xbox movement
             m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
@@ -136,19 +132,16 @@ public class BeachBallAbility : MonoBehaviour
 				m_newPosition.z = currentPosition.z;															//If it is, undo the x movement
 		}
         // Simple transform which combines all directions and allows diagonal movement.
-        //m_targetRB.transform.Translate(targetMovementSpeed * v3.normalized * Time.deltaTime);
         transform.position = m_newPosition;
 
         if (Input.GetKey(Shoot) && m_targetMesh.enabled)
         {
-       
-           
-
             ToggleIsShooting(true);
 			ShootBall(); // Shoots the beachball.
 			ToggleMeshEnable(true);
             abilityCooldown.SetTimer(); // Resets cooldown.
-        }
+			isAiming = false;
+		}
 
         if((1.0f - RT) < 0.1f && m_targetMesh.enabled)	//If the right trigger is mostly pressed
         {
@@ -186,36 +179,35 @@ public class BeachBallAbility : MonoBehaviour
 		if (m_isShooting)					//If the ability is currently shooting,
 			m_targetMesh.enabled = true;	//Make sure the target is on
 
-        if (!abilityCooldown.UnderMax() && !m_abilityReady)
+        if (!abilityCooldown.UnderMax() && !m_abilityReady)		//If the ability is ready but the bool hasn't been set to true yet,
         {
-            AudioManager.Play("BothPlaneCooldownAbiltysReady");
-            m_abilityReady = true;
+            m_abilityReady = true;								//Set the bool to true
+            AudioManager.Play("BothPlaneCooldownAbiltysReady");	//Play the ability ready sound
         }
-        else if (abilityCooldown.UnderMax())
-            m_abilityReady = false;
+        else if (abilityCooldown.UnderMax())					//If the ability isn't ready,
+            m_abilityReady = false;								//Set the bool to false
     }
 
     public void ShootBall()
     {
         // Gets the beach ball from the Object Pool.
-        GameObject BeachBall = ObjectPool.sharedInstance.GetPooledObject("Beach Ball");
-        if (BeachBall != null)
+        GameObject beachBall = ObjectPool.sharedInstance.GetPooledObject("Beach Ball");
+        if (beachBall != null)
         {
             BeachBallAnimation.SetBool("IsShooting", true);
             BeachBallAnimation.SetBool("IsAiming", false);
             // Landing position travels with the plane. Also keeps the ball from spawning within the camera's view.
             Vector3 v3LandingPos = m_targetRB.position + new Vector3(0, 30, m_targetPlaneRelation * Time.deltaTime);
-            BeachBall.transform.position = v3LandingPos;
+			beachBall.transform.position = v3LandingPos;
 
-            Rigidbody rb = BeachBall.GetComponent<Rigidbody>();
+            Rigidbody rb = beachBall.GetComponent<Rigidbody>();
             rb.velocity = new Vector3(0, -downwardSpeed, m_targetPlaneRelation - 0.8f); // Keeps the velocity inline with the plane's movement forward.
-            BeachBall.SetActive(true);
+			beachBall.SetActive(true);
             AudioManager.Play("BeachBallFired");
-
         }
     }
 
-	public bool isShotting()
+	public bool GetShooting()
 	{
 		return m_isShooting;
 	}
@@ -232,22 +224,12 @@ public class BeachBallAbility : MonoBehaviour
         m_targetMesh.enabled = enable;
     }
 
-	public float getRadius()
-	{
-		return radius;
-	}
-
-	public float getPower()
-	{
-		return power;
-	}
-
 	private void OnDrawGizmos()
 	{
 		if (m_targetRB != null && m_targetMesh.enabled)
 		{
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireSphere(m_targetRB.position, getRadius());
+			Gizmos.DrawWireSphere(m_targetRB.position, radius);
 		}
 	}
 }
