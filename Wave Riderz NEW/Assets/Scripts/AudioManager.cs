@@ -13,18 +13,18 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
-	public static AudioManager instance; //Store a static instance of itself
+	public static AudioManager instance;	//Store a static instance of itself
 
-	public Sound[] sounds;
+	public Sound[] sounds;	//An array of sounds which get set in the inspector
 	
     void Awake()
     {
 		instance = this;    //Set the instance to itself
 
-		foreach (Sound s in instance.sounds)
+		foreach (Sound s in instance.sounds)					//For all the sounds,
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            s.source = gameObject.AddComponent<AudioSource>();	//Set its audio source to a new source on this object
+            s.source.clip = s.clip;								//Set the clip of the audio source
 
             s.source.volume = s.volume;
             //s.source.pitch = s.pitch;
@@ -32,16 +32,17 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+	//Plays a sound with the given name
 	public static void Play (string name)
     {
-		Sound s = Array.Find(instance.sounds, sound => sound.name == name);
+		Sound s = Array.Find(instance.sounds, sound => sound.name == name);	//Find the sound with the correct name
         // warning message if it cant find the right sounds 
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
-            
-        s.source.Play();
+        else
+			s.source.Play();
     }
 }

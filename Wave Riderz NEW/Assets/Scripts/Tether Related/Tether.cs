@@ -13,14 +13,14 @@ using System;
 
 public class Tether : MonoBehaviour
 {
-	public Transform tetherPoint = null;   //Reference to the point the skier should be tethered to
+	public Transform tetherPoint = null;   //Reference to the point the object should be tethered to
 	private Vector3 tetherPosition;
 
 	private Vector3 m_velocity;     //How fast the object is moving in which directions
 	private Vector3 m_drag;         //How much drag force is applied to the object
 	[HideInInspector]
 	public Vector3 forceToApply;	//Extra force to put onto the object from other scripts
-	private Timer m_forceTimer;
+	private Timer m_forceTimer;		//Timer that lets the object be pushed over multiple frames
 
 	public float backwardsDrag = 5;		//How much force will be applied backwards on the object
 
@@ -47,8 +47,8 @@ public class Tether : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!m_forceTimer.UnderMax())
-			forceToApply = new Vector3(0, 0, 0);  //Reset the previous frame's force before any physics/updates
+		if (!m_forceTimer.UnderMax())				//If not currently being pushed,
+			forceToApply = new Vector3(0, 0, 0);	//Reset the previous frame's force before any physics/updates
 	}
 
 	void Update()
@@ -84,27 +84,30 @@ public class Tether : MonoBehaviour
 		transform.position = testPosition;                                  //Move to the new position
 	}
 
+	//Apply a single instantaneous force
 	public void ApplyForce(Vector3 force)
 	{
-		if (!m_forceTimer.UnderMax())
-			forceToApply += force;
+		if (!m_forceTimer.UnderMax())	//If not currently getting pushed,
+			forceToApply += force;		//Apply a force
 	}
 
+	//Apply a decreasing force every frame for a certain amount of time
 	public void ForceOverTime(Vector3 force, float duration)
 	{
-		forceToApply = force;
-		m_forceTimer.maxTime = duration;
-		m_forceTimer.SetTimer();
-		StartCoroutine(ReduceForce(force, duration));
+		forceToApply = force;							//Set the force
+		m_forceTimer.maxTime = duration;				//Set the duration
+		m_forceTimer.SetTimer();						//Start the timer
+		StartCoroutine(ReduceForce(force, duration));	//Make the force gradually decrease
 	}
 
+	//Coroutine to decrease the force
 	IEnumerator ReduceForce(Vector3 force, float duration)
 	{
-		float time = 0;
-		while (time < duration)
+		float time = 0;		//Create a local timer
+		while (time < 1)	//Until the timer is over 1,
 		{
-			time += Time.deltaTime / duration;
-			forceToApply = Vector3.Lerp(force, Vector3.zero, time);
+			time += Time.deltaTime / duration;						//Count up the timer from 0 to 1, scaled by duration
+			forceToApply = Vector3.Lerp(force, Vector3.zero, time);	//Interpolate the force towards 0
 			yield return null;
 		}
 	}

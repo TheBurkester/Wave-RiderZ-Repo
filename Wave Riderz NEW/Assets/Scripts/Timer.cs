@@ -1,9 +1,9 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			Timer
 |
-|  Author:		    Thomas Maltezos	/ Seth Johnston
+|  Author:		    Seth Johnston / Thomas Maltezos
 | 
-|  Description:		Handles timers.
+|  Description:		Component which handles a timer to use in other scripts.
 *-------------------------------------------------------------------*/
 
 using System.Collections;
