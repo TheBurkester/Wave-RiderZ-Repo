@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6105212455693073313}
   - component: {fileID: 6105212455686165573}
-  - component: {fileID: 6105212455554450768}
   m_Layer: 0
   m_Name: PlaneTetherObsDoor
   m_TagString: Untagged
@@ -52,19 +51,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6105212455554450768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105212455693559681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6d44d65df87a354aa49d67515652459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TetherObsDoorAnim: {fileID: 6105212455686165573}
 --- !u!1 &6105212455693559683
 GameObject:
   m_ObjectHideFlags: 0

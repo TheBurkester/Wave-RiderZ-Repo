@@ -307,7 +307,6 @@ MonoBehaviour:
   strafeSpeed: 2
   tiltAngle: 20
   tiltSmoothness: 2
-  beachBallTarget: {fileID: 0}
   river: {fileID: 0}
   riverBorderSize: 5
   swingMoveTimeRequirement: 2
@@ -316,6 +315,7 @@ MonoBehaviour:
   swingParticles:
   - {fileID: 7954265818794061318}
   - {fileID: 7954265817249477988}
+  beachBallTarget: {fileID: 0}
 --- !u!1 &8928308244592503126
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +475,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 86b76b107aaebcf49bed42b4568f6263, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6105212455554450768, guid: aafee272567ecb9448dd65da3f08a8a7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aafee272567ecb9448dd65da3f08a8a7, type: 3}
 --- !u!4 &5820887554111800668 stripped
 Transform:
@@ -572,7 +573,13 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 86b76b107aaebcf49bed42b4568f6263, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 4870090992748525240, guid: a8584315b6040b3458bd6133d4343f00,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 796bf501f5b5f8a41bc4d7b09bf2efa2, type: 2}
+    m_RemovedComponents:
+    - {fileID: 4870090992214870704, guid: a8584315b6040b3458bd6133d4343f00, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a8584315b6040b3458bd6133d4343f00, type: 3}
 --- !u!4 &8520147676830620503 stripped
 Transform:
