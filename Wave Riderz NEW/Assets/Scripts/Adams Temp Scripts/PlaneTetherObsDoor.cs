@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlaneTetherObsDoor : MonoBehaviour
 {
     //Referance to the animator controller
-    public Animator TetherObsDoorAnim;
+   // public Animator TetherObsDoorAnim;
     
-    
+    /*
     // Update is called once per frame
     void Update()
     {
@@ -23,6 +23,6 @@ public class PlaneTetherObsDoor : MonoBehaviour
             Debug.Log("closed!");
         }
 
-
-    }
+    
+    } */
 }

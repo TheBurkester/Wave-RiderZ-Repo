@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -652,7 +652,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3491444408054252018}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056967429}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4963c0149713d4645bafb8b0ade7cea0, type: 3}
@@ -1445,12 +1445,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5820887554119264952, guid: c65db4207dd24734e962120744ef30f2,
     type: 3}
   m_PrefabInstance: {fileID: 8928308244055401052}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1056967429 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3491444408453323345, guid: 337ab2b5c58c278489204c7b5de5d78d,
-    type: 3}
-  m_PrefabInstance: {fileID: 3491444408054252018}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1083638483 stripped
 MonoBehaviour:
@@ -3557,7 +3551,7 @@ PrefabInstance:
         type: 3}
       propertyPath: beachBallTarget
       value: 
-      objectReference: {fileID: 1056967429}
+      objectReference: {fileID: 704338852}
     - target: {fileID: 8928308243186015381, guid: c65db4207dd24734e962120744ef30f2,
         type: 3}
       propertyPath: river
