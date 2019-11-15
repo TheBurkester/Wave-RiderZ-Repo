@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4126,6 +4126,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0baf0a8dc306688419bea83a4603076b, type: 3}
     volume: 1
     loop: 0
+    source: {fileID: 0}
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: d2ecbe8268152b246976c25ca19abe06, type: 3}
+    volume: 1
+    loop: 1
     source: {fileID: 0}
 --- !u!1 &1971512852
 GameObject:
