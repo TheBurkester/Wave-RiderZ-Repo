@@ -38,9 +38,6 @@ public class SkierController : MonoBehaviour
 	private int m_score = 0;			// Player's score.
 	public int coinScore = 2;			// Score increased everytime collision with a coin occurs.
 	public int skierScoreInc = 1;		// Base Increase every second.
-	public int planeScoreInc = 5;		// Increase every time a skier loses a life.
-	public int planeBonus = 10;			// Bonus is added if all skiers are eliminated.
-	public int skierBonus = 10;			// Bonus is added if a skier survives the round.
 
     public int skierMultiplierSpeed = 5;	// The time it takes for the skier's multiplier to increase.
 	public int skierMultiplierCap = 5;		// The max value that the multipler can be.
@@ -48,7 +45,7 @@ public class SkierController : MonoBehaviour
 
 	private Timer m_scoreTimer;				// Timer used to increment score.
 	private Timer m_scoreMultiplierTimer;	// Timer used to add the multiplier to the score over time.
-	public int skierLives = 3;				// The amount of lives the skier has
+	public int lives = 3;				// The amount of lives the skier has
 	private bool m_isAlive = false;			//If the skier has the will to live
 
 	//Invincibility
@@ -178,12 +175,12 @@ public class SkierController : MonoBehaviour
 	{
 		if (!m_invincible)  //Double checking that they aren't invincible,
 		{
-			skierLives--;   //Hurt the skier
+			lives--;   //Hurt the skier
 			hurtThisFrame = true;
 			StartCoroutine(HurtOff());
 		}
 
-		if (skierLives <= 0)				//If the skier is out of lives,
+		if (lives <= 0)				//If the skier is out of lives,
 		{
 			m_isAlive = false;				//He dead
 			tether.enabled = false;			//Turn movement off
@@ -205,11 +202,15 @@ public class SkierController : MonoBehaviour
 		}
 	}
 
-	public void SetPlayerScore(int score)
+	public void SetScore(int score)
 	{
 		m_score = score;
 	}
-	public int GetPlayerScore()
+	public void AddScore(int score)
+	{
+		m_score += score;
+	}
+	public int GetScore()
 	{
 		return m_score;
 	}

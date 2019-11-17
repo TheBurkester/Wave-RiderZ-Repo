@@ -1,7 +1,7 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			GameManager
 |
-|  Author:			Seth Johnston / Thomas Maltezos
+|  Author:			Thomas Maltezos / Seth Johnston
 | 
 |  Description:		Handles round states, and keeps track of important variables.
 *-------------------------------------------------------------------*/
@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
         eNone       // Used when starting a new game.
     }
 
-
 	//Player references/variables
 	public PlaneController plane = null;        //Reference to the plane
 	public TetheredMineAbility planeHatch = null;        // Reference to the plane's hatch.
@@ -42,7 +41,8 @@ public class GameManager : MonoBehaviour
 	public SkierController redSkier = null;     //Reference to the red skier script
 	public SkierController greenSkier = null;   //Reference to the green skier script
 	public SkierController purpleSkier = null;  //Reference to the purple skier script
-	public SkierController orangeSkier = null;	//Reference to the orange skier script
+	public SkierController orangeSkier = null;  //Reference to the orange skier script
+	private SkierController[] m_skiers = null;
 	public GameObject planeBody = null;			// Reference to the body of the plane.
 	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
 	private Vector3 m_twoPlayerSkierPos = new Vector3(0, 0, -11);
@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour
 	private Vector3 m_fourPlayerSkierPosOne = new Vector3(0, 0, -11);
 	private Vector3 m_fourPlayerSkierPosTwo = new Vector3(-2, 0, -11);
 	private Vector3 m_fourPlayerSkierPosThree = new Vector3(2, 0, -11);
+	public int skierBonus = 10;					//Score bonus given to skier if they survive a full round
+	public int planeBonus = 10;                 //Score bonus given to plane if all skiers wipeout
+	public int skierHurtBonus = 5;				//Score bonus given to plane when a skier is hurt
 	//-------------------------------------------------------------------------
 
 	//Camera reference
@@ -73,24 +76,24 @@ public class GameManager : MonoBehaviour
 	public Text scoreGreen = null;
 	public Text scorePurple = null;
 	public Text scoreOrange = null;
+	private Text[] m_skierScores = null;
 	public GameObject playerOneUI = null;
 	public GameObject playerTwoUI = null;
 	public GameObject playerThreeUI = null;
 	public GameObject playerFourUI = null;
+	private GameObject[] m_playerUI = null;
 	public GameObject beachBombAbilityUI = null;
 	public GameObject tetheredMineAbilityUI = null;
 	public Image livesRed = null;
 	public Image livesGreen = null;
 	public Image livesPurple = null;
 	public Image livesOrange = null;
-	//public Text livesRed = null;
-	//public Text livesGreen = null;
-	//public Text livesPurple = null;
-	//public Text livesOrange = null;
+	private Image[] m_skierLives = null;
 	public Text multiplierRed = null;
 	public Text multiplierGreen = null;
 	public Text multiplierPurple = null;
 	public Text multiplierOrange = null;
+	private Text[] m_skierMultipliers = null;
 	public Image beachBombAbility = null;
 	public Image tetheredMineAbility = null;
 	public Image beachBombControllerAim = null;
@@ -103,9 +106,40 @@ public class GameManager : MonoBehaviour
 	//-------------------------------------------------------------------------
 
 	public Texture axolotlPlaneTexture = null;
+	public delegate void Function(int skierNumber);
 
 	void Awake()
 	{
+		m_skiers = new SkierController[4];
+		m_skiers[0] = redSkier;
+		m_skiers[1] = greenSkier;
+		m_skiers[2] = purpleSkier;
+		m_skiers[3] = orangeSkier;
+
+		m_skierScores = new Text[4];
+		m_skierScores[0] = scoreRed;
+		m_skierScores[1] = scoreGreen;
+		m_skierScores[2] = scorePurple;
+		m_skierScores[3] = scoreOrange;
+
+		m_playerUI = new GameObject[4];
+		m_playerUI[0] = playerOneUI;
+		m_playerUI[1] = playerTwoUI;
+		m_playerUI[2] = playerThreeUI;
+		m_playerUI[3] = playerFourUI;
+
+		m_skierLives = new Image[4];
+		m_skierLives[0] = livesRed;
+		m_skierLives[1] = livesGreen;
+		m_skierLives[2] = livesPurple;
+		m_skierLives[3] = livesOrange;
+
+		m_skierMultipliers = new Text[4];
+		m_skierMultipliers[0] = multiplierRed;
+		m_skierMultipliers[1] = multiplierGreen;
+		m_skierMultipliers[2] = multiplierPurple;
+		m_skierMultipliers[3] = multiplierOrange;
+
 		planeHatch.setIsUsingAbility(false);
 		redSkier.controller = XboxController.First;     //First player is red
 		greenSkier.controller = XboxController.Second;  //Second player is green
@@ -414,12 +448,12 @@ public class GameManager : MonoBehaviour
 		m_playingRoundTimer.autoDisable = true;                    //Make the timer disable itself after the timelimit
 
 		//At the start of each round, set the scores
-		redSkier.SetPlayerScore(GameInfo.playerOneScore);
-		greenSkier.SetPlayerScore(GameInfo.playerTwoScore);
+		redSkier.SetScore(GameInfo.playerOneScore);
+		greenSkier.SetScore(GameInfo.playerTwoScore);
 		if (m_playerCount >= 3)
-			purpleSkier.SetPlayerScore(GameInfo.playerThreeScore);
+			purpleSkier.SetScore(GameInfo.playerThreeScore);
 		if (m_playerCount == 4)
-			orangeSkier.SetPlayerScore(GameInfo.playerFourScore);
+			orangeSkier.SetScore(GameInfo.playerFourScore);
 
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
@@ -623,7 +657,7 @@ public class GameManager : MonoBehaviour
 					m_eCurrentState = RoundState.ePlayingRound; //Swap to playing the round
 					m_playingRoundTimer.SetTimer();             //Start the round timer
 					startCountdownDisplay.text = "GO!";
-					StartCoroutine(clearText(1));               //Set the text to turn off after 1 second
+					StartCoroutine(ClearText(1));               //Set the text to turn off after 1 second
 					SceneMovementActive(true);                  //Activate scene movement
 				}
 				else                                                            //Otherwise the timer is still going,
@@ -637,137 +671,44 @@ public class GameManager : MonoBehaviour
 
 			case RoundState.ePlayingRound:
 
+				//If the time limit runs out
 				if (!m_playingRoundTimer.UnderMax())
 				{
-					if (redSkier.GetAlive()) // If red skier was alive at the end of the timer.
-						redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.skierBonus); // Increase its score by the bonus.
-					if (greenSkier.GetAlive()) //  If green skier was alive at the end of the timer. 
-						greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.skierBonus); // Increase its score by the bonus.
-					if (purpleSkier) // If purple skier exists.
-					{
-						if (purpleSkier.GetAlive()) // If purple skier was alive at the end of the timer.
-							purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.skierBonus); // Increase its score by the bonus.
-					}
-					if (orangeSkier) // If orange skier exists.
-					{
-						if (orangeSkier.GetAlive()) // If the orange skier was alive at the end of the timer.
-						{
-							orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.skierBonus); // Increase its score by the bonus.
-						}
-					}
+					CallOnSkiers(ApplySkierAliveBonus);		//Apply score bonuses to any skiers that are still alive
 
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
 					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
-					bonus.text = "Alive skiers get a bonus of " + redSkier.skierBonus.ToString();
+					bonus.text = "Alive skiers get a bonus of " + skierBonus.ToString();
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
+				//If all skiers get wiped out (non-skiers are set to not alive by default)
 				else if (!redSkier.GetAlive() && !greenSkier.GetAlive() && !purpleSkier.GetAlive() && !orangeSkier.GetAlive())
 				{
-					if (plane.controller == XboxController.First)
-						redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeBonus);
-					else if (plane.controller == XboxController.Second)
-						greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeBonus);
-					else if (plane.controller == XboxController.Third)
-						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeBonus);
-					else if (plane.controller == XboxController.Fourth)
-						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeBonus);
+					//Add a score bonus to the player controlling the plane
+					m_skiers[(int)m_eCurrentPlaneState].AddScore(planeBonus);
 
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
 					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
-					bonus.text = "All skiers wiped out! Plane gets " + redSkier.planeBonus.ToString() + " bonus score!";
+					bonus.text = "All skiers wiped out! Plane gets " + planeBonus.ToString() + " bonus score!";
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
 
 				roundTimerPanel.SetActive(true);
 				playingCountDownDisplay.fillAmount = m_playingRoundTimer.T / roundTimeLimit;
 
-				//Display scores and lives
-				scoreRed.text = redSkier.GetPlayerScore().ToString();
-				multiplierRed.text = "x" + redSkier.GetPlayerMultiplier().ToString();
-				scoreGreen.text = greenSkier.GetPlayerScore().ToString();
-				multiplierGreen.text = "x" + greenSkier.GetPlayerMultiplier().ToString();
+				//Check if any skiers are hit
+				CallOnSkiers(SkierHurtBonusCheck);
 
-				playerOneUI.SetActive(true);
-				playerTwoUI.SetActive(true);
+				//Display skier and plane related UI
+				CallOnSkiers(SetSkierUI);
 				beachBombAbilityUI.SetActive(true);
 				tetheredMineAbilityUI.SetActive(true);
-				
-				if (redSkier.GetAlive())
-				{
-					if (redSkier.skierLives == 3)
-						livesRed.fillAmount = 1;
-					else if (redSkier.skierLives == 2)
-						livesRed.fillAmount = 0.66f;
-					else if (redSkier.skierLives == 1)
-						livesRed.fillAmount = 0.33f;
-				}
-				else
-				{ 
-					livesRed.fillAmount = 0;
-					multiplierRed.text = "";
-				}
-				if (greenSkier.GetAlive())
-				{
-					if (greenSkier.skierLives == 3)
-						livesGreen.fillAmount = 1;
-					else if (greenSkier.skierLives == 2)
-						livesGreen.fillAmount = 0.66f;
-					else if (greenSkier.skierLives == 1)
-						livesGreen.fillAmount = 0.33f;
-				}
-				else
-				{
-					livesGreen.fillAmount = 0;
-					multiplierGreen.text = "";
-				}
-				if (m_playerCount >= 3)
-				{
-					scorePurple.text = purpleSkier.GetPlayerScore().ToString();
-					multiplierPurple.text = "x" + purpleSkier.GetPlayerMultiplier().ToString();
-					playerThreeUI.SetActive(true);
-
-					if (purpleSkier.GetAlive())
-					{
-						if (purpleSkier.skierLives == 3)
-							livesPurple.fillAmount = 1;
-						else if (purpleSkier.skierLives == 2)
-							livesPurple.fillAmount = 0.66f;
-						else if (purpleSkier.skierLives == 1)
-							livesPurple.fillAmount = 0.33f;
-					}
-					else
-					{
-						livesPurple.fillAmount = 0;
-						multiplierPurple.text = "";
-					}
-				}
-				if (m_playerCount == 4)
-				{
-					scoreOrange.text = orangeSkier.GetPlayerScore().ToString();
-					multiplierOrange.text = "x" + orangeSkier.GetPlayerMultiplier().ToString();
-					playerFourUI.SetActive(true);
-
-					if (orangeSkier.GetAlive())
-					{
-						if (orangeSkier.skierLives == 3)
-							livesOrange.fillAmount = 1;
-						else if (orangeSkier.skierLives == 2)
-							livesOrange.fillAmount = 0.66f;
-						else if (orangeSkier.skierLives == 1)
-							livesOrange.fillAmount = 0.33f;
-					}
-					else
-					{
-						livesOrange.fillAmount = 0;
-						multiplierOrange.text = "";
-					}
-				}
-
 				beachBombAbility.fillAmount = target.abilityCooldown.T / target.abilityCooldown.maxTime;
 				tetheredMineAbility.fillAmount = planeHatch.mineAbilityCooldown.T / planeHatch.mineAbilityCooldown.maxTime;
-
+				
+				//Display the controller button sprites for plane abilities
 				if (beachBombAbility.fillAmount == 1 && !target.isAiming)
 					beachBombControllerAim.enabled = true;
 				else
@@ -779,69 +720,10 @@ public class GameManager : MonoBehaviour
 					tetheredMineController.enabled = false;
 
 				if (target.isAiming)
-				{
 					beachBombControllerShoot.enabled = true;
-				}
 				else
 					beachBombControllerShoot.enabled = false;
-
-				//beachBombAbility.text = ((int)Math.Ceiling(target.abilityCooldown.T)).ToString();   //Display the beach bomb ability cooldown timer
-				//tetheredMineAbility.text = ((int)Math.Ceiling(planeHatch.mineAbilityCooldown.T)).ToString(); // Display the mine ability cooldown timer.
 				
-				if (plane.controller == XboxController.First)
-				{
-					if (greenSkier.hurtThisFrame && greenSkier.GetAlive())
-						redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
-					if (purpleSkier)
-					{
-						if (purpleSkier.hurtThisFrame && purpleSkier.GetAlive())
-							redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
-					}
-					if (orangeSkier)
-					{
-						if (orangeSkier.hurtThisFrame && orangeSkier.GetAlive())
-							redSkier.SetPlayerScore(redSkier.GetPlayerScore() + redSkier.planeScoreInc);
-					}
-				}
-				else if (plane.controller == XboxController.Second)
-				{
-					if (redSkier.hurtThisFrame && redSkier.GetAlive())
-						greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
-					if (purpleSkier)
-					{
-						if (purpleSkier.hurtThisFrame && purpleSkier.GetAlive())
-							greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
-					}
-					if (orangeSkier)
-					{
-						if (orangeSkier.hurtThisFrame && orangeSkier.GetAlive())
-							greenSkier.SetPlayerScore(greenSkier.GetPlayerScore() + greenSkier.planeScoreInc);
-					}
-				}
-				else if (plane.controller == XboxController.Third)
-				{
-					if (redSkier.hurtThisFrame && redSkier.GetAlive())
-						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
-					if (greenSkier.hurtThisFrame && greenSkier.GetAlive())
-						purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
-					if (orangeSkier) // If orange skier exists.
-					{
-						if (orangeSkier.hurtThisFrame && orangeSkier.GetAlive())
-						{
-							purpleSkier.SetPlayerScore(purpleSkier.GetPlayerScore() + purpleSkier.planeScoreInc);
-						}
-					}
-				}
-				else if (plane.controller == XboxController.Fourth)
-				{
-					if (redSkier.hurtThisFrame)
-						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
-					if (greenSkier.hurtThisFrame)
-						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
-					if (purpleSkier.hurtThisFrame)
-						orangeSkier.SetPlayerScore(orangeSkier.GetPlayerScore() + orangeSkier.planeScoreInc);
-				}
-
 				break;
 				//-------------------------------------------------------------------------
 
@@ -850,12 +732,12 @@ public class GameManager : MonoBehaviour
 				if (Input.GetKeyDown(KeyCode.Space) || XCI.GetButtonDown(XboxButton.A, XboxController.All))	//If next round is selected,
 				{
 					//Update the static GameInfo scores
-					GameInfo.playerOneScore = redSkier.GetPlayerScore();
-					GameInfo.playerTwoScore = greenSkier.GetPlayerScore();
+					GameInfo.playerOneScore = redSkier.GetScore();
+					GameInfo.playerTwoScore = greenSkier.GetScore();
 					if (m_playerCount >= 3)
-						GameInfo.playerThreeScore = purpleSkier.GetPlayerScore();
+						GameInfo.playerThreeScore = purpleSkier.GetScore();
 					if (m_playerCount == 4)
-						GameInfo.playerFourScore = orangeSkier.GetPlayerScore();
+						GameInfo.playerFourScore = orangeSkier.GetScore();
 
 					++GameInfo.roundNumber;						//Update the round number
 					if (GameInfo.roundNumber <= m_playerCount)	//If the round number is under the number of players,
@@ -869,6 +751,51 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	//Function that takes another function as a parameter, 
+	//checks which skiers are in the game, then calls the function on the correct skiers
+	private void CallOnSkiers(Function FunctionToCall)
+	{
+		FunctionToCall(0);			//Red skier always in the game, so call function on red
+		FunctionToCall(1);			//Green skier always in the game, so call function on green
+		if (m_playerCount >= 3)		//If the purple skier is in the game,
+		{
+			FunctionToCall(2);		//Call the function on purple
+			if (m_playerCount == 4)	//If the orange skier is in the game,
+				FunctionToCall(3);	//Call the function on orange
+		}
+	}
+
+	//Sets/updates all the UI related to a skier
+	private void SetSkierUI(int skierNumber)
+	{
+		m_skierScores[skierNumber].text = m_skiers[skierNumber].GetScore().ToString();	//Display the score
+		
+		if (m_skiers[skierNumber].GetAlive())											//If the skier is still alive,
+		{
+			m_skierLives[skierNumber].fillAmount = m_skiers[skierNumber].lives / 3.0f;	//Display the lives
+			m_skierMultipliers[skierNumber].text = "x" + m_skiers[skierNumber].GetPlayerMultiplier().ToString();	//Display the multiplier
+		}
+		else											//If the skier isn't alive,
+		{
+			m_skierLives[skierNumber].fillAmount = 0;	//Show no lives
+			m_skierMultipliers[skierNumber].text = "";	//Don't show a multiplier
+		}
+	}
+
+	//Adds a bonus to any alive skiers
+	private void ApplySkierAliveBonus(int skierNumber)
+	{
+		if (m_skiers[skierNumber].GetAlive())			//If this skier is alive,
+			m_skiers[skierNumber].AddScore(skierBonus); //Add a bonus to its score
+	}
+
+	//Adds score to the plane when skiers are hit
+	private void SkierHurtBonusCheck(int skierNumber)
+	{
+		if (m_skiers[skierNumber].hurtThisFrame)							//If this skier got hurt this frame,
+			m_skiers[(int)m_eCurrentPlaneState].AddScore(skierHurtBonus);	//Add score to the current plane player
+	}
+
 	//Starts/stops movement in the scene
 	private void SceneMovementActive(bool value)
 	{
@@ -878,11 +805,17 @@ public class GameManager : MonoBehaviour
 		purpleSkier.enabled = value;
 		orangeSkier.enabled = value;
 		redSkier.tether.enabled = value;
+		playerOneUI.SetActive(value);
 		greenSkier.tether.enabled = value;
-		if (purpleSkier.gameObject.activeSelf == true)	//If the purple skier is in the game,
-			purpleSkier.tether.enabled = value;			//Set them
-		if (orangeSkier.gameObject.activeSelf == true)	//If the orange skier is in the game,
+		playerTwoUI.SetActive(value);
+		if (purpleSkier.gameObject.activeSelf == true)  //If the purple skier is in the game,
+			purpleSkier.tether.enabled = value;         //Set them
+		if (orangeSkier.gameObject.activeSelf == true)  //If the orange skier is in the game,
 			orangeSkier.tether.enabled = value;         //Set them too
+		if (m_playerCount >= 3)
+			playerThreeUI.SetActive(value);
+		if (m_playerCount == 4)
+			playerFourUI.SetActive(value);
 		mine.enabled = value;
 		planeHatch.mineAbilityCooldown.enabled = value;
 		target.enabled = value;
@@ -904,7 +837,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	//Coroutine to turn off countdown text
-	IEnumerator clearText(float interval)
+	IEnumerator ClearText(float interval)
 	{
 		yield return new WaitForSeconds(interval);	//Wait for a certain amount of time
 		startCountdownDisplay.text = "";			//Turn the countdown text off
