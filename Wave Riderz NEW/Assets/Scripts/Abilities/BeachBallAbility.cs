@@ -173,7 +173,8 @@ public class BeachBallAbility : MonoBehaviour
 			{
 				m_targetMesh.enabled = false;   //Turn it off
 				isAiming = false;
-			}
+                BeachBallAnimation.SetBool("IsAiming", false);
+            }
 		}
 
 		if (m_isShooting)					//If the ability is currently shooting,
