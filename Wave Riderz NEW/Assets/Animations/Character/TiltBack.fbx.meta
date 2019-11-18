@@ -1,0 +1,213 @@
+fileFormatVersion: 2
+guid: c7dcde7d487a0c747893b88290399d93
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Controls
+    100002: CTRL_Back
+    100004: CTRL_Head
+    100006: CTRL_LElbow
+    100008: CTRL_LFoot
+    100010: CTRL_LHand
+    100012: CTRL_LKnee
+    100014: CTRL_Neck
+    100016: CTRL_Pelvis
+    100018: CTRL_RElbow
+    100020: CTRL_RFoot
+    100022: CTRL_RHand
+    100024: CTRL_RKnee
+    100026: CTRL_Waist
+    100028: IK_LArm
+    100030: IK_LLeg
+    100032: IK_RArm
+    100034: IK_RLeg
+    100036: JNT_Back
+    100038: JNT_Face
+    100040: JNT_Head
+    100042: JNT_Jaw
+    100044: JNT_LClavicle
+    100046: JNT_LElbow
+    100048: JNT_LFingers
+    100050: JNT_LFoot
+    100052: JNT_LHand
+    100054: JNT_LHip
+    100056: JNT_LKnee
+    100058: JNT_LShoulder
+    100060: JNT_LToes
+    100062: JNT_Neck
+    100064: JNT_Pelvis
+    100066: JNT_RClavicle
+    100068: JNT_RElbow
+    100070: JNT_RFingers
+    100072: JNT_RFoot
+    100074: JNT_RHand
+    100076: JNT_RHip
+    100078: JNT_RKnee
+    100080: JNT_RShoulder
+    100082: JNT_RToes
+    100084: JNT_Waist
+    100086: ROOT
+    100088: Skeleton
+    100090: //RootNode
+    400000: Controls
+    400002: CTRL_Back
+    400004: CTRL_Head
+    400006: CTRL_LElbow
+    400008: CTRL_LFoot
+    400010: CTRL_LHand
+    400012: CTRL_LKnee
+    400014: CTRL_Neck
+    400016: CTRL_Pelvis
+    400018: CTRL_RElbow
+    400020: CTRL_RFoot
+    400022: CTRL_RHand
+    400024: CTRL_RKnee
+    400026: CTRL_Waist
+    400028: IK_LArm
+    400030: IK_LLeg
+    400032: IK_RArm
+    400034: IK_RLeg
+    400036: JNT_Back
+    400038: JNT_Face
+    400040: JNT_Head
+    400042: JNT_Jaw
+    400044: JNT_LClavicle
+    400046: JNT_LElbow
+    400048: JNT_LFingers
+    400050: JNT_LFoot
+    400052: JNT_LHand
+    400054: JNT_LHip
+    400056: JNT_LKnee
+    400058: JNT_LShoulder
+    400060: JNT_LToes
+    400062: JNT_Neck
+    400064: JNT_Pelvis
+    400066: JNT_RClavicle
+    400068: JNT_RElbow
+    400070: JNT_RFingers
+    400072: JNT_RFoot
+    400074: JNT_RHand
+    400076: JNT_RHip
+    400078: JNT_RKnee
+    400080: JNT_RShoulder
+    400082: JNT_RToes
+    400084: JNT_Waist
+    400086: ROOT
+    400088: Skeleton
+    400090: //RootNode
+    7400000: TiltBack
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: TiltBack
+      takeName: TiltBack
+      firstFrame: 10
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
