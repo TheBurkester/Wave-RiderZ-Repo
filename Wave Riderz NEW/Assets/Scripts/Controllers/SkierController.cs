@@ -142,7 +142,7 @@ public class SkierController : MonoBehaviour
 			{
 				Tether otherTether = other.GetComponent<Tether>();		//Get the other skier's tether
 
-				if (tether.VelocityMagnitude() > otherTether.VelocityMagnitude())	//If this skier is moving faster than the other skier,
+				if (tether.VelocityMagnitude() >= otherTether.VelocityMagnitude())	//If this skier is moving faster than the other skier,
 				{
 					float velocityForce = (tether.VelocityXMagnitude() / maxXVelocity) * bonkVelocityForce;	//Proportion the force based on how close to max velocity this skier is
 					Vector3 totalBonkForce = (bonkForce + velocityForce) * tether.Direction();				//Add the flat force and velocity-dependent force, then point them in the direction of movement
