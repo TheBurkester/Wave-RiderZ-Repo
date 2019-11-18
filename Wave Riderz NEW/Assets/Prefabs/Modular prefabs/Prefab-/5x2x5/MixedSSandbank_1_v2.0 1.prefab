@@ -86,9 +86,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5369475949070350950}
+  - component: {fileID: 6741272355787713503}
   m_Layer: 0
   m_Name: MixedSSandbank_1_v2.0 1
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +113,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6741272355787713503
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5265223551976672169}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.78, y: 2, z: 4.16}
+  m_Center: {x: 0.12, y: 0, z: 0}
 --- !u!1 &7375331989358547551
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,11 +164,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5369475949070350950}
     m_Modifications:
-    - target: {fileID: 7399137569417705460, guid: ce2b4e5845e8d584695660eb1f518fbe,
-        type: 3}
-      propertyPath: m_Name
-      value: BrTreeStem_1_v2.2
-      objectReference: {fileID: 0}
     - target: {fileID: 7520347721274286797, guid: ce2b4e5845e8d584695660eb1f518fbe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -210,6 +219,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -102.41
       objectReference: {fileID: 0}
+    - target: {fileID: 7399137569417705460, guid: ce2b4e5845e8d584695660eb1f518fbe,
+        type: 3}
+      propertyPath: m_Name
+      value: BrTreeStem_1_v2.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce2b4e5845e8d584695660eb1f518fbe, type: 3}
 --- !u!4 &6789071287950070011 stripped
@@ -225,11 +239,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5369475949070350950}
     m_Modifications:
-    - target: {fileID: 2204373017939894876, guid: 125c9dcd29c0f6e47aa0da33e02b96fa,
-        type: 3}
-      propertyPath: m_Name
-      value: Chair_1_v2.8
-      objectReference: {fileID: 0}
     - target: {fileID: 8277019899435298094, guid: 125c9dcd29c0f6e47aa0da33e02b96fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -284,6 +293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204373017939894876, guid: 125c9dcd29c0f6e47aa0da33e02b96fa,
+        type: 3}
+      propertyPath: m_Name
+      value: Chair_1_v2.8
       objectReference: {fileID: 0}
     - target: {fileID: 6513565303070149990, guid: 125c9dcd29c0f6e47aa0da33e02b96fa,
         type: 3}
@@ -305,11 +319,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5369475949070350950}
     m_Modifications:
-    - target: {fileID: 2045841118530434492, guid: 35db3077bd4a3464ebe938703c5fd8e4,
-        type: 3}
-      propertyPath: m_Name
-      value: Umberella_1_v2.0
-      objectReference: {fileID: 0}
     - target: {fileID: 3651717802547347532, guid: 35db3077bd4a3464ebe938703c5fd8e4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -364,6 +373,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045841118530434492, guid: 35db3077bd4a3464ebe938703c5fd8e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Umberella_1_v2.0
       objectReference: {fileID: 0}
     - target: {fileID: 3326823179198042448, guid: 35db3077bd4a3464ebe938703c5fd8e4,
         type: 3}
@@ -445,7 +459,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2470971637511052647, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2470971637511052647, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577, type: 3}
 --- !u!4 &5344063178225920978 stripped
 Transform:
