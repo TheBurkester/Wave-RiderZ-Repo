@@ -783,10 +783,7 @@ public class MainMenu : MonoBehaviour
 		GameInfo.playerTwoScore = 0;
 		GameInfo.playerThreeScore = 0;
 		GameInfo.playerFourScore = 0;
-        GameInfo.playerOneHasPlane = false;
-        GameInfo.playerTwoHasPlane = false;
-        GameInfo.playerThreeHasPlane = false;
-        GameInfo.playerFourHasPlane = false;
+		GameInfo.playerBeenPlane = new bool[4];
 
         GameInfo.roundNumber = 1;	//Start the game on round 1
 
