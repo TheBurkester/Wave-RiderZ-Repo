@@ -42,7 +42,7 @@ public class BeachBallAbility : MonoBehaviour
 	public bool isAiming = false;
 
     public Rigidbody planeRB = null;	//Reference to the plane rigidbody
-    public Animator BeachBallAnimation;
+    public Animator BeachBallAnimation = null;
 
 	//Remove in gold
     public KeyCode Up = KeyCode.W;				// Keyboard up control
@@ -108,8 +108,9 @@ public class BeachBallAbility : MonoBehaviour
         {
 			Vector3 currentPosition = m_newPosition;
             //Animates the plane doors opening
-            BeachBallAnimation.SetBool("IsAiming", true);
-            BeachBallAnimation.SetBool("IsShooting", false);
+           // BeachBallAnimation.SetTrigger("OpenHatch");
+            //BeachBallAnimation.SetBool("IsAiming", true);
+            //BeachBallAnimation.SetBool("IsShooting", false);
 
             //Xbox movement
             m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
@@ -168,12 +169,13 @@ public class BeachBallAbility : MonoBehaviour
 			{
 				m_targetMesh.enabled = true;    //Turn it on
 				isAiming = true;
-			}
+                BeachBallAnimation.SetTrigger("OpenHatch");
+            }
 			else                                //If the target is on,
 			{
 				m_targetMesh.enabled = false;   //Turn it off
 				isAiming = false;
-                BeachBallAnimation.SetBool("IsAiming", false);
+                BeachBallAnimation.SetTrigger("CloseHatch");
             }
 		}
 
@@ -195,8 +197,9 @@ public class BeachBallAbility : MonoBehaviour
         GameObject beachBall = ObjectPool.sharedInstance.GetPooledObject("Beach Ball");
         if (beachBall != null)
         {
-            BeachBallAnimation.SetBool("IsShooting", true);
-            BeachBallAnimation.SetBool("IsAiming", false);
+            BeachBallAnimation.SetTrigger("ShootHatch");
+            //BeachBallAnimation.SetBool("IsShooting", true);
+            //BeachBallAnimation.SetBool("IsAiming", false);
             // Landing position travels with the plane. Also keeps the ball from spawning within the camera's view.
             Vector3 v3LandingPos = m_targetRB.position + new Vector3(0, 30, m_targetPlaneRelation * Time.deltaTime);
 			beachBall.transform.position = v3LandingPos;
