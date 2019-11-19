@@ -198,12 +198,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 122003485030794024}
-  - component: {fileID: 122003485020925064}
   - component: {fileID: 122003484190775973}
   - component: {fileID: 122003484190775974}
+  - component: {fileID: 3219326067867670733}
   - component: {fileID: 122003484190775993}
   - component: {fileID: 122003484190775975}
   - component: {fileID: 122003484190775972}
+  - component: {fileID: 122003485020925064}
   m_Layer: 0
   m_Name: Player_Green_Croc
   m_TagString: Skier
@@ -234,25 +235,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &122003485020925064
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122003485030440712}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c46c954118a72ad40b334492acd42b5e, type: 3}
-  m_Controller: {fileID: 9100000, guid: dff19368435714e4fa1394cf5c3fe7cf, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!54 &122003484190775973
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -278,6 +260,19 @@ BoxCollider:
   m_GameObject: {fileID: 122003485030440712}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 1, z: 1.2}
+  m_Center: {x: 0, y: 0.5353173, z: 0}
+--- !u!65 &3219326067867670733
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122003485030440712}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.4, y: 1, z: 1.2}
@@ -352,6 +347,25 @@ MonoBehaviour:
   velocityCapZ: 2.5
   resistanceX: 1.15
   resistanceZ: 1.15
+--- !u!95 &122003485020925064
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122003485030440712}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c46c954118a72ad40b334492acd42b5e, type: 3}
+  m_Controller: {fileID: 9100000, guid: dff19368435714e4fa1394cf5c3fe7cf, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &122003485030440714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1689,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 122003485030794024}
     m_Modifications:
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstPlaceParticle_1_V1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1728,16 +1752,6 @@ PrefabInstance:
     - target: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_Name
-      value: FirstPlaceParticle_1_V1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1830,6 +1844,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 122003485030794024}
     m_Modifications:
+    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+        type: 3}
+      propertyPath: m_Name
+      value: CoinParticle_1_Collection_v3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4678165869300841274, guid: f7662dadc49fb3141951d1f352e81057,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1885,16 +1909,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-        type: 3}
-      propertyPath: m_Name
-      value: CoinParticle_1_Collection_v3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7662dadc49fb3141951d1f352e81057, type: 3}
 --- !u!4 &7815597893974950390 stripped
@@ -1910,6 +1924,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 122003485030794024}
     m_Modifications:
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_2_Damage_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1963,16 +1987,6 @@ PrefabInstance:
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_2_Damage_v1
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

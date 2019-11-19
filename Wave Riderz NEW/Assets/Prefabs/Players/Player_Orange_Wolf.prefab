@@ -506,12 +506,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7834617658177993074}
-  - component: {fileID: 7834617658168661670}
-  - component: {fileID: 7834617659454496538}
   - component: {fileID: 2319528538971578487}
   - component: {fileID: 1667313972565840406}
+  - component: {fileID: 3444617906883059119}
+  - component: {fileID: 7834617659454496538}
   - component: {fileID: 4879113394894888017}
   - component: {fileID: 4416102609228908017}
+  - component: {fileID: 7834617658168661670}
   m_Layer: 0
   m_Name: Player_Orange_Wolf
   m_TagString: Skier
@@ -541,39 +542,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7834617658168661670
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834617658178020626}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 1a4c99b58c0a54343a10fafba0fd0183, type: 3}
-  m_Controller: {fileID: 9100000, guid: dff19368435714e4fa1394cf5c3fe7cf, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7834617659454496538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834617658178020626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46f67025e768b4542a6e0a78075b2048, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterAnim: {fileID: 7834617658168661670}
-  controller: 0
 --- !u!54 &2319528538971578487
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -603,6 +571,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0.5353173, z: 0}
+--- !u!65 &3444617906883059119
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834617658178020626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 1, z: 1.2}
+  m_Center: {x: 0, y: 0.5353173, z: 0}
+--- !u!114 &7834617659454496538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834617658178020626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f67025e768b4542a6e0a78075b2048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterAnim: {fileID: 7834617658168661670}
+  controller: 0
 --- !u!114 &4879113394894888017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,6 +654,25 @@ MonoBehaviour:
   velocityCapZ: 2.5
   resistanceX: 1.15
   resistanceZ: 1.15
+--- !u!95 &7834617658168661670
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834617658178020626}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 1a4c99b58c0a54343a10fafba0fd0183, type: 3}
+  m_Controller: {fileID: 9100000, guid: dff19368435714e4fa1394cf5c3fe7cf, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7834617658178020628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,6 +1377,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7834617658177993074}
     m_Modifications:
+    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+        type: 3}
+      propertyPath: m_Name
+      value: CoinParticle_1_Collection_v3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4678165869300841274, guid: f7662dadc49fb3141951d1f352e81057,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1416,16 +1440,6 @@ PrefabInstance:
     - target: {fileID: 4678165869300841274, guid: f7662dadc49fb3141951d1f352e81057,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-        type: 3}
-      propertyPath: m_Name
-      value: CoinParticle_1_Collection_v3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1518,6 +1532,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7834617658177993074}
     m_Modifications:
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstPlaceParticle_1_V1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1571,16 +1595,6 @@ PrefabInstance:
     - target: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_Name
-      value: FirstPlaceParticle_1_V1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1724,6 +1738,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7834617658177993074}
     m_Modifications:
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_2_Damage_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1777,16 +1801,6 @@ PrefabInstance:
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_2_Damage_v1
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
