@@ -45,4 +45,13 @@ public class AudioManager : MonoBehaviour
         else
 			s.source.Play();
     }
+
+
+    //Stops a sound with a given name 
+   public static void Stop(string name)
+   {
+       Sound s = Array.Find(instance.sounds, sound => sound.name == name);	//Find the sound with the correct name
+       s.source.Stop();
+   }
+    
 }
