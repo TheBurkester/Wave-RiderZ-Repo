@@ -36,6 +36,7 @@ public class BeachBall : MonoBehaviour
             Vector3 explosionPos = transform.position;	// explosion will occur at the impact site.
 			explosionPos.y = 0;							//Make sure that there is no y component
             Collider[] colliders = Physics.OverlapSphere(explosionPos, m_bbAbility.radius); // List of colliders within the radius.
+            AudioManager.Play("BeachBomb POP");
 
             foreach (Collider hit in colliders)										//For all the objects in the radius,
             {
@@ -46,7 +47,9 @@ public class BeachBall : MonoBehaviour
 					distanceToHit.y = 0;											//Make sure there is no y compenent
 					//float distanceToHit.magnitude		*Do a check of distance magnitude and adjust force amount here*
 					tether.ForceOverTime(m_bbAbility.power * distanceToHit.normalized, m_bbAbility.forceDuration); //Add a force on the skier, pushing away from the explosion point
-				}
+                    AudioManager.Play("BeachBomb POP");
+
+                }
                 else if (hit.CompareTag("Mine"))
                 {
                     Tether tether = hit.GetComponent<Tether>();                     //Get their tether
@@ -54,7 +57,9 @@ public class BeachBall : MonoBehaviour
                     distanceToHit.y = 0;                                            //Make sure there is no y compenent
                     //float distanceToHit.magnitude		*Do a check of distance magnitude and adjust force amount here*
                     tether.ForceOverTime(m_bbAbility.minePower * distanceToHit.normalized, m_bbAbility.forceDuration); //Add a force on the mine, pushing away from the explosion point
+                    AudioManager.Play("BeachBomb POP");
                 }
+
             }
 
             gameObject.SetActive(false); // Deactivates the beachball.
