@@ -155,9 +155,12 @@ public class SkierController : MonoBehaviour
 
 			if (other.CompareTag("Coin"))   //If the other object is a coin,
 				m_score += coinScore;       //Add a coin's worth of points to the score
-            
-			if (other.CompareTag("Rock"))   //If the other object is a rock,
-				HurtSkier();                //Hurt the skier
+
+            if (other.CompareTag("Rock"))   //If the other object is a rock,
+            {
+                HurtSkier();//Hurt the skier
+                AudioManager.Play("PLayerHitObstacle"); // plays sound when hit obstacle 
+            }
 		}
 
 		if (other.CompareTag("Rock"))	//Regardless of if invincible or not, if colliding with an obstacle,
