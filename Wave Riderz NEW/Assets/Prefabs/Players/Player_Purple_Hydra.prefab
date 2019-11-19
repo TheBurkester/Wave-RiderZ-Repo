@@ -114,26 +114,26 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 2.883, y: 0.541, z: -10.39}
+  - {x: 2.7312632, y: 0.9643123, z: -9.95}
+  - {x: 2.5795264, y: 1.3643267, z: -9.51}
+  - {x: 2.4277894, y: 1.7410431, z: -9.070001}
+  - {x: 2.2760527, y: 2.094462, z: -8.630001}
+  - {x: 2.1243157, y: 2.424583, z: -8.190001}
+  - {x: 1.972579, y: 2.7314057, z: -7.7500005}
+  - {x: 1.8208421, y: 3.014931, z: -7.3100004}
+  - {x: 1.6691052, y: 3.2751582, z: -6.87}
+  - {x: 1.5173683, y: 3.5120878, z: -6.4300003}
+  - {x: 1.3656315, y: 3.7257195, z: -5.9900002}
+  - {x: 1.2138947, y: 3.9160528, z: -5.55}
+  - {x: 1.062158, y: 4.083089, z: -5.11}
+  - {x: 0.91042095, y: 4.2268267, z: -4.67}
+  - {x: 0.7586842, y: 4.347267, z: -4.23}
+  - {x: 0.6069473, y: 4.4444094, z: -3.79}
+  - {x: 0.45521048, y: 4.518254, z: -3.35}
+  - {x: 0.3034737, y: 4.5688004, z: -2.9100003}
+  - {x: 0.15173677, y: 4.596049, z: -2.4699998}
+  - {x: 0, y: 4.6, z: -2.03}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.09870375
@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 6197322588272565091}
   m_Layer: 0
   m_Name: Player_Purple_Hydra
-  m_TagString: Untagged
+  m_TagString: Skier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1592,16 +1592,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6930464069003959189}
     m_Modifications:
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_Name
-      value: FirstPlaceParticle_1_V1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1657,6 +1647,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstPlaceParticle_1_V1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b56aa84c4643049be7fa92d57ff101, type: 3}
 --- !u!4 &3646810668812385090 stripped
@@ -1672,16 +1672,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6930464069003959189}
     m_Modifications:
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_2_Damage_v1
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1737,6 +1727,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_2_Damage_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c632bab6a51ff440895f669b1abd6b8, type: 3}
 --- !u!4 &4775407826153736947 stripped
@@ -1752,16 +1752,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6930464069003959189}
     m_Modifications:
-    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-        type: 3}
-      propertyPath: m_Name
-      value: CoinParticle_1_Collection_v3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4678165869300841274, guid: f7662dadc49fb3141951d1f352e81057,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1815,6 +1805,16 @@ PrefabInstance:
     - target: {fileID: 4678165869300841274, guid: f7662dadc49fb3141951d1f352e81057,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+        type: 3}
+      propertyPath: m_Name
+      value: CoinParticle_1_Collection_v3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

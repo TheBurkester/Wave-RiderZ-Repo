@@ -43,7 +43,12 @@ public class GameManager : MonoBehaviour
 	public SkierController purpleSkier = null;  //Reference to the purple skier script
 	public SkierController orangeSkier = null;  //Reference to the orange skier script
 	private SkierController[] m_skiers = null;
-	public GameObject planeBody = null;			// Reference to the body of the plane.
+    public Texture axlPlaneTexture = null;
+    public Texture carlPlaneTexture = null;
+    public Texture hydraPlaneTexture = null;
+    public Texture mannyPlaneTexture = null;
+    private Texture[] m_planeTextures = null;
+    public GameObject planeBody = null;			// Reference to the body of the plane.
 	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
 	private Vector3 m_twoPlayerSkierPos = new Vector3(0, 0, -11);
 	private Vector3 m_threePlayerSkierPosOne = new Vector3(-1, 0, -11);
@@ -111,8 +116,7 @@ public class GameManager : MonoBehaviour
     private int m_t = 0;
     private bool m_nextRound = false;
 	//-------------------------------------------------------------------------
-
-	public Texture axolotlPlaneTexture = null;
+    
 	public delegate void Function(int skierNumber);
 
     private string[] m_skierHurtSounds;
@@ -122,7 +126,8 @@ public class GameManager : MonoBehaviour
 		//Set the reference arrays
 		m_skiers = new SkierController[6] { redSkier, greenSkier, purpleSkier, orangeSkier, null, null };	//Add two nulls at the end so they don't throw errors if functions check those indexes
 		m_skierScores = new Text[4] { scoreRed, scoreGreen, scorePurple, scoreOrange };
-		m_playerUI = new GameObject[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
+        m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, hydraPlaneTexture, mannyPlaneTexture };
+        m_playerUI = new GameObject[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
 		m_skierLives = new Image[4] { livesRed, livesGreen, livesPurple, livesOrange };
 		m_skierMultipliers = new Text[4] { multiplierRed, multiplierGreen, multiplierPurple, multiplierOrange };
         m_skierHurtSounds = new string[4] {"Player1Damage", "Player2Damage","Player3Damage","Player4Damage" };
@@ -364,7 +369,7 @@ public class GameManager : MonoBehaviour
 	//Activates the right skiers, sets materials, places skiers, and passes tether references to the plane
 	private void SetupScene()
 	{
-		Tether[] tethers = new Tether[3];	//Array of tethers to pass onto the plane
+		Tether[] tethers = new Tether[4];	//Array of tethers to pass onto the plane
 
 		int place = 0;	//Which place the skier will be spawned to, such as 0, 1, or 2, based on how many players
 
@@ -375,8 +380,7 @@ public class GameManager : MonoBehaviour
 				m_skiers[i].gameObject.SetActive(false);	//Set their skier to inactive
 				m_skiers[i].SetAlive(false);				//Make sure they aren't considered alive
 				//Set the material of the plane
-				planeBody.GetComponent<Renderer>().material = m_skiers[i].gameObject.GetComponent<Renderer>().material;
-				//planeBody.GetComponent<Renderer>().material.SetTexture("Texture2D_C6055840", axolotlPlaneTexture);
+				planeBody.GetComponent<Renderer>().material.SetTexture("Texture2D_C6055840", m_planeTextures[i]);
 			}
 			else										//If this player isn't in the plane,
 			{
