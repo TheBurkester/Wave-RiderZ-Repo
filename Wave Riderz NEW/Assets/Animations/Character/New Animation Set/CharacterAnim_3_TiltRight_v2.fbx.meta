@@ -1,38 +1,101 @@
 fileFormatVersion: 2
-guid: f9c1e5b6a33624e49b161b772da9842e
+guid: f2fa52c80e7c2064c9cfcfc28d2dcc05
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: back
-    100002: Beach_Ball
-    100004: Beach_ball
-    100006: Cannon_Hatch_1
-    100008: Cannon_hatch_1
-    100010: Cannon_Hatch_2
-    100012: Cannon_hatch_2
-    100014: Plane_Merged
-    100016: //RootNode
-    400000: back
-    400002: Beach_Ball
-    400004: Beach_ball
-    400006: Cannon_Hatch_1
-    400008: Cannon_hatch_1
-    400010: Cannon_Hatch_2
-    400012: Cannon_hatch_2
-    400014: Plane_Merged
-    400016: //RootNode
-    2000000: back
-    2100000: lambert1
-    2300000: Beach_ball
-    2300002: Cannon_hatch_1
-    2300004: Cannon_hatch_2
-    3300000: Beach_ball
-    3300002: Cannon_hatch_1
-    3300004: Cannon_hatch_2
-    4300000: Cannon_hatch_1
-    4300002: Cannon_hatch_2
-    4300004: Beach_ball
-    7400000: 1_Beachbomb_Open
+    100000: //RootNode
+    100002: Controls
+    100004: CTRL_Back
+    100006: CTRL_Head
+    100008: CTRL_LElbow
+    100010: CTRL_LFoot
+    100012: CTRL_LHand
+    100014: CTRL_LKnee
+    100016: CTRL_Neck
+    100018: CTRL_Pelvis
+    100020: CTRL_RElbow
+    100022: CTRL_RFoot
+    100024: CTRL_RHand
+    100026: CTRL_RKnee
+    100028: CTRL_Waist
+    100030: IK_LArm
+    100032: IK_LLeg
+    100034: IK_RArm
+    100036: IK_RLeg
+    100038: JNT_Back
+    100040: JNT_Face
+    100042: JNT_Head
+    100044: JNT_Jaw
+    100046: JNT_LClavicle
+    100048: JNT_LElbow
+    100050: JNT_LFingers
+    100052: JNT_LFoot
+    100054: JNT_LHand
+    100056: JNT_LHip
+    100058: JNT_LKnee
+    100060: JNT_LShoulder
+    100062: JNT_LToes
+    100064: JNT_Neck
+    100066: JNT_Pelvis
+    100068: JNT_RClavicle
+    100070: JNT_RElbow
+    100072: JNT_RFingers
+    100074: JNT_RFoot
+    100076: JNT_RHand
+    100078: JNT_RHip
+    100080: JNT_RKnee
+    100082: JNT_RShoulder
+    100084: JNT_RToes
+    100086: JNT_Waist
+    100088: ROOT
+    100090: Skeleton
+    400000: //RootNode
+    400002: Controls
+    400004: CTRL_Back
+    400006: CTRL_Head
+    400008: CTRL_LElbow
+    400010: CTRL_LFoot
+    400012: CTRL_LHand
+    400014: CTRL_LKnee
+    400016: CTRL_Neck
+    400018: CTRL_Pelvis
+    400020: CTRL_RElbow
+    400022: CTRL_RFoot
+    400024: CTRL_RHand
+    400026: CTRL_RKnee
+    400028: CTRL_Waist
+    400030: IK_LArm
+    400032: IK_LLeg
+    400034: IK_RArm
+    400036: IK_RLeg
+    400038: JNT_Back
+    400040: JNT_Face
+    400042: JNT_Head
+    400044: JNT_Jaw
+    400046: JNT_LClavicle
+    400048: JNT_LElbow
+    400050: JNT_LFingers
+    400052: JNT_LFoot
+    400054: JNT_LHand
+    400056: JNT_LHip
+    400058: JNT_LKnee
+    400060: JNT_LShoulder
+    400062: JNT_LToes
+    400064: JNT_Neck
+    400066: JNT_Pelvis
+    400068: JNT_RClavicle
+    400070: JNT_RElbow
+    400072: JNT_RFingers
+    400074: JNT_RFoot
+    400076: JNT_RHand
+    400078: JNT_RHip
+    400080: JNT_RKnee
+    400082: JNT_RShoulder
+    400084: JNT_RToes
+    400086: JNT_Waist
+    400088: ROOT
+    400090: Skeleton
+    7400000: CharacterAnim_3_TiltRight_v2
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -63,17 +126,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 1_Beachbomb_Open
-      takeName: 1_Beachbomb_Open
-      firstFrame: 1
-      lastFrame: 15
+      name: CharacterAnim_3_TiltRight_v2
+      takeName: CharacterAnim_3_TiltRight_v2
+      firstFrame: 10
+      lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
