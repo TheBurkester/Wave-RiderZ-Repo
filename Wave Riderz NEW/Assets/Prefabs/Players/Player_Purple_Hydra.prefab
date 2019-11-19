@@ -267,7 +267,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: adcf32243c1ae20459ab5eb2e3793d15, type: 3}
+  - {fileID: 2100000, guid: 7cbae267dea19cd4b96554bd2ea2d9c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1517,6 +1517,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6930464069003959189}
     m_Modifications:
+    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_1_Slipstream_v1
+      objectReference: {fileID: 0}
     - target: {fileID: 1089275068096322551, guid: 2d67bca355b09a14daf9272d514835d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1571,16 +1576,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_1_Slipstream_v1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d67bca355b09a14daf9272d514835d9, type: 3}
