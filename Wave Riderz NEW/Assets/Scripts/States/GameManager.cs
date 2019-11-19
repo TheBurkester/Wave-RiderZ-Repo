@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour
 	public Texture axolotlPlaneTexture = null;
 	public delegate void Function(int skierNumber);
 
+    private string[] m_skierHurtSounds;
+
 	void Awake()
 	{
 		//Set the reference arrays
@@ -123,9 +125,10 @@ public class GameManager : MonoBehaviour
 		m_playerUI = new GameObject[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
 		m_skierLives = new Image[4] { livesRed, livesGreen, livesPurple, livesOrange };
 		m_skierMultipliers = new Text[4] { multiplierRed, multiplierGreen, multiplierPurple, multiplierOrange };
+        m_skierHurtSounds = new string[4] {"Player1Damage", "Player2Damage","Player3Damage","Player4Damage" };
 
-		//Set the spawnpoints in the 2D array
-		m_skierSpawnPos = new Vector3[3, 3]{
+        //Set the spawnpoints in the 2D array
+        m_skierSpawnPos = new Vector3[3, 3]{
 			{ m_twoPlayerSkierPos, Vector3.zero, Vector3.zero },
 			{ m_threePlayerSkierPosOne, m_threePlayerSkierPosTwo, Vector3.zero},
 			{ m_fourPlayerSkierPosOne, m_fourPlayerSkierPosTwo, m_fourPlayerSkierPosThree}
