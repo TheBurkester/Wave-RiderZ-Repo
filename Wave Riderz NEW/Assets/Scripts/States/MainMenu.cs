@@ -40,6 +40,7 @@ public class MainMenu : MonoBehaviour
 	public RectTransform controlsPanel;			// Reference to the controls panel UI transform.
 	public RectTransform creditsPanel;			// Reference to the credits panel UI transforn.
 	public RectTransform quitPanel;             // Reference to the quit panel UI transform.
+    public RectTransform wavePanel;
 	public Image addPlayerOneImage;
 	public Image addPlayerTwoImage;
 	public Image addPlayerThreeImage;
@@ -69,7 +70,8 @@ public class MainMenu : MonoBehaviour
  //   public Light readyLightPlayerFour;
 	// All off-screen positions.
 	private Vector3 m_panelOffScreenBottomPos;
-	private Vector3 m_panelOffScreenTopPos;
+    private Vector3 m_panelOffScreenLeft = new Vector3(-1150, 315.5f, 0);
+    private Vector3 m_panelOffScreenTopPos;
 	//private Vector3 m_playerOffScreenLeft;
 	//private Vector3 m_playerOffScreenRight;
 	// All player positions whilst in view of the camera.
@@ -91,6 +93,7 @@ public class MainMenu : MonoBehaviour
     private bool m_removePlayer = false;			// Is a player currently being removed from the game?
 	private bool m_showPlay = false;                // Are there enough players ready to show the play button?
 	private bool m_returningToMenu = false;			// Are the players returning to the menu?
+    private bool m_wavePanel = false;
 	//-------------------------------------------------------------------------
 
 	//Keyboard controls (OUTDATED)
@@ -139,18 +142,19 @@ public class MainMenu : MonoBehaviour
 		controlsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the controls panel starts at the bottom.
 		creditsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the credits panel starts at the bottom.
 		quitPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the quit panel starts at the bottom.
+        wavePanel.transform.position = m_panelOffScreenLeft;
 
-		//readyLightPlayerOne.transform.position = new Vector3(-3, 12, 0);
-		//readyLightPlayerTwo.transform.position = new Vector3(3, 12, 0);
-		//readyLightPlayerThree.transform.position = new Vector3(-3, 9, 0);
-		//readyLightPlayerFour.transform.position = new Vector3(3, 9, 0);
+        //readyLightPlayerOne.transform.position = new Vector3(-3, 12, 0);
+        //readyLightPlayerTwo.transform.position = new Vector3(3, 12, 0);
+        //readyLightPlayerThree.transform.position = new Vector3(-3, 9, 0);
+        //readyLightPlayerFour.transform.position = new Vector3(3, 9, 0);
 
-		//readyLightPlayerOne.enabled = false;
-		//readyLightPlayerTwo.enabled = false;
-		//readyLightPlayerThree.enabled = false;
-		//readyLightPlayerFour.enabled = false;
+        //readyLightPlayerOne.enabled = false;
+        //readyLightPlayerTwo.enabled = false;
+        //readyLightPlayerThree.enabled = false;
+        //readyLightPlayerFour.enabled = false;
 
-		addPlayerOneImage.enabled = true;
+        addPlayerOneImage.enabled = true;
 		addPlayerTwoImage.enabled = true;
 		addPlayerThreeImage.enabled = true;
 		addPlayerFourImage.enabled = true;
@@ -170,17 +174,17 @@ public class MainMenu : MonoBehaviour
 		purpleColour.enabled = false;
 		orangeColour.enabled = false;
 
-		//if (playerOneBlock != null)
-		//	playerOneBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the left of the camera.
+        //if (playerOneBlock != null)
+        //	playerOneBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the left of the camera.
 
-		//if (playerTwoBlock != null)
-		//	playerTwoBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
+        //if (playerTwoBlock != null)
+        //	playerTwoBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
 
-		//if (playerThreeBlock != null)
-		//	playerThreeBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the right of the camera.
+        //if (playerThreeBlock != null)
+        //	playerThreeBlock.transform.position = m_playerOffScreenLeft; // Sets the starting position to the right of the camera.
 
-		//if (playerFourBlock != null)
-		//	playerFourBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
+        //if (playerFourBlock != null)
+        //	playerFourBlock.transform.position = m_playerOffScreenRight; // Sets the starting position to the right of the camera.
 
 		playerNumber = 0;
 	}
@@ -701,9 +705,18 @@ public class MainMenu : MonoBehaviour
 					}
 				}
 
-				//Play button input check
+                //Play button input check
                 if (m_showPlay && XCI.GetButton(addPlayerXbox, XboxController.First))	//If the play button is on-screen and any controller presses play,
-                    PlayGame();
+                    m_wavePanel = true;
+
+                if (m_wavePanel)
+                {
+                    m_t += panelSpeed;
+                    wavePanel.transform.position = Vector3.MoveTowards(m_panelOffScreenLeft, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+
+                    if (wavePanel.transform.position == canvas.transform.position)
+                        PlayGame();
+                }
 
 				break;
 

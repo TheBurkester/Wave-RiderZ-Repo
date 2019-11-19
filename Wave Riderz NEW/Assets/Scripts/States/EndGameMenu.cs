@@ -21,11 +21,17 @@ public class EndGameMenu : MonoBehaviour
 	public Text scoreGreen = null;      //Reference to the green player's scoreboard
 	public Text scorePurple = null;     //Reference to the purple player's scoreboard
 	public Text scoreOrange = null;     //Reference to the orange player's scoreboard
+    public Canvas canvas = null;
+    public RectTransform wavePanel = null;
+    private Vector3 m_panelOffScreenRight = new Vector3(2300, 315.5f, 0);
+    private int m_t = 0;
 
-	void Awake()
+    void Awake()
 	{
 		scorePurple.text = "";	//Player 3's score is invisible by default
 		scoreOrange.text = "";  //Player 4's score is invisible by default
+
+        wavePanel.transform.position = canvas.transform.position;
 
 		scoreRed.text = GameInfo.playerOneScore.ToString();				//Display red's score
 		scoreGreen.text = GameInfo.playerTwoScore.ToString();			//Display green's score
@@ -37,7 +43,10 @@ public class EndGameMenu : MonoBehaviour
 
 	void Update()
 	{
-		if (XCI.GetButtonDown(menuButton, XboxController.First))	//If player 1 presses the menu button,
+        m_t += 40;
+        wavePanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenRight, m_t); // Slowly moves the position to the target.
+
+        if (XCI.GetButtonDown(menuButton, XboxController.First))	//If player 1 presses the menu button,
 			GoToMenu();												//It takes them to the main menu
 	}
 

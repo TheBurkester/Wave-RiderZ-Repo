@@ -319,7 +319,10 @@ MonoBehaviour:
   skierHurtBonus: 5
   mainCamera: {fileID: 534669907}
   roundTimeLimit: 45
+  canvas: {fileID: 1968474661}
   startCountdownDisplay: {fileID: 1391626339}
+  roundNumberText: {fileID: 1968474658}
+  planePlayerText: {fileID: 1968474657}
   roundTimerPanel: {fileID: 1968474659}
   playingCountDownDisplay: {fileID: 556790706}
   scoreRed: {fileID: 210996447}
@@ -347,6 +350,7 @@ MonoBehaviour:
   tetheredMineController: {fileID: 1968474655}
   roundOverPanel: {fileID: 717928791}
   bonus: {fileID: 2090130789}
+  wavePanel: {fileID: 1968474660}
   axolotlPlaneTexture: {fileID: 2800000, guid: b3ff0afa9fe077944a2d2e5b03a367b5, type: 3}
 --- !u!4 &300776889
 Transform:
@@ -2389,11 +2393,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3615083638599270873, guid: c27f0864eb7f5524c8081d187a3553df,
-        type: 3}
-      propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
     - target: {fileID: 3615083638599270693, guid: c27f0864eb7f5524c8081d187a3553df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2499,6 +2498,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3615083638599270873, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858143972871490331, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1168
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27f0864eb7f5524c8081d187a3553df, type: 3}
 --- !u!114 &1968474654 stripped
@@ -2537,9 +2546,45 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1968474657 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4959310231573946301, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474658 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1387730168375449075, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1968474659 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8295441261418205958, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1968474660 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4858143972871490331, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &1968474661 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3615083638599270692, guid: c27f0864eb7f5524c8081d187a3553df,
     type: 3}
   m_PrefabInstance: {fileID: 1968474653}
   m_PrefabAsset: {fileID: 0}

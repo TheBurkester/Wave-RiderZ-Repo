@@ -55,10 +55,10 @@ public class GameManager : MonoBehaviour
 	public int skierBonus = 10;					//Score bonus given to skier if they survive a full round
 	public int planeBonus = 10;                 //Score bonus given to plane if all skiers wipeout
 	public int skierHurtBonus = 5;				//Score bonus given to plane when a skier is hurt
-	//-------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
-	//Camera reference
-	public CameraController mainCamera = null;
+    //Camera reference
+    public CameraController mainCamera = null;
 
 	//Round variables
 	private RoundState m_eCurrentState = 0;                        //Stores the current state of the game
@@ -67,10 +67,13 @@ public class GameManager : MonoBehaviour
 	private Timer m_playingRoundTimer;                             //The round timer
 	private int m_randomPlane;					                   // Random number to select the plane player.
 	public float roundTimeLimit = 45;                              //How long a round lasts
-	//-------------------------------------------------------------------------
+                                                                   //-------------------------------------------------------------------------
 
-	//UI references
+    //UI references
+    public Canvas canvas = null;
 	public Text startCountdownDisplay = null;       //Reference to the countdown timer text at the start of the round
+    public Text roundNumberText = null;
+    public Text planePlayerText = null;
 	public GameObject roundTimerPanel = null;		// Reference to the round timer panel.
 	public Image playingCountDownDisplay = null;    //Reference to the round timer image
 	public Text scoreRed = null;
@@ -102,6 +105,11 @@ public class GameManager : MonoBehaviour
 	public Image tetheredMineController = null;
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	public Text bonus = null;
+    public RectTransform wavePanel = null;
+    private Vector3 m_panelOffScreenLeft = new Vector3(-1150, 315.5f, 0);
+    private Vector3 m_panelOffScreenRight = new Vector3(2300, 315.5f, 0);
+    private int m_t = 0;
+    private bool m_nextRound = false;
 	//-------------------------------------------------------------------------
 
 	public Texture axolotlPlaneTexture = null;
@@ -124,6 +132,8 @@ public class GameManager : MonoBehaviour
 			};
 
 		planeHatch.setIsUsingAbility(false);
+
+        wavePanel.transform.position = canvas.transform.position;
 
 		SetSkiers();	//Set the skiers to their controllers
 		SetPlane();		//Set which player controls the plane
@@ -152,6 +162,8 @@ public class GameManager : MonoBehaviour
 		
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
+        roundNumberText.text = "";
+        planePlayerText.text = "";
 		roundTimerPanel.SetActive(false);
 		playerOneUI.SetActive(false);
 		playerTwoUI.SetActive(false);
@@ -199,8 +211,14 @@ public class GameManager : MonoBehaviour
 				}
 				else                                                            //Otherwise the timer is still going,
 				{
-					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
+                    m_t += 40;
+
+                    wavePanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenRight, m_t); // Slowly moves the position to the target.
+
+                    int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 					startCountdownDisplay.text = closestSecond.ToString();
+                    roundNumberText.text = "Round " + GameInfo.roundNumber;
+                    planePlayerText.text = "Player " + ((int)m_eCurrentPlaneState + 1) + " is in the plane!"; // Plane state needs to be added by 1 as Player One = 0 usually.
 				}
 
 				break;
@@ -268,6 +286,7 @@ public class GameManager : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Space) || XCI.GetButtonDown(XboxButton.A, XboxController.All))	//If next round is selected,
 				{
+                    wavePanel.transform.position = m_panelOffScreenLeft;
 					//Update the static GameInfo scores
 					GameInfo.playerOneScore = redSkier.GetScore();
 					GameInfo.playerTwoScore = greenSkier.GetScore();
@@ -276,14 +295,32 @@ public class GameManager : MonoBehaviour
 					if (m_playerCount == 4)
 						GameInfo.playerFourScore = orangeSkier.GetScore();
 
-					++GameInfo.roundNumber;						//Update the round number
-					if (GameInfo.roundNumber <= m_playerCount)	//If the round number is under the number of players,
-						SceneManager.LoadScene(1);				//Load the next level
-					else                                        //The round number exceeds the number of players,
-						SceneManager.LoadScene(2);				//Go to the game finished scene
+                    m_t = 0;
+                    m_nextRound = true;
+
+                    
 				}
 
-				break;
+                if (m_nextRound)
+                {
+                    m_t += 40;
+
+                    wavePanel.transform.position = Vector3.MoveTowards(m_panelOffScreenLeft, canvas.transform.position, m_t); // Slowly moves the position to the target.
+
+                    if (wavePanel.transform.position == canvas.transform.position)
+                    {
+                        m_t = 0;
+                        m_nextRound = false;
+
+                        ++GameInfo.roundNumber;                     //Update the round number
+                        if (GameInfo.roundNumber <= m_playerCount)  //If the round number is under the number of players,
+                            SceneManager.LoadScene(1);              //Load the next level
+                        else                                        //The round number exceeds the number of players,
+                            SceneManager.LoadScene(2);				//Go to the game finished scene
+                    }
+                }
+
+                break;
 				//-------------------------------------------------------------------------
 		}
 	}
@@ -422,5 +459,7 @@ public class GameManager : MonoBehaviour
 	{
 		yield return new WaitForSeconds(interval);	//Wait for a certain amount of time
 		startCountdownDisplay.text = "";			//Turn the countdown text off
+        planePlayerText.text = "";
+        roundNumberText.text = "";
 	}
 }
