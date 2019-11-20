@@ -52,7 +52,7 @@ public class SkierController : MonoBehaviour
 	public int numberOfFlashes = 3;			//How many times the mesh should flash when damaged
 	public float flashDelay = 0.3f;			//How fast the mesh should flash on and off when damaged
 	private bool m_invincible = false;		//If the skier can collide with other objects
-	private MeshRenderer m_meshRend = null;	//Reference to the mesh to be flashed during invincibility
+	public SkinnedMeshRenderer meshRend = null;	//Reference to the mesh to be flashed during invincibility
 
 	[HideInInspector]
 	public Tether tether = null;    //Reference to the tether attached to this skier, public so forces can be applied from other scripts
@@ -63,8 +63,6 @@ public class SkierController : MonoBehaviour
     {
 		tether = GetComponent<Tether>();
 		Debug.Assert(tether != null, "Skier missing tether component");
-
-		m_meshRend = GetComponent<MeshRenderer>();
 	}
 
 	void Start()
@@ -254,12 +252,12 @@ public class SkierController : MonoBehaviour
 	IEnumerator MeshOff(float interval)
 	{
 		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
-		m_meshRend.enabled = false;					//Turn the mesh off
+        meshRend.enabled = false;					//Turn the mesh off
 	}
 	IEnumerator MeshOn(float interval)
 	{
 		yield return new WaitForSeconds(interval);  //Wait for a certain amount of time
-		m_meshRend.enabled = true;					//Turn the mesh on
+        meshRend.enabled = true;					//Turn the mesh on
 	}
 	IEnumerator InvincibleOff(float interval)
 	{
