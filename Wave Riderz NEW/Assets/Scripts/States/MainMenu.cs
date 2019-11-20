@@ -57,10 +57,14 @@ public class MainMenu : MonoBehaviour
 	public Image notReadyPlayerTwoImage;
 	public Image notReadyPlayerThreeImage;
 	public Image notReadyPlayerFourImage;
-	public Image redColour;
-	public Image greenColour;
-	public Image orangeColour;
-	public Image purpleColour;
+	public Image playerOneChar;
+	public Image playerTwoChar;
+	public Image playerThreeChar;
+	public Image playerFourChar;
+	public Image playerOneColour;
+	public Image playerTwoColour;
+	public Image playerThreeColour;
+	public Image playerFourColour;
 
 	//-------------------------------------------------------------------------
 
@@ -138,10 +142,15 @@ public class MainMenu : MonoBehaviour
 		notReadyPlayerThreeImage.enabled = false;
 		notReadyPlayerFourImage.enabled = false;
 
-		redColour.enabled = false;
-		greenColour.enabled = false;
-		purpleColour.enabled = false;
-		orangeColour.enabled = false;
+		playerOneColour.enabled = false;
+		playerTwoColour.enabled = false;
+		playerThreeColour.enabled = false;
+		playerFourColour.enabled = false;
+
+		playerOneChar.enabled = false;
+		playerTwoChar.enabled = false;
+		playerThreeChar.enabled = false;
+		playerFourChar.enabled = false;
 
 		playerNumber = 0;
 	}
@@ -310,10 +319,15 @@ public class MainMenu : MonoBehaviour
 			notReadyPlayerThreeImage.enabled = false;
 			notReadyPlayerFourImage.enabled = false;
 
-			redColour.enabled = false;
-			greenColour.enabled = false;
-			purpleColour.enabled = false;
-			orangeColour.enabled = false;
+			playerOneColour.enabled = false;
+			playerTwoColour.enabled = false;
+			playerThreeColour.enabled = false;
+			playerFourColour.enabled = false;
+
+			playerOneChar.enabled = false;
+			playerTwoChar.enabled = false;
+			playerThreeChar.enabled = false;
+			playerFourChar.enabled = false;
 
 			m_t += panelSpeed;
 
@@ -343,7 +357,8 @@ public class MainMenu : MonoBehaviour
 			{
 				notReadyPlayerOneImage.enabled = true;
 				addPlayerOneImage.enabled = false;
-				redColour.enabled = true;
+				playerOneColour.enabled = true;
+				playerOneChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerOneState = CharacterState.eJoining;     // Player one is now joining.
 			}
@@ -354,7 +369,8 @@ public class MainMenu : MonoBehaviour
 			{
 				notReadyPlayerTwoImage.enabled = true;
 				addPlayerTwoImage.enabled = false;
-				greenColour.enabled = true;
+				playerTwoColour.enabled = true;
+				playerTwoChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerTwoState = CharacterState.eJoining;     // Player two is now joining.
 			}
@@ -365,7 +381,8 @@ public class MainMenu : MonoBehaviour
 			{
 				notReadyPlayerThreeImage.enabled = true;
 				addPlayerThreeImage.enabled = false;
-				purpleColour.enabled = true;
+				playerThreeColour.enabled = true;
+				playerThreeChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerThreeState = CharacterState.eJoining;   // Player three is now joining.
 			}
@@ -376,7 +393,8 @@ public class MainMenu : MonoBehaviour
 			{
 				notReadyPlayerFourImage.enabled = true;
 				addPlayerFourImage.enabled = false;
-				orangeColour.enabled = true;
+				playerFourColour.enabled = true;
+				playerFourChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerFourState = CharacterState.eJoining;    // Player four is now joining.
 			}
@@ -390,7 +408,8 @@ public class MainMenu : MonoBehaviour
 				notReadyPlayerOneImage.enabled = false;
 				readyPlayerOneImage.enabled = false;
 				addPlayerOneImage.enabled = true;
-				redColour.enabled = false;
+				playerOneColour.enabled = false;
+				playerOneChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerOneState = CharacterState.eLeaving;     // Player one is leaving.
 			}
@@ -402,7 +421,8 @@ public class MainMenu : MonoBehaviour
 				notReadyPlayerTwoImage.enabled = false;
 				readyPlayerTwoImage.enabled = false;
 				addPlayerTwoImage.enabled = true;
-				greenColour.enabled = false;
+				playerTwoColour.enabled = false;
+				playerTwoChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerTwoState = CharacterState.eLeaving;     // Player two is leaving.
 			}
@@ -414,7 +434,8 @@ public class MainMenu : MonoBehaviour
 				notReadyPlayerThreeImage.enabled = false;
 				readyPlayerThreeImage.enabled = false;
 				addPlayerThreeImage.enabled = true;
-				purpleColour.enabled = false;
+				playerThreeColour.enabled = false;
+				playerThreeChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerThreeState = CharacterState.eLeaving;   // Player three is leaving.
 			}
@@ -426,7 +447,8 @@ public class MainMenu : MonoBehaviour
 				notReadyPlayerFourImage.enabled = false;
 				readyPlayerFourImage.enabled = false;
 				addPlayerFourImage.enabled = true;
-				orangeColour.enabled = false;
+				playerFourColour.enabled = false;
+				playerFourChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerFourState = CharacterState.eLeaving;    // Player four is leaving.
 			}
