@@ -196,6 +196,12 @@ PrefabInstance:
       objectReference: {fileID: 1051250262}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 415eea88a975e2247b36d9acd5140d34, type: 3}
+--- !u!1 &17312215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2916948933623820412, guid: 415eea88a975e2247b36d9acd5140d34,
+    type: 3}
+  m_PrefabInstance: {fileID: 17312214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &50833639 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3654668541175739368, guid: c27f0864eb7f5524c8081d187a3553df,
@@ -375,7 +381,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 17312214}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 17312215}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92a9f4cf4b4179945a09988957db2142, type: 3}
@@ -2457,6 +2463,11 @@ PrefabInstance:
       propertyPath: mineRB
       value: 
       objectReference: {fileID: 316059917}
+    - target: {fileID: 2718594321185904492, guid: c65db4207dd24734e962120744ef30f2,
+        type: 3}
+      propertyPath: mine
+      value: 
+      objectReference: {fileID: 17312215}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65db4207dd24734e962120744ef30f2, type: 3}
 --- !u!114 &8928308244055401053 stripped
