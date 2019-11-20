@@ -44,10 +44,10 @@ public class BeachBall : MonoBehaviour
 				{
 					Tether tether = hit.GetComponent<Tether>();						//Get their tether
 					Vector3 distanceToHit = hit.transform.position - explosionPos;	//Get the difference in position between the skier and the explosion point
-					distanceToHit.y = 0;											//Make sure there is no y compenent
-					//float distanceToHit.magnitude		*Do a check of distance magnitude and adjust force amount here*
-					tether.ForceOverTime(m_bbAbility.power * distanceToHit.normalized, m_bbAbility.forceDuration); //Add a force on the skier, pushing away from the explosion point
-                    AudioManager.Play("BeachBomb POP");
+					distanceToHit.y = 0;                                            //Make sure there is no y compenent
+					Vector3 extraForwardsForce = new Vector3(0, 0, m_bbAbility.extraForwardsPower);			//Make an extra force up the river to account for always moving forwards
+					Vector3 totalForce = m_bbAbility.power * distanceToHit.normalized + extraForwardsForce;	//Total up the forces
+					tether.ForceOverTime(totalForce, m_bbAbility.forceDuration);	//Add a force on the skier, pushing away from the explosion point
 
                 }
                 else if (hit.CompareTag("Mine"))
@@ -55,11 +55,10 @@ public class BeachBall : MonoBehaviour
                     Tether tether = hit.GetComponent<Tether>();                     //Get their tether
                     Vector3 distanceToHit = hit.transform.position - explosionPos;  //Get the difference in position between the skier and the explosion point
                     distanceToHit.y = 0;                                            //Make sure there is no y compenent
-                    //float distanceToHit.magnitude		*Do a check of distance magnitude and adjust force amount here*
-                    tether.ForceOverTime(m_bbAbility.minePower * distanceToHit.normalized, m_bbAbility.forceDuration); //Add a force on the mine, pushing away from the explosion point
-                    AudioManager.Play("BeachBomb POP");
+					Vector3 extraForwardsForce = new Vector3(0, 0, m_bbAbility.extraForwardsPower);				//Make an extra force up the river to account for always moving forwards
+					Vector3 totalForce = m_bbAbility.minePower * distanceToHit.normalized + extraForwardsForce;	//Total up the forces
+					tether.ForceOverTime(totalForce, m_bbAbility.forceDuration);	//Add a force on the mine, pushing away from the explosion point
                 }
-
             }
 
             gameObject.SetActive(false); // Deactivates the beachball.

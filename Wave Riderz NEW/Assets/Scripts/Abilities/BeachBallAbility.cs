@@ -29,6 +29,7 @@ public class BeachBallAbility : MonoBehaviour
 	public float radius = 5.0f;			// The radius of the ability.
 	public float power = 250;			// Force of the push.
     public float minePower = 150;       //Force of the push only on tethered mines
+	public float extraForwardsPower = 300;	//Additional force up the river to account for always moving forwards
 	public float forceDuration = 0.5f;	//How long to push for
 	public float downwardSpeed = 10.0f;	// How quickly the ball will fall from the sky.
 	private bool m_isShooting = false;	// Has the player pressed the shoot button.

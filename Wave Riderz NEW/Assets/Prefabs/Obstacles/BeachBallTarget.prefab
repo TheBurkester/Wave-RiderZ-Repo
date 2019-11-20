@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3491444408453323355}
   m_Layer: 0
   m_Name: BeachBallTarget
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,24 +105,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4963c0149713d4645bafb8b0ade7cea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetMovementSpeed: 25
+  riverClampHorizontal: 18
+  riverClampForward: 6
+  riverClampBehind: 7
+  cooldown: 5
+  radius: 5
+  power: 200
+  minePower: 150
+  forceDuration: 0.5
+  downwardSpeed: 25
+  abilityCooldown: {fileID: 0}
+  isAiming: 0
+  planeRB: {fileID: 0}
+  BeachBallAnimation: {fileID: 0}
   Up: 116
   Down: 103
   Left: 102
   Right: 104
   Aim: 32
   Shoot: 114
-  targetMovementSpeed: 25
-  riverClampHorizontal: 14
-  riverClampForward: 3.5
-  riverClampBehind: 5
-  cooldown: 5
-  radius: 5
-  power: 250
-  minePower: 150
-  forceDuration: 0.5
-  downwardSpeed: 10
-  abilityCooldown: {fileID: 0}
-  planeRB: {fileID: 0}
 --- !u!54 &3491444408453323355
 Rigidbody:
   m_ObjectHideFlags: 0
