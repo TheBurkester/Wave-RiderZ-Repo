@@ -66,7 +66,7 @@ public class MainMenu : MonoBehaviour
 
 	// All off-screen positions.
 	private Vector3 m_panelOffScreenBottomPos;
-    private Vector3 m_panelOffScreenLeft = new Vector3(-1150, 315.5f, 0);
+    private Vector3 m_panelOffScreenLeft = new Vector3(-1230, 0, 0);
     private Vector3 m_panelOffScreenTopPos;
 
 	//-------------------------------------------------------------------------
@@ -113,15 +113,15 @@ public class MainMenu : MonoBehaviour
 
 	void Awake()
     {
-		m_panelOffScreenBottomPos = new Vector3(splashPanel.transform.position.x, -900, splashPanel.transform.position.z); // Bottom position for moving onto the canvas.
-		m_panelOffScreenTopPos = new Vector3(splashPanel.transform.position.x, 1800, splashPanel.transform.position.z); // Top position for moving off the canvas.
+		m_panelOffScreenBottomPos = new Vector3(canvas.transform.position.x, -900, canvas.transform.position.z); // Bottom position for moving onto the canvas.
+		m_panelOffScreenTopPos = new Vector3(canvas.transform.position.x, 1800, canvas.transform.position.z); // Top position for moving off the canvas.
 		splashPanel.transform.position = canvas.transform.position; // Ensures that the splash starts within the canvas.
 		characterPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the character panel starts at the bottom.
 		allPLayersReadyPanel.transform.position = m_panelOffScreenBottomPos;
 		controlsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the controls panel starts at the bottom.
 		creditsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the credits panel starts at the bottom.
 		quitPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the quit panel starts at the bottom.
-        wavePanel.transform.position = m_panelOffScreenLeft;
+        wavePanel.transform.localPosition = m_panelOffScreenLeft;
 
         addPlayerOneImage.enabled = true;
 		addPlayerTwoImage.enabled = true;
