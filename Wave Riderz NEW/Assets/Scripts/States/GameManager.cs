@@ -204,7 +204,9 @@ public class GameManager : MonoBehaviour
 		SceneMovementActive(false);     //Wait for the countdown before starting movement
 
 		SetupScene();
-	}
+
+        AudioManager.Play("Race_Start");
+    }
 
 	void Update()
     {
@@ -216,13 +218,15 @@ public class GameManager : MonoBehaviour
 				if (!m_startRoundTimer.UnderMax())              //If the timer has run out,
 				{
 					m_eCurrentState = RoundState.ePlayingRound; //Swap to playing the round
-					m_playingRoundTimer.SetTimer();             //Start the round timer
-					planePlayerText.text = "";
+                   
+                    m_playingRoundTimer.SetTimer();             //Start the round timer
+                    planePlayerText.text = "";
 					roundNumberText.text = "";
 					woodenSign.SetActive(false);
-					startCountdownDisplay.text = "GO!";
+                    startCountdownDisplay.text = "GO!";
 					StartCoroutine(ClearText(1));               //Set the text to turn off after 1 second
 					SceneMovementActive(true);                  //Activate scene movement
+                    AudioManager.Play("LevelMusic1");
 				}
 				else                                                            //Otherwise the timer is still going,
 				{
