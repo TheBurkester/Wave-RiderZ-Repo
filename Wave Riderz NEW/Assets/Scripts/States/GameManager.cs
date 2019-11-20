@@ -153,8 +153,8 @@ public class GameManager : MonoBehaviour
 		m_startRoundTimer.maxTime = 4;                          //Set the timer for 4 seconds
 		m_startRoundTimer.reverseTimer = true;                  //Make the timer count down
 		m_startRoundTimer.autoDisable = true;                   //Make the timer disable itself after the timelimit
-		m_startRoundTimer.SetTimer();							//Initialise the timer with these settings and start it
         AudioManager.Play("Race_Start");
+		m_startRoundTimer.SetTimer();							//Initialise the timer with these settings and start it
 
         m_playingRoundTimer = gameObject.AddComponent<Timer>();    //Create the timer
 		m_playingRoundTimer.maxTime = roundTimeLimit;              //Set how long rounds last
