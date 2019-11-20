@@ -28,7 +28,9 @@ public class TetheredMineAbility : MonoBehaviour
 	[HideInInspector]
 	public Timer mineAbilityCooldown;       // Timer used for the cooldown.
 
-	public float cooldown = 10;			// Cooldown for the ability.
+    private bool m_mineabilityReady = false; //True on the frame that the ability becomes ready
+
+    public float cooldown = 10;			// Cooldown for the ability.
 
     public float obstacleForce = 75;           //How much sidewards force is applied when hitting an obstacle
     public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
@@ -87,6 +89,15 @@ public class TetheredMineAbility : MonoBehaviour
 		{
             ActivateAbility();
 		}
+        if(!mineAbilityCooldown.UnderMax() && !m_mineabilityReady)
+        {
+            m_mineabilityReady = true;
+            AudioManager.Play("BothPlaneCooldownAbiltysReady");	//Play the ability ready sound
+        }
+        else if (mineAbilityCooldown.UnderMax())
+        {
+            m_mineabilityReady = false;
+        }
     }
 
 	void ActivateAbility()
