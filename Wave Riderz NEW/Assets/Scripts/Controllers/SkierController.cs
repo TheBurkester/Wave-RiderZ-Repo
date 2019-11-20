@@ -136,21 +136,6 @@ public class SkierController : MonoBehaviour
 	{
 		if (!m_invincible)					//If the skier is not currently invincible,
 		{
-			if (other.CompareTag("Skier") && !bonkResolved)				//If the other object is a skier and this collision hasn't been resolved yet,
-			{
-				Tether otherTether = other.GetComponent<Tether>();		//Get the other skier's tether
-
-				if (tether.VelocityMagnitude() >= otherTether.VelocityMagnitude())	//If this skier is moving faster than the other skier,
-				{
-					float velocityForce = (tether.VelocityXMagnitude() / maxXVelocity) * bonkVelocityForce;	//Proportion the force based on how close to max velocity this skier is
-					Vector3 totalBonkForce = (bonkForce + velocityForce) * tether.Direction();				//Add the flat force and velocity-dependent force, then point them in the direction of movement
-					otherTether.ForceOverTime(totalBonkForce, bonkForceDuration);							//Apply the final force to the other skier
-					tether.ReduceVelocity(2);																//Halve the velocity of this skier
-					other.GetComponent<SkierController>().bonkResolved = true;								//For this frame, set the collision as resolved
-                    AudioManager.Play("Bonk3"); // plays bonk sound effect 
-				}
-			}
-
 			if (other.CompareTag("Coin"))   //If the other object is a coin,
 				m_score += coinScore;       //Add a coin's worth of points to the score
 
@@ -159,6 +144,21 @@ public class SkierController : MonoBehaviour
                 HurtSkier();//Hurt the skier
                 AudioManager.Play("PLayerHitObstacle"); // plays sound when hit obstacle 
             }
+		}
+
+		if (other.CompareTag("Skier") && !bonkResolved)				//If the other object is a skier and this collision hasn't been resolved yet,
+		{
+			Tether otherTether = other.GetComponent<Tether>();		//Get the other skier's tether
+
+			if (tether.VelocityMagnitude() >= otherTether.VelocityMagnitude())	//If this skier is moving faster than the other skier,
+			{
+				float velocityForce = (tether.VelocityXMagnitude() / maxXVelocity) * bonkVelocityForce;	//Proportion the force based on how close to max velocity this skier is
+				Vector3 totalBonkForce = (bonkForce + velocityForce) * tether.Direction();				//Add the flat force and velocity-dependent force, then point them in the direction of movement
+				otherTether.ForceOverTime(totalBonkForce, bonkForceDuration);							//Apply the final force to the other skier
+				tether.ReduceVelocity(2);																//Halve the velocity of this skier
+				other.GetComponent<SkierController>().bonkResolved = true;								//For this frame, set the collision as resolved
+                AudioManager.Play("Bonk3"); // plays bonk sound effect 
+			}
 		}
 
 		if (other.CompareTag("Rock"))	//Regardless of if invincible or not, if colliding with an obstacle,
