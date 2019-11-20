@@ -309,14 +309,14 @@ MonoBehaviour:
   planeHatch: {fileID: 8928308244055401053}
   mine: {fileID: 316059918}
   target: {fileID: 704338852}
-  redSkier: {fileID: 530108603}
-  greenSkier: {fileID: 1667951276}
-  purpleSkier: {fileID: 2044427741}
-  orangeSkier: {fileID: 2102827437}
-  axlPlaneTexture: {fileID: 2800000, guid: b3ff0afa9fe077944a2d2e5b03a367b5, type: 3}
+  playerOneSkier: {fileID: 530108603}
+  playerTwoSkier: {fileID: 1667951276}
+  playerThreeSkier: {fileID: 2102827437}
+  playerFourSkier: {fileID: 2044427741}
+  axlPlaneTexture: {fileID: 2800000, guid: e11c0728aa34ac14db4d0302224fa11b, type: 3}
   carlPlaneTexture: {fileID: 2800000, guid: 7709b494262ea2e46881b568142896aa, type: 3}
-  hydraPlaneTexture: {fileID: 2800000, guid: 56f13db387d6639409417e040b5a6bf1, type: 3}
   mannyPlaneTexture: {fileID: 2800000, guid: f9f5faa63096e74439854d23e84e1635, type: 3}
+  hydraPlaneTexture: {fileID: 2800000, guid: 56f13db387d6639409417e040b5a6bf1, type: 3}
   planeBody: {fileID: 1586013474}
   skierBonus: 10
   planeBonus: 10
@@ -329,29 +329,30 @@ MonoBehaviour:
   planePlayerText: {fileID: 1968474657}
   roundTimerPanel: {fileID: 1968474659}
   playingCountDownDisplay: {fileID: 556790706}
-  scoreRed: {fileID: 210996447}
-  scoreGreen: {fileID: 1083638483}
-  scorePurple: {fileID: 851524844}
-  scoreOrange: {fileID: 50833639}
+  scoreOne: {fileID: 210996447}
+  scoreTwo: {fileID: 1083638483}
+  scoreThree: {fileID: 851524844}
+  scoreFour: {fileID: 50833639}
   playerOneUI: {fileID: 1968474665}
   playerTwoUI: {fileID: 1968474664}
   playerThreeUI: {fileID: 1968474663}
   playerFourUI: {fileID: 1968474662}
   beachBombAbilityUI: {fileID: 63205010}
   tetheredMineAbilityUI: {fileID: 588106365}
-  livesRed: {fileID: 2116819601}
-  livesGreen: {fileID: 1398153409}
-  livesPurple: {fileID: 686392805}
-  livesOrange: {fileID: 951423872}
-  multiplierRed: {fileID: 414089504}
-  multiplierGreen: {fileID: 907753280}
-  multiplierPurple: {fileID: 1954390234}
-  multiplierOrange: {fileID: 505447927}
+  livesOne: {fileID: 2116819601}
+  livesTwo: {fileID: 1398153409}
+  livesThree: {fileID: 686392805}
+  livesFour: {fileID: 951423872}
+  multiplierOne: {fileID: 414089504}
+  multiplierTwo: {fileID: 907753280}
+  multiplierThree: {fileID: 1954390234}
+  multiplierFour: {fileID: 505447927}
   beachBombAbility: {fileID: 190007157}
   tetheredMineAbility: {fileID: 459213122}
   beachBombControllerAim: {fileID: 1968474654}
   beachBombControllerShoot: {fileID: 1968474656}
   tetheredMineController: {fileID: 1968474655}
+  woodenSign: {fileID: 1968474666}
   roundOverPanel: {fileID: 717928791}
   bonus: {fileID: 2090130789}
   wavePanel: {fileID: 1968474660}
@@ -517,7 +518,7 @@ PrefabInstance:
     - target: {fileID: 7814344201807394183, guid: 95454700e0f4305419fa5a64bc72b851,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7814344201807394183, guid: 95454700e0f4305419fa5a64bc72b851,
         type: 3}
@@ -539,11 +540,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 855925095441924365, guid: 95454700e0f4305419fa5a64bc72b851,
-        type: 3}
-      propertyPath: meshRend
-      value: 
-      objectReference: {fileID: 530108604}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95454700e0f4305419fa5a64bc72b851, type: 3}
 --- !u!114 &530108603 stripped
@@ -558,12 +554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!137 &530108604 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7814344201810470035, guid: 95454700e0f4305419fa5a64bc72b851,
-    type: 3}
-  m_PrefabInstance: {fileID: 530108602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,7 +1544,7 @@ PrefabInstance:
     - target: {fileID: 122003485030794024, guid: cde57cc3bf402564d968555c7b36efbb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 122003485030794024, guid: cde57cc3bf402564d968555c7b36efbb,
         type: 3}
@@ -1576,11 +1566,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 122003484190775975, guid: cde57cc3bf402564d968555c7b36efbb,
-        type: 3}
-      propertyPath: meshRend
-      value: 
-      objectReference: {fileID: 1667951277}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cde57cc3bf402564d968555c7b36efbb, type: 3}
 --- !u!114 &1667951276 stripped
@@ -1595,12 +1580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!137 &1667951277 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 122003485025227336, guid: cde57cc3bf402564d968555c7b36efbb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1667951275}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1779199193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,6 +1953,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1968474653}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1968474666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7283841624473074988, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2044427740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2046,11 +2031,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 8200334506640032141, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-        type: 3}
-      propertyPath: meshRend
-      value: 
-      objectReference: {fileID: 2044427742}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e9cc91fab7fc8499e1e7f2decbaeed, type: 3}
 --- !u!114 &2044427741 stripped
@@ -2065,12 +2045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!137 &2044427742 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6930464068998384257, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-    type: 3}
-  m_PrefabInstance: {fileID: 2044427740}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2090130789 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2328203669592964867, guid: c27f0864eb7f5524c8081d187a3553df,
@@ -2133,7 +2107,7 @@ PrefabInstance:
     - target: {fileID: 7834617658177993074, guid: e5a8ee93bb165b142b39d20a597ce884,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7834617658177993074, guid: e5a8ee93bb165b142b39d20a597ce884,
         type: 3}
@@ -2155,11 +2129,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 4879113394894888017, guid: e5a8ee93bb165b142b39d20a597ce884,
-        type: 3}
-      propertyPath: meshRend
-      value: 
-      objectReference: {fileID: 2102827438}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5a8ee93bb165b142b39d20a597ce884, type: 3}
 --- !u!114 &2102827437 stripped
@@ -2174,12 +2143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!137 &2102827438 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7834617658172811366, guid: e5a8ee93bb165b142b39d20a597ce884,
-    type: 3}
-  m_PrefabInstance: {fileID: 2102827436}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2116819601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9049558289744165896, guid: c27f0864eb7f5524c8081d187a3553df,

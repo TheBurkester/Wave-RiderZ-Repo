@@ -59,8 +59,8 @@ public class MainMenu : MonoBehaviour
 	public Image notReadyPlayerFourImage;
 	public Image redColour;
 	public Image greenColour;
-	public Image purpleColour;
 	public Image orangeColour;
+	public Image purpleColour;
 
 	//-------------------------------------------------------------------------
 

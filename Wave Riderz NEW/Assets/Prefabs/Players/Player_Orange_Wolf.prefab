@@ -655,6 +655,7 @@ MonoBehaviour:
   velocityCapZ: 2.5
   resistanceX: 1.15
   resistanceZ: 1.15
+  tetherActive: 1
 --- !u!95 &7834617658168661670
 Animator:
   serializedVersion: 3
@@ -1661,6 +1662,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -93.729004
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf4ae2a85ab2e26449cc23d201290cc8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
 --- !u!4 &7834617658620345764 stripped
@@ -1724,6 +1729,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 10.89
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 8fed1b8471e820e48bd57928723a8905, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf4ae2a85ab2e26449cc23d201290cc8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fed1b8471e820e48bd57928723a8905, type: 3}
 --- !u!4 &7834617659218755163 stripped

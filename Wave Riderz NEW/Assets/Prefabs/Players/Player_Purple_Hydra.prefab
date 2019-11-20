@@ -1259,6 +1259,7 @@ MonoBehaviour:
   velocityCapZ: 2.5
   resistanceX: 1.15
   resistanceZ: 1.15
+  tetherActive: 1
 --- !u!95 &6930464068994085953
 Animator:
   serializedVersion: 3
@@ -1397,7 +1398,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8fed1b8471e820e48bd57928723a8905, type: 3}
+  - {fileID: 2100000, guid: 9131b685a3d068648abb0313122c6083, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1505,7 +1506,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
+  - {fileID: 2100000, guid: 9131b685a3d068648abb0313122c6083, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

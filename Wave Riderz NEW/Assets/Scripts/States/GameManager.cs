@@ -38,15 +38,15 @@ public class GameManager : MonoBehaviour
 	public TetheredMineAbility planeHatch = null;        // Reference to the plane's hatch.
 	public Tether mine = null;					// Reference to the mine.
 	public BeachBallAbility target = null;      //Reference to the target
-	public SkierController redSkier = null;     //Reference to the red skier script
-	public SkierController greenSkier = null;   //Reference to the green skier script
-	public SkierController purpleSkier = null;  //Reference to the purple skier script
-	public SkierController orangeSkier = null;  //Reference to the orange skier script
+	public SkierController playerOneSkier = null;     //Reference to the red skier script
+	public SkierController playerTwoSkier = null;   //Reference to the green skier script
+	public SkierController playerThreeSkier = null;  //Reference to the orange skier script
+	public SkierController playerFourSkier = null;  //Reference to the pruple skier script
 	private SkierController[] m_skiers = null;
     public Texture axlPlaneTexture = null;
     public Texture carlPlaneTexture = null;
-    public Texture hydraPlaneTexture = null;
-    public Texture mannyPlaneTexture = null;
+	public Texture mannyPlaneTexture = null;
+	public Texture hydraPlaneTexture = null;
     private Texture[] m_planeTextures = null;
     public GameObject planeBody = null;			// Reference to the body of the plane.
 	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
@@ -81,10 +81,10 @@ public class GameManager : MonoBehaviour
     public Text planePlayerText = null;
 	public GameObject roundTimerPanel = null;		// Reference to the round timer panel.
 	public Image playingCountDownDisplay = null;    //Reference to the round timer image
-	public Text scoreRed = null;
-	public Text scoreGreen = null;
-	public Text scorePurple = null;
-	public Text scoreOrange = null;
+	public Text scoreOne = null;
+	public Text scoreTwo = null;
+	public Text scoreThree = null;
+	public Text scoreFour = null;
 	private Text[] m_skierScores = null;
 	public RectTransform playerOneUI = null;
 	public RectTransform playerTwoUI = null;
@@ -93,21 +93,22 @@ public class GameManager : MonoBehaviour
 	private RectTransform[] m_playerUI = null;
 	public GameObject beachBombAbilityUI = null;
 	public GameObject tetheredMineAbilityUI = null;
-	public Image livesRed = null;
-	public Image livesGreen = null;
-	public Image livesPurple = null;
-	public Image livesOrange = null;
+	public Image livesOne = null;
+	public Image livesTwo = null;
+	public Image livesThree = null;
+	public Image livesFour = null;
 	private Image[] m_skierLives = null;
-	public Text multiplierRed = null;
-	public Text multiplierGreen = null;
-	public Text multiplierPurple = null;
-	public Text multiplierOrange = null;
+	public Text multiplierOne = null;
+	public Text multiplierTwo = null;
+	public Text multiplierThree = null;
+	public Text multiplierFour = null;
 	private Text[] m_skierMultipliers = null;
 	public Image beachBombAbility = null;
 	public Image tetheredMineAbility = null;
 	public Image beachBombControllerAim = null;
 	public Image beachBombControllerShoot = null;
 	public Image tetheredMineController = null;
+	public GameObject woodenSign = null;
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	public Text bonus = null;
     public RectTransform wavePanel = null;
@@ -124,12 +125,12 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		//Set the reference arrays
-		m_skiers = new SkierController[6] { redSkier, greenSkier, purpleSkier, orangeSkier, null, null };	//Add two nulls at the end so they don't throw errors if functions check those indexes
-		m_skierScores = new Text[4] { scoreRed, scoreGreen, scorePurple, scoreOrange };
-        m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, hydraPlaneTexture, mannyPlaneTexture };
+		m_skiers = new SkierController[6] { playerOneSkier, playerTwoSkier, playerThreeSkier, playerFourSkier, null, null };	//Add two nulls at the end so they don't throw errors if functions check those indexes
+		m_skierScores = new Text[4] { scoreOne, scoreTwo, scoreThree, scoreFour };
+        m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, mannyPlaneTexture, hydraPlaneTexture  };
         m_playerUI = new RectTransform[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
-		m_skierLives = new Image[4] { livesRed, livesGreen, livesPurple, livesOrange };
-		m_skierMultipliers = new Text[4] { multiplierRed, multiplierGreen, multiplierPurple, multiplierOrange };
+		m_skierLives = new Image[4] { livesOne, livesTwo, livesThree, livesFour };
+		m_skierMultipliers = new Text[4] { multiplierOne, multiplierTwo, multiplierThree, multiplierFour };
         m_skierHurtSounds = new string[4] {"Player1Damage", "Player2Damage","Player3Damage","Player4Damage" };
 
         //Set the spawnpoints in the 2D array
@@ -153,21 +154,20 @@ public class GameManager : MonoBehaviour
 		m_startRoundTimer.maxTime = 4;                          //Set the timer for 4 seconds
 		m_startRoundTimer.reverseTimer = true;                  //Make the timer count down
 		m_startRoundTimer.autoDisable = true;                   //Make the timer disable itself after the timelimit
-        AudioManager.Play("Race_Start");
 		m_startRoundTimer.SetTimer();							//Initialise the timer with these settings and start it
 
-        m_playingRoundTimer = gameObject.AddComponent<Timer>();    //Create the timer
+		m_playingRoundTimer = gameObject.AddComponent<Timer>();    //Create the timer
 		m_playingRoundTimer.maxTime = roundTimeLimit;              //Set how long rounds last
 		m_playingRoundTimer.reverseTimer = true;                   //Make the timer count down
 		m_playingRoundTimer.autoDisable = true;                    //Make the timer disable itself after the timelimit
 
 		//At the start of each round, set the scores
-		redSkier.SetScore(GameInfo.playerOneScore);
-		greenSkier.SetScore(GameInfo.playerTwoScore);
+		playerOneSkier.SetScore(GameInfo.playerOneScore);
+		playerTwoSkier.SetScore(GameInfo.playerTwoScore);
 		if (m_playerCount >= 3)
-			purpleSkier.SetScore(GameInfo.playerThreeScore);
+			playerThreeSkier.SetScore(GameInfo.playerThreeScore);
 		if (m_playerCount == 4)
-			orangeSkier.SetScore(GameInfo.playerFourScore);
+			playerFourSkier.SetScore(GameInfo.playerFourScore);
 		
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
@@ -180,18 +180,19 @@ public class GameManager : MonoBehaviour
 		playerFourUI.gameObject.SetActive(false);
 		beachBombAbilityUI.SetActive(false);
 		tetheredMineAbilityUI.SetActive(false);
-		scoreRed.text = "";
-		scoreGreen.text = "";
-		scorePurple.text = "";
-		scoreOrange.text = "";
-		livesRed.fillAmount = 0;
-		livesGreen.fillAmount = 0;
-		livesPurple.fillAmount = 0;
-		livesOrange.fillAmount = 0;
-		multiplierRed.text = "";
-		multiplierGreen.text = "";
-		multiplierPurple.text = "";
-		multiplierOrange.text = "";
+		woodenSign.SetActive(false);
+		scoreOne.text = "";
+		scoreTwo.text = "";
+		scoreThree.text = "";
+		scoreFour.text = "";
+		livesOne.fillAmount = 0;
+		livesTwo.fillAmount = 0;
+		livesThree.fillAmount = 0;
+		livesFour.fillAmount = 0;
+		multiplierOne.text = "";
+		multiplierTwo.text = "";
+		multiplierThree.text = "";
+		multiplierFour.text = "";
 		beachBombAbility.fillAmount = 0;
 		tetheredMineAbility.fillAmount = 0;
 		bonus.text = "";
@@ -216,7 +217,9 @@ public class GameManager : MonoBehaviour
 				{
 					m_eCurrentState = RoundState.ePlayingRound; //Swap to playing the round
 					m_playingRoundTimer.SetTimer();             //Start the round timer
-                    
+					planePlayerText.text = "";
+					roundNumberText.text = "";
+					woodenSign.SetActive(false);
 					startCountdownDisplay.text = "GO!";
 					StartCoroutine(ClearText(1));               //Set the text to turn off after 1 second
 					SceneMovementActive(true);                  //Activate scene movement
@@ -229,6 +232,7 @@ public class GameManager : MonoBehaviour
 
                     int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 					startCountdownDisplay.text = closestSecond.ToString();
+					woodenSign.SetActive(true);
                     roundNumberText.text = "Round " + GameInfo.roundNumber;
                     planePlayerText.text = "Player " + ((int)m_eCurrentPlaneState + 1) + " is in the plane!"; // Plane state needs to be added by 1 as Player One = 0 usually.
 				}
@@ -251,7 +255,7 @@ public class GameManager : MonoBehaviour
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
 				//If all skiers get wiped out (non-skiers are set to not alive by default)
-				else if (!redSkier.GetAlive() && !greenSkier.GetAlive() && !purpleSkier.GetAlive() && !orangeSkier.GetAlive())
+				else if (!playerOneSkier.GetAlive() && !playerTwoSkier.GetAlive() && !playerThreeSkier.GetAlive() && !playerFourSkier.GetAlive())
 				{
 					//Add a score bonus to the player controlling the plane
 					m_skiers[(int)m_eCurrentPlaneState].AddScore(planeBonus);
@@ -302,12 +306,12 @@ public class GameManager : MonoBehaviour
 				{
                     wavePanel.transform.position = m_panelOffScreenLeft;
 					//Update the static GameInfo scores
-					GameInfo.playerOneScore = redSkier.GetScore();
-					GameInfo.playerTwoScore = greenSkier.GetScore();
+					GameInfo.playerOneScore = playerOneSkier.GetScore();
+					GameInfo.playerTwoScore = playerTwoSkier.GetScore();
 					if (m_playerCount >= 3)
-						GameInfo.playerThreeScore = purpleSkier.GetScore();
+						GameInfo.playerThreeScore = playerThreeSkier.GetScore();
 					if (m_playerCount == 4)
-						GameInfo.playerFourScore = orangeSkier.GetScore();
+						GameInfo.playerFourScore = playerFourSkier.GetScore();
 
                     m_t = 0;
                     m_nextRound = true;
@@ -456,18 +460,18 @@ public class GameManager : MonoBehaviour
 	private void SceneMovementActive(bool value)
 	{
 		plane.enabled = value;
-		redSkier.enabled = value;
-		greenSkier.enabled = value;
-		purpleSkier.enabled = value;
-		orangeSkier.enabled = value;
-		redSkier.tether.enabled = value;
+		playerOneSkier.enabled = value;
+		playerTwoSkier.enabled = value;
+		playerThreeSkier.enabled = value;
+		playerFourSkier.enabled = value;
+		playerOneSkier.tether.enabled = value;
 		playerOneUI.gameObject.SetActive(value);
-		greenSkier.tether.enabled = value;
+		playerTwoSkier.tether.enabled = value;
 		playerTwoUI.gameObject.SetActive(value);
-		if (purpleSkier.gameObject.activeSelf == true)  //If the purple skier is in the game,
-			purpleSkier.tether.enabled = value;         //Set them
-		if (orangeSkier.gameObject.activeSelf == true)  //If the orange skier is in the game,
-			orangeSkier.tether.enabled = value;         //Set them too
+		if (playerThreeSkier.gameObject.activeSelf == true)  //If the purple skier is in the game,
+			playerThreeSkier.tether.enabled = value;         //Set them
+		if (playerFourSkier.gameObject.activeSelf == true)  //If the orange skier is in the game,
+			playerFourSkier.tether.enabled = value;         //Set them too
 		if (m_playerCount >= 3)
 			playerThreeUI.gameObject.SetActive(value);
 		if (m_playerCount == 4)
@@ -483,7 +487,5 @@ public class GameManager : MonoBehaviour
 	{
 		yield return new WaitForSeconds(interval);	//Wait for a certain amount of time
 		startCountdownDisplay.text = "";			//Turn the countdown text off
-        planePlayerText.text = "";
-        roundNumberText.text = "";
 	}
 }

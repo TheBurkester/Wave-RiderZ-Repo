@@ -178,12 +178,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3615083637354154895}
+  m_Father: {fileID: 8654732063600835267}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 233.2}
+  m_AnchoredPosition: {x: 0, y: 54.199997}
   m_SizeDelta: {x: 587.8, y: 78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &433995757031831556
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 3914461919761894064}
   - component: {fileID: 9049558289744165896}
   m_Layer: 5
-  m_Name: Hearts
+  m_Name: HeartsOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 5110150674079017675}
   - component: {fileID: 8957404719744360157}
   m_Layer: 5
-  m_Name: ScoreGreen
+  m_Name: ScoreTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.03961787, g: 0.8018868, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.3301887, b: 0.17741483, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 2041651318883945014}
   - component: {fileID: 8706884158033422488}
   m_Layer: 5
-  m_Name: Hearts
+  m_Name: HeartsTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 6920429616718269128}
   - component: {fileID: 9215365237725193835}
   m_Layer: 5
-  m_Name: MultiplierRed
+  m_Name: MultiplierOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.05587385, a: 1}
+  m_Color: {r: 0.7725491, g: 0.10980393, b: 0.37647063, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 5423869610343552534}
   - component: {fileID: 3745119987533527225}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageFour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 7845237094012547733}
   - component: {fileID: 3361169612244800172}
   m_Layer: 5
-  m_Name: Hearts
+  m_Name: HeartsThree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -870,7 +870,7 @@ GameObject:
   - component: {fileID: 5064923591984636941}
   - component: {fileID: 964144597293160081}
   m_Layer: 5
-  m_Name: Hearts
+  m_Name: HeartsFour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1018,7 +1018,7 @@ GameObject:
   - component: {fileID: 2869039341022937292}
   - component: {fileID: 1038737658284087074}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1092,7 +1092,7 @@ GameObject:
   - component: {fileID: 2763348454703905245}
   - component: {fileID: 5903206363104406803}
   m_Layer: 5
-  m_Name: ScorePurple
+  m_Name: ScoreThree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.33225107, g: 0.19103771, b: 0.5, a: 1}
+  m_Color: {r: 0.6981132, g: 0.23797943, b: 0.009878943, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1322,7 +1322,7 @@ GameObject:
   - component: {fileID: 3615083636777723184}
   - component: {fileID: 3615083636777723191}
   m_Layer: 5
-  m_Name: ScoreRed
+  m_Name: ScoreOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1369,7 +1369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.05587385, a: 1}
+  m_Color: {r: 0.7735849, g: 0.11311854, b: 0.37618557, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1422,8 +1422,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6126770763362172298}
-  - {fileID: 408832272932400435}
+  - {fileID: 8654732063600835267}
   m_Father: {fileID: 3615083638599270693}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2113,7 +2112,7 @@ GameObject:
   - component: {fileID: 1731445711102657788}
   - component: {fileID: 3654668541175739368}
   m_Layer: 5
-  m_Name: ScoreOrange
+  m_Name: ScoreFour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2160,7 +2159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.4823529, b: 0, a: 1}
+  m_Color: {r: 0.22830187, g: 0.115521535, b: 0.41509432, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2312,7 +2311,7 @@ GameObject:
   - component: {fileID: 6801328131821221398}
   - component: {fileID: 2578440063507971085}
   m_Layer: 5
-  m_Name: MultiplierPurple
+  m_Name: MultiplierThree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2358,7 +2357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.33225107, g: 0.19103771, b: 0.5, a: 1}
+  m_Color: {r: 0.69803923, g: 0.2392157, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2431,7 +2430,7 @@ GameObject:
   - component: {fileID: 4601919239233641796}
   - component: {fileID: 8032320503016898905}
   m_Layer: 5
-  m_Name: MultiplierGreen
+  m_Name: MultiplierTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2477,7 +2476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.03961787, g: 0.8018868, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.33333334, b: 0.18039216, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2684,6 +2683,82 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &7283841624473074988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8654732063600835267}
+  - component: {fileID: 5475773180630162556}
+  - component: {fileID: 65412332167421079}
+  m_Layer: 5
+  m_Name: WoodenSignBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8654732063600835267
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283841624473074988}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6126770763362172298}
+  - {fileID: 408832272932400435}
+  m_Father: {fileID: 3615083637354154895}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000024438, y: 179}
+  m_SizeDelta: {x: 470, y: 205}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5475773180630162556
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283841624473074988}
+  m_CullTransparentMesh: 0
+--- !u!114 &65412332167421079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283841624473074988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: c06f3cc8f9020fc4d883fc4c251cfb25, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!1 &7679557128069148431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,7 +2771,7 @@ GameObject:
   - component: {fileID: 3939529527807745526}
   - component: {fileID: 390651856158206663}
   m_Layer: 5
-  m_Name: MultiplierOrange
+  m_Name: MultiplierFour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2742,7 +2817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.4823529, b: 0, a: 1}
+  m_Color: {r: 0.23137257, g: 0.10980393, b: 0.4156863, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2849,7 +2924,7 @@ GameObject:
   - component: {fileID: 6534909075184908997}
   - component: {fileID: 6201350679813670777}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3000,7 +3075,7 @@ GameObject:
   - component: {fileID: 6526398565626736428}
   - component: {fileID: 3057123880872422673}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageThree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3314,12 +3389,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3615083637354154895}
+  m_Father: {fileID: 8654732063600835267}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015259, y: 139}
+  m_AnchoredPosition: {x: -0.000045776156, y: -52}
   m_SizeDelta: {x: 455.4, y: 58.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5236529416840884931
