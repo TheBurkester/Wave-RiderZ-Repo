@@ -17,10 +17,10 @@ public class EndGameMenu : MonoBehaviour
 	public XboxButton menuButton = XboxButton.A;		//Stores which Xbox button takes players back to the menu
 
 	private int m_playerCount = MainMenu.playerNumber;	//Reference to the number of players
-	public Text scoreRed = null;		//Reference to the red player's scoreboard
-	public Text scoreGreen = null;      //Reference to the green player's scoreboard
-	public Text scorePurple = null;     //Reference to the purple player's scoreboard
-	public Text scoreOrange = null;     //Reference to the orange player's scoreboard
+	public Text scoreOne = null;		//Reference to the red player's scoreboard
+	public Text scoreTwo = null;      //Reference to the green player's scoreboard
+	public Text scoreThree = null;     //Reference to the purple player's scoreboard
+	public Text scoreFour = null;     //Reference to the orange player's scoreboard
     public Canvas canvas = null;
     public RectTransform wavePanel = null;
     private Vector3 m_panelOffScreenRight = new Vector3(2300, 315.5f, 0);
@@ -28,17 +28,17 @@ public class EndGameMenu : MonoBehaviour
 
     void Awake()
 	{
-		scorePurple.text = "";	//Player 3's score is invisible by default
-		scoreOrange.text = "";  //Player 4's score is invisible by default
+		scoreThree.text = "";	//Player 3's score is invisible by default
+		scoreFour.text = "";  //Player 4's score is invisible by default
 
         wavePanel.transform.position = canvas.transform.position;
 
-		scoreRed.text = GameInfo.playerOneScore.ToString();				//Display red's score
-		scoreGreen.text = GameInfo.playerTwoScore.ToString();			//Display green's score
+		scoreOne.text = GameInfo.playerOneScore.ToString();				//Display red's score
+		scoreTwo.text = GameInfo.playerTwoScore.ToString();			//Display green's score
 		if (m_playerCount >= 3)											//If player 3 is present,
-			scorePurple.text = GameInfo.playerThreeScore.ToString();	//Display purple's score
+			scoreThree.text = GameInfo.playerThreeScore.ToString();	//Display purple's score
 		if (m_playerCount == 4)											//If player 4 is present,
-			scoreOrange.text = GameInfo.playerFourScore.ToString();		//Display orange's score
+			scoreFour.text = GameInfo.playerFourScore.ToString();		//Display orange's score
 	}
 
 	void Update()
