@@ -154,8 +154,9 @@ public class GameManager : MonoBehaviour
 		m_startRoundTimer.reverseTimer = true;                  //Make the timer count down
 		m_startRoundTimer.autoDisable = true;                   //Make the timer disable itself after the timelimit
 		m_startRoundTimer.SetTimer();							//Initialise the timer with these settings and start it
+        AudioManager.Play("Race_Start");
 
-		m_playingRoundTimer = gameObject.AddComponent<Timer>();    //Create the timer
+        m_playingRoundTimer = gameObject.AddComponent<Timer>();    //Create the timer
 		m_playingRoundTimer.maxTime = roundTimeLimit;              //Set how long rounds last
 		m_playingRoundTimer.reverseTimer = true;                   //Make the timer count down
 		m_playingRoundTimer.autoDisable = true;                    //Make the timer disable itself after the timelimit
@@ -215,6 +216,7 @@ public class GameManager : MonoBehaviour
 				{
 					m_eCurrentState = RoundState.ePlayingRound; //Swap to playing the round
 					m_playingRoundTimer.SetTimer();             //Start the round timer
+                    
 					startCountdownDisplay.text = "GO!";
 					StartCoroutine(ClearText(1));               //Set the text to turn off after 1 second
 					SceneMovementActive(true);                  //Activate scene movement
