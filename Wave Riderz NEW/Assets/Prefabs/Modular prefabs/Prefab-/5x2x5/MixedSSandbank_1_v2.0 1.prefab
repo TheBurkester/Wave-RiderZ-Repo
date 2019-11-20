@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5369475949070350950}
-  - component: {fileID: 6741272355787713503}
+  - component: {fileID: 8385196768839970331}
   m_Layer: 0
   m_Name: MixedSSandbank_1_v2.0 1
   m_TagString: Rock
@@ -113,8 +113,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6741272355787713503
-BoxCollider:
+--- !u!136 &8385196768839970331
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -123,9 +123,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.78, y: 2, z: 4.16}
-  m_Center: {x: 0.12, y: 0, z: 0}
+  m_Radius: 2.14
+  m_Height: 0
+  m_Direction: 2
+  m_Center: {x: 0.16, y: -0.76, z: 0.13}
 --- !u!1 &7375331989358547551
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +320,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5369475949070350950}
     m_Modifications:
+    - target: {fileID: 2045841118530434492, guid: 35db3077bd4a3464ebe938703c5fd8e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Umberella_1_v2.0
+      objectReference: {fileID: 0}
     - target: {fileID: 3651717802547347532, guid: 35db3077bd4a3464ebe938703c5fd8e4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -374,11 +380,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2045841118530434492, guid: 35db3077bd4a3464ebe938703c5fd8e4,
-        type: 3}
-      propertyPath: m_Name
-      value: Umberella_1_v2.0
-      objectReference: {fileID: 0}
     - target: {fileID: 3326823179198042448, guid: 35db3077bd4a3464ebe938703c5fd8e4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -399,11 +400,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5369475949070350950}
     m_Modifications:
-    - target: {fileID: 4576433441468420461, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
-        type: 3}
-      propertyPath: m_Name
-      value: SmallSandbank_1_2.5A
-      objectReference: {fileID: 0}
     - target: {fileID: 3726720549955122920, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -458,6 +454,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576433441468420461, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
+        type: 3}
+      propertyPath: m_Name
+      value: SmallSandbank_1_2.5A
       objectReference: {fileID: 0}
     - target: {fileID: 2470971637511052647, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
         type: 3}
