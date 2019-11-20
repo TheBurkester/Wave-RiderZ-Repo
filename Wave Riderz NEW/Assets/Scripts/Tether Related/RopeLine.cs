@@ -31,7 +31,7 @@ public class RopeLine : MonoBehaviour
 		lineRenderer.positionCount = m_numberOfPoints;	//Set the number of lines to draw
 	}
 	
-    void Update()
+    void LateUpdate()
     {
 		//Setting the major curve points
 		Vector3 p0 = transform.position;			//First point is the skier handle

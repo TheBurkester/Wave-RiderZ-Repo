@@ -10,18 +10,20 @@
 
 using UnityEngine;
 using XboxCtrlrInput;
+using System.Collections;
 
 public class TetheredMineAbility : MonoBehaviour
 {
 	private XboxController m_controller;        // Reference to which controller to use (same as plane's)
-	public Rigidbody mineRB;
+	public GameObject mine;
 	private Tether m_mineTether = null;
 	public Rigidbody planeRB = null;
 	private PlaneController m_planeController;
 
 	private Transform m_planeHatch;
 	private bool m_isUsingAbility = false;
-	private float m_planeRelation;
+	[HideInInspector]
+	public float planeSpeed;
 
 	[HideInInspector]
 	public Timer mineAbilityCooldown;       // Timer used for the cooldown.
@@ -45,12 +47,12 @@ public class TetheredMineAbility : MonoBehaviour
 
     void Start() // KEEP THIS AS START OR I WILL PERSONALLY SMITE YOU. WE SPENT TOO LONG ON THIS.
     {
-		mineRB.gameObject.SetActive(false); // Disables the mine on startup.
+		mine.SetActive(false); // Disables the mine on startup.
 		m_planeHatch = GetComponent<Transform>();
 		m_controller = planeRB.GetComponent<PlaneController>().controller;
 		m_planeController = planeRB.GetComponent<PlaneController>();
-		m_planeRelation = m_planeController.forwardSpeed;
-		m_mineTether = mineRB.GetComponent<Tether>();
+		planeSpeed = m_planeController.forwardSpeed;
+		m_mineTether = mine.GetComponent<Tether>();
 	}
 
     void Update()
@@ -64,23 +66,21 @@ public class TetheredMineAbility : MonoBehaviour
             TetheredMineAnimation.SetBool("IsDoorClosed", false);
             // Hatch Open Door Sound
             AudioManager.Play("TetherObs&BBHatchDoorOpen");
-
-            m_mineTether.ResetVelocity();
-			mineRB.transform.position = m_planeHatch.transform.position;
-            
-            mineRB.gameObject.SetActive(true);
+			
+			StartCoroutine(SpawnMine());
 			m_isUsingAbility = true;
             
 		}
         if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
         {
-            
-         
-			m_mineTether.ResetVelocity();
-			mineRB.transform.position = m_planeHatch.transform.position;
-            mineRB.gameObject.SetActive(true);
-            m_isUsingAbility = true;
-           
+			// animation for the door
+			TetheredMineAnimation.SetBool("IsDoorOpen", true);
+			TetheredMineAnimation.SetBool("IsDoorClosed", false);
+			// Hatch Open Door Sound
+			AudioManager.Play("TetherObs&BBHatchDoorOpen");
+
+			StartCoroutine(SpawnMine());
+			m_isUsingAbility = true;
         }
         
         if (m_isUsingAbility)
@@ -91,16 +91,25 @@ public class TetheredMineAbility : MonoBehaviour
 
 	void ActivateAbility()
 	{
-		if (mineRB.transform.position.y > 0)
-		{
-			mineRB.isKinematic = false;
-			mineRB.velocity = new Vector3(0, -5.0f, m_planeRelation - 3);
-		}
-		else if (mineRB.transform.position.y <= 0)
-		{
-			mineRB.isKinematic = true;
-			mineRB.transform.position = new Vector3(mineRB.transform.position.x, 0, mineRB.transform.position.z);
-		}
+		//if (mineRB.transform.position.y > 0)
+		//{
+		//	mineRB.isKinematic = false;
+		//	mineRB.velocity = new Vector3(0, -5.0f, planeSpeed - 3);
+		//}
+		//else if (mineRB.transform.position.y <= 0)
+		//{
+		//	mineRB.isKinematic = true;
+		//	mineRB.transform.position = new Vector3(mineRB.transform.position.x, 0, mineRB.transform.position.z);
+		//}
+	}
+
+	IEnumerator SpawnMine()
+	{
+		yield return new WaitForSeconds(1);
+
+		mine.SetActive(true);
+		mine.GetComponent<Mine>().Reset();
+		mine.transform.position = m_planeHatch.position;
 	}
 
 	public void setIsUsingAbility(bool value)

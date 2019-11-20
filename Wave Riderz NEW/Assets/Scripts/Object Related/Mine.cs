@@ -7,6 +7,7 @@
 *-------------------------------------------------------------------*/
 
 using UnityEngine;
+using System.Collections;
 
 public class Mine : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Mine : MonoBehaviour
 
 	private TetheredMineAbility m_tmAbility;
 	private Rigidbody m_rb;
+	private Vector3 m_velocity;
+	private bool m_hitWater = false;
 
     private Tether m_tether;
 
@@ -34,6 +37,30 @@ public class Mine : MonoBehaviour
         m_tether = GetComponent<Tether>();
 
 		Debug.Assert(explosionPrefab != null, "The explosion prefab hasn't been added to the mine script");
+	}
+
+	void Update()
+	{
+		//Debug.Log(m_rb.velocity.y);
+		if (transform.position.y > 0)
+		{
+			m_velocity.y -= Time.deltaTime * 0.1f;
+			m_velocity.z = (m_tmAbility.planeSpeed * Time.deltaTime) - (3 * Time.deltaTime);
+			transform.Translate(m_velocity);
+			m_tether.currentLength = m_tether.Distance();
+			//float fallAmount = -Time.deltaTime * 5;
+			//transform.Translate(0, fallAmount, 0);
+		}
+		else if (transform.position.y <= 0 && !m_hitWater)
+		{
+			m_tether.tetherActive = true;
+			transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+			m_tether.currentLength = m_tether.Distance();
+			m_hitWater = true;
+			//this.enabled = false;
+		}
+		if (m_hitWater && m_tether.currentLength < 10)
+			m_tether.currentLength += m_tether.changeSpeed * Time.deltaTime;
 	}
 
 	void OnTriggerEnter(Collider collision)
@@ -86,5 +113,26 @@ public class Mine : MonoBehaviour
             else																											//If negative,
                 m_tether.ForceOverTime(new Vector3(-m_tmAbility.obstacleForce, 0, 0), m_tmAbility.obstacleForceDuration);	//Push left
         }
+	}
+
+	public void Reset()
+	{
+		m_tether.ResetVelocity();
+		m_tether.currentLength = m_tether.Distance();
+		m_tether.minLength = 1;
+		m_tether.maxLength = 10;
+		m_tether.changeSpeed = 1;
+		m_tether.tetherActive = false;
+		m_tether.GetComponentInChildren<LineRenderer>().enabled = false;
+		StartCoroutine(TurnRopeOn());
+
+		m_velocity = Vector3.zero;
+		m_hitWater = false;
+	}
+
+	IEnumerator TurnRopeOn()
+	{
+		yield return new WaitForEndOfFrame();
+		m_tether.GetComponentInChildren<LineRenderer>().enabled = true;
 	}
 }

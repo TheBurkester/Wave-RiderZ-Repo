@@ -129,7 +129,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -228,7 +228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd47a60e6d950ec4fa713a705791cf93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planeTetherPoint: {fileID: 0}
 --- !u!120 &4706808251373827708
 LineRenderer:
   m_ObjectHideFlags: 0

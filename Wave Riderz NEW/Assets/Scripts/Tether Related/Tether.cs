@@ -32,7 +32,10 @@ public class Tether : MonoBehaviour
 	public float velocityCapX = 2.5f;	//How fast the object can go sideways before slowing
 	public float velocityCapZ = 2.5f;	//How fast the object can go front/back before slowing
 	public float resistanceX = 1.1f;	//How quickly the object slows at the sideways velocity cap
-	public float resistanceZ = 1.1f;	//How quickly the object slows at the front/back velocity cap
+	public float resistanceZ = 1.1f;    //How quickly the object slows at the front/back velocity cap
+
+	[HideInInspector]
+	public bool tetherActive = true;
 
 	void Start()
     {
@@ -57,31 +60,34 @@ public class Tether : MonoBehaviour
 		tetherPosition.x = tetherPoint.position.x;
 		tetherPosition.z = tetherPoint.position.z;
 
-		//Tether clamping
-		if (currentLength > maxLength)                     //If the tether is too long,
-			currentLength -= changeSpeed * Time.deltaTime; //Make it shorter
-		if (currentLength < minLength)                     //If the tether is too short,
-			currentLength += changeSpeed * Time.deltaTime; //Make it longer
-		
-		//Tether physics
-		Vector3 testVelocity = m_velocity + (m_drag + forceToApply) * Time.deltaTime;   //V += a*t
+		if (tetherActive)
+		{
+			//Tether clamping
+			if (currentLength > maxLength)                     //If the tether is too long,
+				currentLength -= changeSpeed * Time.deltaTime; //Make it shorter
+			if (currentLength < minLength)                     //If the tether is too short,
+				currentLength += changeSpeed * Time.deltaTime; //Make it longer
 
-		//Drag
-		if (testVelocity.x > velocityCapX || testVelocity.x < -velocityCapX)    //If the new sideways velocity is too high,
-			testVelocity.x /= resistanceX;                                      //Reduce the velocity so it doesn't stay high for long
-		if (testVelocity.z > velocityCapZ || testVelocity.z < -velocityCapZ)    //If the new front/back velocity is too high,
-			testVelocity.z /= resistanceZ;                                      //Reduce the velocity so it doesn't stay high for long
+			//Tether physics
+			Vector3 testVelocity = m_velocity + (m_drag + forceToApply) * Time.deltaTime;   //V += a*t
 
-		//Tether physics
-		Vector3 testPosition = transform.position + (testVelocity) * Time.deltaTime;    //Where is the object going to go next?
-		Vector3 testDistance = testPosition - tetherPosition;							//Distance between the new point and the tether point
-		if (testDistance.magnitude > (currentLength - 0.15f))							//If the new point is outside the length of the rope, or a tiny bit shorter,
-			testPosition = tetherPosition + testDistance.normalized * currentLength;	//Pull it back to the rope length in the direction of the rope
+			//Drag
+			if (testVelocity.x > velocityCapX || testVelocity.x < -velocityCapX)    //If the new sideways velocity is too high,
+				testVelocity.x /= resistanceX;                                      //Reduce the velocity so it doesn't stay high for long
+			if (testVelocity.z > velocityCapZ || testVelocity.z < -velocityCapZ)    //If the new front/back velocity is too high,
+				testVelocity.z /= resistanceZ;                                      //Reduce the velocity so it doesn't stay high for long
 
-		//Set the final values
-		if (Time.deltaTime != 0)
-			m_velocity = (testPosition - transform.position) / Time.deltaTime;  //Adjust the velocity to force it to move to the new position
-		transform.position = testPosition;                                  //Move to the new position
+			//Tether physics
+			Vector3 testPosition = transform.position + (testVelocity) * Time.deltaTime;    //Where is the object going to go next?
+			Vector3 testDistance = testPosition - tetherPosition;                           //Distance between the new point and the tether point
+			if (testDistance.magnitude > (currentLength - 0.15f))                           //If the new point is outside the length of the rope, or a tiny bit shorter,
+				testPosition = tetherPosition + testDistance.normalized * currentLength;    //Pull it back to the rope length in the direction of the rope
+
+			//Set the final values
+			if (Time.deltaTime != 0)
+				m_velocity = (testPosition - transform.position) / Time.deltaTime;  //Adjust the velocity to force it to move to the new position
+			transform.position = testPosition;                                  //Move to the new position
+		}
 	}
 
 	//Apply a single instantaneous force
@@ -94,10 +100,13 @@ public class Tether : MonoBehaviour
 	//Apply a decreasing force every frame for a certain amount of time
 	public void ForceOverTime(Vector3 force, float duration)
 	{
-		forceToApply = force;							//Set the force
-		m_forceTimer.maxTime = duration;				//Set the duration
-		m_forceTimer.SetTimer();						//Start the timer
-		StartCoroutine(ReduceForce(force, duration));	//Make the force gradually decrease
+		if (tetherActive)
+		{
+			forceToApply = force;                           //Set the force
+			m_forceTimer.maxTime = duration;                //Set the duration
+			m_forceTimer.SetTimer();                        //Start the timer
+			StartCoroutine(ReduceForce(force, duration));   //Make the force gradually decrease
+		}
 	}
 
 	//Coroutine to decrease the force
@@ -115,7 +124,12 @@ public class Tether : MonoBehaviour
 	//Returns the distance between the object and the tether point
 	public float Distance()
 	{
-		return (transform.position - tetherPosition).magnitude;
+		Vector3 distance = new Vector3();
+		distance.x = (transform.position.x - tetherPosition.x);
+		distance.y = 0;
+		distance.z = (transform.position.z - tetherPosition.z);
+
+		return distance.magnitude;
 	}
 
 	//Returns the direction that the object is moving in
