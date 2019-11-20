@@ -111,8 +111,8 @@ public class GameManager : MonoBehaviour
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	public Text bonus = null;
     public RectTransform wavePanel = null;
-    private Vector3 m_panelOffScreenLeft = new Vector3(-1150, 315.5f, 0);
-    private Vector3 m_panelOffScreenRight = new Vector3(2300, 315.5f, 0);
+    private Vector3 m_panelOffScreenLeft = new Vector3(-1600, 0, 0);
+    private Vector3 m_panelOffScreenRight = new Vector3(2600, 0, 0);
     private int m_t = 0;
     private bool m_nextRound = false;
 	//-------------------------------------------------------------------------
