@@ -66,7 +66,7 @@ public class MainMenu : MonoBehaviour
 
 	// All off-screen positions.
 	private Vector3 m_panelOffScreenBottomPos;
-    private Vector3 m_panelOffScreenLeft = new Vector3(-1230, 0, 0);
+    private Vector3 m_panelOffScreenLeft = new Vector3(-1600, 0, 0);
     private Vector3 m_panelOffScreenTopPos;
 
 	//-------------------------------------------------------------------------
