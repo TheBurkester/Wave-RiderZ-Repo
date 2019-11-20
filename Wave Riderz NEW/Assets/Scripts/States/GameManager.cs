@@ -240,10 +240,11 @@ public class GameManager : MonoBehaviour
 				if (!m_playingRoundTimer.UnderMax())
 				{
 					CallOnSkiers(ApplySkierAliveBonus);		//Apply score bonuses to any skiers that are still alive
-
-					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
+                    AudioManager.Play("RoundOver");
+                    m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
 					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
+                    AudioManager.Stop("PlaneAudio");
 					bonus.text = "Alive skiers get a bonus of " + skierBonus.ToString();
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
@@ -252,11 +253,12 @@ public class GameManager : MonoBehaviour
 				{
 					//Add a score bonus to the player controlling the plane
 					m_skiers[(int)m_eCurrentPlaneState].AddScore(planeBonus);
-
+                    AudioManager.Play("RoundOver");
 					m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
 					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
-					bonus.text = "All skiers wiped out! Plane gets " + planeBonus.ToString() + " bonus score!";
+                    AudioManager.Stop("PlaneAudio");
+                    bonus.text = "All skiers wiped out! Plane gets " + planeBonus.ToString() + " bonus score!";
 					roundOverPanel.SetActive(true);             //Show the round over screen
 				}
 
