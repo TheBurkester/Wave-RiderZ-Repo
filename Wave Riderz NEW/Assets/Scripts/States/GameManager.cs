@@ -86,11 +86,11 @@ public class GameManager : MonoBehaviour
 	public Text scorePurple = null;
 	public Text scoreOrange = null;
 	private Text[] m_skierScores = null;
-	public GameObject playerOneUI = null;
-	public GameObject playerTwoUI = null;
-	public GameObject playerThreeUI = null;
-	public GameObject playerFourUI = null;
-	private GameObject[] m_playerUI = null;
+	public RectTransform playerOneUI = null;
+	public RectTransform playerTwoUI = null;
+	public RectTransform playerThreeUI = null;
+	public RectTransform playerFourUI = null;
+	private RectTransform[] m_playerUI = null;
 	public GameObject beachBombAbilityUI = null;
 	public GameObject tetheredMineAbilityUI = null;
 	public Image livesRed = null;
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
 		m_skiers = new SkierController[6] { redSkier, greenSkier, purpleSkier, orangeSkier, null, null };	//Add two nulls at the end so they don't throw errors if functions check those indexes
 		m_skierScores = new Text[4] { scoreRed, scoreGreen, scorePurple, scoreOrange };
         m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, hydraPlaneTexture, mannyPlaneTexture };
-        m_playerUI = new GameObject[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
+        m_playerUI = new RectTransform[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
 		m_skierLives = new Image[4] { livesRed, livesGreen, livesPurple, livesOrange };
 		m_skierMultipliers = new Text[4] { multiplierRed, multiplierGreen, multiplierPurple, multiplierOrange };
         m_skierHurtSounds = new string[4] {"Player1Damage", "Player2Damage","Player3Damage","Player4Damage" };
@@ -173,10 +173,10 @@ public class GameManager : MonoBehaviour
         roundNumberText.text = "";
         planePlayerText.text = "";
 		roundTimerPanel.SetActive(false);
-		playerOneUI.SetActive(false);
-		playerTwoUI.SetActive(false);
-		playerThreeUI.SetActive(false);
-		playerFourUI.SetActive(false);
+		playerOneUI.gameObject.SetActive(false);
+		playerTwoUI.gameObject.SetActive(false);
+		playerThreeUI.gameObject.SetActive(false);
+		playerFourUI.gameObject.SetActive(false);
 		beachBombAbilityUI.SetActive(false);
 		tetheredMineAbilityUI.SetActive(false);
 		scoreRed.text = "";
@@ -194,6 +194,8 @@ public class GameManager : MonoBehaviour
 		beachBombAbility.fillAmount = 0;
 		tetheredMineAbility.fillAmount = 0;
 		bonus.text = "";
+
+		CallOnSkiers(SetSkierUIPosition);
 
 		roundOverPanel.SetActive(false);
 
@@ -404,6 +406,17 @@ public class GameManager : MonoBehaviour
 			FunctionToCall(i);					//Call the function on the current player
 	}
 
+	// Sets the position of the Skier UI depending on the amount of players.
+	private void SetSkierUIPosition(int skierNumber)
+	{
+		//2 player
+		//player 1 = 0.33
+		//player 2 0.66
+		float xPos = (1.0f / (m_playerCount + 1.0f)) * (skierNumber + 1.0f);
+		m_playerUI[skierNumber].anchorMin = new Vector2(xPos, m_playerUI[skierNumber].anchorMin.y);
+		m_playerUI[skierNumber].anchorMax = new Vector2(xPos, m_playerUI[skierNumber].anchorMax.y);
+	}
+
 	//Sets/updates all the UI related to a skier
 	private void SetSkierUI(int skierNumber)
 	{
@@ -444,17 +457,17 @@ public class GameManager : MonoBehaviour
 		purpleSkier.enabled = value;
 		orangeSkier.enabled = value;
 		redSkier.tether.enabled = value;
-		playerOneUI.SetActive(value);
+		playerOneUI.gameObject.SetActive(value);
 		greenSkier.tether.enabled = value;
-		playerTwoUI.SetActive(value);
+		playerTwoUI.gameObject.SetActive(value);
 		if (purpleSkier.gameObject.activeSelf == true)  //If the purple skier is in the game,
 			purpleSkier.tether.enabled = value;         //Set them
 		if (orangeSkier.gameObject.activeSelf == true)  //If the orange skier is in the game,
 			orangeSkier.tether.enabled = value;         //Set them too
 		if (m_playerCount >= 3)
-			playerThreeUI.SetActive(value);
+			playerThreeUI.gameObject.SetActive(value);
 		if (m_playerCount == 4)
-			playerFourUI.SetActive(value);
+			playerFourUI.gameObject.SetActive(value);
 		mine.enabled = value;
 		planeHatch.mineAbilityCooldown.enabled = value;
 		target.enabled = value;
