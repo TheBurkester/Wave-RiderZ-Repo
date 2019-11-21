@@ -42,7 +42,9 @@ public class SkierController : MonoBehaviour
 	public int skierMultiplierCap = 5;		// The max value that the multipler can be.
 	private int m_skierMultiplier = 1;		// Skier's current multiplier.
     public GameObject coinCollectParticle = null;	//The coin collection particle prefab
-    private ParticleSystem[] m_coinParticles = null;	//The actual particle systems of the prefab's children
+    private ParticleSystem[] m_coinParticles = null;    //The actual particle systems of the prefab's children
+	public GameObject topScoreParticle = null;  //Gold particle to play when this player is in the lead
+	private ParticleSystem m_topScoreParticle = null;   //Actual particle system of the prefab
 
 	private Timer m_scoreTimer;				// Timer used to increment score.
 	private Timer m_scoreMultiplierTimer;	// Timer used to add the multiplier to the score over time.
@@ -67,7 +69,10 @@ public class SkierController : MonoBehaviour
 
 		m_coinParticles = coinCollectParticle.GetComponentsInChildren<ParticleSystem>();
 		foreach (ParticleSystem p in m_coinParticles)
-			p.Stop();	//Make sure the particle doesn't play immediately, has to be in awake
+			p.Stop();   //Make sure the particle doesn't play immediately, has to be in awake
+
+		m_topScoreParticle = topScoreParticle.GetComponentInChildren<ParticleSystem>();
+		m_topScoreParticle.Stop();
 	}
 
 	void Start()
@@ -256,6 +261,15 @@ public class SkierController : MonoBehaviour
 	public bool IsInvincible()
 	{
 		return m_invincible;
+	}
+
+	//Turns the gold particle on/off
+	public void SetTopScoreParticle(bool value)
+	{
+		if (value && m_topScoreParticle.isStopped)
+			m_topScoreParticle.Play();
+		else if (value == false && m_topScoreParticle.isPlaying)
+			m_topScoreParticle.Stop();
 	}
 	
 	IEnumerator MeshOff(float interval)

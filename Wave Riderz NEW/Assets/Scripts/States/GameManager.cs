@@ -85,7 +85,9 @@ public class GameManager : MonoBehaviour
 	public Text scoreTwo = null;
 	public Text scoreThree = null;
 	public Text scoreFour = null;
-	private Text[] m_skierScores = null;
+	private Text[] m_skierScoresText = null;
+	//private int[] m_skierScores = null;
+	private SkierController m_prevTopSkier = null;
 	public RectTransform playerOneUI = null;
 	public RectTransform playerTwoUI = null;
 	public RectTransform playerThreeUI = null;
@@ -125,9 +127,10 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		//Set the reference arrays
-		m_skiers = new SkierController[6] { playerOneSkier, playerTwoSkier, playerThreeSkier, playerFourSkier, null, null };	//Add two nulls at the end so they don't throw errors if functions check those indexes
-		m_skierScores = new Text[4] { scoreOne, scoreTwo, scoreThree, scoreFour };
-        m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, mannyPlaneTexture, hydraPlaneTexture  };
+		m_skiers = new SkierController[6] { playerOneSkier, playerTwoSkier, playerThreeSkier, playerFourSkier, null, null };    //Add two nulls at the end so they don't throw errors if functions check those indexes
+		m_skierScoresText = new Text[4] { scoreOne, scoreTwo, scoreThree, scoreFour };
+		m_prevTopSkier = null;
+		m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, mannyPlaneTexture, hydraPlaneTexture  };
         m_playerUI = new RectTransform[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
 		m_skierLives = new Image[4] { livesOne, livesTwo, livesThree, livesFour };
 		m_skierMultipliers = new Text[4] { multiplierOne, multiplierTwo, multiplierThree, multiplierFour };
@@ -162,12 +165,15 @@ public class GameManager : MonoBehaviour
 		m_playingRoundTimer.autoDisable = true;                    //Make the timer disable itself after the timelimit
 
 		//At the start of each round, set the scores
-		playerOneSkier.SetScore(GameInfo.playerOneScore);
+		m_skiers[0].SetScore(GameInfo.playerOneScore);
 		playerTwoSkier.SetScore(GameInfo.playerTwoScore);
 		if (m_playerCount >= 3)
+		{
 			playerThreeSkier.SetScore(GameInfo.playerThreeScore);
-		if (m_playerCount == 4)
-			playerFourSkier.SetScore(GameInfo.playerFourScore);
+			if (m_playerCount == 4)
+				playerFourSkier.SetScore(GameInfo.playerFourScore);
+		}
+		SortScores();
 		
 		//Ensure no text is displayed at the very start
 		startCountdownDisplay.text = "";
@@ -278,6 +284,8 @@ public class GameManager : MonoBehaviour
 				//Check if any skiers are hit
 				CallOnSkiers(SkierHurtBonusCheck);
 
+				SortScores();
+
 				//Display skier and plane related UI
 				CallOnSkiers(SetSkierUI);
 				beachBombAbilityUI.SetActive(true);
@@ -319,8 +327,6 @@ public class GameManager : MonoBehaviour
 
                     m_t = 0;
                     m_nextRound = true;
-
-                    
 				}
 
                 if (m_nextRound)
@@ -421,9 +427,7 @@ public class GameManager : MonoBehaviour
 	// Sets the position of the Skier UI depending on the amount of players.
 	private void SetSkierUIPosition(int skierNumber)
 	{
-		//2 player
-		//player 1 = 0.33
-		//player 2 0.66
+		//Calculates where along the x axis this player's UI should be
 		float xPos = (1.0f / (m_playerCount + 1.0f)) * (skierNumber + 1.0f);
 		m_playerUI[skierNumber].anchorMin = new Vector2(xPos, m_playerUI[skierNumber].anchorMin.y);
 		m_playerUI[skierNumber].anchorMax = new Vector2(xPos, m_playerUI[skierNumber].anchorMax.y);
@@ -432,7 +436,7 @@ public class GameManager : MonoBehaviour
 	//Sets/updates all the UI related to a skier
 	private void SetSkierUI(int skierNumber)
 	{
-		m_skierScores[skierNumber].text = m_skiers[skierNumber].GetScore().ToString();	//Display the score
+		m_skierScoresText[skierNumber].text = m_skiers[skierNumber].GetScore().ToString();	//Display the score
 		
 		if (m_skiers[skierNumber].GetAlive())											//If the skier is still alive,
 		{
@@ -443,6 +447,51 @@ public class GameManager : MonoBehaviour
 		{
 			m_skierLives[skierNumber].fillAmount = 0;	//Show no lives
 			m_skierMultipliers[skierNumber].text = "";	//Don't show a multiplier
+		}
+	}
+
+	private void SortScores()
+	{
+		//Make a new array of references to the skiers to sort
+		SkierController[] playersSortedByScore = new SkierController[m_skiers.Length];
+		for (int i =0; i < m_skiers.Length; i++)
+			playersSortedByScore[i] = m_skiers[i];
+
+		//Bubble sort in descending order
+		SkierController temp;
+		for (int j = 0; j < m_playerCount - 1; j++)
+		{
+			for (int i = 0; i < m_playerCount - 1; i++)
+			{
+				if (playersSortedByScore[i].GetScore() < playersSortedByScore[i + 1].GetScore())
+				{
+					temp = playersSortedByScore[i + 1];
+					playersSortedByScore[i + 1] = playersSortedByScore[i];
+					playersSortedByScore[i] = temp;
+				}
+			}
+		}
+		
+		//Change which player is playing the particle if needed
+		if (((int)playersSortedByScore[0].controller - 1) != (int)m_eCurrentPlaneState)	//If the top score player isn't in the plane,
+		{
+			if (playersSortedByScore[0] != m_prevTopSkier)			//If the top player has changed,
+			{
+				playersSortedByScore[0].SetTopScoreParticle(true);	//Start the particle on the new player
+				if (m_prevTopSkier != null)							
+					m_prevTopSkier.SetTopScoreParticle(false);		//Stop the particle on the previous player
+				m_prevTopSkier = playersSortedByScore[0];			//Update the previous top player
+			}
+		}
+		else														//The top score player is in the plane,
+		{
+			if (playersSortedByScore[1] != m_prevTopSkier)			//If the top player has changed,
+			{
+				playersSortedByScore[1].SetTopScoreParticle(true);	//Start the particle on the new player
+				if (m_prevTopSkier != null)
+					m_prevTopSkier.SetTopScoreParticle(false);		//Stop the particle on the previous player
+				m_prevTopSkier = playersSortedByScore[1];           //Update the previous top player
+			}
 		}
 	}
 
