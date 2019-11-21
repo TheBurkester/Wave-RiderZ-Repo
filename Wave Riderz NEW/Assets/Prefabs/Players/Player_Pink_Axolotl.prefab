@@ -1046,6 +1046,8 @@ MonoBehaviour:
   skierScoreInc: 1
   skierMultiplierSpeed: 5
   skierMultiplierCap: 5
+  coinCollectParticle: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+    type: 3}
   lives: 3
   numberOfFlashes: 3
   flashDelay: 0.3
@@ -1620,11 +1622,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7814344201807394183}
     m_Modifications:
-    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_1_Slipstream_v1
-      objectReference: {fileID: 0}
     - target: {fileID: 1089275068096322551, guid: 2d67bca355b09a14daf9272d514835d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1680,6 +1677,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_1_Slipstream_v1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d67bca355b09a14daf9272d514835d9, type: 3}
 --- !u!4 &7697779720099263032 stripped
@@ -1695,6 +1697,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7814344200857352011}
     m_Modifications:
+    - target: {fileID: 100000, guid: 8fed1b8471e820e48bd57928723a8905, type: 3}
+      propertyPath: m_Name
+      value: Handle_1_v01
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8fed1b8471e820e48bd57928723a8905, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0745
@@ -1739,10 +1745,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 10.89
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8fed1b8471e820e48bd57928723a8905, type: 3}
-      propertyPath: m_Name
-      value: Handle_1_v01
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 8fed1b8471e820e48bd57928723a8905, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1762,6 +1764,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7814344201807394223}
     m_Modifications:
+    - target: {fileID: 100000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
+      propertyPath: m_Name
+      value: Wakeboard_1_v01
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.3109999
@@ -1805,10 +1811,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -93.729004
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
-      propertyPath: m_Name
-      value: Wakeboard_1_v01
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: b79ec585cf43d024589b1d1d1fbe4a3f, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -1230,6 +1230,8 @@ MonoBehaviour:
   skierScoreInc: 1
   skierMultiplierSpeed: 5
   skierMultiplierCap: 5
+  coinCollectParticle: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+    type: 3}
   lives: 3
   numberOfFlashes: 3
   flashDelay: 0.3
@@ -1533,11 +1535,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6930464069003959189}
     m_Modifications:
-    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_1_Slipstream_v1
-      objectReference: {fileID: 0}
     - target: {fileID: 1089275068096322551, guid: 2d67bca355b09a14daf9272d514835d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1592,6 +1589,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_1_Slipstream_v1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d67bca355b09a14daf9272d514835d9, type: 3}

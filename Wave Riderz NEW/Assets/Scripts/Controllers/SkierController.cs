@@ -38,10 +38,11 @@ public class SkierController : MonoBehaviour
 	private int m_score = 0;			// Player's score.
 	public int coinScore = 2;			// Score increased everytime collision with a coin occurs.
 	public int skierScoreInc = 1;		// Base Increase every second.
-
     public int skierMultiplierSpeed = 5;	// The time it takes for the skier's multiplier to increase.
 	public int skierMultiplierCap = 5;		// The max value that the multipler can be.
-	private int m_skierMultiplier = 1;		// Skier's multiplier.
+	private int m_skierMultiplier = 1;		// Skier's current multiplier.
+    public GameObject coinCollectParticle = null;	//The coin collection particle prefab
+    private ParticleSystem[] m_coinParticles = null;	//The actual particle systems of the prefab's children
 
 	private Timer m_scoreTimer;				// Timer used to increment score.
 	private Timer m_scoreMultiplierTimer;	// Timer used to add the multiplier to the score over time.
@@ -63,6 +64,10 @@ public class SkierController : MonoBehaviour
     {
 		tether = GetComponent<Tether>();
 		Debug.Assert(tether != null, "Skier missing tether component");
+
+		m_coinParticles = coinCollectParticle.GetComponentsInChildren<ParticleSystem>();
+		foreach (ParticleSystem p in m_coinParticles)
+			p.Stop();	//Make sure the particle doesn't play immediately, has to be in awake
 	}
 
 	void Start()
@@ -78,7 +83,7 @@ public class SkierController : MonoBehaviour
 		m_scoreTimer.maxTime = 1;							//The timer will go for one second,
 		m_scoreTimer.autoRepeat = true;                     //Then automatically repeat
 		m_scoreTimer.SetRepeatFunction(IncrementScore);		//Make the timer call the IncrementScore function each time it repeats
-        m_scoreTimer.SetTimer();							//Start the timer
+        m_scoreTimer.SetTimer();                            //Start the timer
 	}
 
 	private void Update()
@@ -136,8 +141,12 @@ public class SkierController : MonoBehaviour
 	{
 		if (!m_invincible)					//If the skier is not currently invincible,
 		{
-			if (other.CompareTag("Coin"))   //If the other object is a coin,
-				m_score += coinScore;       //Add a coin's worth of points to the score
+            if (other.CompareTag("Coin"))   //If the other object is a coin,
+            {
+                m_score += coinScore;       //Add a coin's worth of points to the score
+                foreach (ParticleSystem p in m_coinParticles)
+                    p.Play();
+            }
 
             if (other.CompareTag("Rock"))   //If the other object is a rock,
             {
