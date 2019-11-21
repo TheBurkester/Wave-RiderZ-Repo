@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2846214, g: 0.37120992, b: 0.498806, a: 1}
+  m_IndirectSpecularColor: {r: 0.28462148, g: 0.37121013, b: 0.49880773, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1025,7 +1025,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: CoinCollected
     clip: {fileID: 8300000, guid: e3c94752fab4d3441b5b1dd1f1a181ba, type: 3}
-    volume: 1
+    volume: 0.7
     loop: 0
     source: {fileID: 0}
   - name: BothPlaneCooldownAbiltysReady
@@ -1035,7 +1035,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: TetherObs&BBHatchDoorOpen
     clip: {fileID: 8300000, guid: e92b52051ba51d442bd1874f5be6c5d2, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: TetherObs&BBHatchDoorClosed
@@ -1045,7 +1045,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PlaneAudio
     clip: {fileID: 8300000, guid: a2b813522a81cf445989f25f7dc3883b, type: 3}
-    volume: 0.5
+    volume: 0.7
     loop: 1
     source: {fileID: 0}
   - name: BeachBallFired
@@ -1055,12 +1055,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: TetheredMineExplosion
     clip: {fileID: 8300000, guid: 13ce8483ad9f0894987305ef14884797, type: 3}
-    volume: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: BeachBombExplosion
-    clip: {fileID: 8300000, guid: fc50b72c81ec91744be8cdba04c06865, type: 3}
-    volume: 1
+    volume: 0.7
     loop: 0
     source: {fileID: 0}
   - name: RoundTimeTicking (10 seconds left)
@@ -1080,12 +1075,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BeachBomb POP
     clip: {fileID: 8300000, guid: ffdfd93b58bb84c4a95b7e4f3fd0d761, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: PLayerHitObstacle
     clip: {fileID: 8300000, guid: 7eec900bf1bac514191a13b305033305, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: Bonk
@@ -1135,27 +1130,27 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PlaneFadeIn
     clip: {fileID: 8300000, guid: c06606ce32125924d8382cd71ca96b57, type: 3}
-    volume: 0.5
+    volume: 0.7
     loop: 0
     source: {fileID: 0}
   - name: PlaneFadeOut
     clip: {fileID: 8300000, guid: 7c19b0a9d1b1abb44886bb9ef36ca3b4, type: 3}
-    volume: 0.5
+    volume: 0.7
     loop: 0
     source: {fileID: 0}
   - name: LevelMusic1
     clip: {fileID: 8300000, guid: 9efd08ecf5c3b2546b4203fad50587a4, type: 3}
-    volume: 0.1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: LevelMusic2
     clip: {fileID: 8300000, guid: ae016597fd10a604a83906d0168fe7ce, type: 3}
-    volume: 0.1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: Race_Start
     clip: {fileID: 8300000, guid: 2149b9c4b28ca1043b78c8390e21bd08, type: 3}
-    volume: 1
+    volume: 0.8
     loop: 0
     source: {fileID: 0}
 --- !u!4 &999165801
