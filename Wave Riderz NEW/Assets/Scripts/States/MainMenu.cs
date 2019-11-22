@@ -287,7 +287,14 @@ public class MainMenu : MonoBehaviour
 			playerNumber = 3;
 			PlayGame();
 		}
-	}
+
+        //Debug skip menu button, automatically assigns four skiers
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            playerNumber = 4;
+            PlayGame();
+        }
+    }
 
 	//-------------------------------------------------------------------------
 
