@@ -19,10 +19,8 @@ public class Sound
 
     [Range(0f, 1f)]
     public float volume;
-    //[Range(0.1f, 3f)]
-    //public float pitch;
-
     public bool loop;
+	public bool randomizePitch = false;	//If set to true, each time the sound plays its pitch will be slightly up or down
 
     [HideInInspector]
     public AudioSource source;
