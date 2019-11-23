@@ -42,12 +42,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3323064660407597606}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.29
+  m_Radius: 1.89
   m_Height: 0
   m_Direction: 2
-  m_Center: {x: 2.54, y: 0, z: 2.23}
+  m_Center: {x: 2.54, y: 0, z: 2.31}
 --- !u!1001 &1120772928133823752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,6 +55,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7892451989918351727}
     m_Modifications:
+    - target: {fileID: 2204373017939894876, guid: 125c9dcd29c0f6e47aa0da33e02b96fa,
+        type: 3}
+      propertyPath: m_Name
+      value: Chair_1_v2.8 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 8277019899435298094, guid: 125c9dcd29c0f6e47aa0da33e02b96fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -110,11 +115,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2204373017939894876, guid: 125c9dcd29c0f6e47aa0da33e02b96fa,
-        type: 3}
-      propertyPath: m_Name
-      value: Chair_1_v2.8 (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 125c9dcd29c0f6e47aa0da33e02b96fa, type: 3}
 --- !u!4 &9029762008716955686 stripped
@@ -130,6 +130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7892451989918351727}
     m_Modifications:
+    - target: {fileID: 4576433441468420461, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
+        type: 3}
+      propertyPath: m_Name
+      value: SmallSandbank_1_2.5A
+      objectReference: {fileID: 0}
     - target: {fileID: 3726720549955122920, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -185,16 +190,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4576433441468420461, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
-        type: 3}
-      propertyPath: m_Name
-      value: SmallSandbank_1_2.5A
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470971637511052647, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5171b0ba7bb5ade42b3a3d6e8b4dc577, type: 3}
 --- !u!4 &3270280611388247650 stripped
@@ -210,6 +205,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7892451989918351727}
     m_Modifications:
+    - target: {fileID: 1017622190946534492, guid: dbc442f6f78186c40a2641ced1d95421,
+        type: 3}
+      propertyPath: m_Name
+      value: L_Rock_1_v2.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1017622190946506876, guid: dbc442f6f78186c40a2641ced1d95421,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -264,11 +264,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 24.192001
-      objectReference: {fileID: 0}
-    - target: {fileID: 1017622190946534492, guid: dbc442f6f78186c40a2641ced1d95421,
-        type: 3}
-      propertyPath: m_Name
-      value: L_Rock_1_v2.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbc442f6f78186c40a2641ced1d95421, type: 3}

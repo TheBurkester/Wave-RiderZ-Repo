@@ -40,7 +40,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9182405238839040109}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.9
   m_Height: 3.22
@@ -118,7 +118,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 677003707729707915, guid: f50459f3ab7e3f247b538f017ca47afa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f50459f3ab7e3f247b538f017ca47afa, type: 3}
 --- !u!4 &5554897624584007956 stripped
 Transform:

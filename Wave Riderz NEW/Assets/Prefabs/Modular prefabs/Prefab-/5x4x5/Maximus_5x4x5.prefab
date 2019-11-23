@@ -47,7 +47,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418179861590150564}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2.14
   m_Height: 0
@@ -60,6 +60,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 1262026524703200606, guid: 08dcbaef2c0fab542997e6cec2b34544,
+        type: 3}
+      propertyPath: m_Name
+      value: Flower_1_v2
+      objectReference: {fileID: 0}
     - target: {fileID: 5860878302481888837, guid: 08dcbaef2c0fab542997e6cec2b34544,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -115,11 +120,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.598
       objectReference: {fileID: 0}
-    - target: {fileID: 1262026524703200606, guid: 08dcbaef2c0fab542997e6cec2b34544,
-        type: 3}
-      propertyPath: m_Name
-      value: Flower_1_v2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08dcbaef2c0fab542997e6cec2b34544, type: 3}
 --- !u!4 &6278718086555711467 stripped
@@ -135,6 +135,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 3248504171456991781, guid: fa39280af6d59a149b92e20d20f396c8,
+        type: 3}
+      propertyPath: m_Name
+      value: MRock_1_v2.1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248504171456991781, guid: fa39280af6d59a149b92e20d20f396c8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6659336091236945005, guid: fa39280af6d59a149b92e20d20f396c8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -190,16 +200,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3248504171456991781, guid: fa39280af6d59a149b92e20d20f396c8,
-        type: 3}
-      propertyPath: m_Name
-      value: MRock_1_v2.1 (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3248504171456991781, guid: fa39280af6d59a149b92e20d20f396c8,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa39280af6d59a149b92e20d20f396c8, type: 3}
 --- !u!4 &5404018924926771152 stripped
@@ -215,6 +215,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 1262026524703200606, guid: 08dcbaef2c0fab542997e6cec2b34544,
+        type: 3}
+      propertyPath: m_Name
+      value: Flower_1_v2 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 5860878302481888837, guid: 08dcbaef2c0fab542997e6cec2b34544,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,11 +275,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.598
       objectReference: {fileID: 0}
-    - target: {fileID: 1262026524703200606, guid: 08dcbaef2c0fab542997e6cec2b34544,
-        type: 3}
-      propertyPath: m_Name
-      value: Flower_1_v2 (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08dcbaef2c0fab542997e6cec2b34544, type: 3}
 --- !u!4 &5675801974739069187 stripped
@@ -290,6 +290,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 1262026524703200606, guid: 08dcbaef2c0fab542997e6cec2b34544,
+        type: 3}
+      propertyPath: m_Name
+      value: Flower_1_v2 (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 5860878302481888837, guid: 08dcbaef2c0fab542997e6cec2b34544,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -345,11 +350,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 7.7500005
       objectReference: {fileID: 0}
-    - target: {fileID: 1262026524703200606, guid: 08dcbaef2c0fab542997e6cec2b34544,
-        type: 3}
-      propertyPath: m_Name
-      value: Flower_1_v2 (2)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08dcbaef2c0fab542997e6cec2b34544, type: 3}
 --- !u!4 &8322595976587939549 stripped
@@ -365,6 +365,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 100000, guid: 6b834894f9ad7ab44b06321f406552bf, type: 3}
+      propertyPath: m_Name
+      value: SmallSandbank_1_2.5A
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6b834894f9ad7ab44b06321f406552bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.61
@@ -409,10 +413,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 6b834894f9ad7ab44b06321f406552bf, type: 3}
-      propertyPath: m_Name
-      value: SmallSandbank_1_2.5A
-      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 6b834894f9ad7ab44b06321f406552bf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -432,6 +432,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 4408727294939990407, guid: 763817963182a3141a87531984cf34b7,
+        type: 3}
+      propertyPath: m_Name
+      value: BrTreeTop_1_v2
+      objectReference: {fileID: 0}
     - target: {fileID: 5971266851857275619, guid: 763817963182a3141a87531984cf34b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -487,11 +492,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4408727294939990407, guid: 763817963182a3141a87531984cf34b7,
-        type: 3}
-      propertyPath: m_Name
-      value: BrTreeTop_1_v2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 763817963182a3141a87531984cf34b7, type: 3}
 --- !u!4 &701102460960337161 stripped
@@ -507,6 +507,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 7399137569417705460, guid: ce2b4e5845e8d584695660eb1f518fbe,
+        type: 3}
+      propertyPath: m_Name
+      value: BrTreeStem_1_v2.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7520347721274286797, guid: ce2b4e5845e8d584695660eb1f518fbe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -562,11 +567,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7399137569417705460, guid: ce2b4e5845e8d584695660eb1f518fbe,
-        type: 3}
-      propertyPath: m_Name
-      value: BrTreeStem_1_v2.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce2b4e5845e8d584695660eb1f518fbe, type: 3}
 --- !u!4 &915724946149023986 stripped
@@ -582,6 +582,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051884779257152211}
     m_Modifications:
+    - target: {fileID: 1017622190946534492, guid: dbc442f6f78186c40a2641ced1d95421,
+        type: 3}
+      propertyPath: m_Name
+      value: L_Rock_1_v2.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1017622190946506876, guid: dbc442f6f78186c40a2641ced1d95421,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -636,11 +641,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1017622190946534492, guid: dbc442f6f78186c40a2641ced1d95421,
-        type: 3}
-      propertyPath: m_Name
-      value: L_Rock_1_v2.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbc442f6f78186c40a2641ced1d95421, type: 3}

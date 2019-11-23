@@ -57,7 +57,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7820583437623012123}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.48
@@ -69,6 +69,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7820583437623179067}
     m_Modifications:
+    - target: {fileID: 6082341503030991874, guid: a011951b0c662604abaeb6728b9d1d6e,
+        type: 3}
+      propertyPath: m_Name
+      value: 1x1x1 Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082341503030991874, guid: a011951b0c662604abaeb6728b9d1d6e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6082341503030558754, guid: a011951b0c662604abaeb6728b9d1d6e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -123,16 +133,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6082341503030991874, guid: a011951b0c662604abaeb6728b9d1d6e,
-        type: 3}
-      propertyPath: m_Name
-      value: 1x1x1 Prefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 6082341503030991874, guid: a011951b0c662604abaeb6728b9d1d6e,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6082341503032984258, guid: a011951b0c662604abaeb6728b9d1d6e,
         type: 3}
