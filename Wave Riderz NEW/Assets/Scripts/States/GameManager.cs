@@ -104,6 +104,11 @@ public class GameManager : MonoBehaviour
 	public Image livesThree = null;
 	public Image livesFour = null;
 	private Image[] m_skierLives = null;
+    public Image planeOne = null;
+    public Image planeTwo = null;
+    public Image planeThree = null;
+    public Image planeFour = null;
+    private Image[] m_planeImage = null;
 	public Text multiplierOne = null;
 	public Text multiplierTwo = null;
 	public Text multiplierThree = null;
@@ -138,6 +143,7 @@ public class GameManager : MonoBehaviour
 		m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, mannyPlaneTexture, hydraPlaneTexture  };
         m_playerUI = new RectTransform[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
 		m_skierLives = new Image[4] { livesOne, livesTwo, livesThree, livesFour };
+        m_planeImage = new Image[4] { planeOne, planeTwo, planeThree, planeFour };
 		m_skierMultipliers = new Text[4] { multiplierOne, multiplierTwo, multiplierThree, multiplierFour };
         m_skierHurtSounds = new string[4] {"Player1Damage", "Player2Damage","Player3Damage","Player4Damage" };
 
@@ -199,6 +205,8 @@ public class GameManager : MonoBehaviour
 			score.text = "";
 		foreach (Image lives in m_skierLives)
 			lives.fillAmount = 0;
+        foreach (Image plane in m_planeImage)
+            plane.gameObject.SetActive(false);
 		foreach (Text multiplier in m_skierMultipliers)
 			multiplier.text = "";
 		foreach (Text score in m_roundOverScoresText)
@@ -302,7 +310,7 @@ public class GameManager : MonoBehaviour
 				tetheredMineAbilityUI.SetActive(true);
 				beachBombAbility.fillAmount = target.abilityCooldown.T / target.abilityCooldown.maxTime;
 				tetheredMineAbility.fillAmount = planeHatch.mineAbilityCooldown.T / planeHatch.mineAbilityCooldown.maxTime;
-				
+
 				//Display the controller button sprites for plane abilities
 				if (beachBombAbility.fillAmount == 1 && !target.isAiming)
 					beachBombControllerAim.enabled = true;
@@ -453,6 +461,12 @@ public class GameManager : MonoBehaviour
 			m_skierLives[skierNumber].fillAmount = m_skiers[skierNumber].lives / 3.0f;	//Display the lives
 			m_skierMultipliers[skierNumber].text = "x" + m_skiers[skierNumber].GetPlayerMultiplier().ToString();	//Display the multiplier
 		}
+        else if ((int)m_eCurrentPlaneState == skierNumber) //If the player is in the plane,
+        {
+            m_planeImage[skierNumber].gameObject.SetActive(true); //Activate the plane image.
+            m_skierLives[skierNumber].fillAmount = 0;   //Show no lives
+            m_skierMultipliers[skierNumber].text = "";	//Don't show a multiplier
+        }
 		else											//If the skier isn't alive,
 		{
 			m_skierLives[skierNumber].fillAmount = 0;	//Show no lives
