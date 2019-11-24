@@ -62,6 +62,12 @@ public class SkierController : MonoBehaviour
 	[HideInInspector]
 	public bool hurtThisFrame = false;
 
+	//Easter Egg
+	//private KeyCode[] m_sequence;
+	private XboxButton[] m_sequence;
+	private int m_progress;
+	private bool m_eggUnlocked = false;
+
 	void Awake()
     {
 		tether = GetComponent<Tether>();
@@ -73,6 +79,8 @@ public class SkierController : MonoBehaviour
 
 		m_topScoreParticle = topScoreParticle.GetComponentInChildren<ParticleSystem>();
 		m_topScoreParticle.Stop();
+
+		m_sequence = new XboxButton[6] { XboxButton.B, XboxButton.X, XboxButton.Y, XboxButton.Y, XboxButton.X, 0 };
 	}
 
 	void Start()
@@ -114,14 +122,38 @@ public class SkierController : MonoBehaviour
 		//XBOX
 		//---------------------------------------------
 		//Tether movement
-		float axisY = XCI.GetAxis(XboxAxis.LeftStickY, controller);			//Store the direction and magnitude of the left joystick Y axis
+		float axisY = XCI.GetAxis(XboxAxis.LeftStickY, controller);				//Store the direction and magnitude of the left joystick Y axis
 		tether.currentLength += tether.changeSpeed * -axisY * Time.deltaTime;	//Move tether length up/down based on this
 
 		//Sideways movement
-		if (tether.Distance() >= (tether.currentLength * 0.95f))			//As long as the skier is close to the arc of the tether,
+		if (tether.Distance() >= (tether.currentLength * 0.95f))		//As long as the skier is close to the arc of the tether,
 		{
 			float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);	//Store the direction and magnitude of the left joystick X axis
-			tether.ApplyForce(new Vector3(movingForce * axisX, 0, 0));
+			tether.ApplyForce(new Vector3(movingForce * axisX, 0, 0));	//Apply an instantaneous sideways force
+		}
+
+		//Easter egg
+		if (!m_eggUnlocked)
+		{
+			for (XboxButton i = 0; i <= XboxButton.Y; ++i)
+			{
+				if (XCI.GetButtonDown(i))
+				{
+					if (i == m_sequence[m_progress])
+					{
+						++m_progress;
+						if (m_sequence[m_progress] == 0)
+							m_eggUnlocked = true;
+					}
+					else
+						m_progress = 0;
+				}
+			}
+		}
+		else
+		{
+			if (XCI.GetButtonDown(XboxButton.A))
+				tether.ApplyForce(new Vector3(0, 500, 0));
 		}
 		//---------------------------------------------
 		
@@ -182,6 +214,13 @@ public class SkierController : MonoBehaviour
 				tether.ForceOverTime(new Vector3(obstacleForce, 0, 0), obstacleForceDuration);	//Push right
 			else																				//If negative,
 				tether.ForceOverTime(new Vector3(-obstacleForce, 0, 0), obstacleForceDuration); //Push left
+		}
+
+		if (other.CompareTag("River"))	//If the skier somehow touches the river,
+		{
+			//Reset their position and velocity
+			tether.ResetVelocity();
+			transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
 		}
 	}
 	
