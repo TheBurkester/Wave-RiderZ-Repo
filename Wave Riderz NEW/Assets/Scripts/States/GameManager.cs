@@ -231,6 +231,7 @@ public class GameManager : MonoBehaviour
 		//The state machine
 		switch (m_eCurrentState)
 		{
+			
 			case RoundState.eStartRound:
 
 				if (!m_startRoundTimer.UnderMax())              //If the timer has run out,
@@ -537,11 +538,11 @@ public class GameManager : MonoBehaviour
 	{
 		int currentSkier = (int)m_sortedSkiers[skierNumber].controller;	//Which number skier is in this place?
 		//Write which skier this is and their score
-		m_roundOverScoresText[skierNumber].text = "Player " + currentSkier + ": " + m_sortedSkiers[skierNumber].GetScore();
+		m_roundOverScoresText[currentSkier - 1].text = "Player " + currentSkier + ": " + m_sortedSkiers[skierNumber].GetScore();
 
 		//Calculate where on the scoreboard this skier should be placed
 		float newYPos = (1.0f - (skierNumber * 0.1f)) - 0.4f;
-		RectTransform rect = m_roundOverScoresText[skierNumber].rectTransform;
+		RectTransform rect = m_roundOverScoresText[currentSkier - 1].rectTransform;
 		Vector2 newPos = new Vector2(rect.anchorMin.x, newYPos);
 		rect.anchorMin = newPos;
 		rect.anchorMax = newPos;
