@@ -153,6 +153,7 @@ public class MainMenu : MonoBehaviour
 		playerFourChar.enabled = false;
 
 		playerNumber = 0;
+        
 	}
 
 	void Update()
@@ -202,7 +203,8 @@ public class MainMenu : MonoBehaviour
 
 	private void SplashScreen()
 	{
-		if (XCI.GetButtonDown(addPlayerXbox, XboxController.First) && splashPanel.transform.position == canvas.transform.position)  // If player one presses the A button,
+        
+        if (XCI.GetButtonDown(addPlayerXbox, XboxController.First) && splashPanel.transform.position == canvas.transform.position)  // If player one presses the A button,
 			playButtonPress();                                      // Activate the play button
 		if (XCI.GetButtonDown(XboxButton.X, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // If player one presses the X button.
 			controlsButtonPress();
@@ -210,8 +212,10 @@ public class MainMenu : MonoBehaviour
 			creditsButtonPress();
 		if (XCI.GetButtonDown(XboxButton.Back, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // Only player one can quit the game.
 			quitButtonPress();
+        
 
-		if (m_playButtonPress)  //If the play button is active,
+
+        if (m_playButtonPress)  //If the play button is active,
 		{
 			//Increment the timers
 			m_t += panelSpeed;
@@ -543,9 +547,11 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-				m_playerOneReady = true;
+                AudioManager.Play("MenuClick/PlayerReady");
+                m_playerOneReady = true;
 				readyPlayerOneImage.enabled = true;
 				notReadyPlayerOneImage.enabled = false;
+              
 			}
 		}
 		else if (XCI.GetButtonDown(readyPlayerXbox, XboxController.Second) && m_playerTwoState == CharacterState.eJoined)   //If the second player presses ready, and player two has joined.
@@ -559,7 +565,8 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-				m_playerTwoReady = true;
+                AudioManager.Play("MenuClick/PlayerReady");
+                m_playerTwoReady = true;
 				readyPlayerTwoImage.enabled = true;
 				notReadyPlayerTwoImage.enabled = false;
 			}
@@ -575,7 +582,8 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-				m_playerThreeReady = true;
+                AudioManager.Play("MenuClick/PlayerReady");
+                m_playerThreeReady = true;
 				readyPlayerThreeImage.enabled = true;
 				notReadyPlayerThreeImage.enabled = false;
 			}
@@ -591,7 +599,8 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-				m_playerFourReady = true;
+                AudioManager.Play("MenuClick/PlayerReady");
+                m_playerFourReady = true;
 				readyPlayerFourImage.enabled = true;
 				notReadyPlayerFourImage.enabled = false;
 			}
