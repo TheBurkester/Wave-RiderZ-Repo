@@ -135,10 +135,10 @@ public class PlaneController : MonoBehaviour
 		
 
 		//Keyboard movement
-		if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
-			newPos += new Vector3(-strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the left
-        if (Input.GetKey(KeyCode.RightArrow))							//If right is pressed,
-			newPos += new Vector3(strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the right
+		//if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
+		//	newPos += new Vector3(-strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the left
+		//if (Input.GetKey(KeyCode.RightArrow))							//If right is pressed,
+		//	newPos += new Vector3(strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the right
 
 		//Clamp the plane to stay within the river
 		if (newPos.x < -m_clampWidth)

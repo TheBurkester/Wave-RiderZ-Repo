@@ -29,10 +29,10 @@ public class SkierController : MonoBehaviour
 	public bool bonkResolved = false;			//If another skier has pushed this skier this frame already
 
 	//Keyboard controls
-	public KeyCode MoveLeft;		//Which keyboard key moves the skier left
-    public KeyCode MoveRight;       //Which keyboard key moves the skier right
-	public KeyCode TetherLengthen;	//Which keyboard key lengthens the rope
-	public KeyCode TetherShorten;	//Which keyboard key shortens the rope
+	//public KeyCode MoveLeft;		//Which keyboard key moves the skier left
+    //public KeyCode MoveRight;       //Which keyboard key moves the skier right
+	//public KeyCode TetherLengthen;	//Which keyboard key lengthens the rope
+	//public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
 	//Score/lives
 	private int m_score = 0;			// Player's score.
@@ -104,19 +104,19 @@ public class SkierController : MonoBehaviour
 		//KEYBOARD
 		//---------------------------------------------
 		//Tether movement
-		if (Input.GetKey(TetherLengthen))									//If pressing the lengthen key,
-			tether.currentLength += tether.changeSpeed * Time.deltaTime;	//Make the tether longer over time
-		if (Input.GetKey(TetherShorten))									//If pressing the shorten key,
-			tether.currentLength -= tether.changeSpeed * Time.deltaTime;	//Make the tether shorter over time
+		//if (Input.GetKey(TetherLengthen))									//If pressing the lengthen key,
+		//	tether.currentLength += tether.changeSpeed * Time.deltaTime;	//Make the tether longer over time
+		//if (Input.GetKey(TetherShorten))									//If pressing the shorten key,
+		//	tether.currentLength -= tether.changeSpeed * Time.deltaTime;	//Make the tether shorter over time
 
-		//Sideways movement
-		if (tether.Distance() >= (tether.currentLength * 0.95))	//As long as the skier is close to the arc of the tether,
-		{
-			if (Input.GetKey(MoveRight))                //If the right key is pressed,
-				tether.ApplyForce(new Vector3(movingForce, 0, 0));
-			if (Input.GetKey(MoveLeft))                 //If the left key is pressed,
-				tether.ApplyForce(new Vector3(-movingForce, 0, 0));
-		}
+		////Sideways movement
+		//if (tether.Distance() >= (tether.currentLength * 0.95))	//As long as the skier is close to the arc of the tether,
+		//{
+		//	if (Input.GetKey(MoveRight))                //If the right key is pressed,
+		//		tether.ApplyForce(new Vector3(movingForce, 0, 0));
+		//	if (Input.GetKey(MoveLeft))                 //If the left key is pressed,
+		//		tether.ApplyForce(new Vector3(-movingForce, 0, 0));
+		//}
 		//---------------------------------------------
 
 		//XBOX
