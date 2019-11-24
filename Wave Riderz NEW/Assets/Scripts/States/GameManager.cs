@@ -242,7 +242,8 @@ public class GameManager : MonoBehaviour
                     planePlayerText.text = "";
 					roundNumberText.text = "";
 					woodenSign.SetActive(false);
-                    startCountdownDisplay.text = "GO!";
+					startCountdownDisplay.fontSize = 130;
+					startCountdownDisplay.text = "GO!";
 					StartCoroutine(ClearText(1));               //Set the text to turn off after 1 second
 					SceneMovementActive(true);                  //Activate scene movement
                     AudioManager.Play("LevelMusic1");
@@ -252,9 +253,18 @@ public class GameManager : MonoBehaviour
                     m_t += 40;
 
                     wavePanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenRight, m_t); // Slowly moves the position to the target.
+					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
+					if (closestSecond == 4)
+						startCountdownDisplay.fontSize = 50;
+					else if (closestSecond == 3)
+						startCountdownDisplay.fontSize = 70;
+					else if (closestSecond == 2)
+						startCountdownDisplay.fontSize = 90;
+					else if (closestSecond == 1)
+						startCountdownDisplay.fontSize = 110;
 
-                    int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 					startCountdownDisplay.text = closestSecond.ToString();
+
 					woodenSign.SetActive(true);
                     roundNumberText.text = "Round " + GameInfo.roundNumber;
                     planePlayerText.text = "Player " + ((int)m_eCurrentPlaneState + 1) + " is in the plane!"; // Plane state needs to be added by 1 as Player One = 0 usually.
