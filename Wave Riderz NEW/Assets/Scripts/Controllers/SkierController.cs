@@ -216,7 +216,7 @@ public class SkierController : MonoBehaviour
 				tether.ForceOverTime(new Vector3(-obstacleForce, 0, 0), obstacleForceDuration); //Push left
 		}
 
-		if (other.CompareTag("River"))	//If the skier somehow touches the river,
+		if (other.CompareTag("River") && m_isAlive)	//If the skier somehow touches the river,
 		{
 			//Reset their position and velocity
 			tether.ResetVelocity();
