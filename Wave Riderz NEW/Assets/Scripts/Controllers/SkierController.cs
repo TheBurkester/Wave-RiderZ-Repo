@@ -239,6 +239,7 @@ public class SkierController : MonoBehaviour
 			m_isAlive = false;				//He dead
 			tether.enabled = false;			//Turn movement off
 			m_scoreTimer.enabled = false;	//Stop the score from increasing
+            AudioManager.Play("Wipeout");   // plays the wipeout sound effect 
 		}
 		else										//If the skier is still alive,
 		{
