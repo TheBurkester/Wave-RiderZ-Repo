@@ -67,7 +67,8 @@ public class PlaneController : MonoBehaviour
 
 	private void Start()
 	{
-        AudioManager.Play("PlaneAudio"); 
+        AudioManager.Play("PlaneFadeIn");
+        AudioManager.PlayDelayed("PlaneAudio", 2.0f); 
         m_movementTimer = gameObject.AddComponent<Timer>();		//Create the timer
 		m_movementTimer.maxTime = swingMoveTimeRequirement;		//Set the max time
 		m_movementTimer.autoDisable = true;                     //Make the timer stop when it's reached max

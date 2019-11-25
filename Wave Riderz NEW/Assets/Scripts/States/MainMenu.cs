@@ -708,18 +708,21 @@ public class MainMenu : MonoBehaviour
 		//Play button input check
 		if (m_showPlay && XCI.GetButtonDown(addPlayerXbox, XboxController.First))   //If the play button is on-screen and any controller presses play,
 		{
-			if (m_showingControls)
-				m_wavePanel = true;
-			else
-			{
-				characterPanel.gameObject.SetActive(false);
-				controlsPanel.transform.position = canvas.transform.position;
-				controlsPanel.GetChild(1).gameObject.SetActive(false);
-				m_showingControls = true;
-				RectTransform playButton = Instantiate(allPLayersReadyPanel, controlsPanel);
-				playButton.transform.position = (canvas.transform.position) - new Vector3(150, 0, 0);
-				allPLayersReadyPanel.gameObject.SetActive(false);
-			}
+            if (m_showingControls)
+            {
+                m_wavePanel = true;
+                AudioManager.Play("SplashTransition");
+            }
+            else
+            {
+                characterPanel.gameObject.SetActive(false);
+                controlsPanel.transform.position = canvas.transform.position;
+                controlsPanel.GetChild(1).gameObject.SetActive(false);
+                m_showingControls = true;
+                RectTransform playButton = Instantiate(allPLayersReadyPanel, controlsPanel);
+                playButton.transform.position = (canvas.transform.position) - new Vector3(150, 0, 0);
+                allPLayersReadyPanel.gameObject.SetActive(false);
+            }
 		}
 
 		if (m_wavePanel)

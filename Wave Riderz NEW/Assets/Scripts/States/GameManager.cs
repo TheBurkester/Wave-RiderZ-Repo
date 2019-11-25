@@ -301,7 +301,8 @@ public class GameManager : MonoBehaviour
                     m_eCurrentState = RoundState.eRoundOver;    //Swap to the round over screen
 					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
-                    AudioManager.Stop("PlaneAudio");
+                    AudioManager.Stop("PlaneAudio");        // stop the plane moving audio 
+                    AudioManager.Play("PlaneFadeOut");      // plays the fade out audio for the plane 
 					bonus.text = "Alive skiers get a bonus of " + skierBonus.ToString();
 					roundOverPanel.SetActive(true);             //Show the round over screen
 					UpdateSortedSkiers();
@@ -317,6 +318,7 @@ public class GameManager : MonoBehaviour
 					roundTimerPanel.SetActive(false);
 					SceneMovementActive(false);                 //Deactivate scene movement
                     AudioManager.Stop("PlaneAudio");
+                    AudioManager.Play("PlaneFadeOut");      // plays the fade out audio for the plane 
                     bonus.text = "All skiers wiped out! Plane gets " + planeBonus.ToString() + " bonus score!";
 					roundOverPanel.SetActive(true);             //Show the round over screen
 					UpdateSortedSkiers();
