@@ -550,26 +550,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 855925095441924365, guid: 95454700e0f4305419fa5a64bc72b851,
-        type: 3}
-      propertyPath: coinCollectParticle
-      value: 
-      objectReference: {fileID: 530108604}
-    - target: {fileID: 855925095441924365, guid: 95454700e0f4305419fa5a64bc72b851,
-        type: 3}
-      propertyPath: topScoreParticle
-      value: 
-      objectReference: {fileID: 530108605}
-    - target: {fileID: 9069007189203918399, guid: 95454700e0f4305419fa5a64bc72b851,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1385947628140249917, guid: 95454700e0f4305419fa5a64bc72b851,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95454700e0f4305419fa5a64bc72b851, type: 3}
 --- !u!114 &530108603 stripped
@@ -584,18 +564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &530108604 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9069007189203918399, guid: 95454700e0f4305419fa5a64bc72b851,
-    type: 3}
-  m_PrefabInstance: {fileID: 530108602}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &530108605 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1385947628140249917, guid: 95454700e0f4305419fa5a64bc72b851,
-    type: 3}
-  m_PrefabInstance: {fileID: 530108602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,12 +996,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: RoundStartHorn
-    clip: {fileID: 8300000, guid: 277f6f90b0c4dab419752e1c3c73148c, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
   - name: CoinCollected
     clip: {fileID: 8300000, guid: e3c94752fab4d3441b5b1dd1f1a181ba, type: 3}
     volume: 0.5
@@ -1626,26 +1588,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 122003484190775975, guid: cde57cc3bf402564d968555c7b36efbb,
-        type: 3}
-      propertyPath: coinCollectParticle
-      value: 
-      objectReference: {fileID: 1667951277}
-    - target: {fileID: 122003484190775975, guid: cde57cc3bf402564d968555c7b36efbb,
-        type: 3}
-      propertyPath: topScoreParticle
-      value: 
-      objectReference: {fileID: 1667951278}
-    - target: {fileID: 4935560534151831330, guid: cde57cc3bf402564d968555c7b36efbb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6979184067410376532, guid: cde57cc3bf402564d968555c7b36efbb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cde57cc3bf402564d968555c7b36efbb, type: 3}
 --- !u!114 &1667951276 stripped
@@ -1660,18 +1602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1667951277 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4935560534151831330, guid: cde57cc3bf402564d968555c7b36efbb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1667951275}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1667951278 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6979184067410376532, guid: cde57cc3bf402564d968555c7b36efbb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1667951275}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1779199193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,26 +2204,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 8200334506640032141, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-        type: 3}
-      propertyPath: coinCollectParticle
-      value: 
-      objectReference: {fileID: 2044427743}
-    - target: {fileID: 8200334506640032141, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-        type: 3}
-      propertyPath: topScoreParticle
-      value: 
-      objectReference: {fileID: 2044427742}
-    - target: {fileID: 3910405879410785535, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3646810668812385091, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e9cc91fab7fc8499e1e7f2decbaeed, type: 3}
 --- !u!114 &2044427741 stripped
@@ -2308,18 +2218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2044427742 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3646810668812385091, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-    type: 3}
-  m_PrefabInstance: {fileID: 2044427740}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2044427743 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3910405879410785535, guid: c5e9cc91fab7fc8499e1e7f2decbaeed,
-    type: 3}
-  m_PrefabInstance: {fileID: 2044427740}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2090130789 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2328203669592964867, guid: c27f0864eb7f5524c8081d187a3553df,
@@ -2404,26 +2302,6 @@ PrefabInstance:
       propertyPath: tetherPoint
       value: 
       objectReference: {fileID: 8734290483776697381}
-    - target: {fileID: 4879113394894888017, guid: e5a8ee93bb165b142b39d20a597ce884,
-        type: 3}
-      propertyPath: coinCollectParticle
-      value: 
-      objectReference: {fileID: 2102827439}
-    - target: {fileID: 4879113394894888017, guid: e5a8ee93bb165b142b39d20a597ce884,
-        type: 3}
-      propertyPath: topScoreParticle
-      value: 
-      objectReference: {fileID: 2102827438}
-    - target: {fileID: 3486777966521404721, guid: e5a8ee93bb165b142b39d20a597ce884,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8127878976368474756, guid: e5a8ee93bb165b142b39d20a597ce884,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5a8ee93bb165b142b39d20a597ce884, type: 3}
 --- !u!114 &2102827437 stripped
@@ -2438,18 +2316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d5803382ae33647a483043855e7d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2102827438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3486777966521404721, guid: e5a8ee93bb165b142b39d20a597ce884,
-    type: 3}
-  m_PrefabInstance: {fileID: 2102827436}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2102827439 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8127878976368474756, guid: e5a8ee93bb165b142b39d20a597ce884,
-    type: 3}
-  m_PrefabInstance: {fileID: 2102827436}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2116819601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9049558289744165896, guid: c27f0864eb7f5524c8081d187a3553df,
