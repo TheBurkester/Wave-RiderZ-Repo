@@ -85,6 +85,7 @@ public class MainMenu : MonoBehaviour
     private bool m_addPlayerButtonPress = false;	// Has the add player button been pressed?
     private bool m_removePlayer = false;			// Is a player currently being removed from the game?
 	private bool m_showPlay = false;                // Are there enough players ready to show the play button?
+	private bool m_showingControls = false;			// Are the players looking at the pre-game controls screen?
 	private bool m_returningToMenu = false;			// Are the players returning to the menu?
     private bool m_wavePanel = false;
 
@@ -705,8 +706,21 @@ public class MainMenu : MonoBehaviour
 		}
 
 		//Play button input check
-		if (m_showPlay && XCI.GetButton(addPlayerXbox, XboxController.First))   //If the play button is on-screen and any controller presses play,
-			m_wavePanel = true;
+		if (m_showPlay && XCI.GetButtonDown(addPlayerXbox, XboxController.First))   //If the play button is on-screen and any controller presses play,
+		{
+			if (m_showingControls)
+				m_wavePanel = true;
+			else
+			{
+				characterPanel.gameObject.SetActive(false);
+				controlsPanel.transform.position = canvas.transform.position;
+				controlsPanel.GetChild(1).gameObject.SetActive(false);
+				m_showingControls = true;
+				RectTransform playButton = Instantiate(allPLayersReadyPanel, controlsPanel);
+				playButton.transform.position = (canvas.transform.position) - new Vector3(150, 0, 0);
+				allPLayersReadyPanel.gameObject.SetActive(false);
+			}
+		}
 
 		if (m_wavePanel)
 		{
