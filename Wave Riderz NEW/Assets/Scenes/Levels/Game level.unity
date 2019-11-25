@@ -1276,54 +1276,6 @@ MonoBehaviour:
     loop: 0
     randomizePitch: 0
     source: {fileID: 0}
-  - name: Player1Damage
-    clip: {fileID: 8300000, guid: c49fdda851025244dbdd581c65a71bf1, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
-  - name: Player1Dead
-    clip: {fileID: 8300000, guid: cbcb2e60851258e46aa74949aa0eb5a9, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
-  - name: Player2Damage
-    clip: {fileID: 8300000, guid: 9611f37efd3cf084c99b65eb1c82afd0, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
-  - name: Player2Dead
-    clip: {fileID: 8300000, guid: 9c4de3ae312a02f479e06956594d8fbb, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
-  - name: Player3Damage
-    clip: {fileID: 8300000, guid: 487d57f6fc1706f409d86ffd18b01953, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
-  - name: PLayer3Dead
-    clip: {fileID: 8300000, guid: e8dcadc4a5c4abb42b71e8a1bf7c0f41, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
-  - name: Player4Damage
-    clip: {fileID: 8300000, guid: 746c08c557e421d4a990509033fe060d, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
-  - name: Player4Dead
-    clip: {fileID: 8300000, guid: 82bf7cec546c03e40b3b91359dedbe92, type: 3}
-    volume: 1
-    loop: 0
-    randomizePitch: 0
-    source: {fileID: 0}
   - name: PlaneFadeIn
     clip: {fileID: 8300000, guid: c06606ce32125924d8382cd71ca96b57, type: 3}
     volume: 1
@@ -1355,7 +1307,13 @@ MonoBehaviour:
     randomizePitch: 0
     source: {fileID: 0}
   - name: SplashTransition
-    clip: {fileID: 8300000, guid: afff7233c41a92f44858f6c8873097e2, type: 3}
+    clip: {fileID: 8300000, guid: 64dbd4d0fbe880f4582cc7252efa2e6a, type: 3}
+    volume: 0.7
+    loop: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: SplashTransitionPT2
+    clip: {fileID: 8300000, guid: d52eb6bb3b0777744854a27da87455f1, type: 3}
     volume: 0.7
     loop: 0
     randomizePitch: 0
