@@ -380,7 +380,7 @@ public class GameManager : MonoBehaviour
 
 			case RoundState.eRoundOver:
 
-				if (Input.GetKeyDown(KeyCode.Space) || XCI.GetButtonDown(XboxButton.A, XboxController.All))	//If next round is selected,
+				if (XCI.GetButtonDown(XboxButton.A, XboxController.All) && m_nextRound != true)	//If next round is selected,
 				{
                     AudioManager.Play("SplashTransition");
                     wavePanel.transform.position = m_panelOffScreenLeft;
