@@ -118,7 +118,8 @@ public class MainMenu : MonoBehaviour
 
 	void Awake()
     {
-		m_panelOffScreenBottomPos = new Vector3(canvas.transform.position.x, -900, canvas.transform.position.z); // Bottom position for moving onto the canvas.
+       
+        m_panelOffScreenBottomPos = new Vector3(canvas.transform.position.x, -900, canvas.transform.position.z); // Bottom position for moving onto the canvas.
 		m_panelOffScreenTopPos = new Vector3(canvas.transform.position.x, 1800, canvas.transform.position.z); // Top position for moving off the canvas.
 		splashPanel.transform.position = canvas.transform.position; // Ensures that the splash starts within the canvas.
 		characterPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the character panel starts at the bottom.
@@ -154,10 +155,11 @@ public class MainMenu : MonoBehaviour
 		playerFourChar.enabled = false;
 
 		playerNumber = 0;
-        
-	}
 
-	void Update()
+         
+    }
+
+    void Update()
 	{
 		switch (m_eCurrentState)
 		{
@@ -182,11 +184,15 @@ public class MainMenu : MonoBehaviour
 				break;
 		}	
 	}
+    private void Start()
+    {
+        AudioManager.Play("MenuMusic");
+    }
 
-	//-------------------------------------------------------------------------
-								// FUNCTIONS
+    //-------------------------------------------------------------------------
+    // FUNCTIONS
 
-	public void PlayGame()
+    public void PlayGame()
     {
 		//Reset all scores
 		GameInfo.playerOneScore = 0;
@@ -853,4 +859,8 @@ public class MainMenu : MonoBehaviour
 			return true;
 		return false;
 	}
+
+
+
+    
 }
