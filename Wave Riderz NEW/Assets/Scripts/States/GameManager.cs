@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     private PlaneState m_eCurrentPlaneState = PlaneState.eNone;    // Stores the current plane state.
 	private Timer m_startRoundTimer;                               //The countdown at the start of the round
 	private Timer m_playingRoundTimer;                             //The round timer
+	private Timer m_abilityFlash;
 	public float roundTimeLimit = 45;                              //How long a round lasts
                                                                    //-------------------------------------------------------------------------
 
@@ -119,6 +120,8 @@ public class GameManager : MonoBehaviour
 	public Image beachBombControllerAim = null;
 	public Image beachBombControllerShoot = null;
 	public Image tetheredMineController = null;
+	public Image tetheredMineReady = null;
+	public Image beachBombReady = null;
 	public GameObject woodenSign = null;
 	public GameObject roundOverPanel = null;        //Reference to the panel with all the round over stuff
 	public Text bonus = null;
@@ -328,10 +331,21 @@ public class GameManager : MonoBehaviour
 				else
 					beachBombControllerAim.enabled = false;
 
-				if (tetheredMineAbility.fillAmount == 1)
-					tetheredMineController.enabled = true;
+				if (beachBombAbility.fillAmount == 1)
+					beachBombReady.gameObject.SetActive(true);
 				else
+					beachBombReady.gameObject.SetActive(false);
+
+				if (tetheredMineAbility.fillAmount == 1)
+				{
+					tetheredMineController.enabled = true;
+					tetheredMineReady.gameObject.SetActive(true);
+				}
+				else
+				{
 					tetheredMineController.enabled = false;
+					tetheredMineReady.gameObject.SetActive(false);
+				}
 
 				if (target.isAiming)
 					beachBombControllerShoot.enabled = true;
