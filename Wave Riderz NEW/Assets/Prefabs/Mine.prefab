@@ -118,6 +118,7 @@ MonoBehaviour:
   velocityCapZ: 2.5
   resistanceX: 1.1
   resistanceZ: 1.1
+  tetherActive: 1
 --- !u!54 &5941212763762676077
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,7 +150,7 @@ MonoBehaviour:
   radius: 5
   freezeAmount: 0.05
   freezeFrames: 20
-  explosionPrefab: {fileID: 1332101522959151437, guid: 28afa15eeda01f3499c22158dc73302c,
+  explosionPrefab: {fileID: 123870134733730314, guid: 2fa040690e34f1141ba4576c312d04e6,
     type: 3}
   TetheredMineAnimation: {fileID: 0}
 --- !u!1 &7513970931256158755
