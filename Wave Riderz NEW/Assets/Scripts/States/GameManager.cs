@@ -98,6 +98,16 @@ public class GameManager : MonoBehaviour
 	public RectTransform playerThreeUI = null;
 	public RectTransform playerFourUI = null;
 	private RectTransform[] m_playerUI = null;
+	public Image axlImageBW = null;
+	public Image crocImageBW = null;
+	public Image wolfImageBW = null;
+	public Image hydImageBW = null;
+	private Image[] m_charImageBW = null;
+	public Image playerOneImage = null;
+	public Image playerTwoImage = null;
+	public Image playerThreeImage = null;
+	public Image playerFourImage = null;
+	private Image[] m_playerImage = null;
 	public GameObject beachBombAbilityUI = null;
 	public GameObject tetheredMineAbilityUI = null;
 	public Image livesOne = null;
@@ -145,6 +155,8 @@ public class GameManager : MonoBehaviour
 		m_prevTopSkier = null;
 		m_planeTextures = new Texture[4] { axlPlaneTexture, carlPlaneTexture, mannyPlaneTexture, hydraPlaneTexture  };
         m_playerUI = new RectTransform[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
+		m_charImageBW = new Image[4] { axlImageBW, crocImageBW, wolfImageBW, hydImageBW };
+		m_playerImage = new Image[4] { playerOneImage, playerTwoImage, playerThreeImage, playerFourImage };
 		m_skierLives = new Image[4] { livesOne, livesTwo, livesThree, livesFour };
         m_planeImage = new Image[4] { planeOne, planeTwo, planeThree, planeFour };
 		m_skierMultipliers = new Text[4] { multiplierOne, multiplierTwo, multiplierThree, multiplierFour };
@@ -278,6 +290,9 @@ public class GameManager : MonoBehaviour
 
 			case RoundState.ePlayingRound:
 
+				// Needs to be above the round ending so it can set the saturation.
+				CallOnSkiers(SetSkierUI);
+
 				//If the time limit runs out
 				if (!m_playingRoundTimer.UnderMax())
 				{
@@ -319,7 +334,6 @@ public class GameManager : MonoBehaviour
 				ApplyTopScoreParticle();
 
 				//Display skier and plane related UI
-				CallOnSkiers(SetSkierUI);
 				beachBombAbilityUI.SetActive(true);
 				tetheredMineAbilityUI.SetActive(true);
 				beachBombAbility.fillAmount = target.abilityCooldown.T / target.abilityCooldown.maxTime;
@@ -483,6 +497,9 @@ public class GameManager : MonoBehaviour
 		
 		if (m_skiers[skierNumber].GetAlive())											//If the skier is still alive,
 		{
+			m_charImageBW[skierNumber].gameObject.SetActive(false);
+			m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 1);
+			//m_playerImage[skierNumber].GetComponent<CanvasRenderer>().material.SetFloat("Vector1_EB98BD68", 1);
 			m_skierLives[skierNumber].fillAmount = m_skiers[skierNumber].lives / 3.0f;  //Display the lives
 			if (m_skiers[skierNumber].GetPlayerMultiplier() == 1)
 				m_skierMultipliers[skierNumber].fontSize = 30;
@@ -498,12 +515,16 @@ public class GameManager : MonoBehaviour
 		}
         else if ((int)m_eCurrentPlaneState == skierNumber) //If the player is in the plane,
         {
-            m_planeImage[skierNumber].gameObject.SetActive(true); //Activate the plane image.
+			m_charImageBW[skierNumber].gameObject.SetActive(false);
+			m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 1);
+			m_planeImage[skierNumber].gameObject.SetActive(true); //Activate the plane image.
             m_skierLives[skierNumber].fillAmount = 0;   //Show no lives
             m_skierMultipliers[skierNumber].text = "";	//Don't show a multiplier
         }
 		else											//If the skier isn't alive,
 		{
+			m_charImageBW[skierNumber].gameObject.SetActive(true);
+			m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 0);
 			m_skierLives[skierNumber].fillAmount = 0;	//Show no lives
 			m_skierMultipliers[skierNumber].text = "";	//Don't show a multiplier
 		}
