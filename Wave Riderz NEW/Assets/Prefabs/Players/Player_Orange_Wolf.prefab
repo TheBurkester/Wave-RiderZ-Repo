@@ -509,7 +509,6 @@ GameObject:
   - component: {fileID: 2319528538971578487}
   - component: {fileID: 1667313972565840406}
   - component: {fileID: 3444617906883059119}
-  - component: {fileID: 7834617659454496538}
   - component: {fileID: 4879113394894888017}
   - component: {fileID: 4416102609228908017}
   - component: {fileID: 7834617658168661670}
@@ -584,20 +583,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0.5353173, z: 0}
---- !u!114 &7834617659454496538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834617658178020626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46f67025e768b4542a6e0a78075b2048, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterAnim: {fileID: 7834617658168661670}
-  controller: 0
 --- !u!114 &4879113394894888017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,16 +603,13 @@ MonoBehaviour:
   obstacleForce: 100
   obstacleForceDuration: 0.5
   bonkResolved: 0
-  MoveLeft: 97
-  MoveRight: 100
-  TetherLengthen: 115
-  TetherShorten: 119
+  characterAnim: {fileID: 7834617658168661670}
   coinScore: 2
   skierScoreInc: 1
   skierMultiplierSpeed: 5
   skierMultiplierCap: 5
-  coinCollectParticle: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-    type: 3}
+  coinCollectParticle: {fileID: 8127878976368474756}
+  topScoreParticle: {fileID: 3486777966521404721}
   lives: 3
   numberOfFlashes: 3
   flashDelay: 0.3
@@ -1386,11 +1368,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinParticle_1_Collection_v3
       objectReference: {fileID: 0}
-    - target: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4678165869300841274, guid: f7662dadc49fb3141951d1f352e81057,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1448,6 +1425,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7662dadc49fb3141951d1f352e81057, type: 3}
+--- !u!1 &8127878976368474756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7558194480410387950, guid: f7662dadc49fb3141951d1f352e81057,
+    type: 3}
+  m_PrefabInstance: {fileID: 1740675375868092266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6396290260609492048 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4678165869300841274, guid: f7662dadc49fb3141951d1f352e81057,
@@ -1461,6 +1444,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7834617658177993074}
     m_Modifications:
+    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_1_Slipstream_v1
+      objectReference: {fileID: 0}
     - target: {fileID: 1089275068096322551, guid: 2d67bca355b09a14daf9272d514835d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1516,11 +1504,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1089275068096322550, guid: 2d67bca355b09a14daf9272d514835d9,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_1_Slipstream_v1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d67bca355b09a14daf9272d514835d9, type: 3}
 --- !u!4 &3221501888660401255 stripped
@@ -1536,6 +1519,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7834617658177993074}
     m_Modifications:
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstPlaceParticle_1_V1
+      objectReference: {fileID: 0}
     - target: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1591,18 +1579,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_Name
-      value: FirstPlaceParticle_1_V1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b56aa84c4643049be7fa92d57ff101, type: 3}
+--- !u!1 &3486777966521404721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+    type: 3}
+  m_PrefabInstance: {fileID: 5057418537708192598}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3486777966521404720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
@@ -1750,6 +1734,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7834617658177993074}
     m_Modifications:
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_2_Damage_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1803,16 +1797,6 @@ PrefabInstance:
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_2_Damage_v1
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
