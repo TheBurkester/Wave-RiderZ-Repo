@@ -42,7 +42,7 @@ public class EndGameMenu : MonoBehaviour
 			if (i < m_playerCount)				//If this player is in the game,
 				SetScoreboardPosition(i);		//Display their score
 			else								//Otherwise,
-				m_scoreDisplays[i].text = "";	//Display nothing
+				m_scoreDisplays[i].gameObject.SetActive(false);	//Display nothing
 		}
 	}
 
