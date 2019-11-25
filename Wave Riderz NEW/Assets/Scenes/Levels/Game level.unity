@@ -360,6 +360,8 @@ MonoBehaviour:
   beachBombControllerAim: {fileID: 1968474654}
   beachBombControllerShoot: {fileID: 1968474656}
   tetheredMineController: {fileID: 1968474655}
+  tetheredMineReady: {fileID: 1968474676}
+  beachBombReady: {fileID: 1968474675}
   woodenSign: {fileID: 1968474666}
   roundOverPanel: {fileID: 717928791}
   bonus: {fileID: 2090130789}
@@ -1960,6 +1962,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 73ba933d0a184df40a51092b57d2ad29,
         type: 3}
+    - target: {fileID: 2294231998989005310, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.45999146
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294231998989005310, guid: c27f0864eb7f5524c8081d187a3553df,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.26000023
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c27f0864eb7f5524c8081d187a3553df, type: 3}
 --- !u!114 &1968474654 stripped
@@ -2157,6 +2169,30 @@ MonoBehaviour:
 --- !u!114 &1968474674 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3875117975422118843, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3270583653194804738, guid: c27f0864eb7f5524c8081d187a3553df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1968474653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1968474676 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 295159054288159204, guid: c27f0864eb7f5524c8081d187a3553df,
     type: 3}
   m_PrefabInstance: {fileID: 1968474653}
   m_PrefabAsset: {fileID: 0}
