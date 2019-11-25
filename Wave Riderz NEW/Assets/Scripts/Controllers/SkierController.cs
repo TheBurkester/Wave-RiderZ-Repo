@@ -26,7 +26,9 @@ public class SkierController : MonoBehaviour
 	public float obstacleForce = 100;			//How much sidewards force is applied when hitting an obstacle
 	public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
 	[HideInInspector]
-	public bool bonkResolved = false;			//If another skier has pushed this skier this frame already
+	public bool bonkResolved = false;           //If another skier has pushed this skier this frame already
+	public GameObject bonkParticle = null;      //Reference to the bonk particle prefab
+	private ParticleSystem[] m_bonkParticles = null;	//All actual particles of the prefab
 
     public Animator characterAnim;
 
@@ -65,7 +67,6 @@ public class SkierController : MonoBehaviour
 	public bool hurtThisFrame = false;
 
 	//Easter Egg
-	//private KeyCode[] m_sequence;
 	private XboxButton[] m_sequence;
 	private int m_progress;
 	private bool m_eggUnlocked = false;
@@ -82,7 +83,12 @@ public class SkierController : MonoBehaviour
 		m_topScoreParticle = topScoreParticle.GetComponentInChildren<ParticleSystem>();
 		m_topScoreParticle.Stop();
 
-		m_sequence = new XboxButton[6] { XboxButton.B, XboxButton.X, XboxButton.Y, XboxButton.Y, XboxButton.X, 0 };
+		bonkParticle = Instantiate(bonkParticle, transform);
+		m_bonkParticles = bonkParticle.GetComponentsInChildren<ParticleSystem>();
+		foreach (ParticleSystem p in m_bonkParticles)
+			p.Stop();   //Make sure the particle doesn't play immediately, has to be in awake
+
+		m_sequence = new XboxButton[6] { (XboxButton)1, (XboxButton)2, (XboxButton)3, (XboxButton)3, (XboxButton)2, 0 };
 	}
 
 	void Start()
@@ -93,7 +99,6 @@ public class SkierController : MonoBehaviour
 		m_scoreMultiplierTimer.SetRepeatFunction(AddMultiplier);    //Make the timer call the AddMultiplier function each time it repeats
 		m_scoreMultiplierTimer.SetTimer();							//Start the timer
           
-
 		m_scoreTimer = gameObject.AddComponent<Timer>();	//Create the score timer
 		m_scoreTimer.maxTime = 1;							//The timer will go for one second,
 		m_scoreTimer.autoRepeat = true;                     //Then automatically repeat
@@ -254,7 +259,8 @@ public class SkierController : MonoBehaviour
 				otherTether.ForceOverTime(totalBonkForce, bonkForceDuration);							//Apply the final force to the other skier
 				tether.ReduceVelocity(2);																//Halve the velocity of this skier
 				other.GetComponent<SkierController>().bonkResolved = true;								//For this frame, set the collision as resolved
-                AudioManager.Play("Bonk3"); // plays bonk sound effect 
+                AudioManager.Play("Bonk3"); // plays bonk sound effect
+				other.GetComponent<SkierController>().PlayBonkParticle(tether.Direction());				//Play the bonk particle on the other skier in the direction they are pushed
 			}
 		}
 
@@ -285,7 +291,6 @@ public class SkierController : MonoBehaviour
 			StartCoroutine(HurtOff());
             //sets DamageTaken trigger in animator
             characterAnim.SetTrigger("DamageTaken");
-            
         }
 
 		if (lives <= 0)				//If the skier is out of lives,
@@ -310,6 +315,14 @@ public class SkierController : MonoBehaviour
 			}
 			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));    //Schedule invincibility to turn off after the flashes are complete
 		}
+	}
+
+	//Does what it says
+	public void PlayBonkParticle(Vector3 direction)
+	{
+		bonkParticle.transform.forward = direction;		//Orients the particle parent to face the direction specified
+		foreach (ParticleSystem p in m_bonkParticles)	//For all child particles,
+			p.Play();									//Play them
 	}
 
 	public void SetScore(int score)
