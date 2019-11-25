@@ -28,6 +28,8 @@ public class SkierController : MonoBehaviour
 	[HideInInspector]
 	public bool bonkResolved = false;			//If another skier has pushed this skier this frame already
 
+    public Animator characterAnim;
+
 	//Keyboard controls
 	//public KeyCode MoveLeft;		//Which keyboard key moves the skier left
     //public KeyCode MoveRight;       //Which keyboard key moves the skier right
@@ -123,14 +125,63 @@ public class SkierController : MonoBehaviour
 		//---------------------------------------------
 		//Tether movement
 		float axisY = XCI.GetAxis(XboxAxis.LeftStickY, controller);				//Store the direction and magnitude of the left joystick Y axis
-		tether.currentLength += tether.changeSpeed * -axisY * Time.deltaTime;	//Move tether length up/down based on this
+		tether.currentLength += tether.changeSpeed * -axisY * Time.deltaTime;   //Move tether length up/down based on this
 
-		//Sideways movement
-		if (tether.Distance() >= (tether.currentLength * 0.95f))		//As long as the skier is close to the arc of the tether,
+        // CHARACTER ANIMATION 
+       //if the control stick is pushed 40% of the way upwards
+        if (axisY >= 0.4)
+        {
+            //sets the animation state to moving forward
+            characterAnim.SetBool("MovingForward", true);
+            characterAnim.SetBool("MovingBackward", false);
+        }
+        //if the control stick is pushed 40% of the way downwards
+        else if (axisY <= -0.4)
+        {
+            //sets the animation state to moving backwards
+            characterAnim.SetBool("MovingForward", false);
+            characterAnim.SetBool("MovingBackward", true);
+        }
+        //if neither
+        else
+        {
+            //sets the animation state to idle
+            characterAnim.SetBool("MovingForward", false);
+            characterAnim.SetBool("MovingBackward", false);
+        }
+
+       
+        //------------------------------------------
+
+
+        //Sideways movement
+        if (tether.Distance() >= (tether.currentLength * 0.95f))		//As long as the skier is close to the arc of the tether,
 		{
 			float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);	//Store the direction and magnitude of the left joystick X axis
-			tether.ApplyForce(new Vector3(movingForce * axisX, 0, 0));	//Apply an instantaneous sideways force
-		}
+			tether.ApplyForce(new Vector3(movingForce * axisX, 0, 0));  //Apply an instantaneous sideways force
+                                                                        //if the control stick is pushed 40% of the way to the right
+          // CHARACTER ANIMATION 
+            if (axisX >= 0.4)
+            {
+                //sets the animation state to moving  right
+                characterAnim.SetBool("MovingLeft", false);
+                characterAnim.SetBool("MovingRight", true);
+            }
+            //if the control stick is pushed 40% of the way to the left
+            else if (axisX <= -0.4)
+            {
+                //sets the animation state to moving left
+                characterAnim.SetBool("MovingRight", false);
+                characterAnim.SetBool("MovingLeft", true);
+            }
+            //if neither
+            else
+            {
+                //sets the animation state to idle
+                characterAnim.SetBool("MovingRight", false);
+                characterAnim.SetBool("MovingLeft", false);
+            }
+        }
 
 		//Easter egg
 		if (!m_eggUnlocked)
@@ -232,11 +283,15 @@ public class SkierController : MonoBehaviour
 			lives--;   //Hurt the skier
 			hurtThisFrame = true;
 			StartCoroutine(HurtOff());
-		}
+            //sets DamageTaken trigger in animator
+            characterAnim.SetTrigger("DamageTaken");
+            
+        }
 
 		if (lives <= 0)				//If the skier is out of lives,
 		{
-			m_isAlive = false;				//He dead
+            characterAnim.SetBool("IsDead", true);
+            m_isAlive = false;				//He dead
 			tether.enabled = false;			//Turn movement off
 			m_scoreTimer.enabled = false;	//Stop the score from increasing
             AudioManager.Play("Wipeout");   // plays the wipeout sound effect 
