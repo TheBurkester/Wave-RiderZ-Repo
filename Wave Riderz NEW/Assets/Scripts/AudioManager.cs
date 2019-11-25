@@ -49,9 +49,26 @@ public class AudioManager : MonoBehaviour
 		s.source.Play();
     }
 
+    //Plays a sound with the given name
+    public static void PlayDelayed(string name, float delay)
+    {
+        Sound s = Array.Find(instance.sounds, sound => sound.name == name); //Find the sound with the correct name
+                                                                            // warning message if it cant find the right sounds 
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        if (s.randomizePitch)   //If the sound is set to randomize pitch,
+            s.source.pitch = UnityEngine.Random.Range(0.85f, 1.15f);    //Move the pitch slightly up or down
+
+        s.source.PlayDelayed(delay);
+    }
+
 
     //Stops a sound with a given name 
-   public static void Stop(string name)
+    public static void Stop(string name)
    {
        Sound s = Array.Find(instance.sounds, sound => sound.name == name);	//Find the sound with the correct name
        s.source.Stop();
