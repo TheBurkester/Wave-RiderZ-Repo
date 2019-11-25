@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
     public RectTransform wavePanel = null;
     private Vector3 m_panelOffScreenLeft = new Vector3(-1600, 0, 0);
     private Vector3 m_panelOffScreenRight = new Vector3(2600, 0, 0);
-    private int m_t = 0;
+    private float m_t = 0;
     private bool m_nextRound = false;
 	//-------------------------------------------------------------------------
     
@@ -245,6 +245,7 @@ public class GameManager : MonoBehaviour
 		SetupScene();
 
         AudioManager.Play("Race_Start");
+        AudioManager.Play("SplashTransitionPT2");
     }
 
 	void Update()
@@ -271,9 +272,10 @@ public class GameManager : MonoBehaviour
 				}
 				else                                            //Otherwise the timer is still going,
 				{
-                    m_t += 40;
+                    m_t += 2400.0f * Time.deltaTime;
 
                     wavePanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenRight, m_t); // Slowly moves the position to the target.
+                   
 					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 					if (closestSecond == 4)
 						startCountdownDisplay.fontSize = 50;
@@ -380,9 +382,11 @@ public class GameManager : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Space) || XCI.GetButtonDown(XboxButton.A, XboxController.All))	//If next round is selected,
 				{
+                    AudioManager.Play("SplashTransition");
                     wavePanel.transform.position = m_panelOffScreenLeft;
-					//Update the static GameInfo scores
-					GameInfo.playerOneScore = playerOneSkier.GetScore();
+                    
+                    //Update the static GameInfo scores
+                    GameInfo.playerOneScore = playerOneSkier.GetScore();
 					GameInfo.playerTwoScore = playerTwoSkier.GetScore();
 					if (m_playerCount >= 3)
 						GameInfo.playerThreeScore = playerThreeSkier.GetScore();
@@ -395,10 +399,10 @@ public class GameManager : MonoBehaviour
 
                 if (m_nextRound)
                 {
-                    m_t += 40;
+                    m_t += 2400.0f * Time.deltaTime;
 
                     wavePanel.transform.position = Vector3.MoveTowards(m_panelOffScreenLeft, canvas.transform.position, m_t); // Slowly moves the position to the target.
-
+                    
                     if (wavePanel.transform.position == canvas.transform.position)
                     {
                         m_t = 0;
@@ -596,8 +600,11 @@ public class GameManager : MonoBehaviour
 	//Adds score to the plane when skiers are hit
 	private void SkierHurtBonusCheck(int skierNumber)
 	{
-		if (m_skiers[skierNumber].hurtThisFrame)							//If this skier got hurt this frame,
-			m_skiers[(int)m_eCurrentPlaneState].AddScore(skierHurtBonus);	//Add score to the current plane player
+        if (m_skiers[skierNumber].hurtThisFrame)                            //If this skier got hurt this frame,
+        {
+            m_skiers[(int)m_eCurrentPlaneState].AddScore(skierHurtBonus);   //Add score to the current plane player
+            AudioManager.Play(m_skierHurtSounds[skierNumber]);
+        }
 	}
 
 	//Sets the position of each skier's score on the scoreboard, in order

@@ -194,7 +194,7 @@ public class MainMenu : MonoBehaviour
 		GameInfo.playerThreeScore = 0;
 		GameInfo.playerFourScore = 0;
 		GameInfo.playerBeenPlane = new bool[4];
-
+        
         GameInfo.roundNumber = 1;	//Start the game on round 1
 
         SceneManager.LoadScene(1); //Load the next scene within build settings
@@ -710,8 +710,8 @@ public class MainMenu : MonoBehaviour
 		{
             if (m_showingControls)
             {
+                //AudioManager.Play("SplashTransition");
                 m_wavePanel = true;
-                AudioManager.Play("SplashTransition");
             }
             else
             {
