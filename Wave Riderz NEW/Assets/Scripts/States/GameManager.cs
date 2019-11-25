@@ -108,6 +108,11 @@ public class GameManager : MonoBehaviour
 	public Image playerThreeImage = null;
 	public Image playerFourImage = null;
 	private Image[] m_playerImage = null;
+	public Image playerOneCrown = null;
+	public Image playerTwoCrown = null;
+	public Image playerThreeCrown = null;
+	public Image playerFourCrown = null;
+	private Image[] m_playerCrown = null;
 	public GameObject beachBombAbilityUI = null;
 	public GameObject tetheredMineAbilityUI = null;
 	public Image livesOne = null;
@@ -157,6 +162,7 @@ public class GameManager : MonoBehaviour
         m_playerUI = new RectTransform[4] { playerOneUI, playerTwoUI, playerThreeUI, playerFourUI };
 		m_charImageBW = new Image[4] { axlImageBW, crocImageBW, wolfImageBW, hydImageBW };
 		m_playerImage = new Image[4] { playerOneImage, playerTwoImage, playerThreeImage, playerFourImage };
+		m_playerCrown = new Image[4] { playerOneCrown, playerTwoCrown, playerThreeCrown, playerFourCrown };
 		m_skierLives = new Image[4] { livesOne, livesTwo, livesThree, livesFour };
         m_planeImage = new Image[4] { planeOne, planeTwo, planeThree, planeFour };
 		m_skierMultipliers = new Text[4] { multiplierOne, multiplierTwo, multiplierThree, multiplierFour };
@@ -291,6 +297,9 @@ public class GameManager : MonoBehaviour
 			case RoundState.ePlayingRound:
 
 				// Needs to be above the round ending so it can set the saturation.
+				//Sort the skiers by score and change which skier has the top score particle if needed
+				UpdateSortedSkiers();
+				ApplyTopScoreParticle();
 				CallOnSkiers(SetSkierUI);
 
 				//If the time limit runs out
@@ -330,10 +339,6 @@ public class GameManager : MonoBehaviour
 
 				//Check if any skiers are hit
 				CallOnSkiers(SkierHurtBonusCheck);
-
-				//Sort the skiers by score and change which skier has the top score particle if needed
-				UpdateSortedSkiers();
-				ApplyTopScoreParticle();
 
 				//Display skier and plane related UI
 				beachBombAbilityUI.SetActive(true);
@@ -497,12 +502,17 @@ public class GameManager : MonoBehaviour
 	{
 		m_skierScoresText[skierNumber].text = m_skiers[skierNumber].GetScore().ToString();	//Display the score
 		
+		if ((int)m_sortedSkiers[0].controller - 1 == skierNumber)
+			m_playerCrown[skierNumber].gameObject.SetActive(true);
+		else
+			m_playerCrown[skierNumber].gameObject.SetActive(false);
+
 		if (m_skiers[skierNumber].GetAlive())											//If the skier is still alive,
 		{
 			m_charImageBW[skierNumber].gameObject.SetActive(false);
 			m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 1);
-			//m_playerImage[skierNumber].GetComponent<CanvasRenderer>().material.SetFloat("Vector1_EB98BD68", 1);
 			m_skierLives[skierNumber].fillAmount = m_skiers[skierNumber].lives / 3.0f;  //Display the lives
+
 			if (m_skiers[skierNumber].GetPlayerMultiplier() == 1)
 				m_skierMultipliers[skierNumber].fontSize = 30;
 			else if (m_skiers[skierNumber].GetPlayerMultiplier() == 2)
