@@ -4446,7 +4446,13 @@ MonoBehaviour:
   - name: SplashTransition
     clip: {fileID: 8300000, guid: 7195ac17bf5d5384aaf02b78f71828a6, type: 3}
     volume: 1
-    loop: 1
+    loop: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: SplashTransitionPT2
+    clip: {fileID: 8300000, guid: d52eb6bb3b0777744854a27da87455f1, type: 3}
+    volume: 1
+    loop: 0
     randomizePitch: 0
     source: {fileID: 0}
 --- !u!1 &1971512852
