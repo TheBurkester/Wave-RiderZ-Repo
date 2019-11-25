@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XboxCtrlrInput;
 using System;
+using XInputDotNetPure;
 
 public class SkierController : MonoBehaviour
 {
@@ -108,6 +109,21 @@ public class SkierController : MonoBehaviour
 
 	private void Update()
     {
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				GamePad.SetVibration((PlayerIndex)i, 0.2f, 0.2f);
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.L))
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				GamePad.SetVibration((PlayerIndex)i, 1, 1);
+			}
+		}
+
 		//KEYBOARD
 		//---------------------------------------------
 		//Tether movement
@@ -291,6 +307,7 @@ public class SkierController : MonoBehaviour
 			StartCoroutine(HurtOff());
             //sets DamageTaken trigger in animator
             characterAnim.SetTrigger("DamageTaken");
+			ControllerVibrate.VibrateController((int)controller - 1, 0.025f, 0.15f);
         }
 
 		if (lives <= 0)				//If the skier is out of lives,

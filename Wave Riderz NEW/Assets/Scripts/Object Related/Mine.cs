@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class Mine : MonoBehaviour
 {
@@ -91,17 +92,17 @@ public class Mine : MonoBehaviour
                 }
             }
 
-            gameObject.SetActive(false); // Deactivates the beachball.
+			ControllerVibrate.VibrateAll(1.0f, 0.5f);
+            gameObject.SetActive(false); // Deactivates the mine.
             m_rb.velocity = Vector3.zero; // Resets velocity.
             m_rb.angularVelocity = Vector3.zero; // Resets angular velocity.
             m_rb.transform.rotation = Quaternion.Euler(Vector3.zero); // Resets rotation.
             m_tmAbility.setIsUsingAbility(false);
             m_tmAbility.mineAbilityCooldown.SetTimer();
-
-
            
             explosionPrefab.transform.position = explosionPos;
 			Instantiate(explosionPrefab);
+
 
 			GameFreezer.Freeze(freezeAmount, freezeFrames);
 		}

@@ -72,6 +72,7 @@ public class BeachBall : MonoBehaviour
 			explosionPrefab.transform.position = explosionPos;
 			Instantiate(explosionPrefab);
 
+			ControllerVibrate.VibrateAll(0.2f, 0.5f);
 
 			GameFreezer.Freeze(freezeAmount, freezeFrames);
         }
