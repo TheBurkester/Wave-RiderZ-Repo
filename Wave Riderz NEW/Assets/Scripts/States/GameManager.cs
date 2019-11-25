@@ -469,7 +469,17 @@ public class GameManager : MonoBehaviour
 		
 		if (m_skiers[skierNumber].GetAlive())											//If the skier is still alive,
 		{
-			m_skierLives[skierNumber].fillAmount = m_skiers[skierNumber].lives / 3.0f;	//Display the lives
+			m_skierLives[skierNumber].fillAmount = m_skiers[skierNumber].lives / 3.0f;  //Display the lives
+			if (m_skiers[skierNumber].GetPlayerMultiplier() == 1)
+				m_skierMultipliers[skierNumber].fontSize = 30;
+			else if (m_skiers[skierNumber].GetPlayerMultiplier() == 2)
+				m_skierMultipliers[skierNumber].fontSize = 32;
+			else if (m_skiers[skierNumber].GetPlayerMultiplier() == 3)
+				m_skierMultipliers[skierNumber].fontSize = 34;
+			else if (m_skiers[skierNumber].GetPlayerMultiplier() == 4)
+				m_skierMultipliers[skierNumber].fontSize = 36;
+			else if (m_skiers[skierNumber].GetPlayerMultiplier() == 5)
+				m_skierMultipliers[skierNumber].fontSize = 38;
 			m_skierMultipliers[skierNumber].text = "x" + m_skiers[skierNumber].GetPlayerMultiplier().ToString();	//Display the multiplier
 		}
         else if ((int)m_eCurrentPlaneState == skierNumber) //If the player is in the plane,
