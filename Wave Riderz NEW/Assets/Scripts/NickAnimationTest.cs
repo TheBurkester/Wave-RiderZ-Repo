@@ -84,6 +84,7 @@ public class NickAnimationTest : MonoBehaviour
             characterAnim.SetInteger("Lives", characterAnim.GetInteger("Lives") - 1); 
 
         }
+
        
     }
 }

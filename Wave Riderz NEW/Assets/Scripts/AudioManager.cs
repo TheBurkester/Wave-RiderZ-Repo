@@ -55,6 +55,8 @@ public class AudioManager : MonoBehaviour
    {
        Sound s = Array.Find(instance.sounds, sound => sound.name == name);	//Find the sound with the correct name
        s.source.Stop();
+       
    }
+
     
 }
