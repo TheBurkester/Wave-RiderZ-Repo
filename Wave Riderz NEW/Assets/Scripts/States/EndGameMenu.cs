@@ -51,8 +51,12 @@ public class EndGameMenu : MonoBehaviour
         m_t += 40;
         wavePanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenRight, m_t); // Slowly moves the position to the target.
 
-        if (XCI.GetButtonDown(XboxButton.A, XboxController.First))	//If player 1 presses the menu button,
-			GoToMenu();												//It takes them to the main menu
+
+        if (XCI.GetButtonDown(XboxButton.A, XboxController.First))  //If player 1 presses the menu button,
+        {
+            AudioManager.Play("SplashTransitionWhole");
+            GoToMenu();                     //It takes them to the main menu
+        }												
 	}
 
 	private void GoToMenu()

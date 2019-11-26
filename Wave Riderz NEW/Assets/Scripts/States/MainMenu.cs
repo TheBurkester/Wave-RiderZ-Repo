@@ -302,25 +302,25 @@ public class MainMenu : MonoBehaviour
 		}
 
 		//Debug skip menu button, automatically assigns two skiers
-		if (GetButtonDownAny(XboxButton.RightBumper) || Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			playerNumber = 2;
-			PlayGame();
-		}
+		//if (GetButtonDownAny(XboxButton.RightBumper) || Input.GetKeyDown(KeyCode.Alpha2))
+		//{
+		//	playerNumber = 2;
+		//	PlayGame();
+		//}
 
-		//Debug skip menu button, automatically assigns three skiers
-		if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			playerNumber = 3;
-			PlayGame();
-		}
+		////Debug skip menu button, automatically assigns three skiers
+		//if (Input.GetKeyDown(KeyCode.Alpha3))
+		//{
+		//	playerNumber = 3;
+		//	PlayGame();
+		//}
 
-        //Debug skip menu button, automatically assigns four skiers
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            playerNumber = 4;
-            PlayGame();
-        }
+  //      //Debug skip menu button, automatically assigns four skiers
+  //      if (Input.GetKeyDown(KeyCode.Alpha4))
+  //      {
+  //          playerNumber = 4;
+  //          PlayGame();
+  //      }
     }
 
 	//-------------------------------------------------------------------------
@@ -749,7 +749,8 @@ public class MainMenu : MonoBehaviour
 			if (m_showingMechanics)
 			{
 				m_wavePanel = true;
-			}
+                AudioManager.Play("SplashTransition");
+            }
             else if (m_showingControls)
             {
 				mechanicsPanel.gameObject.SetActive(true);
@@ -771,10 +772,12 @@ public class MainMenu : MonoBehaviour
 
 		if (m_wavePanel)
 		{
-			m_t += panelSpeed;
-			wavePanel.transform.position = Vector3.MoveTowards(m_panelOffScreenLeft, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+			m_t += 35;
+            wavePanel.transform.position = Vector3.MoveTowards(m_panelOffScreenLeft, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+            
+            
 
-			if (playerNumber == 1) // If the game launches with only one player, default it to 2.
+            if (playerNumber == 1) // If the game launches with only one player, default it to 2.
 				playerNumber = 2;
 
 			if (wavePanel.transform.position == canvas.transform.position)

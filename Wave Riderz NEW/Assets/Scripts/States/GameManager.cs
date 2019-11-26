@@ -245,8 +245,8 @@ public class GameManager : MonoBehaviour
 		SetupScene();
 
         AudioManager.Play("Race_Start");
-        AudioManager.Play("SplashTransition");
-        //AudioManager.Play("SplashTransitionPT2");
+       // AudioManager.Play("SplashTransition");
+        AudioManager.Play("SplashTransitionPT2");
     }
 
 	void Update()
@@ -276,8 +276,11 @@ public class GameManager : MonoBehaviour
                     m_t += 2400.0f * Time.deltaTime;
 
                     wavePanel.transform.position = Vector3.MoveTowards(canvas.transform.position, m_panelOffScreenRight, m_t); // Slowly moves the position to the target.
-                   
-					int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
+                    
+
+
+
+                    int closestSecond = (int)Math.Ceiling(m_startRoundTimer.T); //Round the timer up to the nearest second
 					if (closestSecond == 4)
 						startCountdownDisplay.fontSize = 50;
 					else if (closestSecond == 3)
@@ -319,7 +322,8 @@ public class GameManager : MonoBehaviour
 					roundOverPanel.SetActive(true);             //Show the round over screen
 					UpdateSortedSkiers();
 					CallOnSkiers(SetScoreboardPosition);
-				}
+                    AudioManager.Stop("LevelMusic1");
+                }
 				//If all skiers get wiped out (non-skiers are set to not alive by default)
 				else if (!playerOneSkier.GetAlive() && !playerTwoSkier.GetAlive() && !playerThreeSkier.GetAlive() && !playerFourSkier.GetAlive())
 				{
@@ -335,7 +339,8 @@ public class GameManager : MonoBehaviour
 					roundOverPanel.SetActive(true);             //Show the round over screen
 					UpdateSortedSkiers();
 					CallOnSkiers(SetScoreboardPosition);
-				}
+                    AudioManager.Stop("LevelMusic1");
+                }
 
 				roundTimerPanel.SetActive(true);
 				playingCountDownDisplay.fillAmount = m_playingRoundTimer.T / roundTimeLimit;
@@ -383,7 +388,8 @@ public class GameManager : MonoBehaviour
 
 				if (XCI.GetButtonDown(XboxButton.A, XboxController.All) && m_nextRound != true)	//If next round is selected,
 				{
-                    AudioManager.Play("SplashTransition");
+                    
+                    AudioManager.Play("SplashTransitionWhole");
                     wavePanel.transform.position = m_panelOffScreenLeft;
                     
                     //Update the static GameInfo scores
