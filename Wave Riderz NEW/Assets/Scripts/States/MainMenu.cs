@@ -210,15 +210,28 @@ public class MainMenu : MonoBehaviour
 
 	private void SplashScreen()
 	{
-        
+
         if (XCI.GetButtonDown(addPlayerXbox, XboxController.First) && splashPanel.transform.position == canvas.transform.position)  // If player one presses the A button,
-			playButtonPress();                                      // Activate the play button
-		if (XCI.GetButtonDown(XboxButton.X, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // If player one presses the X button.
-			controlsButtonPress();
-		if (XCI.GetButtonDown(XboxButton.Y, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // If player one presses the Y button.
-			creditsButtonPress();
-		if (XCI.GetButtonDown(XboxButton.Back, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // Only player one can quit the game.
-			quitButtonPress();
+        {
+            playButtonPress();// Activate the play button
+            AudioManager.Play("MenuClick"); // plays sound when player one presses A
+        }
+        if (XCI.GetButtonDown(XboxButton.X, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // If player one presses the X button.
+        {
+            controlsButtonPress();
+            AudioManager.Play("MenuClick"); // plays sound when player one presses X
+        }
+        if (XCI.GetButtonDown(XboxButton.Y, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // If player one presses the Y button.
+        {
+            creditsButtonPress();
+            AudioManager.Play("MenuClick"); // plays sound when player one presses Y
+        }
+        if (XCI.GetButtonDown(XboxButton.Back, XboxController.First) && splashPanel.transform.position == canvas.transform.position)   // Only player one can quit the game.
+        {
+            quitButtonPress();
+            AudioManager.Play("MenuClick"); // plays sound when player one presses back
+
+        }
         
 
 
@@ -314,7 +327,8 @@ public class MainMenu : MonoBehaviour
 		if (XCI.GetButtonDown(XboxButton.Back, XboxController.First))
 		{
 			m_returningToMenu = true;
-		}
+            AudioManager.Play("MenuClick");
+        }
 
 		if (m_returningToMenu)
 		{
@@ -379,7 +393,8 @@ public class MainMenu : MonoBehaviour
 				playerOneChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerOneState = CharacterState.eJoining;     // Player one is now joining.
-			}
+                AudioManager.Play("MenuClick");
+            }
 		}
 		if (XCI.GetButtonDown(addPlayerXbox, XboxController.Second) && m_playerTwoState != CharacterState.eJoined)      // If player two presses add.
 		{
@@ -391,7 +406,8 @@ public class MainMenu : MonoBehaviour
 				playerTwoChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerTwoState = CharacterState.eJoining;     // Player two is now joining.
-			}
+                AudioManager.Play("MenuClick");
+            }
 		}
 		if (XCI.GetButtonDown(addPlayerXbox, XboxController.Third) && m_playerThreeState != CharacterState.eJoined)     // If player three presses add.
 		{
@@ -403,7 +419,8 @@ public class MainMenu : MonoBehaviour
 				playerThreeChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerThreeState = CharacterState.eJoining;   // Player three is now joining.
-			}
+                AudioManager.Play("MenuClick");
+            }
 		}
 		if (XCI.GetButtonDown(addPlayerXbox, XboxController.Fourth) && m_playerFourState != CharacterState.eJoined)     // If player four presses add.
 		{
@@ -415,7 +432,8 @@ public class MainMenu : MonoBehaviour
 				playerFourChar.enabled = true;
 				m_addPlayerButtonPress = true;                  //Add a player
 				m_playerFourState = CharacterState.eJoining;    // Player four is now joining.
-			}
+                AudioManager.Play("MenuClick");
+            }
 		}
 
 		//'Remove player' input checks
@@ -430,7 +448,9 @@ public class MainMenu : MonoBehaviour
 				playerOneChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerOneState = CharacterState.eLeaving;     // Player one is leaving.
-			}
+                AudioManager.Play("MenuClick");
+
+            }
 		}
 		if (XCI.GetButtonDown(removePlayerXbox, XboxController.Second) && m_playerTwoState == CharacterState.eJoined && m_playerTwoReady != true)   // If player two presses remove.
 		{
@@ -443,7 +463,8 @@ public class MainMenu : MonoBehaviour
 				playerTwoChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerTwoState = CharacterState.eLeaving;     // Player two is leaving.
-			}
+                AudioManager.Play("MenuClick");
+            }
 		}
 		if (XCI.GetButtonDown(removePlayerXbox, XboxController.Third) && m_playerThreeState == CharacterState.eJoined && m_playerThreeReady != true)  // If player three presses remove.
 		{
@@ -456,7 +477,8 @@ public class MainMenu : MonoBehaviour
 				playerThreeChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerThreeState = CharacterState.eLeaving;   // Player three is leaving.
-			}
+                AudioManager.Play("MenuClick");
+            }
 		}
 		if (XCI.GetButtonDown(removePlayerXbox, XboxController.Fourth) && m_playerFourState == CharacterState.eJoined && m_playerFourReady != true)  // If player four presses remove.
 		{
@@ -469,7 +491,8 @@ public class MainMenu : MonoBehaviour
 				playerFourChar.enabled = false;
 				m_removePlayer = true;                          //Remove a player
 				m_playerFourState = CharacterState.eLeaving;    // Player four is leaving.
-			}
+                AudioManager.Play("MenuClick");
+            }
 		}
 
 		//Adding and moving players
@@ -757,7 +780,8 @@ public class MainMenu : MonoBehaviour
 		if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
 		{
 			m_returningToMenu = true;
-		}
+            AudioManager.Play("MenuClick");
+        }
 
 		if (m_returningToMenu)
 		{
@@ -782,7 +806,8 @@ public class MainMenu : MonoBehaviour
 		if (XCI.GetButtonDown(removePlayerXbox, XboxController.First)) // If player one presses the 'B' button.
 		{
 			m_returningToMenu = true;
-		}
+            AudioManager.Play("MenuClick");
+        }
 
 		if (m_returningToMenu)
 		{
