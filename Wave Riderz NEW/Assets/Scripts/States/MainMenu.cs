@@ -554,7 +554,7 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-                AudioManager.Play("MenuClick/PlayerReady");
+                AudioManager.Play("Ready Player");
                 m_playerOneReady = true;
 				readyPlayerOneImage.enabled = true;
 				notReadyPlayerOneImage.enabled = false;
@@ -572,7 +572,7 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-                AudioManager.Play("MenuClick/PlayerReady");
+                AudioManager.Play("Ready Player");
                 m_playerTwoReady = true;
 				readyPlayerTwoImage.enabled = true;
 				notReadyPlayerTwoImage.enabled = false;
@@ -589,7 +589,7 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-                AudioManager.Play("MenuClick/PlayerReady");
+                AudioManager.Play("Ready Player");
                 m_playerThreeReady = true;
 				readyPlayerThreeImage.enabled = true;
 				notReadyPlayerThreeImage.enabled = false;
@@ -606,7 +606,7 @@ public class MainMenu : MonoBehaviour
 			}
 			else
 			{
-                AudioManager.Play("MenuClick/PlayerReady");
+                AudioManager.Play("Ready Player");
                 m_playerFourReady = true;
 				readyPlayerFourImage.enabled = true;
 				notReadyPlayerFourImage.enabled = false;
@@ -635,8 +635,11 @@ public class MainMenu : MonoBehaviour
 			{
 				m_t += panelSpeed;  //Increment the panel movement timer
 				allPLayersReadyPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+                AudioManager.PlayDelayed("AllPLayersReady",0.2f); // P1,P2 are all ready it will play the sound 
 
-				if (allPLayersReadyPanel.transform.position == canvas.transform.position)
+
+
+                if (allPLayersReadyPanel.transform.position == canvas.transform.position)
 				{
 					m_t = 0;
 					m_showPlay = true;
@@ -662,8 +665,10 @@ public class MainMenu : MonoBehaviour
 			{
 				m_t += panelSpeed;  //Increment the panel movement timer
 				allPLayersReadyPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+                AudioManager.PlayDelayed("AllPLayersReady", 0.2f); // P1,P2,P3 are all ready it will play the sound 
 
-				if (allPLayersReadyPanel.transform.position == canvas.transform.position)
+
+                if (allPLayersReadyPanel.transform.position == canvas.transform.position)
 				{
 					m_t = 0;
 					m_showPlay = true;
@@ -689,8 +694,9 @@ public class MainMenu : MonoBehaviour
 			{
 				m_t += panelSpeed;  //Increment the panel movement timer
 				allPLayersReadyPanel.transform.position = Vector3.MoveTowards(m_panelOffScreenBottomPos, canvas.transform.position, m_t); // Slowly moves the panel to the target.
+                AudioManager.PlayDelayed("AllPLayersReady", 0.2f); // P1,P2,P3,P4 are all ready it will play the sound 
 
-				if (allPLayersReadyPanel.transform.position == canvas.transform.position)
+                if (allPLayersReadyPanel.transform.position == canvas.transform.position)
 				{
 					m_t = 0;
 					m_showPlay = true;
