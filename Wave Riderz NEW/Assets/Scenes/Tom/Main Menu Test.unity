@@ -4419,7 +4419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: MenuClick/PlayerReady
+  - name: MenuClick
     clip: {fileID: 8300000, guid: 774c0b584001faa4289d007c5f90bd31, type: 3}
     volume: 0.25
     loop: 0
@@ -4432,14 +4432,14 @@ MonoBehaviour:
     randomizePitch: 0
     source: {fileID: 0}
   - name: AllPLayersReady
-    clip: {fileID: 8300000, guid: 0baf0a8dc306688419bea83a4603076b, type: 3}
+    clip: {fileID: 8300000, guid: 660ddb89dc6f40c4689d44a3b8e8ff65, type: 3}
     volume: 1
     loop: 0
     randomizePitch: 0
     source: {fileID: 0}
   - name: MenuMusic
     clip: {fileID: 8300000, guid: d2ecbe8268152b246976c25ca19abe06, type: 3}
-    volume: 0.5
+    volume: 0.4
     loop: 1
     randomizePitch: 0
     source: {fileID: 0}
@@ -4451,6 +4451,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SplashTransitionPT2
     clip: {fileID: 8300000, guid: d52eb6bb3b0777744854a27da87455f1, type: 3}
+    volume: 1
+    loop: 0
+    randomizePitch: 0
+    source: {fileID: 0}
+  - name: Ready Player
+    clip: {fileID: 8300000, guid: 150254e2925e7a742bb9ebc7aef5c7f2, type: 3}
     volume: 1
     loop: 0
     randomizePitch: 0
