@@ -45,6 +45,7 @@ public class MainMenu : MonoBehaviour
 	public RectTransform creditsPanel;			// Reference to the credits panel UI transforn.
 	public RectTransform quitPanel;             // Reference to the quit panel UI transform.
     public RectTransform wavePanel;
+	public RectTransform mechanicsPanel;
 	public Image addPlayerOneImage;
 	public Image addPlayerTwoImage;
 	public Image addPlayerThreeImage;
@@ -85,7 +86,8 @@ public class MainMenu : MonoBehaviour
     private bool m_addPlayerButtonPress = false;	// Has the add player button been pressed?
     private bool m_removePlayer = false;			// Is a player currently being removed from the game?
 	private bool m_showPlay = false;                // Are there enough players ready to show the play button?
-	private bool m_showingControls = false;			// Are the players looking at the pre-game controls screen?
+	private bool m_showingControls = false;         // Are the players looking at the pre-game controls screen?
+	private bool m_showingMechanics = false;
 	private bool m_returningToMenu = false;			// Are the players returning to the menu?
     private bool m_wavePanel = false;
 
@@ -128,6 +130,7 @@ public class MainMenu : MonoBehaviour
 		creditsPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the credits panel starts at the bottom.
 		quitPanel.transform.position = m_panelOffScreenBottomPos; // Ensures that the quit panel starts at the bottom.
         wavePanel.transform.localPosition = m_panelOffScreenLeft;
+		mechanicsPanel.gameObject.SetActive(false);
 
         addPlayerOneImage.enabled = true;
 		addPlayerTwoImage.enabled = true;
@@ -743,10 +746,16 @@ public class MainMenu : MonoBehaviour
 		//Play button input check
 		if (m_showPlay && XCI.GetButtonDown(addPlayerXbox, XboxController.First))   //If the play button is on-screen and any controller presses play,
 		{
-            if (m_showingControls)
+			if (m_showingMechanics)
+			{
+				m_wavePanel = true;
+			}
+            else if (m_showingControls)
             {
-                //AudioManager.Play("SplashTransition");
-                m_wavePanel = true;
+				mechanicsPanel.gameObject.SetActive(true);
+				controlsPanel.gameObject.SetActive(false);
+				m_showingMechanics = true;
+				m_showingControls = false;
             }
             else
             {
