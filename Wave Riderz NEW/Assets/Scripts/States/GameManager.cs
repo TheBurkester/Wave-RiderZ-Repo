@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
     
 	public delegate void Function(int skierNumber);
 
-    private string[] m_skierHurtSounds;
+   
 
 	void Awake()
 	{
@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
 		m_skierLives = new Image[4] { livesOne, livesTwo, livesThree, livesFour };
         m_planeImage = new Image[4] { planeOne, planeTwo, planeThree, planeFour };
 		m_skierMultipliers = new Text[4] { multiplierOne, multiplierTwo, multiplierThree, multiplierFour };
-        m_skierHurtSounds = new string[4] {"Player1Damage", "Player2Damage","Player3Damage","Player4Damage" };
+       
 
 		//Make a new array of references to the skiers to sort
 		m_sortedSkiers = new SkierController[m_skiers.Length];
@@ -245,7 +245,8 @@ public class GameManager : MonoBehaviour
 		SetupScene();
 
         AudioManager.Play("Race_Start");
-        AudioManager.Play("SplashTransitionPT2");
+        AudioManager.Play("SplashTransition");
+        //AudioManager.Play("SplashTransitionPT2");
     }
 
 	void Update()
@@ -603,7 +604,7 @@ public class GameManager : MonoBehaviour
         if (m_skiers[skierNumber].hurtThisFrame)                            //If this skier got hurt this frame,
         {
             m_skiers[(int)m_eCurrentPlaneState].AddScore(skierHurtBonus);   //Add score to the current plane player
-            AudioManager.Play(m_skierHurtSounds[skierNumber]);
+            
         }
 	}
 
