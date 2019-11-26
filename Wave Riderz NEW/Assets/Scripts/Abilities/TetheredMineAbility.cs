@@ -71,24 +71,8 @@ public class TetheredMineAbility : MonoBehaviour
 			
 			StartCoroutine(SpawnMine());
 			m_isUsingAbility = true;
-            
 		}
-        if (Input.GetKeyDown(KeyCode.M) && !m_isUsingAbility && !mineAbilityCooldown.UnderMax())
-        {
-			// animation for the door
-			TetheredMineAnimation.SetBool("IsDoorOpen", true);
-			TetheredMineAnimation.SetBool("IsDoorClosed", false);
-			// Hatch Open Door Sound
-			AudioManager.Play("TetherObs&BBHatchDoorOpen");
-
-			StartCoroutine(SpawnMine());
-			m_isUsingAbility = true;
-        }
         
-        if (m_isUsingAbility)
-		{
-            ActivateAbility();
-		}
         if(!mineAbilityCooldown.UnderMax() && !m_mineabilityReady)
         {
             m_mineabilityReady = true;
@@ -99,20 +83,6 @@ public class TetheredMineAbility : MonoBehaviour
             m_mineabilityReady = false;
         }
     }
-
-	void ActivateAbility()
-	{
-		//if (mineRB.transform.position.y > 0)
-		//{
-		//	mineRB.isKinematic = false;
-		//	mineRB.velocity = new Vector3(0, -5.0f, planeSpeed - 3);
-		//}
-		//else if (mineRB.transform.position.y <= 0)
-		//{
-		//	mineRB.isKinematic = true;
-		//	mineRB.transform.position = new Vector3(mineRB.transform.position.x, 0, mineRB.transform.position.z);
-		//}
-	}
 
 	IEnumerator SpawnMine()
 	{

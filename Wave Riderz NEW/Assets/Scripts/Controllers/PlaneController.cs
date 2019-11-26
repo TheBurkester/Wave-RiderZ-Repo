@@ -77,8 +77,7 @@ public class PlaneController : MonoBehaviour
 	void Update()
     {		
 		Vector3 newPos = rb.position + new Vector3(0, 0, forwardSpeed * Time.deltaTime);	//New position is the current position moved forward slightly
-
-
+		
 		//Controller movement
         float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);			//Get the direction and magnitude of the controller stick 
         newPos.x += (axisX * strafeSpeed * Time.deltaTime);                 //Move the plane in that direction and with that % magnitude (0-1)
@@ -119,8 +118,7 @@ public class PlaneController : MonoBehaviour
 			foreach (ParticleSystem particle in swingParticles)
 				particle.Play();
 		}
-
-
+		
 		//Rotation
 		if (!beachBallTarget.GetShooting())
 		{
@@ -133,13 +131,6 @@ public class PlaneController : MonoBehaviour
 			Quaternion targetRotation = Quaternion.Euler(0, 0, 0);    //Set the target rotation
 			rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, targetRotation, tiltSmoothness * Time.deltaTime);   //Move towards the target rotation
 		}
-		
-
-		//Keyboard movement
-		//if (Input.GetKey(KeyCode.LeftArrow) )							//If left is pressed,
-		//	newPos += new Vector3(-strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the left
-		//if (Input.GetKey(KeyCode.RightArrow))							//If right is pressed,
-		//	newPos += new Vector3(strafeSpeed * Time.deltaTime, 0, 0);	//Move the plane to the right
 
 		//Clamp the plane to stay within the river
 		if (newPos.x < -m_clampWidth)

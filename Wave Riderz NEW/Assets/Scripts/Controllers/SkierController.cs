@@ -17,13 +17,13 @@ public class SkierController : MonoBehaviour
 {
 	//Movement
 	public XboxController controller;	//Reference to the in-scene assigned controller
-	public float movingForce = 50;   //How fast the skier moves sideways
+	public float movingForce = 50;		//How fast the skier moves sideways
 
 	//Bonking
 	public float bonkForce = 100;				//How much force to always apply when bonking other skiers
 	public float bonkVelocityForce = 75;		//How much maximum additional force to apply based on how fast this skier is moving
 	public float bonkForceDuration = 0.5f;		//How long bonking forces are applied
-	private float maxXVelocity = 8;				//The maximum reachable velocity of the skiers, based on testing, used for proportioning the bonk velocity transfer
+	private float m_maxXVelocity = 8;			//The maximum reachable velocity of the skiers, based on testing, used for proportioning the bonk velocity transfer
 	public float obstacleForce = 100;			//How much sidewards force is applied when hitting an obstacle
 	public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
 	[HideInInspector]
@@ -34,12 +34,6 @@ public class SkierController : MonoBehaviour
 	private ParticleSystem[] m_obstacleParticles = null;	//All actual particles of the prefab
 
     public Animator characterAnim;
-
-	//Keyboard controls
-	//public KeyCode MoveLeft;		//Which keyboard key moves the skier left
-    //public KeyCode MoveRight;       //Which keyboard key moves the skier right
-	//public KeyCode TetherLengthen;	//Which keyboard key lengthens the rope
-	//public KeyCode TetherShorten;	//Which keyboard key shortens the rope
 
 	//Score/lives
 	private int m_score = 0;			// Player's score.
@@ -59,15 +53,15 @@ public class SkierController : MonoBehaviour
 	private bool m_isAlive = false;			//If the skier has the will to live
 
 	//Invincibility
-	public int numberOfFlashes = 3;			//How many times the mesh should flash when damaged
-	public float flashDelay = 0.3f;			//How fast the mesh should flash on and off when damaged
-	private bool m_invincible = false;		//If the skier can collide with other objects
+	public int numberOfFlashes = 3;				//How many times the mesh should flash when damaged
+	public float flashDelay = 0.3f;				//How fast the mesh should flash on and off when damaged
+	private bool m_invincible = false;			//If the skier can collide with other objects
 	public SkinnedMeshRenderer meshRend = null;	//Reference to the mesh to be flashed during invincibility
 
 	[HideInInspector]
-	public Tether tether = null;    //Reference to the tether attached to this skier, public so forces can be applied from other scripts
+	public Tether tether = null;		//Reference to the tether attached to this skier, public so forces can be applied from other scripts
 	[HideInInspector]
-	public bool hurtThisFrame = false;
+	public bool hurtThisFrame = false;	//Set to false at the end of every frame
 
 	//Easter Egg
 	private XboxButton[] m_sequence;
@@ -116,47 +110,12 @@ public class SkierController : MonoBehaviour
 
 	private void Update()
     {
-		if (Input.GetKeyDown(KeyCode.N))
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				GamePad.SetVibration((PlayerIndex)i, 0.2f, 0.2f);
-			}
-		}
-		if (Input.GetKeyDown(KeyCode.L))
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				GamePad.SetVibration((PlayerIndex)i, 1, 1);
-			}
-		}
-
-		//KEYBOARD
-		//---------------------------------------------
-		//Tether movement
-		//if (Input.GetKey(TetherLengthen))									//If pressing the lengthen key,
-		//	tether.currentLength += tether.changeSpeed * Time.deltaTime;	//Make the tether longer over time
-		//if (Input.GetKey(TetherShorten))									//If pressing the shorten key,
-		//	tether.currentLength -= tether.changeSpeed * Time.deltaTime;	//Make the tether shorter over time
-
-		////Sideways movement
-		//if (tether.Distance() >= (tether.currentLength * 0.95))	//As long as the skier is close to the arc of the tether,
-		//{
-		//	if (Input.GetKey(MoveRight))                //If the right key is pressed,
-		//		tether.ApplyForce(new Vector3(movingForce, 0, 0));
-		//	if (Input.GetKey(MoveLeft))                 //If the left key is pressed,
-		//		tether.ApplyForce(new Vector3(-movingForce, 0, 0));
-		//}
-		//---------------------------------------------
-
-		//XBOX
-		//---------------------------------------------
 		//Tether movement
 		float axisY = XCI.GetAxis(XboxAxis.LeftStickY, controller);				//Store the direction and magnitude of the left joystick Y axis
 		tether.currentLength += tether.changeSpeed * -axisY * Time.deltaTime;   //Move tether length up/down based on this
 
-        // CHARACTER ANIMATION 
-       //if the control stick is pushed 40% of the way upwards
+        //Animation
+		//if the control stick is pushed 40% of the way upwards
         if (axisY >= 0.4)
         {
             //sets the animation state to moving forward
@@ -177,18 +136,15 @@ public class SkierController : MonoBehaviour
             characterAnim.SetBool("MovingForward", false);
             characterAnim.SetBool("MovingBackward", false);
         }
-
-       
-        //------------------------------------------
-
-
+		
         //Sideways movement
         if (tether.Distance() >= (tether.currentLength * 0.95f))		//As long as the skier is close to the arc of the tether,
 		{
 			float axisX = XCI.GetAxis(XboxAxis.LeftStickX, controller);	//Store the direction and magnitude of the left joystick X axis
 			tether.ApplyForce(new Vector3(movingForce * axisX, 0, 0));  //Apply an instantaneous sideways force
-                                                                        //if the control stick is pushed 40% of the way to the right
-          // CHARACTER ANIMATION 
+
+			//Animation
+            //if the control stick is pushed 40% of the way to the right
             if (axisX >= 0.4)
             {
                 //sets the animation state to moving  right
@@ -234,7 +190,6 @@ public class SkierController : MonoBehaviour
 			if (XCI.GetButtonDown(XboxButton.A))
 				tether.ApplyForce(new Vector3(0, 500, 0));
 		}
-		//---------------------------------------------
 		
 		//Wipeout
 		if (m_isAlive == false)
@@ -277,7 +232,7 @@ public class SkierController : MonoBehaviour
 
 			if (tether.VelocityMagnitude() >= otherTether.VelocityMagnitude())	//If this skier is moving faster than the other skier,
 			{
-				float velocityForce = (tether.VelocityXMagnitude() / maxXVelocity) * bonkVelocityForce;	//Proportion the force based on how close to max velocity this skier is
+				float velocityForce = (tether.VelocityXMagnitude() / m_maxXVelocity) * bonkVelocityForce;	//Proportion the force based on how close to max velocity this skier is
 				Vector3 totalBonkForce = (bonkForce + velocityForce) * tether.Direction();				//Add the flat force and velocity-dependent force, then point them in the direction of movement
 				otherTether.ForceOverTime(totalBonkForce, bonkForceDuration);							//Apply the final force to the other skier
 				tether.ReduceVelocity(2);																//Halve the velocity of this skier
@@ -309,17 +264,17 @@ public class SkierController : MonoBehaviour
 	{
 		if (!m_invincible)  //Double checking that they aren't invincible,
 		{
-			lives--;   //Hurt the skier
-			hurtThisFrame = true;
-			StartCoroutine(HurtOff());
+			lives--;					//Hurt the skier
+			hurtThisFrame = true;		//Set hurt to true
+			StartCoroutine(HurtOff());	//Set hurt to false at the end of the frame
             //sets DamageTaken trigger in animator
             characterAnim.SetTrigger("DamageTaken");
-			ControllerVibrate.VibrateController((int)controller - 1, 0.025f, 0.15f);
-			foreach (ParticleSystem p in m_obstacleParticles)
+			ControllerVibrate.VibrateController((int)controller - 1, 0.025f, 0.15f);	//Give the controller a small vibration
+			foreach (ParticleSystem p in m_obstacleParticles)	//Play the damage particle effects
 				p.Play();
 		}
 
-		if (lives <= 0)				//If the skier is out of lives,
+		if (lives <= 0)						//If the skier is out of lives,
 		{
             characterAnim.SetBool("IsDead", true);
             m_isAlive = false;				//He dead
@@ -334,10 +289,10 @@ public class SkierController : MonoBehaviour
 			m_scoreMultiplierTimer.enabled = false; // Resets the timer before the flashes start so they don't have the multiplier increase during thier invincibility.
 
 			//Flash the skier mesh
-			for (int i = 0; i < numberOfFlashes; ++i)                       //Repeating for the number of flashes,
+			for (int i = 0; i < numberOfFlashes; ++i)							//Repeating for the number of flashes,
 			{
-				StartCoroutine(MeshOff(flashDelay * i * 2));                //Schedule the mesh to turn off, every even interval
-				StartCoroutine(MeshOn(flashDelay * i * 2 + flashDelay));    //Schedule the mesh to turn on, every odd interval
+				StartCoroutine(MeshOff(flashDelay * i * 2));					//Schedule the mesh to turn off, every even interval
+				StartCoroutine(MeshOn(flashDelay * i * 2 + flashDelay));		//Schedule the mesh to turn on, every odd interval
 			}
 			StartCoroutine(InvincibleOff(flashDelay * numberOfFlashes * 2));    //Schedule invincibility to turn off after the flashes are complete
 		}

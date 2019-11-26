@@ -44,15 +44,7 @@ public class BeachBallAbility : MonoBehaviour
 
     public Rigidbody planeRB = null;	//Reference to the plane rigidbody
     public Animator BeachBallAnimation = null;
-
-	//Remove in gold
-    public KeyCode Up = KeyCode.W;				// Keyboard up control
-    public KeyCode Down = KeyCode.S;			// Keyboard down control
-    public KeyCode Left = KeyCode.A;			// Keyboard left control
-    public KeyCode Right = KeyCode.D;			// Keyboard right control
-    public KeyCode Aim = KeyCode.Space;			// Keyboard aim control
-    public KeyCode Shoot = KeyCode.G;			// Keyboard shoot control
-
+	
 
     void Awake()
     {
@@ -109,23 +101,10 @@ public class BeachBallAbility : MonoBehaviour
         {
 			Vector3 currentPosition = m_newPosition;
             //Animates the plane doors opening
-           // BeachBallAnimation.SetTrigger("OpenHatch");
-            //BeachBallAnimation.SetBool("IsAiming", true);
-            //BeachBallAnimation.SetBool("IsShooting", false);
 
             //Xbox movement
             m_newPosition.x += (axisX * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position left/right
 			m_newPosition.z += (axisY * targetMovementSpeed * 0.3f * Time.deltaTime); //Move the test position up/down
-
-			//Keyboard movement
-            if (Input.GetKey(Left)) // Movement Left.
-				m_newPosition += Vector3.left * targetMovementSpeed * Time.deltaTime; // Moving Left = Vector.left
-            if (Input.GetKey(Right)) // Movement Right.
-				m_newPosition += Vector3.right * targetMovementSpeed * Time.deltaTime; // Moving Right = Vector.right.
-            if (Input.GetKey(Up)) // Movement Up.
-				m_newPosition += Vector3.forward * targetMovementSpeed * Time.deltaTime; // Moving Up = Vector.forward.
-            if (Input.GetKey(Down)) // Movement Down.
-				m_newPosition += Vector3.back * targetMovementSpeed * Time.deltaTime; // Moving Down = Vector.back.
 
 			//Clamping
 			if (!(m_newPosition.x < riverClampHorizontal) || !(m_newPosition.x > -riverClampHorizontal))        //Check if the new position z is oustide the boundaries
@@ -135,15 +114,6 @@ public class BeachBallAbility : MonoBehaviour
 		}
         // Simple transform which combines all directions and allows diagonal movement.
         transform.position = m_newPosition;
-
-        if (Input.GetKey(Shoot) && m_targetMesh.enabled)
-        {
-            ToggleIsShooting(true);
-			ShootBall(); // Shoots the beachball.
-			ToggleMeshEnable(true);
-            abilityCooldown.SetTimer(); // Resets cooldown.
-			isAiming = false;
-		}
 
         if((1.0f - RT) < 0.1f && m_targetMesh.enabled)	//If the right trigger is mostly pressed
         {
@@ -156,14 +126,6 @@ public class BeachBallAbility : MonoBehaviour
       
       
         /*===========================================================================================*/
-
-        if (Input.GetKeyDown(Aim) && !abilityCooldown.UnderMax())	//If the aim button is pressed,
-        {
-			if (m_targetMesh.enabled == false)	//If the target is off,
-				m_targetMesh.enabled = true;	//Turn it on
-			else								//If the target is on,
-				m_targetMesh.enabled = false;	//Turn it off
-        }
 		if (XCI.GetButtonDown(XboxButton.RightBumper, m_controller) && !abilityCooldown.UnderMax())	//If the right bumper is pressed,
         {
 			if (m_targetMesh.enabled == false)  //If the target is off,
@@ -199,8 +161,6 @@ public class BeachBallAbility : MonoBehaviour
         if (beachBall != null)
         {
             BeachBallAnimation.SetTrigger("ShootHatch");
-            //BeachBallAnimation.SetBool("IsShooting", true);
-            //BeachBallAnimation.SetBool("IsAiming", false);
             // Landing position travels with the plane. Also keeps the ball from spawning within the camera's view.
             Vector3 v3LandingPos = m_targetRB.position + new Vector3(0, 30, m_targetPlaneRelation * Time.deltaTime);
 			beachBall.transform.position = v3LandingPos;
