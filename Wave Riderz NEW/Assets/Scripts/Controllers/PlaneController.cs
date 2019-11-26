@@ -156,8 +156,11 @@ public class PlaneController : MonoBehaviour
 	{
 		foreach (Tether tether in m_skierTethers)	//Repeating this loop three times,
 		{
-			if (tether != null)						//As long as this tether was set,
-				tether.ForceOverTime(new Vector3(swingForce * m_movementDirection, 0, 0), swingForceDuration);	//Push in the direction the plane was travelling
+			if (tether != null)                     //As long as this tether was set,
+			{
+				tether.ForceOverTime(new Vector3(swingForce * m_movementDirection, 0, 0), swingForceDuration);		//Push in the direction the plane was travelling
+				tether.GetComponent<SkierController>().PlayBonkParticle(new Vector3(m_movementDirection, 0, 0));	//Play the bonk particle on the skier
+			}
 		}
 	}
 
