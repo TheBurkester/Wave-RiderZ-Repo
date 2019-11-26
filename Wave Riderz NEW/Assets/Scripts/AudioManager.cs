@@ -27,7 +27,6 @@ public class AudioManager : MonoBehaviour
             s.source.clip = s.clip;								//Set the clip of the audio source
 
             s.source.volume = s.volume;
-            //s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
     }
@@ -69,11 +68,10 @@ public class AudioManager : MonoBehaviour
 
     //Stops a sound with a given name 
     public static void Stop(string name)
-   {
+	{
        Sound s = Array.Find(instance.sounds, sound => sound.name == name);	//Find the sound with the correct name
        s.source.Stop();
-       
-   }
+	}
 
     
 }
