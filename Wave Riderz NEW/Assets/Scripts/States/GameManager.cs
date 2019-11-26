@@ -532,7 +532,7 @@ public class GameManager : MonoBehaviour
         else if ((int)m_eCurrentPlaneState == skierNumber) //If the player is in the plane,
         {
 			m_charImageBW[skierNumber].gameObject.SetActive(false);
-			m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 1);
+			//m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 1);
 			m_planeImage[skierNumber].gameObject.SetActive(true); //Activate the plane image.
             m_skierLives[skierNumber].fillAmount = 0;   //Show no lives
             m_skierMultipliers[skierNumber].text = "";	//Don't show a multiplier
@@ -540,7 +540,7 @@ public class GameManager : MonoBehaviour
 		else											//If the skier isn't alive,
 		{
 			m_charImageBW[skierNumber].gameObject.SetActive(true);
-			m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 0);
+			//m_playerImage[skierNumber].GetComponent<CanvasRenderer>().GetMaterial().SetFloat("Vector1_EB98BD68", 0);
 			m_skierLives[skierNumber].fillAmount = 0;	//Show no lives
 			m_skierMultipliers[skierNumber].text = "";	//Don't show a multiplier
 		}
