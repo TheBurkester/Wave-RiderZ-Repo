@@ -1178,6 +1178,8 @@ MonoBehaviour:
   bonkResolved: 0
   bonkParticle: {fileID: 2286827591784308043, guid: 6aa6ddda226d49c48a70e52ba983f9dc,
     type: 3}
+  obstacleParticle: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+    type: 3}
   characterAnim: {fileID: 6930464068994085953}
   coinScore: 2
   skierScoreInc: 1
@@ -1563,6 +1565,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6930464069003959189}
     m_Modifications:
+    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstPlaceParticle_1_V1
+      objectReference: {fileID: 0}
     - target: {fileID: 8524198414139280998, guid: 06b56aa84c4643049be7fa92d57ff101,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1618,11 +1625,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8524198414139280999, guid: 06b56aa84c4643049be7fa92d57ff101,
-        type: 3}
-      propertyPath: m_Name
-      value: FirstPlaceParticle_1_V1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b56aa84c4643049be7fa92d57ff101, type: 3}
 --- !u!1 &3646810668812385091 stripped
@@ -1644,6 +1646,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6930464069003959189}
     m_Modifications:
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_Name
+      value: CharacterParticle_2_Damage_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1697,16 +1709,6 @@ PrefabInstance:
     - target: {fileID: 605956490958729909, guid: 2c632bab6a51ff440895f669b1abd6b8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_Name
-      value: CharacterParticle_2_Damage_v1
-      objectReference: {fileID: 0}
-    - target: {fileID: 605956490958729908, guid: 2c632bab6a51ff440895f669b1abd6b8,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

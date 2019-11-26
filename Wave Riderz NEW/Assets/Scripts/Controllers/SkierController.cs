@@ -27,9 +27,11 @@ public class SkierController : MonoBehaviour
 	public float obstacleForce = 100;			//How much sidewards force is applied when hitting an obstacle
 	public float obstacleForceDuration = 0.5f;  //How long obstacle forces are applied
 	[HideInInspector]
-	public bool bonkResolved = false;           //If another skier has pushed this skier this frame already
-	public GameObject bonkParticle = null;      //Reference to the bonk particle prefab
-	private ParticleSystem[] m_bonkParticles = null;	//All actual particles of the prefab
+	public bool bonkResolved = false;						//If another skier has pushed this skier this frame already
+	public GameObject bonkParticle = null;					//Reference to the bonk particle prefab
+	private ParticleSystem[] m_bonkParticles = null;		//All actual particles of the prefab
+	public GameObject obstacleParticle = null;				//Reference to the obstacle bonk particle prefab
+	private ParticleSystem[] m_obstacleParticles = null;	//All actual particles of the prefab
 
     public Animator characterAnim;
 
@@ -87,6 +89,11 @@ public class SkierController : MonoBehaviour
 		bonkParticle = Instantiate(bonkParticle, transform);
 		m_bonkParticles = bonkParticle.GetComponentsInChildren<ParticleSystem>();
 		foreach (ParticleSystem p in m_bonkParticles)
+			p.Stop();   //Make sure the particle doesn't play immediately, has to be in awake
+
+		obstacleParticle = Instantiate(obstacleParticle, transform);
+		m_obstacleParticles = obstacleParticle.GetComponentsInChildren<ParticleSystem>();
+		foreach (ParticleSystem p in m_obstacleParticles)
 			p.Stop();   //Make sure the particle doesn't play immediately, has to be in awake
 
 		m_sequence = new XboxButton[6] { (XboxButton)1, (XboxButton)2, (XboxButton)3, (XboxButton)3, (XboxButton)2, 0 };
@@ -308,7 +315,9 @@ public class SkierController : MonoBehaviour
             //sets DamageTaken trigger in animator
             characterAnim.SetTrigger("DamageTaken");
 			ControllerVibrate.VibrateController((int)controller - 1, 0.025f, 0.15f);
-        }
+			foreach (ParticleSystem p in m_obstacleParticles)
+				p.Play();
+		}
 
 		if (lives <= 0)				//If the skier is out of lives,
 		{
