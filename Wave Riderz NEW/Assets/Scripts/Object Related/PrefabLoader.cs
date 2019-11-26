@@ -20,7 +20,9 @@ public class PrefabLoader : MonoBehaviour
 	public GameManager gameManager = null;	//Reference to the game manager for round timer
 
 	private int m_numberOfPrefabs = 5;		//How many prefabs will be loaded to fill the level
-	public int forwardsOffset = 20;			//How far in front of the plane the prefabs will start spawning
+	public int forwardsOffset = 20;         //How far in front of the plane the prefabs will start spawning
+
+	public GameObject easterEgg = null;
 
     void Start()
     {
@@ -88,6 +90,18 @@ public class PrefabLoader : MonoBehaviour
 
 						Instantiate(m_environment[prefabToSpawn]);                                      //Spawn the prefab
 						m_environmentActive[prefabToSpawn] = true;                                      //Store that it has been spawned
+
+						//Easter egg
+						if (m_environment[prefabToSpawn].name == "Environment_Prefab_3")
+						{
+							if (UnityEngine.Random.Range(0, 6970) == 6969)
+							{
+								easterEgg = Instantiate(easterEgg);
+								easterEgg.transform.position = new Vector3(-30, 3.5f, -11.85f) + m_environment[prefabToSpawn].transform.position;
+								easterEgg.transform.rotation = Quaternion.Euler(0, 142, 0);
+								easterEgg.transform.localScale = new Vector3(0.015f, 0.015f, 0.015f);
+							}
+						}
 					}
 				}
 				else        //If the prefab at the index is active,
