@@ -10,13 +10,13 @@ using UnityEngine;
 
 public class BeachBall : MonoBehaviour
 {
-	public float freezeAmount = 0.05f;
-	public int freezeFrames = 20;
+	public float freezeAmount = 0.05f;	//How long to freeze the game when the beachbomb pops
+	public int freezeFrames = 20;		//The minimum amount of frames to freeze for
 
     private BeachBallAbility m_bbAbility;
     private Rigidbody m_rb;
 
-	public GameObject explosionPrefab = null;
+	public GameObject explosionPrefab = null;	//Reference to the explosion effect to play when popping
 
     void Awake()
     {
@@ -69,12 +69,12 @@ public class BeachBall : MonoBehaviour
             m_bbAbility.ToggleIsShooting(false); // Player isn't shooting anymore.
             m_bbAbility.ToggleMeshEnable(false); // Disabled target's mesh.
 
-			explosionPrefab.transform.position = explosionPos;
-			Instantiate(explosionPrefab);
+			explosionPrefab.transform.position = explosionPos;	//Make the explosion happen at the right spot
+			Instantiate(explosionPrefab);						//Create the explosion
 
-			ControllerVibrate.VibrateAll(0.2f, 0.5f);
+			ControllerVibrate.VibrateAll(0.2f, 0.5f);		//Vibrate all controllers a meduim amount
 
-			GameFreezer.Freeze(freezeAmount, freezeFrames);
+			GameFreezer.Freeze(freezeAmount, freezeFrames);	//Slow time very briefly for impact
         }
     }
 }

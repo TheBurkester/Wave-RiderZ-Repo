@@ -6,11 +6,7 @@
 |  Description:		Script which places groups of objects at runtime.
 *-------------------------------------------------------------------*/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System;
 
 public class PrefabLoader : MonoBehaviour
 {

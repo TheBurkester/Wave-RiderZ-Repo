@@ -1,7 +1,7 @@
 ﻿/*-------------------------------------------------------------------*
 |  Title:			Mine
 |
-|  Author:		    Thomas Maltezos
+|  Author:		    Thomas Maltezos / Seth Johnston
 | 
 |  Description:		Handles the mine's collision.
 *-------------------------------------------------------------------*/
@@ -13,19 +13,19 @@ using XInputDotNetPure;
 public class Mine : MonoBehaviour
 {
 	public float radius = 5.0f;
-	public float freezeAmount = 0.05f;
-	public int freezeFrames = 20;
+	public float freezeAmount = 0.05f;	//How long to freeze the game when the beachbomb pops
+	public int freezeFrames = 20;       //The minimum amount of frames to freeze for
 
 	private TetheredMineAbility m_tmAbility;
 	private Rigidbody m_rb;
 	private Vector3 m_velocity;
 	private bool m_hitWater = false;
 
-    private Tether m_tether;
+    private Tether m_tether;	//Reference to the tether the mine is connected to
 
-	public GameObject explosionPrefab = null;
+	public GameObject explosionPrefab = null;   //Reference to the explosion effect to play when popping
 
-    public Animator TetheredMineAnimation;
+	public Animator TetheredMineAnimation;
 
     void Awake()
 	{
@@ -42,26 +42,22 @@ public class Mine : MonoBehaviour
 
 	void Update()
 	{
-		//Debug.Log(m_rb.velocity.y);
-		if (transform.position.y > 0)
+		if (transform.position.y > 0)						//If the mine hasn't hit the river yet,
 		{
-			m_velocity.y -= Time.deltaTime * 0.1f;
-			m_velocity.z = (m_tmAbility.planeSpeed * Time.deltaTime) - (3 * Time.deltaTime);
-			transform.Translate(m_velocity);
-			m_tether.currentLength = m_tether.Distance();
-			//float fallAmount = -Time.deltaTime * 5;
-			//transform.Translate(0, fallAmount, 0);
+			m_velocity.y -= Time.deltaTime * 0.1f;			//Accelerate the mine downwards
+			m_velocity.z = (m_tmAbility.planeSpeed * Time.deltaTime) - (3 * Time.deltaTime);	//Mine moves along with the plane, but slightly slower
+			transform.Translate(m_velocity);				//Move the mine based on velocity
+			m_tether.currentLength = m_tether.Distance();	//Set the tether length directly equal to the current distance from the tether point
 		}
-		else if (transform.position.y <= 0 && !m_hitWater)
+		else if (transform.position.y <= 0 && !m_hitWater)	//On the first frame of the mine hitting the water,
 		{
-			m_tether.tetherActive = true;
-			transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-			m_tether.currentLength = m_tether.Distance();
+			m_tether.tetherActive = true;					//Activate the tether
+			transform.position = new Vector3(transform.position.x, 0, transform.position.z);	//Ensure the mine is on y=0
+			m_tether.currentLength = m_tether.Distance();	//Ensure the mine is at the right starting length
 			m_hitWater = true;
-			//this.enabled = false;
 		}
-		if (m_hitWater && m_tether.currentLength < 10)
-			m_tether.currentLength += m_tether.changeSpeed * Time.deltaTime;
+		if (m_hitWater && m_tether.currentLength < 10)							//If the mine is on the water and the tether isn't fully extended yet,
+			m_tether.currentLength += m_tether.changeSpeed * Time.deltaTime;	//Extend the tether a little bit
 	}
 
 	void OnTriggerEnter(Collider collision)
@@ -77,22 +73,18 @@ public class Mine : MonoBehaviour
             TetheredMineAnimation.SetBool("IsDoorOpen", false);
             // Hatch Close Door sound
             AudioManager.Play("TetherObs&BBHatchDoorClosed");
-
-
-
             AudioManager.Play("TetheredMineExplosion");
             foreach (Collider hit in colliders)                                     //For all the objects in the radius,
             {
                 if (hit.CompareTag("Skier"))                                        //If this object is a skier,
                 {
                     SkierController controller = hit.GetComponent<SkierController>(); // Gets all controllers within the radius.
-
                     if (!controller.IsInvincible())
                         controller.HurtSkier(); // Hurts the skier within the radius.
                 }
             }
 
-			ControllerVibrate.VibrateAll(1.0f, 0.5f);
+			ControllerVibrate.VibrateAll(1.0f, 0.5f);	//Vibrate all controllers very moderately
             gameObject.SetActive(false); // Deactivates the mine.
             m_rb.velocity = Vector3.zero; // Resets velocity.
             m_rb.angularVelocity = Vector3.zero; // Resets angular velocity.
@@ -100,11 +92,10 @@ public class Mine : MonoBehaviour
             m_tmAbility.setIsUsingAbility(false);
             m_tmAbility.mineAbilityCooldown.SetTimer();
            
-            explosionPrefab.transform.position = explosionPos;
-			Instantiate(explosionPrefab);
+            explosionPrefab.transform.position = explosionPos;	//Make the explosion happen at the right spot
+			Instantiate(explosionPrefab);                       //Create the explosion
 
-
-			GameFreezer.Freeze(freezeAmount, freezeFrames);
+			GameFreezer.Freeze(freezeAmount, freezeFrames);     //Slow time very briefly for impact
 		}
         else if (collision.CompareTag("Rock"))	//If colliding with an obstacle,
         {

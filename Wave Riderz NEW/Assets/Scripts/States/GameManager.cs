@@ -34,10 +34,10 @@ public class GameManager : MonoBehaviour
     }
 
 	//Player references/variables
-	public PlaneController plane = null;        //Reference to the plane
-	public TetheredMineAbility planeHatch = null;        // Reference to the plane's hatch.
-	public Tether mine = null;					// Reference to the mine.
-	public BeachBallAbility target = null;      //Reference to the target
+	public PlaneController plane = null;			//Reference to the plane
+	public TetheredMineAbility planeHatch = null;	// Reference to the plane's hatch.
+	public Tether mine = null;						// Reference to the mine.
+	public BeachBallAbility target = null;			//Reference to the target
 	public SkierController playerOneSkier = null;	//Reference to the red skier script
 	public SkierController playerTwoSkier = null;	//Reference to the green skier script
 	public SkierController playerThreeSkier = null;	//Reference to the orange skier script
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 	public Texture mannyPlaneTexture = null;
 	public Texture hydraPlaneTexture = null;
     private Texture[] m_planeTextures = null;
-    public GameObject planeBody = null;			// Reference to the body of the plane.
+    public GameObject planeBody = null;				// Reference to the body of the plane.
 	private int m_playerCount = MainMenu.playerNumber; // Reference to the number of players from the main menu.
 	private Vector3 m_twoPlayerSkierPos = new Vector3(0, 0, -11);
 	private Vector3 m_threePlayerSkierPosOne = new Vector3(-1, 0, -11);

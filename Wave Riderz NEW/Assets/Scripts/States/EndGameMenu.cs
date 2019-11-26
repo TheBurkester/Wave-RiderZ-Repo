@@ -22,10 +22,10 @@ public class EndGameMenu : MonoBehaviour
 	private Text[] m_scoreDisplays = null;	//Array of the scoreboards
 	private int[] m_scores = null;			//Array of the scores
 	private int[] m_playerNumber = null;	//Array of player numbers to keep track of who is in what place alongside the scores
-    public Canvas canvas = null;
+    public Canvas canvas = null;			//Reference to the 
     public RectTransform wavePanel = null;	//Reference to the wave image that washes over the UI
     private Vector3 m_panelOffScreenRight = new Vector3(2600, 0, 0);
-    private int m_t = 0;	//Timer for the wave movement
+    private int m_t = 0;					//Timer for the wave movement
 
     void Awake()
 	{

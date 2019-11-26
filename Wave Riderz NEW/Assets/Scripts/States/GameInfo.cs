@@ -18,9 +18,5 @@ public static class GameInfo
 	public static int playerThreeScore;	//Orange's score
 	public static int playerFourScore;  //Purple's score
 
-	//public static bool playerOneHasPlane; // Has player one been in the plane during the game?
-	//public static bool playerTwoHasPlane; // Has player two been in the plane during the game?
-	//public static bool playerThreeHasPlane; // Has player three been in the plane during the game?
-	//public static bool playerFourHasPlane; // Has player three been in the plane during the game?
-	public static bool[] playerBeenPlane;
+	public static bool[] playerBeenPlane;	//Array of bools that keeps track of who has been in the plane yet
 }
